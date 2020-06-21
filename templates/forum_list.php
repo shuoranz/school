@@ -70,7 +70,8 @@
 		<?php foreach ($topics as $topic) : ?>
 		<div class="media list_news">
 			<div class="col-md-9">
-				<div class="circ-wrapper pull-left"><h3>15<br>July</h3></div>
+				<!--<div class="circ-wrapper pull-left"><h3>15<br>July</h3></div>-->
+				<img style="width:80px;" class="avatar pull-left" src="/images/avatars/<?php echo $topic['avatar']; ?>" />
 				<div class="media-body">
 					<h4 class="media-heading"><a href="/forum/thread/?id= <?php echo $topic['id']; ?>"> <?php echo $topic['title']; ?> </a></h4>
 					<p><?php echo mb_substr($topic['body'], 0, 100); ?> <a href="/forum/thread/?id= <?php echo $topic['id']; ?>"> read more....</a></p>
