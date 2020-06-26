@@ -3,10 +3,9 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1 text-center">
-			<h1>Learn Blog</h1>
-			<p class="lead boxed ">Ex utamur fierent tacimates duis choro an</p>
+			<h2>Blog</h2>
 			<p class="lead">
-				Lorem ipsum dolor sit amet, ius minim gubergren ad. At mei sumo sonet audiam, ad mutat elitr platonem vix. Ne nisl idque fierent vix. 
+				Everything carefully prepared for you 
 			</p>
 		</div>
 	</div><!-- End row -->
@@ -81,14 +80,19 @@
 					<div class="post_info clearfix">
 						<div class="post-left">
 							<ul>
-								<li><i class="icon-calendar-empty"></i>On <span>12 Nov 2020</span></li>
-								<li><i class="icon-user"></i>By <a href="#"><?php echo $blog['username'] ?></a></li>
-								<li><i class="icon-tags"></i>Tags <a href="#">Works</a> <a href="#">Personal</a></li>
+								<li><i class="icon-calendar-empty"></i>On <span><?php echo $blog['create_date']?></span></li>
+								<li><a class="icon-user-link" href="#">
+								<span class="user-avatar" style="background: url(../../images/avatars/<?php echo $blog['avatar']?>);background-size: cover;"></span><?php echo $blog['username'] ?></a></li>
+								<li><i class="icon-flag-filled"></i> <a href="#"><?php echo $blog['name'] ?></a></li>
 							</ul>
 						</div>
-						<div class="post-right"><i class="icon-comment"></i><a href="#">25 </a>Comments</div>
+						<div class="post-right">
+						<i class="icon-eye"></i><?php echo $blog['view_count'] ?>
+							<i class="icon-thumbs-up"></i><?php echo $blog['like_count'] ?>
+							<i class="icon-comment"></i><?php echo $blog['reply_num'] ?>
+						</div>
 					</div>
-					<h2><a href="single_post.html" title="single_post.html"><?php echo $blog['title'] ?></a></h2>
+					<h2><a href="#" title="single_post.html"><?php echo $blog['title'] ?></a></h2>
 					<p>
 						<?php echo $blog['body'] ?>
 					</p>
@@ -96,50 +100,24 @@
                 
                 <hr>
                 
-                <h4>3 comments</h4>
+                <h4><?php echo $blog['reply_num'] ?> comments</h4>
                 
 				<div id="comments">
 					<ol>
+						<?php foreach($replies as $reply) : ?>
 						<li>
 						<div class="avatar"><a href="#"><img src="img/avatar1.jpg" alt=""></a></div>
 						<div class="comment_right clearfix">
 							<div class="comment_info">
-								Posted by <a href="#">Anna Smith</a><span>|</span> 25 apr 2019 <span>|</span><a href="#">Reply</a>
+								Posted by <a href="#"><?php echo $reply['username'] ?></a><span>|</span> <?php echo $reply['create_date'] ?><span>|</span>
 							</div>
 							<p>
-								 Nam cursus tellus quis magna porta adipiscing. Donec et eros leo, non pellentesque arcu. Curabitur vitae mi enim, at vestibulum magna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed sit amet sem a urna rutrumeger fringilla. Nam vel enim ipsum, et congue ante.
-							</p>
-						</div>
-						<ul>
-							<li>
-							<div class="avatar"><a href="#"><img src="img/avatar2.jpg" alt=""></a></div>
-                            
-							<div class="comment_right clearfix">
-								<div class="comment_info">
-									Posted by <a href="#">Tom Sawyer</a><span>|</span> 25 apr 2019 <span>|</span><a href="#">Reply</a>
-								</div>
-								<p>
-									 Nam cursus tellus quis magna porta adipiscing. Donec et eros leo, non pellentesque arcu. Curabitur vitae mi enim, at vestibulum magna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed sit amet sem a urna rutrumeger fringilla. Nam vel enim ipsum, et congue ante.
-								</p>
-								<p>
-									 Aenean iaculis sodales dui, non hendrerit lorem rhoncus ut. Pellentesque ullamcorper venenatis elit idaipiscingi Duis tellus neque, tincidunt eget pulvinar sit amet, rutrum nec urna. Suspendisse pretium laoreet elit vel ultricies. Maecenas ullamcorper ultricies rhoncus. Aliquam erat volutpat.
-								</p>
-							</div>
-							</li>
-						</ul>
-						</li>
-						<li>
-						<div class="avatar"><a href="#"><img src="img/avatar3.jpg" alt=""></a></div>
-                        
-						<div class="comment_right clearfix">
-							<div class="comment_info">
-								Posted by <a href="#">Adam White</a><span>|</span> 25 apr 2019 <span>|</span><a href="#">Reply</a>
-							</div>
-							<p>
-								Cursus tellus quis magna porta adipiscin
+								<?php echo $reply['body'] ?>
 							</p>
 						</div>
 						</li>
+						<hr></hr>
+						<?php endforeach ?>
 					</ol>
 				</div><!-- End Comments -->
                 

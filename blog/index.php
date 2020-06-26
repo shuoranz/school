@@ -22,6 +22,9 @@
 			$tags[$i][$tag_info['tag']] = $tag_info['tag_color'];
 		}
 	}
+	for ($i = 0; $i < count($all_blogs);$i++) {
+		$all_blogs[$i]['reply_num'] = $blog->getBlogReplyCount($all_blogs[$i]['id']);
+	}
 	//@todo: 暂时hardcode，之后$logged_user_id需要从session里取。
 	$logged_user_id = 4;
 	$isLoggedUserAdmin = $blog->isLoggedUserAdmin($logged_user_id);

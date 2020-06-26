@@ -231,11 +231,11 @@ h1 {
 #main_content .post h2{
 	font-size:26px;
 	line-height:32px;
-	max-width: 70%;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap !important;
 	text-transform: none;
+	margin-bottom: 0px;
 }
 #main-features p.lead, #main-features_green p.lead{
 	color:#fff;
@@ -1526,7 +1526,7 @@ ul.recent_post li:last-child{
 	margin-bottom:0;
 }
 .post {
-	margin-bottom:25px;
+	margin-bottom:15px;
 }
 .post img {
 	margin-bottom:18px;
@@ -1578,11 +1578,14 @@ ul.recent_post li:last-child{
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	text-transform: none;
+	margin-bottom: 15px;
 }
 .tag-list {
 	display: flex;
-	margin-bottom: 10px;
 	justify-content: flex-start;
+	flex-wrap: nowrap;
+	flex-grow: 0;
+	flex-shrink: 0;
 }
 .post-left {float:left;}
 .post-left ul {
@@ -1602,12 +1605,25 @@ ul.recent_post li:last-child{
 	background-color: #49c3c3;
 	font-family: sans-serif;
 	border-radius: 5px;
+	margin-bottom:0px;
 }
 body .post .post_info .post-right > i {
 	margin-left: 8px;
 }
 body .post .post_info .post-right {
 	font-family: "Arial, Helvetica, sans-serif"; 
+}
+.blog-title-container {
+	display: flex;
+	justify-content:flex-start;
+	align-items: center;
+	max-width: 100%;
+	margin-bottom: 10px;
+}
+.blog-title-container .blog-title-link {
+	flex-grow: 1;
+	flex-shrink: 1;
+	overflow:hidden;
 }
 #comments {
 	padding:10px 0 0px 0;
@@ -1643,6 +1659,20 @@ body .post .post_info .post-right {
 #comments ol li ul li {
 	padding:23px 0 0 30px;
 	margin:0;
+}
+.icon-user-link {
+	position: relative;
+	padding-left: 25px;
+}
+.icon-user-link .user-avatar {
+	width: 24px;
+	height: 24px;
+	border-radius: 12px;
+	display:inline-block;
+	position: absolute;
+	top:50%;
+	transform: translate(0%, -50%);
+	left: 0px;
 }
 /* #Contact
 ================================================ */

@@ -6,30 +6,29 @@ class BlogModel {
     }
     // get all blogs
     public function getAllBlogs(){
-        $this->db->query("select blog.*, users.username, users.avatar, blog_category.name, count(blog_reply.id) as reply_num 
+        $this->db->query("select blog.*, users.username, users.avatar, blog_category.name 
                           from blog inner join users on blog.user_id = users.id 
                                     inner join blog_category on blog.category_id = blog_category.id 
-                                    inner join blog_reply on blog.id = blog_reply.blog_id 
-                                    group by blog.id order by create_date desc");
+                                    order by create_date desc");
         
         //Assign Result Set
         $results = $this->db->resultset();
         return $results;
     }
     public function getBlogById($blog_id) {
-        $this->db->query("select blog.*, users.username, users.avatar, blog_category.name, count(blog_reply.id) as reply_num 
+        $this->db->query("select blog.*, users.username, users.avatar, blog_category.name 
                           from blog inner join users on blog.user_id = users.id 
                                     inner join blog_category on blog.category_id = blog_category.id 
-                                    inner join blog_reply on blog.id = blog_reply.blog_id 
-                                    where blog.id = :blog_id
-                                    group by blog.id");
+                                    where blog.id = :blog_id");
         $this->db->bind(':blog_id',$blog_id);
         //Assign Result Set
         $results = $this->db->resultset();
         return $results[0];
     }
     public function getRepliesByBlog_id($blog_id) {
-        $this->db->query("select * from blog_reply where blog_id = :blog_id");
+        $this->db->query("select blog_reply.*, users.username, users.avatar from 
+                        blog_reply inner join users on blog_reply.user_id = users.id
+                        where blog_id = :blog_id");
         $this->db->bind(':blog_id', $blog_id);
         $results = $this->db->resultset();
         return $results;
@@ -51,5 +50,22 @@ class BlogModel {
         $this->db->bind(':id', $user_id);
         $rows = $this->db->resultset();
         return $this->db->rowCount() > 0;
+    }
+    public function create($data) {
+        $this->db->query("insert into blog (category_id,user_id,tag, title,body,last_activity)
+        values (:category_id,:user_id,:tag, :title,:body,:last_activity)");
+        
+        $this->db->bind(':category_id',$data['category_id']);
+        $this->db->bind(':user_id',$data['user_id']);
+        $this->db->bind(':tag', $data['tag']);
+        $this->db->bind(':title',$data['title']);
+        $this->db->bind(':body',$data['body']);
+        $this->db->bind(':last_activity',date("Y-m-d H:i:s"));
+        
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -25,7 +25,15 @@
         //return result
         return $results;
     }
-
+    // Get all blog_categories in DB
+    function getBlogCategories() {
+        $db=new Database;
+        $db->query('select * from blog_category');
+        //Run query and assign it to results variable
+        $results = $db->resultset();
+        //return result
+        return $results;
+    }
     //User Post Count
     function userPostCount($user_id){
         $db = new Database;

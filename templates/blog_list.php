@@ -19,7 +19,7 @@
 
 <ol class="breadcrumb">
   <li><a href="index.html">Home</a></li>
-  <li class="active">Active page</li>
+  <li class="active">Blog</li>
 </ol>
 
 	 <div class="row">
@@ -76,7 +76,10 @@
      
      <div class="col-md-8">
 		 <?php if ($isAdmin) : ?>
-			 <a href="/blog/create" style="border: 1px solid black; padding: 5px 10px; background-color: grey; color: white;"> create(仅admin) </a>
+			<a href="/blog/create" 
+			 style="border: 1px solid black; padding: 5px 10px; background-color: grey; color: white;">
+			 create(仅admin) 
+			</a>
 		 <?php endif; ?>
 	 <?php $count = 0; ?>
 	 <?php foreach ($blogs as $blog) : ?>
@@ -86,7 +89,8 @@
 						<div class="post-left">
 							<ul>
 								<li><i class="icon-calendar-empty"></i>On <span><?php echo $blog['create_date']?></span></li>
-								<li><i class="icon-user"></i>By <a href="#"><?php echo $blog['username'] ?></a></li>
+								<li><a class="icon-user-link" href="#">
+								<span class="user-avatar" style="background: url(../images/avatars/<?php echo $blog['avatar']?>);background-size: cover;"></span><?php echo $blog['username'] ?></a></li>
 								<li><i class="icon-flag-filled"></i> <a href="#"><?php echo $blog['name'] ?></a></li>
 							</ul>
 						</div>
@@ -96,18 +100,19 @@
 							<i class="icon-comment"></i><?php echo $blog['reply_num'] ?>
 						</div>
 					</div>
-					<div class="tag-list">
-						<?php foreach ($tags[$count] as $tagName=>$tagColor) : ?>
-							<div class="blog-tag" style="background-color:<?php echo $tagColor ?>;">
-								<div class="tag-dot"></div>
-								<?php echo $tagName ?>
-								<div class="tag-triangle" style="border-left-color: <?php echo $tagColor ?>"></div>
-							</div>
-						<?php endforeach; ?>  
-	 				</div>
-					<a style="display: block;" href="/blog/thread/?id= <?php echo $blog['id']; ?>" title="single_post.html">
-						<h2 class='blog-titldive'><?php echo $blog['title'] ?></h2>
-					</a>
+					<div class="blog-title-container">
+						<div class="tag-list">
+							<?php foreach ($tags[$count] as $tagName=>$tagColor) : ?>
+								<div class="blog-tag" style="background-color:<?php echo $tagColor ?>;">
+									<div class="tag-dot"></div><?php echo $tagName ?><div class="tag-triangle" style="border-left-color: <?php echo $tagColor ?>"></div>
+								</div>
+							<?php endforeach; ?>  
+						</div>
+						
+						<a class="blog-title-link" href="/blog/thread/?id= <?php echo $blog['id']; ?>" title="single_post.html">
+							<h2 class='blog-titldive'><?php echo $blog['title'] ?></h2>
+						</a>
+					</div>
 					<p class='blog-body'>
 						<?php echo $blog['body'] ?>
 					</p>
