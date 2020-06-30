@@ -56,11 +56,22 @@
 			<a href="/index.html" id="logo">Learn</a>
 		</div>
 		<div class="col-md-9 col-sm-9 col-xs-9">
-			<div class=" pull-right"><a href="/login.html" class="button_top" id="login_top">Sign in</a> <a href="/apply_2.html" class="button_top hidden-xs" id="apply">Apply now</a></div>
+			<div class=" pull-right">
+				<?php if(!isLoggedIn()) : ?>
+				<a href="/login" class="button_top" id="login_top">Sign in</a>
+				<?php endif; ?>
+				<!--<a href="/apply_2.html" class="button_top hidden-xs" id="apply">Apply now</a>-->
+			</div>
             <ul id="top_nav" class="hidden-xs">
+				<!--
                 <li><a href="/about_us.html">About</a></li>
                 <li><a href="/apply.html">Wizard Apply</a></li>
-                <li><a href="/register.html">Register</a></li>
+				-->
+				<?php if(isLoggedIn()) : ?>
+				<li><a>Welcome <?php echo getUser()['username']; ?>!</a></li>
+				<?php else : ?>
+                <li><a href="/register">Register</a></li>
+				<?php endif; ?>
             </ul>
 		</div>
 	</div>
