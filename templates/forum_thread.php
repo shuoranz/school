@@ -195,7 +195,7 @@ a.list-group-item.active, a.list-group-item.active:hover, a.list-group-item.acti
 			<?php endforeach; ?>
 		
 		<h3>Reply to Topic</h3>
-		<?php if(!isLoggedIn()) : ?>
+		<?php if(isLoggedIn() && isGuestOrAbove()) : ?>
 			<li id="main-topic" class="topic topic">
 				<div class="row">
 					<div class="col-md-2">

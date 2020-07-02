@@ -64,4 +64,50 @@ function getUser(){
     return $userArray;
 }
 
+//check whether user is admin (top)
+function isAdmin(){
+	if (!isLoggedIn()){
+		return false;
+	}
+	if (!isset($_SESSION['role']) || empty($_SESSION['role'])){
+		return false;
+	}
+	return $_SESSION['role'] === "admin" ? true : false;
+}
+
+//check whether user is teacher or above
+function isTeacherOrAbove(){
+	if (!isLoggedIn()){
+		return false;
+	}
+	if (!isset($_SESSION['role']) || empty($_SESSION['role'])){
+		return false;
+	}
+	return $_SESSION['role'] === "teacher" || isAdmin() ? true : false;
+}
+
+//check whether user is teacher or above
+function isStudentOrAbove(){
+	if (!isLoggedIn()){
+		return false;
+	}
+	if (!isset($_SESSION['role']) || empty($_SESSION['role'])){
+		return false;
+	}
+	return $_SESSION['role'] === "student" || isTeacherOrAbove() ? true : false;
+}
+
+//check whether user is guest or above
+function isGuestOrAbove(){
+	if (!isLoggedIn()){
+		return false;
+	}
+	if (!isset($_SESSION['role']) || empty($_SESSION['role'])){
+		return false;
+	}
+	return strpos($_SESSION['role'], 'guest') !== false || isStudentOrAbove() ? true : false;
+}
+
+
+
 ?>

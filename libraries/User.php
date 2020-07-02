@@ -3,30 +3,68 @@
 class User {
     //Initialize DB Variable
     private $db;
+	private $ic;
     
     //Constructor
     public function __construct(){
         $this->db = new Database;
+		$this->ic = new InvitationCodeModel;
     }
     
     //Register User
     public function register($data){
+		
+		$ic = $this->ic->getCodeRole($data['invitation_code']);
+		if (!$ic) {
+			//return "invitation_code_error";
+			redirect('register.php', 'Something went wrong with invitation code, please contact the administritor','error');
+		} else {
+			if(strpos($data['role'], $ic['code_type']) !== false){
+				$data['role'] = $ic['code_type'];
+				$data['expiration_date'] = $ic['active_duration'];
+			} else {
+				redirect('register.php', 'Something went wrong with invitation code type, please contact the administritor','error');
+			}
+			
+		}
         //Query
-        $this->db->query('insert into users (name, email, avatar, username, password, about, last_activity) values (:name, :email, :avatar, :username, :password, :about, :last_activity)');
+        $this->db->query('insert into users (first_name, last_name, email, role, avatar, username, password, last_activity, expiration_date) values (:first_name, :last_name, :email, :role, :avatar, :username, :password, :last_activity, :expiration_date)');
         //Bind Values
-        $this->db->bind(':name',$data['name']);
+        $this->db->bind(':first_name',$data['first_name']);
+		$this->db->bind(':last_name',$data['last_name']);
         $this->db->bind(':email',$data['email']);
+		$this->db->bind(':role',$data['role']);
         $this->db->bind(':avatar',$data['avatar']);
         $this->db->bind(':username',$data['username']);
         $this->db->bind(':password',$data['password']);
-        $this->db->bind(':about',$data['about']);
         $this->db->bind(':last_activity',$data['last_activity']);
+		if (isset($data['expiration_date'])) {
+			$this->db->bind(':expiration_date',date("Y-m-d H:i:s", strtotime("+".$data['expiration_date']." days")));
+		} else {
+			$this->db->bind(':expiration_date',date("Y-m-d H:i:s"));
+		}
         //Execute
-        if($this->db->execute()){
-            return true;
-        } else {
-            return false;
-        }
+		
+		try {
+			if ($this->db->execute()){
+				return $this->ic->updateInvitationCodeByUserId($this->db->lastInsertId(), 'applied', $data['invitation_code']) ? true : 'invitation_code_error';
+			} else {
+				return false;
+			}
+		} catch (Exception $e) {
+			if (!isset($e->errorInfo[2])){
+				return false;
+			}
+			$error_msg = $e->errorInfo[2];
+			if (stripos($error_msg, 'duplicate') !== false){
+				if (stripos($error_msg, 'username') !== false){
+					return "duplicate_username";
+				}
+				if (stripos($error_msg, 'email') !== false){
+					return "duplicate_email";
+				}
+			}
+		}
     }
     
     //Upload User Avatar
@@ -77,10 +115,12 @@ class User {
     
     //Set User data
     private function setUserData($result){
-        $_SESSION['is_logged_in']=true;
-        $_SESSION['user_id']=$result['id'];
-        $_SESSION['username']=$result['username'];
-        $_SESSION['name']=$result['name'];
+        $_SESSION['is_logged_in'] = true;
+        $_SESSION['user_id'] = $result['id'];
+        $_SESSION['username'] = $result['username'];
+        $_SESSION['name'] = $result['first_name'];
+		$_SESSION['expiration_date'] = $result['expiration_date'];
+		$_SESSION['role'] = strtotime($result['expiration_date']) > time()? $result['role'] : 'guest';
     }
     
     //User Logout
@@ -89,6 +129,8 @@ class User {
         unset($_SESSION['user_id']);
         unset($_SESSION['username']);
         unset($_SESSION['name']);
+		unset($_SESSION['role']);
+		unset($_SESSION['expiration_date']);
         return true;
     }
     
