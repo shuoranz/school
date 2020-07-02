@@ -156,7 +156,32 @@ $(document).ready(function() {
 //Pace holder
 $('input, textarea').placeholder();
 
-	
-	
+function showReplyForm(event, replyee_id, comment_id, blog_id) {
+	$parent = $(event.target).parent();
+	if($parent.children(".reply-form").length == 0) {
+		$parent.append(
+			"<form action='/blog/reply' method='POST' class='reply-form' style='margin-top: 5px;'>\
+				<textarea rows='8' cols='100' name='body'></textarea>\
+				<input type='hidden' name='blog_id' value='" + blog_id + "'/> \
+				<input type='hidden' name='replyee_id' value='" + replyee_id + "' />\
+				<input type='hidden' name='comment_id' value='" + comment_id + "'/>\
+				<input type='submit' style='margin-top: 5px;' name='comment_reply' value='提交' />\
+			</form>");
+	}
+}	
+
+function showReplyCommentForm(event, replyee_id, comment_id, blog_id) {
+	$parent = $(event.target).parent().parent();
+	if($parent.children(".reply-form").length == 0) {
+		$parent.append(
+			"<form action='/blog/reply' method='POST' class='reply-form' style='margin-top: 5px;'>\
+				<textarea rows='8' cols='100' name='body'></textarea>\
+				<input type='hidden' name='blog_id' value='" + blog_id + "'/> \
+				<input type='hidden' name='replyee_id' value='" + replyee_id + "' />\
+				<input type='hidden' name='comment_id' value='" + comment_id + "'/>\
+				<input type='submit' style='margin: 8px 0px;' name='comment_reply' value='提交' />\
+			</form>");
+	}
+}
 
 

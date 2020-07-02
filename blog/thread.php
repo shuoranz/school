@@ -9,7 +9,20 @@
     $template = new Template($pre_position.'templates/blog.php');
     $cur_blog['reply_num'] = $blog->getBlogReplyCount($blog_id);
     $template->blog = $cur_blog;
-    $template->replies = $blog->getRepliesByBlog_id($blog_id);
+    
+    $comments = $blog->getCommentsByBlog_id($blog_id);
+    
+    for($i = 0; $i < count($comments); $i++) {
+        $comments[$i]['replies'] = array();
+        $replies = $blog->getAllRepliesUnderComment($blog_id, $comments[$i]['id']);
+        for($j = 0; $j < count($replies); $j++) {
+            $comments[$i]['replies'][] = array();
+            foreach($replies[$j] as $key=>$value) {
+                $comments[$i]['replies'][$j][$key] = $value;
+            }
+        }
+    }
+    $template->comments = $comments;
     
     echo $template;
 ?>

@@ -1,4 +1,5 @@
 <?php include('includes/header.php'); ?>
+<link href="/css/blog.css" rel="stylesheet">
 <section id="sub-header">
 <div class="container">
 	<div class="row">
@@ -22,126 +23,108 @@
   <li class="active">Active page</li>
 </ol>
 
-	 <div class="row">
-     <aside class="col-md-4">
-     	<div class=" box_style_1">
-				<div class="widget" style="margin-top:15px;">
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Search...">
-						<span class="input-group-btn">
-						<button class="btn btn-default" type="button" style="margin-left:0;"><i class="icon-search"></i></button>
-						</span>
-					</div><!-- /input-group -->
-				</div><!-- End Search -->
-                
-				<div class="widget">
-					<h4>Text widget</h4>
-					<p>
-						 Fusce feugiat malesuada odio. Morbi nunc odio, gravida at, cursus nec, luctus a, lorem. Maecenas tristique orci ac sem. Duis ultricies pharetra magna. Donec accumsan malesuada orci. Donec sit amet eros. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-					</p>
-				</div><!-- End widget -->
-               
-                
-				<div class="widget">
-					<h4>Recent post</h4>
-                    
-					<ul class="recent_post">
-						<li>
-						<i class="icon-calendar-empty"></i> 16th July, 2020
-						<div><a href="#">It is a long established fact that a reader will be distracted </a></div>
-						</li>
-						<li>
-						<i class="icon-calendar-empty"></i> 16th July, 2020
-						<div><a href="#">It is a long established fact that a reader will be distracted </a></div>
-						</li>
-						<li>
-						<i class="icon-calendar-empty"></i> 16th July, 2020
-						<div><a href="#">It is a long established fact that a reader will be distracted </a></div>
-						</li>
-					</ul>
-				</div><!-- End widget -->
-                
-				<div class="widget tags add_bottom_30">
-					<h4>Tags</h4>
-					<a href="#">Lorem ipsum</a>
-					<a href="#">Dolor</a>
-					<a href="#">Long established</a>
-					<a href="#">Sit amet</a>
-					<a href="#">Latin words</a>
-					<a href="#">Excepteur sint</a>
-				</div><!-- End widget -->
-                
-			</div><!-- End box-sidebar -->
-     </aside><!-- End aside -->
-     
-     <div class="col-md-8">
-     		<div class="post">
-					<a href="blog_post.html" title="single_post.html"><img src="img/blog-3.jpg" alt="" class="img-responsive"></a>
-					<div class="post_info clearfix">
-						<div class="post-left">
-							<ul>
-								<li><i class="icon-calendar-empty"></i>On <span><?php echo $blog['create_date']?></span></li>
-								<li><a class="icon-user-link" href="#">
-								<span class="user-avatar" style="background: url(../../images/avatars/<?php echo $blog['avatar']?>);background-size: cover;"></span><?php echo $blog['username'] ?></a></li>
-								<li><i class="icon-flag-filled"></i> <a href="#"><?php echo $blog['name'] ?></a></li>
-							</ul>
-						</div>
-						<div class="post-right">
-						<i class="icon-eye"></i><?php echo $blog['view_count'] ?>
-							<i class="icon-thumbs-up"></i><?php echo $blog['like_count'] ?>
-							<i class="icon-comment"></i><?php echo $blog['reply_num'] ?>
-						</div>
-					</div>
-					<h2><a href="#" title="single_post.html"><?php echo $blog['title'] ?></a></h2>
-					<p>
-						<?php echo $blog['body'] ?>
-					</p>
-				</div><!-- end post -->
-                
-                <hr>
-                
-                <h4><?php echo $blog['reply_num'] ?> comments</h4>
-                
-				<div id="comments">
-					<ol>
-						<?php foreach($replies as $reply) : ?>
-						<li>
-						<div class="avatar"><a href="#"><img src="img/avatar1.jpg" alt=""></a></div>
-						<div class="comment_right clearfix">
-							<div class="comment_info">
-								Posted by <a href="#"><?php echo $reply['username'] ?></a><span>|</span> <?php echo $reply['create_date'] ?><span>|</span>
+	 <div class="row blog-container"> 
+		<div class="col-md-12">
+				<div class="single-post">
+						<a href="blog_post.html" title="single_post.html"><img src="img/blog-3.jpg" alt="" class="img-responsive"></a>
+						
+						<h2><?php echo $blog['title'] ?></h2>
+						
+						<p>
+							<?php echo $blog['body'] ?>
+						</p>
+						<div class="post_info clearfix">
+							<div class="post-left">
+								<ul>
+									<li><i class="icon-calendar-empty"></i><span><?php echo $blog['create_date']?></span></li>
+									<li><a class="icon-user-link" href="#">
+									<span class="user-avatar" style="background: url(../../images/avatars/<?php echo $blog['avatar']?>);background-size: cover;"></span><?php echo $blog['username'] ?></a></li>
+									<li><i class="icon-flag-filled"></i> <a href="#"><?php echo $blog['name'] ?></a></li>
+								</ul>
 							</div>
-							<p>
-								<?php echo $reply['body'] ?>
-							</p>
+							<div class="post-right">
+							<i class="icon-eye"></i><?php echo $blog['view_count'] ?>
+								<i class="icon-thumbs-up"></i><?php echo $blog['like_count'] ?>
+								<i class="icon-comment"></i><?php echo $blog['reply_num'] ?>
+							</div>
 						</div>
-						</li>
-						<hr></hr>
-						<?php endforeach ?>
-					</ol>
-				</div><!-- End Comments -->
-                
-				<h4>Leave a comment</h4>
-				<form action="#" method="post">
-					<div class="form-group">
-						<input class="form-control style_2" type="text" name="name" value="Enter Name"/>
-					</div>
-					<div class="form-group">
-						<input class="form-control style_2" type="text" name="mail" value="Enter Email"/>
-					</div>
-					<div class="form-group">
-						<textarea name="message" class="form-control style_2" style="height:150px;">Message...</textarea>
-					</div>
-					<div class="form-group">
-						<input type="reset" class=" button_medium_outline" value="Clear form"/>
-						<input type="submit" class=" button_medium" value="Post Comment"/>
-					</div>
-				</form>
-                
-     </div><!-- End col-md-8-->   
+					</div><!-- end post -->
+					
+					<hr>
+					
+					<h4><?php echo $blog['reply_num'] ?> comments</h4>
+					
+					<div id="comments">
+						<ol>
+							<?php foreach($comments as $comment) : ?>
+							<li>
+							<div class="comment_right clearfix">
+								<div class="comment-owner">
+									<div class="comment-owner-avatar" style="background: url(../../images/avatars/<?php echo $comment['avatar']?>);background-size: cover;"></div>
+									<div><a href="#"><?php echo $comment['username'] ?></a></div>
+								</div>
+								<div class="comment_info">
+									<p>
+										<?php echo $comment['body'] ?>
+									</p>
+									<div>
+										<button onclick = "showReplyForm(event, <?php echo $comment['id'] ?>, <?php echo $comment['id'] ?>, <?php echo $blog['id']?>)" 
+										class="reply-button">回复</button>
+									</div>
+									<?php if(count($comment['replies']) > 0) :?>
+									<div class="commentReplies">
+										<?php foreach ($comment['replies'] as $reply) : ?>
+											<div class="comment-reply">
+												<div class="reply-avatar-container">
+													<div class="reply-avatar" style="background: url(../../images/avatars/<?php echo $reply['avatar']?>);background-size: cover;">
+													</div>
+												</div>
+												<div class="reply-content">
+													<?php echo $reply['username'] ?>
+													<?php if(strcmp($reply['replyee_id'], $comment['id']) != 0): ?>
+														回复 <?php echo getUsernameByBlogReplyId($reply['replyee_id']) ?>
+													<?php endif ?>
+													: <?php echo $reply['body']?>
+													<div class="dateAndReply"> 
+														<?php echo $reply['create_date'] ?>
+														<button onclick="showReplyCommentForm(event, <?php echo $reply['id']?>, <?php echo $comment['id'] ?>, <?php echo $blog['id']?>)" 
+														class="replycomment">回复</button>
+													</div>
+												</div>
+											</div>
+										<?php endforeach ?>
+									</div>
+									<?php endif ?>
+								</div>
+								
+								
+							</div>
+							</li>
+							<hr></hr>
+							<?php endforeach ?>
+						</ol>
+					</div><!-- End Comments -->
+					
+					<h4>Leave a comment</h4>
+					<form action="/blog/comment" method="post">
+						<div class="form-group">
+							<textarea name="body" class="form-control style_2" style="height:150px;" placeholder="type your comment here"></textarea>
+						</div>
+						<input type="hidden" name="blog_id" value="<?php echo $blog['id'] ?>" />
+						<input type="hidden" name="replyee_id" value="-1" />
+						<input type="hidden" name="comment_id" value="-1" />
+						<div class="form-group">
+							<input type="submit" class=" button_medium" value="Post Comment" name="post_comment"/>
+						</div>
+					</form>
+					
+		</div><!-- End col-md-12-->   
   
 	
   </div>  <!-- End row-->    
 </div><!-- End container -->
 </section><!-- End main_content-->
+<Script>
+
+</Script>
 <?php include('includes/footer.php'); ?>

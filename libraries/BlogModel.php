@@ -25,10 +25,10 @@ class BlogModel {
         $results = $this->db->resultset();
         return $results[0];
     }
-    public function getRepliesByBlog_id($blog_id) {
+    public function getCommentsByBlog_id($blog_id) {
         $this->db->query("select blog_reply.*, users.username, users.avatar from 
                         blog_reply inner join users on blog_reply.user_id = users.id
-                        where blog_id = :blog_id");
+                        where blog_id = :blog_id and replyee_id = -1 and comment_id = -1");
         $this->db->bind(':blog_id', $blog_id);
         $results = $this->db->resultset();
         return $results;
@@ -51,6 +51,15 @@ class BlogModel {
         $rows = $this->db->resultset();
         return $this->db->rowCount() > 0;
     }
+    public function getAllRepliesUnderComment($blog_id, $comment_id) {
+        $this->db->query("select blog_reply.*, users.username, users.avatar from 
+                          blog_reply inner join users on blog_reply.user_id = users.id
+                          where blog_id = :blog_id and comment_id = :comment_id");
+        $this->db->bind(':blog_id', $blog_id);
+        $this->db->bind(':comment_id', $comment_id);
+        $result = $this->db->resultSet();
+        return $result;
+    }
     public function create($data) {
         $this->db->query("insert into blog (category_id,user_id,tag, title,body,last_activity)
         values (:category_id,:user_id,:tag, :title,:body,:last_activity)");
@@ -68,4 +77,19 @@ class BlogModel {
             return false;
         }
     }
+    public function postBlogComment($data) {
+        $this->db->query("insert into blog_reply(user_id, body, blog_id, replyee_id, comment_id) 
+        values (:user_id, :body, :blog_id, :replyee_id, :comment_id)");
+        $this->db->bind(':user_id', $data['user_id']);
+        $this->db->bind(':blog_id', $data['blog_id']);
+        $this->db->bind(':body', $data['body']);
+        $this->db->bind(':replyee_id', $data['replyee_id']);
+        $this->db->bind(':comment_id', $data['comment_id']);
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
 }

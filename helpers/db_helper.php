@@ -68,5 +68,14 @@
         $count = $db->rowCount();
         return $count;
     }
+    function getUsernameByBlogReplyId($reply_id) {
+        $db = new Database;
+        $db->query('select blog_reply.id, users.username from 
+                    blog_reply inner join users on blog_reply.user_id = users.id
+                    where blog_reply.id = :reply_id');
+        $db->bind(':reply_id', $reply_id);
+        $result = $db->resultset()[0];
+        return $result['username'];
+    }
 
 ?>

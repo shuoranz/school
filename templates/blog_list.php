@@ -1,4 +1,5 @@
 <?php include('includes/header.php'); ?>
+<link href="/css/blog.css" rel="stylesheet">
 <section id="sub-header">
 <div class="container">
 	<div class="row">
@@ -84,13 +85,28 @@
 	 <?php $count = 0; ?>
 	 <?php foreach ($blogs as $blog) : ?>
      		<div class="post">
-					<a href="blog_post.html" title="single_post.html"><img src="img/blog-3.jpg" alt="" class="img-responsive"></a>
+					<div class="blog-title-container">
+						<a class="blog-title-link" href="/blog/thread/?id= <?php echo $blog['id']; ?>" title="single_post.html">
+							<h2 class='blog-title'><?php echo $blog['title'] ?></h2>
+						</a>
+						<div class="tag-list">
+							<?php foreach ($tags[$count] as $tagName=>$tagColor) : ?>
+								<div class="blog-tag" style="border: 1px solid <?php echo $tagColor ?>; color:  <?php echo $tagColor ?>">
+									<?php echo $tagName ?>
+								</div>
+							<?php endforeach; ?>  
+						</div>
+					</div>
+					<div class='blog-body'>
+						<?php echo $blog['body'] ?>
+					</div>
 					<div class="post_info clearfix">
 						<div class="post-left">
 							<ul>
-								<li><i class="icon-calendar-empty"></i>On <span><?php echo $blog['create_date']?></span></li>
 								<li><a class="icon-user-link" href="#">
-								<span class="user-avatar" style="background: url(../images/avatars/<?php echo $blog['avatar']?>);background-size: cover;"></span><?php echo $blog['username'] ?></a></li>
+									<span class="user-avatar" style="background: url(../images/avatars/<?php echo $blog['avatar']?>);background-size: cover;"></span><?php echo $blog['username'] ?></a>
+								</li>
+								<li><span class="blog-date"><?php echo $blog['create_date']?></span></li>
 								<li><i class="icon-flag-filled"></i> <a href="#"><?php echo $blog['name'] ?></a></li>
 							</ul>
 						</div>
@@ -100,30 +116,9 @@
 							<i class="icon-comment"></i><?php echo $blog['reply_num'] ?>
 						</div>
 					</div>
-					<div class="blog-title-container">
-						<div class="tag-list">
-							<?php foreach ($tags[$count] as $tagName=>$tagColor) : ?>
-								<div class="blog-tag" style="background-color:<?php echo $tagColor ?>;">
-									<div class="tag-dot"></div><?php echo $tagName ?><div class="tag-triangle" style="border-left-color: <?php echo $tagColor ?>"></div>
-								</div>
-							<?php endforeach; ?>  
-						</div>
-						
-						<a class="blog-title-link" href="/blog/thread/?id= <?php echo $blog['id']; ?>" title="single_post.html">
-							<h2 class='blog-titldive'><?php echo $blog['title'] ?></h2>
-						</a>
-					</div>
-					<p class='blog-body'>
-						<?php echo $blog['body'] ?>
-					</p>
-					<a href="/blog/thread/?id= <?php echo $blog['id']; ?>" class="button_medium" title="single_post.html">Read more</a>
 				</div><!-- end post -->
 		<?php $count++; ?>
-	<?php endforeach; ?>      
-				
-                
-				<hr>
-                
+	<?php endforeach; ?>          
                 <div class="text-center">
                     <ul class="pagination">
                         <li><a href="#">Prev</a></li>

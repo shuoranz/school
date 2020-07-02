@@ -61,7 +61,7 @@
 				<div class="form-group">
 					<label>Content</label>
 					<textarea id="body" rows="30" cols="80" class="form-control" name="body" style="height:200px;" placeholder="write blog content here..."></textarea>
-					<!--<script>CKEDITOR.replace('body');</script>-->
+					<script>CKEDITOR.replace('body');</script>
 				</div>
 				<button type="submit" class="button_medium" name="do_create">Submit</button>
 				
