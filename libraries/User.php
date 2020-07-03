@@ -13,20 +13,21 @@ class User {
     
     //Register User
     public function register($data){
-		
-		$ic = $this->ic->getCodeRole($data['invitation_code']);
-		if (!$ic) {
-			//return "invitation_code_error";
-			redirect('register.php', 'Something went wrong with invitation code, please contact the administritor','error');
-		} else {
-			if(strpos($data['role'], $ic['code_type']) !== false){
-				$data['role'] = $ic['code_type'];
-				$data['expiration_date'] = $ic['active_duration'];
+		if (!empty($data['invitation_code'])){
+			$ic = $this->ic->getCodeRole($data['invitation_code']);
+			if (!$ic) {
+				//return "invitation_code_error";
+				redirect('register.php', 'Something went wrong with invitation code, please contact the administritor','error');
 			} else {
-				redirect('register.php', 'Something went wrong with invitation code type, please contact the administritor','error');
+				if(strpos($data['role'], $ic['code_type']) !== false){
+					$data['role'] = $ic['code_type'];
+					$data['expiration_date'] = $ic['active_duration'];
+				} else {
+					redirect('register.php', 'Something went wrong with invitation code type, please contact the administritor','error');
+				}
 			}
-			
 		}
+		
         //Query
         $this->db->query('insert into users (first_name, last_name, email, role, avatar, username, password, last_activity, expiration_date) values (:first_name, :last_name, :email, :role, :avatar, :username, :password, :last_activity, :expiration_date)');
         //Bind Values

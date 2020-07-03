@@ -1,0 +1,532 @@
+﻿@import '../base/colors';
+
+$t2-color:          #00A9BD;
+$t1-color:          #E74C3C;
+$t3-color:          #1A5089;
+$t1-orangelight:    #E74C3C;
+$t1-darkblue:       #202121;
+$t1-dark:           #283041;
+$t1-lightdark:      #747879;
+$t1-xlightdark:     #B9CA00;
+$t1-card:           #ffffff;
+$t1-xlight:         #f5f5f5;
+
+
+::selection {
+    color: $white; 
+    background: $t1-color;
+}
+a,
+.btn-link{
+    color: $t2-color;
+}
+.text-green,
+.text-info,
+.text-success,
+.text-danger,
+.text-primary,
+.text-warning,
+.mail-star.active,
+.page-title{ color: $t1-color !important;}
+
+.badge-default{
+    background: $t1-lightdark;
+    color: $t1-xlight;
+}
+.loader{
+    color: $t3-color;
+}
+.badge-primary{
+    background-color: $t3-color;
+}
+.btn-primary{
+    background: $t3-color;
+    color: $white;
+    border-color: $t3-color;
+}
+.btn-info{
+    background-color: $t2-color;
+    border-color: $t2-color;
+}
+.nav-tabs .nav-link.active{
+    border-color: $t1-color;
+    color: $t1-color;
+}
+.form-control{
+    &:focus{
+        box-shadow: 0 0 0 0.2rem rgba($t3-color,.25);
+    }
+}
+
+.btn-primary{
+    border: 0;
+}
+.bg-primary,
+.bg-info,
+.bg-warning,
+.btn-success{
+    background-color: $t3-color !important;
+    border: transparent;
+}
+.bg-success,
+.bg-danger,
+.badge-success,
+.progress-bar,
+.btn-danger,
+.btn-warning{
+    background-color: $t2-color;
+    border: transparent;
+}
+
+.btn-outline-primary{
+    color: $t3-color;
+    border-color: $t3-color;
+    &:hover{
+        background-color: $t3-color;
+        border-color: $t3-color;
+    }
+}
+.custom-control-input:checked~.custom-control-label::before,
+.custom-radio .custom-control-input:disabled:checked~.custom-control-label::before,
+.custom-checkbox .custom-control-input:disabled:checked~.custom-control-label::before{
+    border-color: $t3-color;
+    background-color: $t3-color;
+}
+.custom-switch-input:checked ~ .custom-switch-indicator{
+    background: $t3-color;
+}
+.selectgroup-input:checked+.selectgroup-button{
+    border-color: $t3-color;
+    color: $t3-color;
+    background: rgba($t3-color, 0.2);
+}
+
+.imagecheck-figure:before{
+    color: $t2-color !important;
+}
+.wizard > .steps .current a,
+.wizard > .steps .current a:hover,
+.wizard > .steps .current a:active,
+.wizard > .actions a,
+.wizard > .actions a:hover{
+    background: $t3-color;
+}
+.wizard > .steps .done a,
+.wizard > .steps .done a:hover{
+    background: rgba($t3-color, 0.2);
+    color: $t3-color;
+}
+.list-group-item,
+.modal-content{
+    background-color: $t1-card;
+}
+.table{
+    th{
+        color: $t1-lightdark;
+    }
+    &.table-custom{
+        td, th{
+            background: $t1-xlight;
+        }
+    }
+    &.table_custom {
+        tr{
+            background: $t1-card;
+        }
+    }
+}
+.right_chat li.online .status{
+    background: $t3-color;
+}
+
+.bg-blue,
+.bg-azure,
+.bg-indigo,
+.bg-purple,
+.bg-red,
+.bg-orange  { background-color: $t3-color !important; }
+
+.bg-pink,
+.bg-yellow,
+.bg-lime,
+.bg-green,
+.bg-teal,
+.bg-cyan    { background-color: $t2-color !important; }
+
+.bg-light-blue,
+.bg-light-azure,
+.bg-light-indigo,
+.bg-light-lime,
+.bg-light-green,
+.bg-light-teal    { background-color: rgba($t3-color, 0.1); color: $t3-color; }
+
+.bg-light-pink,
+.bg-light-red,
+.bg-light-orange,
+.bg-light-yellow,
+.bg-light-cyan    { background-color: rgba($t2-color, 0.1); color: $t2-color; }
+
+.bg-light-purple  { background-color: rgba($t1-orangelight, 0.1); color: $t1-orangelight; }
+.bg-light-gray    { background-color: rgba($gray-500, 0.1); color: $gray-500; }
+
+.avatar {
+    &.avatar-blue {
+        background-color: rgba($t3-color, 0.1);
+        color: $t3-color;
+    }
+    &.avatar-azure {
+        background-color: rgba($t3-color, 0.1);
+        color: $t3-color;
+    }
+    &.avatar-indigo {
+        background-color: rgba($t3-color, 0.1);
+        color: $t3-color;
+    }
+    &.avatar-purple {
+        background-color: rgba($t3-color, 0.1);
+        color: $t3-color;
+    }
+    &.avatar-pink {
+        background-color: rgba($t3-color, 0.1);
+        color: $t3-color;
+    }
+    &.avatar-red {
+        background-color: rgba($t3-color, 0.1);
+        color: $t3-color;
+    }
+    &.avatar-orange {
+        background-color: rgba($t3-color, 0.1);
+        color: $t3-color;
+    }
+    &.avatar-yellow {
+        background-color: rgba($t2-color, 0.1);
+        color: $t2-color;
+    }
+    &.avatar-lime {
+        background-color: rgba($t2-color, 0.1);
+        color: $t2-color;
+    }
+    &.avatar-green {
+        background-color: rgba($t2-color, 0.1);
+        color: $t2-color;
+    }
+    &.avatar-teal {
+        background-color: rgba($t2-color, 0.1);
+        color: $t2-color;
+    }
+    &.avatar-cyan {
+        background-color: rgba($t2-color, 0.1);
+        color: $t2-color;
+    }
+}
+
+
+body{
+    background-color: $t1-xlight;
+    //color: $t1-darkblue;
+}
+
+.page-header {
+    border-color: $t1-card; 
+    .right .nav-pills .nav-link{
+        color: $t1-darkblue;
+    }
+}
+#header_top{
+    .brand-logo{
+        background: $t1-orangelight;
+        width: 35px;
+    }
+}
+.header{
+    background: $t3-color;
+    .nav-tabs{
+        .nav-link{
+            color: $white;
+            &.active{
+                border-color: $white; 
+            }
+        }            
+    }
+    .dropdown-menu .dropdown-item:hover,
+    .dropdown-menu .dropdown-item.active{
+        color: $t3-color;
+    }
+}
+.page{
+    .section-white,
+    .section-body{
+        background: $t1-xlight;    
+    }
+}
+#header_top .nav-link{
+    color: $t1-darkblue;
+}
+.header_top{
+    &.dark{
+        background-color: $t1-dark !important;
+        .nav-link{
+            color: $t1-xlight !important;
+        }
+    }
+}
+.card{
+    background-color: $t1-card;
+    .card-options{
+        a{
+            color: $t3-color;
+            &.btn{
+                color: $white;
+            }
+        }
+    }
+    &.card-fullscreen{
+        background-color: $t1-card !important;
+    }
+}
+
+.metismenu {    
+    a{
+        color: $t1-darkblue;
+        &:hover{
+            color: $t3-color;
+            border-color: $t3-color;
+        }
+    }
+    .active{
+        > a{
+            color: $t3-color;
+            border-color: $t3-color;
+        }
+        ul{
+            .active{
+                a{
+                    color: $t3-color;
+                    background: transparent;
+                }
+            }
+        }
+    }
+    &.grid{
+        >li{
+            &.active > a,
+            >a:hover{
+                background: rgba($t3-color, 0.1);
+                color: $t3-color;
+            }
+        }
+    }
+}
+.inbox .detail{
+    background: $white;
+}
+.file_folder a{
+    background: $white;
+    border-color: $t1-xlight;
+}
+.auth .auth_left{
+    background: $t1-card;
+}
+.gender_overview{
+    background: $t1-xlight;
+}
+.table-calendar-link{
+    background: $t3-color;
+    &:hover{
+        background: $t1-dark;
+    }
+    &::before{
+        background: $t1-dark;
+    }
+}
+.theme_div{
+    background: $t1-card;
+}
+.ribbon {
+    .ribbon-box.green{
+        background: $t1-color;
+        &::before{
+            border-color: $t1-color;
+            border-right-color: transparent;
+        }
+    }
+    .ribbon-box.orange{
+        background: $t3-color;
+        &::before{
+            border-color: $t3-color;
+            border-right-color: transparent;
+        }
+    }
+    .ribbon-box.pink{
+        background: $t2-color;
+        &::before{
+            border-color: $t2-color;
+            border-right-color: transparent;
+        }
+    }
+    .ribbon-box.indigo{
+        background: $t1-orangelight;
+        &::before{
+            border-color: $t1-orangelight;
+            border-right-color: transparent;
+        }
+    }
+}
+.text-orange{
+    color: $t1-orangelight !important;
+}
+.tag-info{
+    background: $t3-color;
+}
+.tag-success,
+.tag-green{
+    background: $t1-color;
+}
+.tag-orange{
+    background: $t2-color;
+}
+.tag-danger{
+    background: $t2-color;
+}
+.bg-success{
+    background: $t1-color !important;
+}
+.bg-danger{
+    background-color: $t2-color !important;
+}
+.auth{
+    .auth_left{
+        background: $t1-dark;
+        .card{
+            padding: 20px;
+            right: -150px;
+            z-index: 99999;
+           
+            @media only screen and (max-width: 1024px) {
+                right: -50px;
+            }
+            @media only screen and (max-width: 992px) {
+                right: auto;
+            }
+        }
+    }    
+}
+.page-item{
+    .page-link{
+        color: $t2-color;
+    }
+    &.active .page-link{
+        background-color: $t2-color;
+        border-color: $t2-color;
+    }
+}
+#left-sidebar{
+    background-color: $t1-card;    
+}
+
+.dropdown-menu .dropdown-item:hover,
+.dropdown-menu .dropdown-item:focus{
+    background: $t1-color;
+    color: $white;
+}
+// 
+.dark-mode{
+    .btn{
+        color: $t1-xlightdark;
+    }
+    .metismenu.grid>li>a{
+        border-color: rgba($white, 0.2);
+    }
+    &.sidebar_dark{                
+        .sidebar{
+            .metismenu{
+                .active{
+                    > a{
+                        color: $t3-color;
+                    }
+                    ul .active a{
+                        color: $t3-color;
+                    }
+                }
+                a{
+                    color: $white;
+                }
+            }
+        }        
+    }
+    .nav-tabs .nav-link.active{
+        color: $t1-orangelight;
+    }
+}
+.top_dark {
+    background-color: $t1-dark !important;
+}
+.sidebar_dark{
+    #left-sidebar{
+        background-color: $t1-dark !important;
+    }
+    #header_top .nav-link{
+        color: $t1-xlight !important;
+    }
+    .sidebar{
+        .nav-tabs{
+            border-color: rgba($white, 0.1);
+            .nav-link.active{
+                border-color: $white;
+                color: $white;
+            }
+        }
+        .metismenu {
+            .active {
+                > a{
+                    color: $t1-orangelight;
+                }
+                ul .active a{
+                    color: $t1-orangelight;
+                }
+            }
+        }
+    }
+}
+.iconcolor{
+    #header_top{
+        .nav-link{
+            color: $t1-orangelight !important;
+        }
+    }
+}
+.gradient{
+    .custom-switch-input:checked ~ .custom-switch-indicator{
+        background: linear-gradient(45deg, $t3-color, $t2-color) !important;
+    }
+    .metismenu.grid>li.active>a,
+    .metismenu.grid>li>a:hover{
+        background: linear-gradient(45deg, $t3-color, $t3-color) !important;
+        color: $white;
+        border: 0;
+    }        
+    .btn-primary{
+        background: linear-gradient(45deg, $t3-color, $t2-color) !important;
+        border: 0;
+    }
+    .btn-dark{
+        background: linear-gradient(45deg, $gray-400, $gray-700) !important;
+    }
+    .bg-success,
+    .bg-danger,
+    .badge-success,
+    .progress-bar,
+    .btn-danger{
+        background: linear-gradient(45deg, $t3-color, $t2-color) !important;
+    }    
+    &.sidebar_dark #left-sidebar{
+        background: linear-gradient(45deg, $t3-color, $t2-color) !important;
+    }
+}
+
+
+@media only screen and (max-width: 1200px) {
+    .header_top>.container{
+        border-right: 1px solid rgba($white, 0.07);
+    }
+}

@@ -2,8 +2,6 @@
 	$pre_position = "";
 	require($pre_position.'core/init.php'); ?>
 <?php 
-//Create Topic Object
-$topic = new TopicModel;
 //Create User Object
 $user = new User;
 //Create validate object
@@ -21,7 +19,7 @@ if(isset($_POST['register'])){
     $data['last_activity'] = date("Y-m-d H:i:s");
     
     //Required fields
-    $field_array = array('first_name','last_name','email','username','password','password2');
+    $field_array = array('first_name','last_name','email','username','password','password2','role');
     
     if ($validate->isRequired($field_array)){
         if($validate->isValidEmail($data['email'])){
