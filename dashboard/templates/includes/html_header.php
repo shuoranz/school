@@ -7,7 +7,7 @@
 
 <link rel="icon" href="favicon.ico" type="image/x-icon"/>
 
-<title>Welcome to Veewo!</title>
+<title>Welcome to Dashboard!</title>
 
 <!-- Bootstrap Core and vandor -->
 <link rel="stylesheet" href="../assets/plugins/bootstrap/css/bootstrap.min.css" />

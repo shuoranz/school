@@ -67,6 +67,6 @@
 		for ($i = 0; $i < $amnt_id; $i++) {
 			$ic->create($code);
 		}
-		
+		echo "success";
 	}
 	
