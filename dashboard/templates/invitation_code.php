@@ -104,7 +104,7 @@
                                         <tr>
                                             <th colspan="8">Invitation Code</th>
                                             <th colspan="1">
-												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addtask">
+												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createInvitationCode">
 													<i class="fe fe-plus mr-2"></i>Create Code
 												</button>
 											</th>
@@ -300,7 +300,7 @@
 </div>
 
 <!-- Add New Task -->
-<div class="modal fade" id="addtask" tabindex="-1" role="dialog" style="top:90px;">
+<div class="modal fade" id="createInvitationCode" tabindex="-1" role="dialog" style="top:90px;">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -310,36 +310,38 @@
                 <div class="row clearfix">
 					<div class="col-12">
                         <div class="form-group">
-                            <select class="form-control show-tick">
-                                <option disabled>Select Role</option>
-                                <option>Teacher</option>
-                                <option>Student</option>
+                            <select class="form-control show-tick" id="create_code_role">
+                                <option disabled selected>Select Role</option>
+                                <option value="2">Teacher</option>
+                                <option value="1">Student</option>
                             </select>
                         </div>
                     </div>
 					<div class="col-12">
                         <div class="form-group">
-                            <select class="form-control show-tick">
-                                <option disabled>Select Duration</option>
-                                <option>7 days</option>
-                                <option>1 year</option>
+                            <select class="form-control show-tick" id="create_code_duration">
+                                <option disabled selected>Select Duration</option>
+                                <option value="2">7 days</option>
+                                <option value="1">1 year</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="form-group">                                    
-                            <input type="number" class="form-control" placeholder="number of new invitation codes needed">
+                            <input type="number" class="form-control" placeholder="number of new invitation codes needed" id="create_code_amt">
                         </div>
                     </div>            
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Add</button>
+                <button type="button" class="btn btn-primary" id="createInvitationCodeBtn">Create</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
+
+
 
 <script src="../assets/bundles/lib.vendor.bundle.js"></script>
 
@@ -350,5 +352,38 @@
 
 <script src="../assets/js/core.js"></script>
 <script src="../assets/js/page/project-index.js"></script>
+<script type="text/javascript">
+
+	$("#createInvitationCodeBtn").click(function(){
+		var code_role = $("#create_code_role").val();
+		var code_duration = $("#create_code_duration").val();
+		var create_code_amt = $("#create_code_amt").val();
+		
+		if (code_role == null || code_duration ==  null || create_code_amt == null){
+			alert("error, please check all your inputs");
+			return false;
+		}
+		
+		$.post("controller", 
+		{
+			action: "invitation_code_create",
+			role: code_role,
+			type: code_duration,
+			amnt: create_code_amt
+		},
+		function(data, status){
+			//alert("Data: " + data + "\nStatus: " + status);
+			if ( status === "success" && data.indexOf("success") !== -1 ){
+				alert("success!");
+				setTimeout(function(){ location.reload(); }, 1000);
+				
+			} else {
+				alert("something wrong in backend");
+				return false;
+			}
+		});
+	});
+	
+</script>
 </body>
 </html>
