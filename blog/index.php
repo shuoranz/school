@@ -46,10 +46,7 @@
 		}
 	}
 		
-	//@todo: 暂时hardcode，之后$logged_user_id需要从session里取。
-	$logged_user_id = 4;
-	$isLoggedUserAdmin = $blog->isLoggedUserAdmin($logged_user_id);
-	$template->isAdmin = $isLoggedUserAdmin;
+	$template->isAdmin = isAdmin();
 	$template->blogs = $all_blogs;
 	$template->tags = $tags;
 	echo $template;

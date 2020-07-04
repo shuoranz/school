@@ -3,10 +3,7 @@
 	require($pre_position.'core/init.php'); 
 ?>
 <?php 
-// for test
-$_SESSION['user_id'] = 4;
-$_SESSION['username'] = 'shuoran';
-$_SESSION['name'] = 'Ian';
+
 $blog = new BlogModel;
 $data = array();
 $data['body'] = $_POST['body'];
