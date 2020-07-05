@@ -78,8 +78,8 @@
 										<?php echo $comment['body'] ?>
 									</p>
 									<div>
-										<button onclick = "showReplyForm(event, <?php echo $comment['id'] ?>, <?php echo $comment['id'] ?>, <?php echo $blog['id']?>)" 
-										class="reply-button">回复</button>
+										<!-- <button onclick = "showReplyForm(event, <?php echo $comment['id'] ?>, <?php echo $comment['id'] ?>, <?php echo $blog['id']?>)" 
+										class="reply-button">回复</button> -->
 									</div>
 									<?php if(count($comment['replies']) > 0) :?>
 									<div class="commentReplies">
