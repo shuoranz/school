@@ -83,5 +83,13 @@ class BlogModel {
             return false;
         }
     }
+    public function getCommentsByBlog_id($blog_id) {
+        $this->db->query("select blog_reply.*, users.username, users.avatar from 
+                        blog_reply inner join users on blog_reply.user_id = users.id
+                        where blog_id = :blog_id and replyee_id = -1 and comment_id = -1");
+        $this->db->bind(':blog_id', $blog_id);
+        $results = $this->db->resultset();
+        return $results;
+    }
     
 }
