@@ -41,7 +41,7 @@
 			</div>
 		</aside>
 		<div class="col-md-9 box_style_2">
-			<form role="form" method="post">
+			<form role="form" method="post" onsubmit="document.getElementById('editor').value=window.editor.getData()">
 				<div class="form-group">
 					<label>Post Title</label>
 					<input type="text" class="form-control" name="title" placeholder="enter the title..." />
@@ -60,9 +60,8 @@
 				</div>
 				<div class="form-group">
 					<label>Content</label>
-					<div id="editor" class="form-control" name="body" style="height:200px;">
-					<p></p>
-					</div>
+					<textarea id="editor" class="form-control" name="body" style="height:200px;">
+					</textarea>
 				</div>
 				<button type="submit" class="button_medium" name="do_create">Submit</button>
 			</form>
@@ -72,7 +71,7 @@
 </div>
 <script src="/js/ckeditor5/build/ckeditor.js"></script>
 <script src="/js/blogEditorConfig.js"></script>
-<script src="https://ckeditor.com/apps/ckfinder/3.5.0/ckfinder.js"></script>
+<script src="/ckfinder/ckfinder.js"></script>
 <script>
 		ClassicEditor.create( document.querySelector('#editor'),
 		blogConfig)

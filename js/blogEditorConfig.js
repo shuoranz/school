@@ -12,11 +12,11 @@ var blogConfig = {
         
     },
     ckfinder: {
-        uploadUrl: 'https://example.com/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images&responseType=json',
+        uploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images&responseType=json',
         openerMethod: 'modal',
-        options: {
-            resourceType: 'Images',
-        },
+        // options: {
+        //     resourceType: 'Images',
+        // },
     },
     plugins: ["Alignment", "Autoformat", "Autosave", "BlockQuote", "Bold", "CKFinder", "CKFinderUploadAdapter", 
               "Essentials", "FontBackgroundColor", "FontColor", "FontFamily", "FontSize", "Heading", "Highlight", 
@@ -25,5 +25,5 @@ var blogConfig = {
               "PageBreak", "Paragraph", "PasteFromOffice", "RemoveFormat", "SpecialCharacters", 
               "Strikethrough", "Subscript", "Superscript", "Table", "TableCellProperties", "TableProperties", 
               "TableToolbar", "TextTransformation", "Underline"],
-    removePlugins: [ 'Title'],
+    removePlugins: ['Title'],
 }
