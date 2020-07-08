@@ -38,6 +38,7 @@
 	<script src="/js/functions.js"></script>
 	<script src="/js/classie.js"></script>
 	<script src="/js/uisearch.js"></script>
+	<script src="/js/ckeditor/ckeditor.js"></script>
 
 	
     <!--[if lt IE 9]>

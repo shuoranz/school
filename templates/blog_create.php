@@ -26,7 +26,7 @@
     </ol>
     
 	<div class="row">
-		<aside class="col-md-3">
+		<aside class="col-md-4">
 			<div class=" box_style_1">
 				<div class="widget">
 					<h4>Notification</h4>
@@ -40,7 +40,7 @@
 				
 			</div>
 		</aside>
-		<div class="col-md-9 box_style_2">
+		<div class="col-md-8 box_style_2">
 			<form role="form" method="post">
 				<div class="form-group">
 					<label>Post Title</label>
@@ -60,27 +60,15 @@
 				</div>
 				<div class="form-group">
 					<label>Content</label>
-					<div id="editor" class="form-control" name="body" style="height:200px;">
-					<p></p>
-					</div>
+					<textarea id="body" rows="30" cols="80" class="form-control" name="body" style="height:200px;" placeholder="write blog content here..."></textarea>
+					<script>CKEDITOR.replace('body');</script>
 				</div>
 				<button type="submit" class="button_medium" name="do_create">Submit</button>
+				
 			</form>
 		</div>
 	</div>
 	<div style="height:100px;"></div>
 </div>
-<script src="/js/ckeditor5/build/ckeditor.js"></script>
-<script src="/js/blogEditorConfig.js"></script>
-<script src="https://ckeditor.com/apps/ckfinder/3.5.0/ckfinder.js"></script>
-<script>
-		ClassicEditor.create( document.querySelector('#editor'),
-		blogConfig)
-		.then( editor => {
-			window.editor = editor;
-		} )
-		.catch( error => {
-			console.error( error );
-		} );
-</script>
+                        
 <?php include('includes/footer.php'); ?>
