@@ -141,5 +141,21 @@ class User {
         $result = $this->db->resultset();
         return $this->db->rowCount();
     }
+	
+	//Get all student
+	public function getAllStudentUsers()
+	{
+		$this->db->query('select * from users where role like "%student%"');
+		$results = $this->db->resultset();
+        return $results;
+	}
+	
+	//Get all teacher
+	public function getAllTeacherUsers()
+	{
+		$this->db->query('select * from users where role like "%teacher%"');
+		$results = $this->db->resultset();
+        return $results;
+	}
 }
 ?>

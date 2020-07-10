@@ -11,7 +11,9 @@
 	$action_input = $_REQUEST['action'];
 	$actions_default = array(
 		'invitation_code_create',
-		'invitation_code_delete'
+		'invitation_code_delete',
+		'manage_student_create',
+		'manage_teacher_create'
 	);
 	if (in_array($action_input, $actions_default)) {
 		call_user_func($action_input); 
@@ -68,5 +70,15 @@
 			$ic->create($code);
 		}
 		echo "success";
+	}
+	
+	function manage_student_create()
+	{
+		
+	}
+	
+	function manage_teacher_create()
+	{
+		
 	}
 	
