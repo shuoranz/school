@@ -6,12 +6,15 @@
 	$blog = new BlogModel;
 	//Create User Object
 	$user = new User;
-
 	//Get Template and Assign Vars
 	$template = new Template($pre_position.'templates/blog_list.php');
-	
+	// how many rows shown in one page
+	$perPage = 5;
+	// max pagination links
+	$paginationNum = 5;
+
 	// get necessary tag info for all blogs
-	$all_blogs = $blog->getAllBlogs();
+	$all_blogs = $blog->getPageBlogs($_GET['p'], $perPage);
 	$tags = array();
 	$temp = preg_split('/,/', "");
 	for ($i = 0; $i < count($all_blogs);$i++) {
@@ -45,9 +48,28 @@
 			$all_blogs[$i]['create_date'] = $ymd;
 		}
 	}
-		
+
+	// prepare pagination
+
+	$pageMax = ceil($blog->getBlogCount() / $perPage);
+	$pages = array($_GET['p']);
+	$left = $_GET['p'];
+	$right = $_GET['p'];
+	while( ($left - 1 > 0 || $right + 1 <= $pageMax) && ($right - $left + 1) < $paginationNum) {
+		if($left - 1 > 0) {
+			array_unshift($pages, $left - 1);
+			$left--;
+		}
+		if($right + 1 <= $pageMax) {
+			array_push($pages, $right + 1);
+			$right++;
+		}
+	}
+
 	$template->isAdmin = isAdmin();
 	$template->blogs = $all_blogs;
+	$template->pageMax = $pageMax;
+	$template->pages = $pages;
 	$template->tags = $tags;
 	echo $template;
 ?>

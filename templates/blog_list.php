@@ -85,18 +85,23 @@
 	 <?php $count = 0; ?>
 	 <?php foreach ($blogs as $blog) : ?>
      		<div class="post">
+			 	<div class="left" style="background: url(<?php echo $blog['cover']?>);background-size: cover;">
+				</div>
+			    <div class="right">
 					<div class="blog-title-container">
 						<a class="blog-title-link" href="/blog/thread/?id= <?php echo $blog['id']; ?>" title="single_post.html">
 							<h2 class='blog-title'><?php echo $blog['title'] ?></h2>
 						</a>
-						<div class="tag-list">
+					</div>
+					<?php if (count($tags[$count]) > 0): ?>
+					<div class="tag-list">
 							<?php foreach ($tags[$count] as $tagName=>$tagColor) : ?>
-								<div class="blog-tag" style="border: 1px solid <?php echo $tagColor ?>; color:  <?php echo $tagColor ?>">
+								<div class="blog-tag" style="background-color: <?php echo $tagColor ?>; color: white;">
 									<?php echo $tagName ?>
 								</div>
-							<?php endforeach; ?>  
-						</div>
+							<?php endforeach; ?> 
 					</div>
+					<?php endif; ?> 
 					<div class='blog-body'>
 						<?php echo $blog['body'] ?>
 					</div>
@@ -116,18 +121,19 @@
 							<i class="icon-comment"></i><?php echo $blog['reply_num'] ?>
 						</div>
 					</div>
+					</div>
 				</div><!-- end post -->
 		<?php $count++; ?>
-	<?php endforeach; ?>          
+	<?php endforeach; ?>       
                 <div class="text-center">
                     <ul class="pagination">
-                        <li><a href="#">Prev</a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">Next</a></li>
+						<li><a <?php if($_GET['p'] > 1): ?>href="/blog/?p=<?php echo $_GET['p']-1 ?>" <?php endif; ?> 
+								<?php if($_GET['p'] == 1): ?> style="background-color: #eee" <?php endif; ?>>Prev</a></li>
+						<?php foreach($pages as $page): ?>
+                        <li <?php if($page==$_GET['p']): ?>class="active"<?php endif; ?>><a href="/blog/?p=<?php echo $page ?>"><?php echo $page ?></a></li>
+						<?php endforeach; ?>
+                        <li><a <?php if($_GET['p'] < $pageMax): ?>href="/blog/?p=<?php echo $_GET['p']+1 ?>" <?php endif; ?>
+							<?php if($_GET['p'] == $pageMax): ?>style="background-color: #eee" <?php endif; ?>>Next</a></li>
                     </ul><!-- end pagination-->
                 </div>
      </div><!-- End col-md-8-->   

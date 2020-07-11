@@ -5,15 +5,24 @@ class BlogModel {
         $this->db = new Database;
     }
     // get all blogs
-    public function getAllBlogs(){
+    public function getPageBlogs($pageNum, $perPage){
+        $limit = ($pageNum - 1)*$perPage; 
         $this->db->query("select blog.*, users.username, users.avatar, blog_category.name 
                           from blog inner join users on blog.user_id = users.id 
-                                    inner join blog_category on blog.category_id = blog_category.id 
-                                    order by create_date desc");
+                                    inner join blog_category on blog.category_id = blog_category.id
+                                    where blog.deleted = 0 
+                                    order by create_date desc
+                                    limit " . $limit . "," . $perPage
+                                    );
         
         //Assign Result Set
         $results = $this->db->resultset();
         return $results;
+    }
+    public function getBlogCount() {
+        $this->db->query("select count(*) as count from blog where deleted = 0");
+        $results = $this->db->resultset();
+        return $results[0]["count"];
     }
     public function getBlogById($blog_id) {
         $this->db->query("select blog.*, users.username, users.avatar, blog_category.name 
@@ -53,12 +62,13 @@ class BlogModel {
         return $result;
     }
     public function create($data) {
-        $this->db->query("insert into blog (category_id,user_id,tag, title,body,last_activity)
-        values (:category_id,:user_id,:tag, :title,:body,:last_activity)");
+        $this->db->query("insert into blog (category_id,user_id,tag,cover,title,body,last_activity)
+        values (:category_id,:user_id,:tag,:cover,:title,:body,:last_activity)");
         
         $this->db->bind(':category_id',$data['category_id']);
         $this->db->bind(':user_id',$data['user_id']);
         $this->db->bind(':tag', $data['tag']);
+        $this->db->bind(':cover', $data['cover']);
         $this->db->bind(':title',$data['title']);
         $this->db->bind(':body',$data['body']);
         $this->db->bind(':last_activity',date("Y-m-d H:i:s"));

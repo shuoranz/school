@@ -1,5 +1,4 @@
 <?php include('includes/header.php'); ?>
-
 <section id="sub-header">
 <div class="container">
 	<div class="row">
@@ -41,7 +40,8 @@
 			</div>
 		</aside>
 		<div class="col-md-9 box_style_2">
-			<form role="form" method="post" onsubmit="document.getElementById('editor').value=window.editor.getData()">
+			<form role="form" method="post" enctype="multipart/form-data"
+				  onsubmit="document.getElementById('editor').value=window.editor.getData()">
 				<div class="form-group">
 					<label>Post Title</label>
 					<input type="text" class="form-control" name="title" placeholder="enter the title..." />
@@ -57,6 +57,10 @@
                 <div class="form-group">
 					<label>tags</label>
 					<input type="text" class="form-control" name="tags" placeholder="enter the tagid, separate by comma" />
+				</div>
+				<div class="form-group">
+				    <label>Cover Image</label>
+					<input type="file" name="cover" id="cover">
 				</div>
 				<div class="form-group">
 					<label>Content</label>

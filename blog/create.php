@@ -20,16 +20,26 @@ if (isset($_POST['do_create'])){
 	$data['category_id'] = $_POST['category_id'];
 	$data['tag'] = $_POST['tags'];
     $data['user_id'] = getUser()['user_id'];
-    
+    $allowedExts = array("jpeg","jpg","png");
+    if($_FILES["cover"]["error"] == 0) {
+        $temp = explode(".", $_FILES["cover"]["name"]);
+        $extension = end($temp);
+        if(in_array($extension, $allowedExts)) {
+            $timestampFileName = date("YmdHis") . "." . $extension;
+            move_uploaded_file($_FILES["cover"]["tmp_name"], "cover/" . $timestampFileName);
+            $data['cover'] = "/blog/cover/" . $timestampFileName;
+        }
+    }
+
     //Required Fields
     $field_array = array('title','body','category_id');
     
     if($validate->isRequired($field_array)){
-        //Create Topic
+        echo $data['cover'];
         if($blog->create($data)){
-            redirect('index.php', 'Your topic has been posted', 'success');
+            redirect('/blog/?p=1', 'Your topic has been posted', 'success');
         } else {
-            redirect('index.php', 'Something went wrong with your post.', 'error');
+            redirect('create.php', 'Something went wrong with your post.', 'error');
         }
     } else {
         redirect('create.php', 'Please fill in all required fields', 'error');
