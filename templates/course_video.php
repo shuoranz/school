@@ -173,7 +173,7 @@ function showVideoReplyForm(event, replyee_id, comment_id, video_id) {
 	if($parent.children(".reply-form").length == 0) {
 		$parent.append(
 			"<form action='/course/reply_video' method='POST' class='reply-form' style='margin-top: 5px;'>" +
-				"<textarea rows='8' cols='100' name='body'></textarea>" +
+				"<textarea rows='8' cols='100' name='body' style='width:100%;'></textarea>" +
 				"<input type='hidden' name='video_id' value='" + video_id + "'/>" +
 				"<input type='hidden' name='replyee_id' value='" + replyee_id + "' />" +
 				"<input type='hidden' name='comment_id' value='" + comment_id + "'/>" +
@@ -187,7 +187,7 @@ function showVideoReplyCommentForm(event, replyee_id, comment_id, video_id) {
 	if($parent.children(".reply-form").length == 0) {
 		$parent.append(
 			"<form action='/course/reply_video' method='POST' class='reply-form' style='margin-top: 5px;'>" +
-				"<textarea rows='8' cols='100' name='body'></textarea>" +
+				"<textarea rows='8' cols='100' name='body' style='width:100%;'></textarea>" +
 				"<input type='hidden' name='video_id' value='" + video_id + "'/>" +
 				"<input type='hidden' name='replyee_id' value='" + replyee_id + "' />" +
 				"<input type='hidden' name='comment_id' value='" + comment_id + "'/>" +
