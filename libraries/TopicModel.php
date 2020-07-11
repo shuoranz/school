@@ -143,4 +143,45 @@ class TopicModel {
             return false;
         }
     }
+	
+	public function getCommentsByTopic_id($topic_id) {
+        $this->db->query("select forum_reply.*, users.username, users.avatar from 
+                        forum_reply inner join users on forum_reply.user_id = users.id
+                        where topic_id = :topic_id and replyee_id = -1 and comment_id = -1");
+        $this->db->bind(':topic_id', $topic_id);
+        $results = $this->db->resultset();
+        return $results;
+    }
+	
+	public function getAllRepliesUnderTopicComment($topic_id, $comment_id) {
+        $this->db->query("select forum_reply.*, users.username, users.avatar from 
+                          forum_reply inner join users on forum_reply.user_id = users.id
+                          where topic_id = :topic_id and comment_id = :comment_id");
+        $this->db->bind(':topic_id', $topic_id);
+        $this->db->bind(':comment_id', $comment_id);
+        $result = $this->db->resultSet();
+        return $result;
+    }
+	
+	public function getTopicReplyCount($topic_id) {
+        $this->db->query("select id from forum_reply where topic_id = :topic_id");
+        $this->db->bind(':topic_id',$topic_id);
+        $rows = $this->db->resultset();
+        return $this->db->rowCount();
+    }
+	
+	public function postTopicComment($data) {
+        $this->db->query("insert into forum_reply(user_id, body, topic_id, replyee_id, comment_id) 
+        values (:user_id, :body, :topic_id, :replyee_id, :comment_id)");
+        $this->db->bind(':user_id', $data['user_id']);
+        $this->db->bind(':topic_id', $data['topic_id']);
+        $this->db->bind(':body', $data['body']);
+        $this->db->bind(':replyee_id', $data['replyee_id']);
+        $this->db->bind(':comment_id', $data['comment_id']);
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

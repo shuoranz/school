@@ -36,11 +36,53 @@ if(isset($_POST['do_reply'])){
 //Get Template and Assign Vars
 $template = new Template($pre_position.'templates/forum_thread.php');
 
+
+
+	$cur_topic = $topic->getTopic($topic_id);
+
+    $cur_topic['reply_num'] = $topic->getTopicReplyCount($topic_id);
+    $cur_date = $cur_topic['create_date'];
+    $ymd = preg_split("/[\s]+/", $cur_date)[0];
+	$hms = preg_split("/[\s]+/", $cur_date)[1];
+	$y = preg_split("/-/", $ymd)[0];
+	$mo = preg_split("/-/", $ymd)[1];
+	$d = preg_split("/-/", $ymd)[2];
+	$h = preg_split("/:/", $hms)[0];
+	$m = preg_split("/:/", $hms)[1];
+	if (strcmp($ymd, date("Y-m-d") )==0) {
+		$cur_topic['create_date'] = $h . ":" . $m;
+	} else if (strcmp($y, date("Y") )== 0) {
+		$cur_topic['create_date'] = $mo . "-" . $d;
+	} else {
+		$cur_topic['create_date'] = $ymd;
+	}
+    $comments = $topic->getCommentsByTopic_id($topic_id);
+    
+    for($i = 0; $i < count($comments); $i++) {
+        $comments[$i]['replies'] = array();
+        $replies = $topic->getAllRepliesUnderTopicComment($topic_id, $comments[$i]['id']);
+        for($j = 0; $j < count($replies); $j++) {
+            $comments[$i]['replies'][] = array();
+            foreach($replies[$j] as $key=>$value) {
+                $comments[$i]['replies'][$j][$key] = $value;
+            }
+        }
+    }
+
+
+
+
+
+
 //Assign Variables to template object
 //var_dump($topic->getReplies($topic_id));
-$template->topic = $topic->getTopic($topic_id);
-$template->replies = $topic->getReplies($topic_id);
+$template->topic = $cur_topic;
+//$template->replies = $topic->getReplies($topic_id);
 $template->title = $topic->getTopic($topic_id)['title'];
+$template->comments = $comments;
+
+
+
 
 //Display template
 echo $template;
