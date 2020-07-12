@@ -5,12 +5,14 @@ class CourseModel {
         $this->db = new Database;
     }
     // get all courses
-    public function getAllCourses(){
+    public function getAllCourses($category_id){
+		$categoryCondition = $category_id == "" ? "1" : "course.category_id = :category_id";
         $this->db->query("select course.*, users.username, users.avatar, course_category.name 
                           from course inner join users on course.created_by = users.id 
                                     inner join course_category on course.category_id = course_category.id 
-                                    order by create_date asc");
-        
+									where $categoryCondition 
+                                    order by course.id asc");
+        $this->db->bind(':category_id',$category_id);
         //Assign Result Set
         $results = $this->db->resultset();
         return $results;

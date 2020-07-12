@@ -5,7 +5,7 @@
 
 <head>
   	<meta charset="utf-8">
-    <title>LEARN - Courses, Education site template</title>
+    <title>Courses, Education Website</title>
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
     
     <!-- Favicons-->
@@ -52,7 +52,7 @@
   	<div class="container">
 	<div class="row">
 		<div class="col-md-3 col-sm-3 col-xs-3">
-			<a href="/index.html" id="logo">Learn</a>
+			<a href="/" id="logo">SPEC</a>
 		</div>
 		<div class="col-md-9 col-sm-9 col-xs-9">
 			<div class=" pull-right">
@@ -68,6 +68,7 @@
 				-->
 				<?php if(isLoggedIn()) : ?>
 				<li><a>Welcome <?php echo getUser()['username']; ?>!</a></li>
+				<li><a href="/logout">Logout</a></li>
 				<?php else : ?>
                 <li><a href="/register">Register</a></li>
 				<?php endif; ?>
@@ -87,14 +88,21 @@
 					<a href="/">Home</a>
 				</li>
 				<li class="normal_drop_down">
-					<a href="/#">Online Courses</a>
+					<a href="/course/">Online Courses</a>
 					<div class="mobnav-subarrow"></div>
 					<ul>
+						<?php 
+						$courseCategories = getAllCourseCategories();
+						foreach($courseCategories as $courseCategory) : ?>
+						<li><a href="/course/?category=<?php echo $courseCategory["id"]; ?>"><?php echo $courseCategory["name"]; ?></a></li>
+						<?php endforeach ?>
+						<!--
 						<li><a href="/course/?id=1">Mathematic</a></li>
 						<li><a href="/course/?id=2">Literature</a></li>
 						<li><a href="/course/?id=3">Physics</a></li>
 						<li><a href="/course/?id=4">Chemistry</a></li>
 						<li><a href="/course/?id=5">SAT Preparation</a></li>
+						-->
 					</ul>
 				</li>
 				<li class="normal_drop_down">
