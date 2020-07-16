@@ -20,7 +20,9 @@ $template->totalCategories = $topic->getTotalCategories();
 $template->totalUsers = $user->getTotalUsers();
 */
 
-$template->courses = $course->getAllCourses();
+$categroyId = !isset($_GET["category"]) || $_GET["category"] == 0 ? "" : (int)$_GET["category"];
+
+$template->courses = $course->getAllCourses($categroyId);
 
 $videos = array();
 foreach($template->courses as $oneCourse){

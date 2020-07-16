@@ -12,9 +12,10 @@
         $user = new User;
         
         if($user->login($username, $password)){
-            echo('index.php You have been logged in. success');
+            //echo('index.php You have been logged in. success');
+			redirect('/course/','You have been logged in', 'success');
         } else {
-			redirect('login.php','Invalid login', 'error');
+			redirect('/login','Invalid login', 'error');
         }
     } else {
         //redirect('index.php');

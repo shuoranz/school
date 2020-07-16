@@ -38,14 +38,16 @@
 				<div class="box_style_1">
 					<h4>Categories</h4>
 					<ul class="submenu-col">
+						<li><a href="/course/" id="<?php echo !isset($_GET["category"]) || $_GET["category"] == 0 ? "active" : ""; ?>">All Courses</a></li>
+						<?php foreach($courseCategories as $courseCategory) : ?>
+						<li><a href="/course/?category=<?php echo $courseCategory["id"]; ?>" id="<?php echo isset($_GET["category"]) && $_GET["category"] == $courseCategory["id"] ? "active" : ""; ?>"><?php echo $courseCategory["name"]; ?></a></li>
+						<?php endforeach ?>
+						<!--
 						<li><a href="#" id="active">All Courses</a></li>
 						<li><a href="course_details_1.html">Biology (02)</a></li>
 						<li><a href="course_details_1.html">Business (08)</a></li>
 						<li><a href="course_details_1.html">Communication (05) <img src="/img/new.png" alt="New" class="hidden-"></a></li>
-						<li><a href="course_details_1.html">Computing (08) </a></li>
-						<li><a href="course_details_1.html">Counseling (04)</a></li>
-						<li><a href="course_details_1.html">Education (06)</a></li>
-						<li><a href="course_details_1.html">Engineering (08)</a></li>
+						-->
 					</ul>
 					
 					<hr>
@@ -59,7 +61,7 @@
 			
 			<div class="col-lg-9 col-md-8 col-sm-8">
 				<?php foreach ($courses as $course) : ?>
-				<h3><a href="/course/detail?cid=<?php echo $course["id"]; ?>" class="course_list_a"><?php echo $course["title"]; ?></a></h3>
+				<h3><a href="/course/detail?cid=<?php echo $course["id"]; ?>" class="course_list_a"><?php echo $course["title"]; echo empty($course["sub-title"]) ? "" : " - ".$course["sub-title"]; ?></a></h3>
 				<p><a href="/course/detail?cid=<?php echo $course["id"]; ?>" class="course_list_a"><?php echo $course["description"]; ?></a></p>
 				<div class="panel panel-info filterable add_bottom_45">
 					<div class="panel-heading">
