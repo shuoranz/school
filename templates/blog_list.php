@@ -36,10 +36,19 @@
 				</div><!-- End Search -->
                 
 				<div class="widget">
-					<h4>Text widget</h4>
-					<p>
-						 Fusce feugiat malesuada odio. Morbi nunc odio, gravida at, cursus nec, luctus a, lorem. Maecenas tristique orci ac sem. Duis ultricies pharetra magna. Donec accumsan malesuada orci. Donec sit amet eros. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-					</p>
+					<h4>Categories</h4>
+					<ul class="categories">
+						<li><a href = '/blog/?p=1' 
+						<?php if(!isset($_GET['c'])): ?>
+							class="active"
+						<?php endif; ?>>All blogs</a></li>
+						<?php foreach($categories as $category): ?>
+							<li><a href = '/blog/?c=<?php echo $category["id"] ?>&p=1'
+							<?php if(isset($_GET['c']) && $_GET['c'] == $category["id"]): ?>
+								class="active"	
+							<?php endif; ?>><?php echo $category['name'] ?></a></li>
+						<?php endforeach; ?>
+					</ul>
 				</div><!-- End widget -->
                
                 
@@ -82,6 +91,22 @@
 			 create(仅admin) 
 			</a>
 		 <?php endif; ?>
+		 <div class="sort-container" >
+			 Sort By 
+			<select class="selectpicker" style="padding: 3px;" onchange="toogleBlogSelect(event,'ob')">
+				<option value = "cd" id="default"<?php if(!isset($_GET['ob'])): ?> selected <?php endif; ?>>Create Date</option>
+		 		<option value = "lc" <?php if(isset($_GET['ob']) && $_GET['ob'] == 'lc'): ?> selected <?php endif; ?>>Likes</option>
+				<option value = "vc" <?php if(isset($_GET['ob']) && $_GET['ob'] == 'vc'): ?> selected <?php endif; ?>>Views</option>
+				<option value = "rc" <?php if(isset($_GET['ob']) && $_GET['ob'] == 'rc'): ?> selected <?php endif; ?>>Replies</option>
+			</select>
+			<div class="desc-container" onclick="toggleDesc(event)">
+				<i class="icon-up-open <?php if(isset($_GET['desc']) && $_GET['desc'] == 0): ?>active<?php endif; ?>"
+					id="asc"></i>
+				<i class="icon-down-open <?php if(!isset($_GET['desc'])): ?>active<?php endif; ?>"
+					id="desc"></i>
+			</div>
+			<a id = "hidden-sort" style="display:none;"> </a>
+		 </div>
 	 <?php $count = 0; ?>
 	 <?php foreach ($blogs as $blog) : ?>
      		<div class="post">
@@ -130,7 +155,9 @@
 						<li><a <?php if($_GET['p'] > 1): ?>href="/blog/?p=<?php echo $_GET['p']-1 ?>" <?php endif; ?> 
 								<?php if($_GET['p'] == 1): ?> style="background-color: #eee" <?php endif; ?>>Prev</a></li>
 						<?php foreach($pages as $page): ?>
-                        <li <?php if($page==$_GET['p']): ?>class="active"<?php endif; ?>><a href="/blog/?p=<?php echo $page ?>"><?php echo $page ?></a></li>
+						<li <?php if($page==$_GET['p']): ?>class="active"<?php endif; ?>>
+							<a href="/blog/<?php echo copyAndSetPageURI($_GET, $page) ?>"><?php echo $page ?></a>
+						</li>
 						<?php endforeach; ?>
                         <li><a <?php if($_GET['p'] < $pageMax): ?>href="/blog/?p=<?php echo $_GET['p']+1 ?>" <?php endif; ?>
 							<?php if($_GET['p'] == $pageMax): ?>style="background-color: #eee" <?php endif; ?>>Next</a></li>

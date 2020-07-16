@@ -183,5 +183,61 @@ function showReplyCommentForm(event, replyee_id, comment_id, blog_id) {
 			</form>");
 	}
 }
+function toogleBlogSelect(event, name) {
+	var getParameters = getRequest();
+	var selectElement = event.target;
+	var value = selectElement.options[selectElement.selectedIndex].value;
+	getParameters[name] = value;
+	var redirectURI = "/blog/?";
+	var isDefault = selectElement.options[selectElement.selectedIndex].getAttribute('id') == "default";
+	for(let key in getParameters) {
+		if (key == name) {
+			if(!isDefault) {
+				redirectURI += (name + "=" + value + "&");
+			}
+		} else if (key != "p") {
+			redirectURI += (key + "=" + getParameters[key] + "&");
+		}
+	}
+	redirectURI += "p=1";
+	window.location.href=redirectURI;
+}
+function toggleDesc(event) {
+	var getParameters = getRequest();
+	var desc = !("desc" in getParameters);
+	console.log("before: desc " + desc);
+	desc = !desc;
+	if(!desc) {
+		console.log("now asc")
+		getParameters["desc"] = "0";
+	} else {
+		console.log("now desc")
+		delete(getParameters["desc"]);
+		console.log(getParameters);
+	}
+	var redirectURI = "/blog/?";
+	for(let key in getParameters) {
+		if (key != "p") {
+			redirectURI += (key + "=" + getParameters[key] + "&");
+		}
+	}
+	redirectURI += "p=1";
+	console.log(redirectURI);
+	window.location.href=redirectURI;
+}
+function getRequest() {
+	var args = new Object();
+	var query = location.search.substring(1);
+	var pairs = query.split("&"); // Break at ampersand
+	for (var i = 0; i < pairs.length; i++) {
+		var pos = pairs[i].indexOf('=');
+		if (pos == -1) continue;
+		var argname = pairs[i].substring(0, pos);
+		var value = pairs[i].substring(pos + 1);
+		value = decodeURIComponent(value);
+		args[argname] = value;
+	}
+	return args;
+}
 
 
