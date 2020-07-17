@@ -19,17 +19,15 @@
 <div class="container">
 
 <ol class="breadcrumb">
-  <li><a href="index.html">Home</a></li>
-  <li class="active">Active page</li>
+  <li><a href="/index.php">Home</a></li>
+  <li><a href="/blog/?p=1">Blog</a></li>
+  <li class="active">Current</li>
 </ol>
 
 	 <div class="row blog-container"> 
 		<div class="col-md-12">
 				<div class="single-post">
-						<a href="blog_post.html" title="single_post.html"><img src="img/blog-3.jpg" alt="" class="img-responsive"></a>
-						
-						<h2><?php echo $blog['title'] ?></h2>
-						
+						<h3><?php echo $blog['title'] ?></h3>
 						<div>
 							<?php echo $blog['body'] ?>
 						</div>

@@ -29,6 +29,8 @@ if (isset($_POST['do_create'])){
             move_uploaded_file($_FILES["cover"]["tmp_name"], "cover/" . $timestampFileName);
             $data['cover'] = "/blog/cover/" . $timestampFileName;
         }
+    } else {
+        $data['cover'] = "/blog/cover/noimage.jpg"; 
     }
 
     //Required Fields

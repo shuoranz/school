@@ -106,7 +106,6 @@ body .post .post_info .post-right {
 	margin-right:15px;
 }
 #main_content .single-post h2{
-    font-size: 21px;
     text-transform: none;
 }
 .icon-user-link {
@@ -259,4 +258,11 @@ div.desc-container {
 .selectpicker {
 	border: 1px solid silver;
 	margin-left: 10px;
+	height: 26px;
+}
+figure.image_resized img {
+	width: 100%;
+}
+figure.image_resized {
+	margin: 0px auto;
 }

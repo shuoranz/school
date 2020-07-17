@@ -62,7 +62,9 @@ class BlogModel {
         if ($conditions["desc"] == 1) {
             $sql = $sql . " desc";
         }
-        $sql = $sql . " limit " . $limit . "," . $perPage;
+        if ($pageNum > 0) {
+            $sql = $sql . " limit " . $limit . "," . $perPage;
+        }
         $this->db->query($sql);
         $results = $this->db->resultset();
         return $results;
