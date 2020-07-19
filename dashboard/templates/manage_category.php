@@ -32,7 +32,7 @@
                                 <table class="table table-hover table-striped table-vcenter mb-0 text-nowrap">
                                     <thead>
                                         <tr>
-                                            <th colspan="1">Manage Category</th>
+                                            <th colspan="2">Manage Category</th>
                                             <th colspan="1">
 												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addVideoDiv">
 													<i class="fe fe-plus mr-2"></i>Add Category
@@ -43,6 +43,7 @@
                                             <!--<th class="w30">&nbsp;</th>-->
                                             <th>Category ID</th>
                                             <th>Category Name</th>
+											<th>Manage</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -52,6 +53,7 @@
 										<tr>
                                             <td><a href="/dashboard/my-courses?category=<?php echo $category['id']; ?>"><?php echo $category['id']; ?></a></td>
                                             <td><a href="/dashboard/my-courses?category=<?php echo $category['id']; ?>"><?php echo $category['name']; ?></a></td>
+											<td><a href="">Edit</a></td>
                                         </tr>
 										<?php 
 										endforeach; 

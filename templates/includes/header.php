@@ -108,9 +108,11 @@
 				<li class="normal_drop_down">
 					<a href="/forum/">Forum</a>
 				</li>
+				<!--
 				<li class="normal_drop_down">
 					<a href="/program/">Program Intro</a>
 				</li>
+				-->
 				<li><a href="/blog/?p=1">Blog</a></li>
 				<li><a href="/news/">News</a></li>
 				<li><a href="/contact/">Contact Us</a></li>
