@@ -11,11 +11,11 @@
 
 $courseModel = new CourseModel;
 //Get Template and Assign Vars
-$template = new Template('templates/manage_course.php');
+$template = new Template('templates/manage_category.php');
 
-$categroyId = !isset($_GET["category"]) || $_GET["category"] == 0 ? "" : (int)$_GET["category"];
+//$categroyId = !isset($_GET["category"]) || $_GET["category"] == 0 ? "" : (int)$_GET["category"];
 
-$template->courses = $courseModel->getAllCourses($categroyId);
+$template->categories = getAllCourseCategories();
 
 //Assign Variables to template object
 /*

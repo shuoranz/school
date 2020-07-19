@@ -45,7 +45,9 @@
 		</ol>
 		<div class="row">
      		<div class="col-md-8">
-				<iframe src="http://www.youtube.com/embed/pgk-719mTxM?wmode=transparent" style="border:0;" class="video_course"></iframe>
+				<iframe src="https://player.vimeo.com/video/438633048" width="750" height="420" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+				<!-- width="640" height="360" -->
+				<!--<iframe src="http://www.youtube.com/embed/pgk-719mTxM?wmode=transparent" style="border:0;height:650px;" class="video_course"></iframe>-->
 				<h3><?php echo $video["title"]; ?></h3>
 				<p><?php echo $video["description"]; ?></p>
 				<!--
@@ -55,11 +57,13 @@
 				</blockquote>
 				-->
 				<hr>
+				<!--
 				<div class="clearfix text-center">
 					<a href="#" class="pull-left button_medium_outline"> <i class="icon-left-open"></i></a>
 					<a href="#" class="button_medium_outline">Mark as complete</a>
 					<a href="#" class="pull-right button_medium_outline"><i class="icon-right-open"></i></a>
 				</div>
+				-->
 				
 				
 				
@@ -133,7 +137,7 @@
 					<div>Please login to leave a comment!</div>
 					<?php endif;?>
             </div><!-- End col-md-8  -->
-            
+
             <aside class="col-md-4">
 				<div class="box_style_1">
 					<h4><a href="#">Download files <i class="icon-download pull-right"></i></a></h4><br>
@@ -158,7 +162,7 @@
 						<li><a href="#">Ceteros mediocritatem</a></li>
 					</ul>
 				</div>
-			</aside> <!-- End col-md-4 -->
+			</aside>
 		</div><!-- End row -->
 		
 

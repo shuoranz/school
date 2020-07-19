@@ -13,7 +13,10 @@
 		'invitation_code_create',
 		'invitation_code_delete',
 		'manage_student_create',
-		'manage_teacher_create'
+		'manage_teacher_create',
+		'course_category_create',
+		'course_course_create',
+		'course_video_create'
 	);
 	if (in_array($action_input, $actions_default)) {
 		call_user_func($action_input); 
@@ -80,5 +83,35 @@
 	function manage_teacher_create()
 	{
 		
+	}
+	
+	function course_category_create()
+	{
+		
+	}
+	
+	function course_course_create()
+	{
+		
+	}
+	
+	function course_video_create()
+	{
+		if (!isset($_REQUEST['video_title'])
+			|| !isset($_REQUEST['vimeo_id'])
+			|| !isset($_REQUEST['user_id'])
+			|| !isset($_REQUEST['video_description'])
+			|| !isset($_REQUEST['course_id']))
+		{
+			exit("wrong parameter");
+		}
+		$courseModel = new CourseModel;
+		$data['video_title'] = $_REQUEST['video_title'];
+		$data['vimeo_id'] = $_REQUEST['vimeo_id'];
+		$data['user_id'] = $_REQUEST['user_id'];
+		$data['video_description'] = $_REQUEST['video_description'];
+		$data['course_id'] = $_REQUEST['course_id'];
+		$courseModel->createVideo($data);
+		echo "success";
 	}
 	

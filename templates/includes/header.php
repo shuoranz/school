@@ -106,7 +106,7 @@
 					</ul>
 				</li>
 				<li class="normal_drop_down">
-					<a href="/forum/">Fourm</a>
+					<a href="/forum/">Forum</a>
 				</li>
 				<li class="normal_drop_down">
 					<a href="/program/">Program Intro</a>
