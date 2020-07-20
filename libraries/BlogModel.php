@@ -169,5 +169,26 @@ class BlogModel {
         }
         return $result;
     }
-    
+    public function addOneBlogViewCount($blog_id, $view_count) {
+        $this->db->query("update blog set view_count = :view_count
+                          where id= :blog_id");
+        $this->db->bind(':view_count', $view_count);
+        $this->db->bind(':blog_id', $blog_id);
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function delete($data) {
+        $blog_id = $data['id'];
+        $this->db->query("update blog set deleted = 1
+                          where id = :blog_id");
+        $this->db->bind(':blog_id', $blog_id);
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

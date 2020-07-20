@@ -110,6 +110,14 @@
 	 <?php $count = 0; ?>
 	 <?php foreach ($blogs as $blog) : ?>
      		<div class="post">
+				 <?php if($isAdmin): ?>
+					<a class="edit-link"> 
+						<i class="icon-edit"></i>
+					 </a>
+					 <button class="post-delete" onclick="deleteBlog(<?php echo $blog['id'] ?>)"> 
+						 <i class="icon-trash-empty"></i>
+					 </button>
+				 <?php endif; ?>
 			 	<div class="left" style="background: url(<?php echo $blog['cover']?>);background-size: cover;">
 				</div>
 			    <div class="right">

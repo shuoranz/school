@@ -37,7 +37,6 @@ if (isset($_POST['do_create'])){
     $field_array = array('title','body','category_id');
     
     if($validate->isRequired($field_array)){
-        echo $data['cover'];
         if($blog->create($data)){
             redirect('/blog/?p=1', 'Your topic has been posted', 'success');
         } else {

@@ -239,5 +239,39 @@ function getRequest() {
 	}
 	return args;
 }
+function deleteBlog(blog_id) {
+	var popup = "<div id='delete-popup' style='position: fixed; \
+											   width: 400px; \
+											   height: 250px; \
+											   background-color: #eaeaea;\
+											   top:50%;\
+											   left:50%;\
+											   box-shadow: 0px 2px 8px 0px rgba(74,74,74,0.81);\
+											   border-radius: 10px;\
+											   transform: translate(-50%, -50%);\
+											   z-index: 5;\
+											   text-align: center'>\
+					<form method='POST' action='/blog/delete/?id=" + blog_id +"' style='width: 100%'>\
+						<div style='margin-top: 40px; font-size: 18px'>Are you sure you want to delete this blog?</div>\
+						<input type='hidden' name='blog_id' value='"+blog_id+"'>\
+						<div style='position: absolute; width: 100%; bottom: 40px;'>\
+							<div style='text-align: left'>\
+								<input style='background-color: red;\
+											   border:1px solid black;\
+											   border-radius: 2px;\
+											   color: whitesmoke;\
+											   margin-left: 50px;'\
+										type='submit' name='delete-post' value='Yes'>\
+							</div>\
+						</div>\
+					</form>\
+					<button id='close-popup' style='position: absolute; bottom: 40px; right: 50px;'> No </button>\
+				 </div>";
+	$('body').append(popup);
+	$("#close-popup").click(function(event) {
+		event.preventDefault();
+		$('#delete-popup').remove();
+	});
+}
 
 

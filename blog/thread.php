@@ -22,7 +22,10 @@
 		$cur_blog['create_date'] = $mo . "-" . $d;
 	} else {
 		$cur_blog['create_date'] = $ymd;
-	}
+    }
+    // view_count + 1 as user/guest visit this page,
+    $blog->addOneBlogViewCount($blog_id, $cur_blog['view_count'] + 1);
+    
     $template->blog = $cur_blog;
     $comments = $blog->getCommentsByBlog_id($blog_id);
     
