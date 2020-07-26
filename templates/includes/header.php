@@ -39,7 +39,7 @@
 	<script src="/js/retina.min.js"></script>
 	<script src="/assets/validate.js"></script>
 	<script src="/js/jquery.placeholder.js"></script>
-	<script src="/js/functions.js"></script>
+	
 	<script src="/js/classie.js"></script>
 	<script src="/js/uisearch.js"></script>
 
@@ -48,7 +48,6 @@
       <script src="http://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="http://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
-
   </head>
   
   <body>
@@ -144,5 +143,5 @@
 </div><!-- End container -->
 </nav>
 <script src="/js/messageAnimation.js"></script>
-
+<script src="/js/functions.js"></script>
 
