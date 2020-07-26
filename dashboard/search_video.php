@@ -13,12 +13,12 @@ if(!isAdmin()){
 }
 $courseModel = new CourseModel;
 //Get Template and Assign Vars
-$template = new Template('templates/manage_course.php');
+$template = new Template('templates/manage_video_search.php');
 
-$categroyId = !isset($_GET["category"]) || $_GET["category"] == 0 ? "" : (int)$_GET["category"];
+$search_title = !isset($_GET["title"]) || $_GET["title"] == "" ? "" : $_GET["title"];
+$search_teacher =  !isset($_GET["teacher"]) || $_GET["teacher"] == "" ? "" : $_GET["teacher"];
 
-$template->courses = $courseModel->getAllCourses($categroyId, "");
-$template->category = $courseModel->getCategoryById($categroyId);
+$template->videos = $courseModel->searchVideosByAttribute($search_title, $search_teacher);
 
 //Assign Variables to template object
 /*

@@ -9,7 +9,7 @@ $course = new CourseModel;
 $user = new User;
 
 //Get Template and Assign Vars
-$template = new Template($pre_position.'templates/course_list.php');
+$template = new Template($pre_position.'templates/search_videos.php');
 
 //Assign Variables to template object
 
@@ -20,16 +20,11 @@ $template->totalCategories = $topic->getTotalCategories();
 $template->totalUsers = $user->getTotalUsers();
 */
 
-$categroyId = !isset($_GET["category"]) || $_GET["category"] == 0 ? "" : (int)$_GET["category"];
+$search_title = !isset($_GET["title"]) || $_GET["title"] == "" ? "" : $_GET["title"];
+$search_teacher =  !isset($_GET["teacher"]) || $_GET["teacher"] == "" ? "" : $_GET["teacher"];
 
-$template->courses = $course->getAllCourses($categroyId,"");
+$template->videos = $course->searchVideosByAttribute($search_title, $search_teacher);
 
-$videos = array();
-foreach($template->courses as $oneCourse){
-	$courseId = $oneCourse["id"];
-	$videos[$courseId] = $course->getCourseVideosByCourseId($courseId);
-}
-$template->videos = $videos;
 
 //Display template
 echo $template;

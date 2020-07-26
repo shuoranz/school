@@ -69,9 +69,9 @@
 				-->
 				<?php if(isLoggedIn()) : ?>
 				<li><a>Welcome <?php echo getUser()['username']; ?>!</a></li>
-				<li><a href="/logout">Logout</a></li>
+				<li><a id="top_a_tag" href="/logout">Logout</a></li>
 				<?php else : ?>
-                <li><a href="/register">Register</a></li>
+                <li><a id="top_a_tag" href="/register">Register</a></li>
 				<?php endif; ?>
             </ul>
 		</div>

@@ -13,7 +13,11 @@
         
         if($user->login($username, $password)){
             //echo('index.php You have been logged in. success');
-			redirect('/course/','You have been logged in', 'success');
+			if(isTeacherOrAbove()){
+				redirect('/dashboard/','You have been logged in', 'success');
+			} else {
+				redirect('/course/','You have been logged in', 'success');
+			}
         } else {
 			redirect('/login','Invalid login', 'error');
         }

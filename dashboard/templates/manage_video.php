@@ -59,7 +59,7 @@
 										?>
 										<tr>
                                             <td><a href=""><?php echo $video['id']; ?></a></td>
-                                            <td><span><?php echo mb_substr($video['title'], 0, 30); echo mb_strlen($course['title'], 'UTF-8') > 30 ? "..." : ""; ?></span></td>
+                                            <td><span><?php echo mb_substr($video['title'], 0, 30); echo mb_strlen($video['title'], 'UTF-8') > 30 ? "..." : ""; ?></span></td>
 											<td><span><?php echo ""; //$course['description']; ?></span></td>
                                             <td><span class="tag tag-default"><?php echo $video['status']; ?></span></td>
 											<td><span><?php echo $course['title']; ?></span></td>

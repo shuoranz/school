@@ -65,12 +65,11 @@
 			</aside>
 			
 			<div class="col-lg-9 col-md-8 col-sm-8">
-				<?php foreach ($courses as $course) : ?>
-				<h3><a href="/course/detail?cid=<?php echo $course["id"]; ?>" class="course_list_a"><?php echo $course["title"]; echo empty($course["sub-title"]) ? "" : " - ".$course["sub-title"]; ?></a></h3>
-				<p><a href="/course/detail?cid=<?php echo $course["id"]; ?>" class="course_list_a"><?php echo $course["description"]; ?></a></p>
+				<h3><a class="course_list_a">Search Results</a></h3>
+				<p><a class="course_list_a"></a></p>
 				<div class="panel panel-info filterable add_bottom_45">
 					<div class="panel-heading">
-						<h3 class="panel-title"><?php echo $course["name"]; ?> course</h3>
+						<h3 class="panel-title">Course Videos Search Results</h3>
 						<div class="pull-right">
 							<button class="btn-filter"><span class="icon-th-list"></span> Filter</button>
 						</div>
@@ -85,18 +84,17 @@
 							</tr>
 						</thead>
 						<tbody>
-							<?php foreach ($videos[$course["id"]] as $key => $video) : ?>
+							<?php foreach ($videos as $key => $video) : ?>
 							<tr>
 								<td><a class="course_list_a" href="/course/video?vid=<?php echo $video["id"]; ?>"><?php echo $key + 1; ?></a></td>
 								<td><a class="course_list_a" href="/course/video?vid=<?php echo $video["id"]; ?>"><?php echo $video["title"]; ?></a></td>
 								<td><a class="course_list_a" href="/course/video?vid=<?php echo $video["id"]; ?>"><?php echo $video["description"]; ?></a></td>
-								<td><a class="course_list_a" href="/course/video?vid=<?php echo $video["id"]; ?>"><?php echo $course["username"]; ?></a></td>
+								<td><a class="course_list_a" href="/course/video?vid=<?php echo $video["id"]; ?>"><?php echo $video["username"]; ?></a></td>
 							</tr>
 							<?php endforeach; ?>
 						</tbody>
 					</table>
 				</div><!-- End filterable -->
-				<?php endforeach; ?>
 			</div><!-- End col-lg-9-->
         </div><!-- End row -->
         

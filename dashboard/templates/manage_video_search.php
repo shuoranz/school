@@ -26,56 +26,75 @@
 		<div class="section-body mt-3">
             <div class="container-fluid">
                 <div class="row clearfix">
-					<div class="col-6">
-						<div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-5 col-md-6 col-sm-12">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Teacher Name" id="search_teacher">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-5 col-md-6 col-sm-12">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Video Title" id="search_title">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2 col-md-4 col-sm-6">
-                                        <a id="search_course_videos" class="btn btn-primary btn-block" title="" style="color:white;">Search</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+					<div class="col-12">
+						<div class="col-6">
+							<div class="card">
+								<div class="card-body">
+									<div class="row">
+										<div class="col-lg-5 col-md-6 col-sm-12">
+											<div class="input-group">
+												<input type="text" class="form-control" placeholder="Teacher Name" id="search_teacher">
+											</div>
+										</div>
+										<div class="col-lg-5 col-md-6 col-sm-12">
+											<div class="input-group">
+												<input type="text" class="form-control" placeholder="Video Title" id="search_title">
+											</div>
+										</div>
+										<div class="col-lg-2 col-md-4 col-sm-6">
+											<a id="search_course_videos" class="btn btn-primary btn-block" title="" style="color:white;">Search</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-12">
+						
                         <div class="card">
                             <div class="table-responsive">
                                 <table class="table table-hover table-striped table-vcenter mb-0 text-nowrap">
                                     <thead>
                                         <tr>
-                                            <th colspan="2">Manage Category</th>
+                                            <th colspan="8">Search Results</th>
                                             <th colspan="1">
 												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addVideoDiv">
-													<i class="fe fe-plus mr-2"></i>Add Category
+													<i class="fe fe-plus mr-2"></i>Add Video
 												</button>
 											</th>
                                         </tr>
                                         <tr>
                                             <!--<th class="w30">&nbsp;</th>-->
-                                            <th>Category ID</th>
-                                            <th>Category Name</th>
-											<th>Delete</th>
+                                            <th>VID</th>
+                                            <th>Title</th>
+											<th>Description</th>
+											<th>Status</th>
+											<th>Course Name</th>
+											<th>Course Category</th>
+											<th>Created By</th>
+                                            <th>Created Date</th>
+											<th>Published By</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 										<?php
-										foreach ($categories as $category) : 
+										//foreach ($courses as $course) : 
+											foreach ($videos as $key => $video) :
 										?>
 										<tr>
-                                            <td><a href="/dashboard/my-courses?category=<?php echo $category['id']; ?>"><?php echo $category['id']; ?></a></td>
-                                            <td><a href="/dashboard/my-courses?category=<?php echo $category['id']; ?>"><?php echo $category['name']; ?></a></td>
-											<td><a href="">Delete</a></td>
+                                            <td><a href=""><?php echo $video['id']; ?></a></td>
+                                            <td><span><?php echo mb_substr($video['title'], 0, 30); echo mb_strlen($video['title'], 'UTF-8') > 30 ? "..." : ""; ?></span></td>
+											<td><span><?php echo ""; //$course['description']; ?></span></td>
+                                            <td><span class="tag tag-default"><?php echo $video['status']; ?></span></td>
+											<td><span><?php echo $video["course_title"]; ?></span></td>
+                                            <td><span><?php echo ""; ?></span></td>
+                                            <td><span><?php echo $video['username']; ?></span></td>
+											<td><span><?php echo $video['create_date']; ?></span></td>
+                                            <td><span><?php echo $video['published_by']; ?></span></td>
                                         </tr>
 										<?php 
-										endforeach; 
+											endforeach; 
+										//endforeach; 
 										?>
 										<!--
 											<td><span class="tag tag-default">lower</span></td>
@@ -110,31 +129,49 @@
 <div class="modal fade" id="addVideoDiv" tabindex="-1" role="dialog" style="top:90px;">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
+			<!--
             <div class="modal-header">
-                <h6 class="title" id="defaultModalLabel">Add New Category</h6>
+                <h6 class="title" id="defaultModalLabel">Add New Video</h6>
             </div>
+			-->
             <div class="modal-body">
                 <div class="row clearfix">
 					<div class="col-12">
                         <div class="form-group">                                    
-                            <input type="text" class="form-control" placeholder="Category Title" id="create_category">
+                            <input type="text" class="form-control" placeholder="Video Title" id="video_title">
                         </div>
                     </div>
-					<!--
+					<div class="col-12">
+                        <div class="form-group">                                    
+                            <input type="number" class="form-control" placeholder="Vimeo ID" id="vimeo_id">
+                        </div>
+                    </div>
+					<div class="col-12">
+                        <div class="form-group">                                    
+                            <textarea type="text" class="form-control" placeholder="Video Description" id="video_description"></textarea>
+                        </div>
+                    </div>
 					<div class="col-12">
                         <div class="form-group">
-                            <select class="form-control show-tick" id="create_teacher_duration">
-                                <option disabled selected>Select Duration</option>
-                                <option value="2">7 days</option>
-                                <option value="1">1 year</option>
+							<p>category: </p>
+                            <select class="form-control show-tick" id="">
+                                <option disabled selected><?php echo $course['name']; ?></option>
                             </select>
                         </div>
                     </div>
-					-->
+					<div class="col-12">
+                        <div class="form-group">
+							<p>course: </p>
+                            <select class="form-control show-tick" id="course_id">
+                                <option disabled selected value="<?php echo $course['id']; ?>"><?php echo $course['title']; ?></option>
+                            </select>
+                        </div>
+                    </div>
+					<input type="hidden" value="1" id="user_id" />
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="addCategoryBtn">Create</button>
+                <button type="button" class="btn btn-primary" id="addVideoBtn">Create</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -154,18 +191,27 @@
 
 <script type="text/javascript">
 
-	$("#addCategoryBtn").click(function(){
-		var category = $("#create_category").val();
+	/*
+	$("#addVideoBtn").click(function(){
+		var video_title = $("#video_title").val();
+		var vimeo_id = $("#vimeo_id").val();
+		var video_description = $("#video_description").val();
+		//var course_id = <?php echo $course['id']; ?>;
+		var user_id = $("#user_id").val();
 		
-		if (category == null || category ==  ""){
+		if (video_title == null || vimeo_id ==  null || video_description == null || course_id == null || user_id == null){
 			alert("error, please check all your inputs");
 			return false;
 		}
 		
 		$.post("controller", 
 		{
-			action: "course_category_create",
-			category: category
+			action: "course_video_create",
+			video_title: video_title,
+			vimeo_id: vimeo_id,
+			video_description: video_description,
+			course_id: course_id,
+			user_id: user_id
 		},
 		function(data, status){
 			//alert("Data: " + data + "\nStatus: " + status);
@@ -179,8 +225,8 @@
 			}
 		});
 	});
+	*/
 	
-
 	$("#search_course_videos").click(function(){
 		var search_title = $("#search_title").val() == "" ? "na" : "title="+$("#search_title").val();
 		var search_teacher = $("#search_teacher").val() == "" ? "na" : "teacher="+$("#search_teacher").val();
@@ -189,6 +235,7 @@
 		}
 		window.location.href = "/dashboard/search_video?"+search_title+"&"+search_teacher;
 	});
+	
 </script>
 </body>
 </html>
