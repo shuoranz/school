@@ -42,7 +42,7 @@
 					<input type="text" name="password2" class=" form-control required" id="password2" placeholder="Confirm password">
 					<span class="input-icon"><i class=" icon-lock"></i></span>
 				</div>
-                <div id="pass-info" class="clearfix"><?php displayMessage(); ?></div>
+                <div id="pass-info" class="clearfix"></div>
 				<input type="submit" name="register" class="button_fullwidth" value="Create an account">
 			</form>
 		</div>

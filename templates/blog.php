@@ -1,6 +1,6 @@
 <?php include('includes/header.php'); ?>
 <link href="/css/blog.css" rel="stylesheet">
-<section id="sub-header">
+<!-- <section id="sub-header">
 <div class="container">
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1 text-center">
@@ -9,10 +9,10 @@
 				Everything carefully prepared for you 
 			</p>
 		</div>
-	</div><!-- End row -->
-</div><!-- End container -->
+	</div>
+</div>
 <div class="divider_top"></div>
-</section><!-- End sub-header -->
+</section> -->
 
 <section id="main_content">
 
@@ -27,19 +27,16 @@
 	 <div class="row blog-container"> 
 		<div class="col-md-12">
 				<div class="single-post">
-						<h3><?php echo $blog['title'] ?></h3>
-						<div class="post-right">
+						<h3 class='blog-title'><?php echo $blog['title'] ?></h3>
+						<!-- <div class="post-right">
 							<i class="icon-eye"></i><?php echo $blog['view_count'] ?>
 								<i class="icon-thumbs-up"></i><?php echo $blog['like_count'] ?>
 								<i class="icon-comment"></i><?php echo $blog['reply_num'] ?>
-							</div>
-						<div class="ck-content">
-							<?php echo $blog['body'] ?>
-						</div>
+							</div> -->
 						<div class="post_info clearfix">
 							<div class="post-left">
 								<ul>
-									<li><i class="icon-calendar-empty"></i><span><?php echo $blog['create_date']?></span></li>
+									<li><span><?php echo $blog['create_date']?></span></li>
 									<li><a class="icon-user-link" href="#">
 									<span class="user-avatar" style="background: url(../../images/avatars/<?php echo $blog['avatar']?>);background-size: cover;"></span><?php echo $blog['username'] ?></a></li>
 									<li><i class="icon-flag-filled"></i> <a href="#"><?php echo $blog['name'] ?></a></li>
@@ -47,10 +44,18 @@
 							</div>
 							<div class="post-right">
 							<i class="icon-eye"></i><?php echo $blog['view_count'] ?>
-								<i class="icon-thumbs-up"></i><?php echo $blog['like_count'] ?>
-								<i class="icon-comment"></i><?php echo $blog['reply_num'] ?>
-							</div>
+							<span class="like-button">
+							<i class="icon-thumbs-up<?php echo $blog['liked']?'-alt':''?>" <?php if($blog['liked']): ?>style="color: #1cbbb4;"<?php endif; ?> 
+							   onclick="likeOrUnlike(event, <?php echo $blog['id'] ?>,<?php echo $blog['liked']? 'false': 'true' ?>,<?php echo $blog['like_count']?>)"></i>
+								<div style="display: inline;" class="like_count"><?php echo $blog['like_count'] ?></div>
+							</span>
+							<i class="icon-comment"></i><?php echo $blog['reply_num'] ?>
 						</div>
+						</div>
+						<div class="ck-content">
+							<?php echo $blog['body'] ?>
+						</div>
+					
 					</div><!-- end post -->
 					
 					<hr>
@@ -71,8 +76,9 @@
 										<?php echo $comment['body'] ?>
 									</p>
 									<div>
-										<button onclick = "showReplyForm(event, <?php echo $comment['id'] ?>, <?php echo $comment['id'] ?>, <?php echo $blog['id']?>)" 
-										class="reply-button">回复</button>
+										<?php if(isLoggedIn()): ?><button onclick = "showReplyForm(event, <?php echo $comment['id'] ?>, <?php echo $comment['id'] ?>, <?php echo $blog['id']?>)" 
+										class="reply-button">reply</button><?php endif; ?>
+										<span class="comment-date"><?php echo $comment['create_date'] ?></span>
 									</div>
 									<?php if(count($comment['replies']) > 0) :?>
 									<div class="commentReplies">
@@ -83,15 +89,21 @@
 													</div>
 												</div>
 												<div class="reply-content">
-													<?php echo $reply['username'] ?>
-													<?php if(strcmp($reply['replyee_id'], $comment['id']) != 0): ?>
-														回复 <?php echo getUsernameByBlogReplyId($reply['replyee_id']) ?>
-													<?php endif ?>
-													: <?php echo $reply['body']?>
+													<div class="reply-body">
+													<span><?php echo $reply['username'] ?><?php if(strcmp($reply['replyee_id'], $comment['id']) != 0): ?> to <?php echo getUsernameByBlogReplyId($reply['replyee_id']) ?><?php endif ?>:</span> 
+														<?php echo $reply['body']?>
+													</div>
 													<div class="dateAndReply"> 
 														<?php echo $reply['create_date'] ?>
-														<button onclick="showReplyCommentForm(event, <?php echo $reply['id']?>, <?php echo $comment['id'] ?>, <?php echo $blog['id']?>)" 
-														class="replycomment">回复</button>
+														<?php if(isLoggedIn()): ?>
+															<?php if(getUser()['user_id'] == $reply['user_id'] || isAdmin()): ?>
+																<span class="reply-edit" onclick="editReply(event, <?php echo $reply['id'] ?>, '<?php echo $reply['body'] ?>', <?php echo $blog['id'] ?>)">
+																	<i class="icon-edit"></i>
+																</span>
+															<?php endif; ?>
+															<button class='reply-button' onclick="showReplyCommentForm(event, <?php echo $reply['id']?>, <?php echo $comment['id'] ?>, <?php echo $blog['id']?>)" 
+														class="replycomment">reply</button>
+														<?php endif; ?>
 													</div>
 												</div>
 											</div>

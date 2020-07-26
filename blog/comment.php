@@ -23,7 +23,7 @@ if (isset($_POST['post_comment'])){
     $field_array = array('body');
     if($validate->isRequired($field_array)){
         if($blog->postBlogComment($data)){
-            redirect('/blog/thread/?id=' . $data['blog_id'], 'Your blog has been posted', 'success');
+            redirect('/blog/thread/?id=' . $data['blog_id'], 'Your comment has been posted', 'success');
         } else {
             redirect('/blog/thread/?id=' . $data['blog_id'], 'Something went wrong whti your post.', 'error');
         }

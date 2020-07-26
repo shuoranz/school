@@ -273,5 +273,77 @@ function deleteBlog(blog_id) {
 		$('#delete-popup').remove();
 	});
 }
-
+function likeOrUnlike(event, blog_id, like, cur_count) {
+	// since it's ajax, like parameter above can not only depend on what template rendered
+	// why? if user like, and then try to unlike, even though the UI changed, making it looks like he is "unliking",
+	// However, the page didn't refreshed, which means this like parameter passed by template didn't changed! like is still true!
+	// we have to temporarily rely on UI logic to determine if the user is "liking" or "unliking"...though it's not very safe..
+	// optimal solution: start another ajax before to check the real time "liked" situation in database.
+	var $target = $(event.target);
+	like = $target.attr('class') == "icon-thumbs-up";
+	cur_count = parseInt($target.parent().children("div").text().trim());
+	$.ajax({
+		type: "POST",
+		url: "/blog/like",
+		data: {blogId: blog_id,
+			   isLike: like,
+			   curCount: cur_count},
+		contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+		success: function(response) {
+			var responseObj = JSON.parse(response);
+			if(responseObj['success']) {
+				if(like) {
+					var $iLikeButton = $target;
+					$iLikeButton.toggleClass("icon-thumbs-up");
+					$iLikeButton.toggleClass("icon-thumbs-up-alt");
+					$iLikeButton.css("color","#1cbbb4");
+					$target.parent().children("div").text(cur_count+1);
+				} else {
+					var $iLikeButton = $target;
+					$iLikeButton.toggleClass("icon-thumbs-up-alt");
+					$iLikeButton.toggleClass("icon-thumbs-up");
+					$iLikeButton.css("color","#adadad");
+					$target.parent().children("div").text(cur_count-1);
+				}
+				$("#message > div").text(responseObj['message']);
+				msgAnimate();
+			} else {
+				$("#message").removeClass("alert-success");
+				$("#message").addClass("alert-danger");
+				$("#message > div").removeClass("alert-success");
+				$("#message > div").addClass("alert-danger");
+				$("#message > div").text(responseObj['message']);
+				msgAnimate();
+				
+			}
+		},
+		error : function(e) {
+            console.log(e.status);
+            console.log(e.responseText);
+        }
+	});
+}
+function editReply(event,reply_id, cur_body, blog_id) {
+	var target = $(event.target);
+	var replyBody = target.parents(".reply-content").children(".reply-body"); 
+	var prevText = replyBody.html();
+	replyBody.html("<form method='POST' action='/blog/reply' onsubmit='processBlogReplyEdit()'>\
+						<div id='edit-div' class='div-textarea' contenteditable='true' name='body' >"+ cur_body +"</div>\
+						<input id='hidden-body' type='hidden' name='body' value=''>\
+						<input type='hidden' name='blog_id' value='"+ blog_id +"'>\
+						<input type='hidden' name='id' value='"+reply_id+"'>\
+						<input style='margin-top:10px;'type='submit' name='reply-edit' value='Save'>\
+					</form>\
+					<button id='reply-cancel' style='position: relative;\
+								   top: -26px;\
+								   left: 57px;'>\
+							cancel</button>");
+	$("#reply-cancel").click(function() {
+		replyBody.html(prevText);
+	});
+	
+}
+function processBlogReplyEdit() {
+	$("#hidden-body").val($("#edit-div").text());
+}
 

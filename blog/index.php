@@ -69,7 +69,6 @@
 	}
 	
 	$all_blogs = $blog->getPageBlogs($conditions, $_GET['p'], $perPage);
-	
 	// get necessary tag info for all blogs
 	$tags = array();
 	$temp = preg_split('/,/', "");
@@ -88,21 +87,12 @@
 	date_default_timezone_set("Asia/Shanghai");
 	for ($i = 0; $i < count($all_blogs);$i++) {
 		$all_blogs[$i]['reply_num'] = $blog->getBlogReplyCount($all_blogs[$i]['id']);
-		$cur_date = $all_blogs[$i];
-		$ymd = preg_split("/[\s]+/", $cur_date["create_date"])[0];
-		$hms = preg_split("/[\s]+/", $cur_date["create_date"])[1];
-		$y = preg_split("/-/", $ymd)[0];
-		$mo = preg_split("/-/", $ymd)[1];
-		$d = preg_split("/-/", $ymd)[2];
-		$h = preg_split("/:/", $hms)[0];
-		$m = preg_split("/:/", $hms)[1];
-		if (strcmp($ymd, date("Y-m-d") )==0) {
-			$all_blogs[$i]['create_date'] = $h . ":" . $m;
-		} else if (strcmp($y, date("Y") )== 0) {
-			$all_blogs[$i]['create_date'] = $mo . "-" . $d;
-		} else {
-			$all_blogs[$i]['create_date'] = $ymd;
-		}
+		$cur_date = $all_blogs[$i]["create_date"];
+		$all_blogs[$i]['create_date'] = DateFormatter($cur_date);
+	}
+	// if currently logged user liked each blog
+	for ($i = 0; $i < count($all_blogs);$i++) {
+		$all_blogs[$i]['liked'] = $blog->likedBlog($all_blogs[$i]['id']);
 	}
 
 	// prepare pagination

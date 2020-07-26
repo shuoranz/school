@@ -33,8 +33,9 @@
 					<h5>(1) Do not post something bad</h5>
 					<h5>(2) Do not post something bad</h5>
 					<h5>(3) Do not post something bad</h5>
-					<h5>(4) Do not post something bad</h5>
-					<h5>(5) Do not post something bad</h5>
+					<h5>(4) Cover image resolution: 900*675 
+							or higher quality with same ratio
+							for best effect</h5>
 				</div>
 				
 			</div>
@@ -75,7 +76,8 @@
 </div>
 <script src="/js/ckeditor5/build/ckeditor.js"></script>
 <script src="/js/blogEditorConfig.js"></script>
-<script src="/ckfinder/ckfinder.js"></script>
+<!-- <script src="/ckfinder/ckfinder.js"></script> -->
+<script src="https://ckeditor.com/apps/ckfinder/3.5.0/ckfinder.js"></script>
 <script>
 		ClassicEditor.create( document.querySelector('#editor'),
 		blogConfig)

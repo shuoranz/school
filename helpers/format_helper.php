@@ -34,7 +34,7 @@ function is_active($category){
     }
 }
 function removeEmptyLinesAndReturnHtml($html) {
-    $html = preg_replace("/(\s|\&nbsp\;|　|\xc2\xa0)/","",$html);
+    $html = preg_replace("/(\s(?!style=[\"'])|\&nbsp\;|　|\xc2\xa0)/","",$html);
 	$html = str_replace('<p></p>', '', $html);
     $html = str_replace('<h1></h1>','', $html);
     $html = str_replace('<h2></h2>','', $html);
@@ -58,5 +58,21 @@ function copyAndSetPageURI($parameterArr, $pageNum) {
     }
     $result = $result . "p=" . $pageNum;
     return $result; 
+}
+function DateFormatter($cur_date) {
+    $ymd = preg_split("/[\s]+/", $cur_date)[0];
+	$hms = preg_split("/[\s]+/", $cur_date)[1];
+	$y = preg_split("/-/", $ymd)[0];
+	$mo = preg_split("/-/", $ymd)[1];
+	$d = preg_split("/-/", $ymd)[2];
+	$h = preg_split("/:/", $hms)[0];
+	$m = preg_split("/:/", $hms)[1];
+	if (strcmp($ymd, date("Y-m-d") )==0) {
+		return $h . ":" . $m;
+	} else if (strcmp($y, date("Y") )== 0) {
+		return $mo . "-" . $d;
+	} else {
+		return $ymd;
+    }
 }
 ?>

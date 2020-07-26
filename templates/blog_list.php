@@ -1,6 +1,6 @@
 <?php include('includes/header.php'); ?>
 <link href="/css/blog.css" rel="stylesheet">
-<section id="sub-header">
+<!-- <section id="sub-header">
 <div class="container">
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1 text-center">
@@ -9,10 +9,10 @@
 				Everything carefully prepared for you
 			</p>
 		</div>
-	</div><!-- End row -->
-</div><!-- End container -->
+	</div>
+</div>
 <div class="divider_top"></div>
-</section><!-- End sub-header -->
+</section> -->
 
 <section id="main_content">
 
@@ -108,10 +108,11 @@
 			<a id = "hidden-sort" style="display:none;"> </a>
 		 </div>
 	 <?php $count = 0; ?>
+	 <div class="blog_list_container">
 	 <?php foreach ($blogs as $blog) : ?>
      		<div class="post">
 				 <?php if($isAdmin): ?>
-					<a class="edit-link"> 
+					<a href=<?php echo "/blog/edit/?id=" . $blog['id'] ?> class="edit-link"> 
 						<i class="icon-edit"></i>
 					 </a>
 					 <button class="post-delete" onclick="deleteBlog(<?php echo $blog['id'] ?>)"> 
@@ -145,19 +146,24 @@
 									<span class="user-avatar" style="background: url(../images/avatars/<?php echo $blog['avatar']?>);background-size: cover;"></span><?php echo $blog['username'] ?></a>
 								</li>
 								<li><span class="blog-date"><?php echo $blog['create_date']?></span></li>
-								<li><i class="icon-flag-filled"></i> <a href="#"><?php echo $blog['name'] ?></a></li>
+								<li><i class="icon-flag-filled"></i> <a href = '/blog/?c=<?php echo $blog['category_id'] ?>&p=1'><?php echo $blog['name'] ?></a></li>
 							</ul>
 						</div>
 						<div class="post-right">
 							<i class="icon-eye"></i><?php echo $blog['view_count'] ?>
-							<i class="icon-thumbs-up"></i><?php echo $blog['like_count'] ?>
+							<span class="like-button">
+							<i class="icon-thumbs-up<?php echo $blog['liked']?'-alt':''?>" <?php if($blog['liked']): ?>style="color: #1cbbb4;"<?php endif; ?> 
+							   onclick="likeOrUnlike(event, <?php echo $blog['id'] ?>,<?php echo $blog['liked']? 'false': 'true' ?>,<?php echo $blog['like_count']?>)"></i>
+								<div style="display: inline;" class="like_count"><?php echo $blog['like_count'] ?></div>
+							</span>
 							<i class="icon-comment"></i><?php echo $blog['reply_num'] ?>
 						</div>
 					</div>
 					</div>
 				</div><!-- end post -->
 		<?php $count++; ?>
-	<?php endforeach; ?>       
+	<?php endforeach; ?>  
+	</div>     
                 <div class="text-center">
                     <ul class="pagination">
 						<li><a <?php if($_GET['p'] > 1): ?>href="/blog/?p=<?php echo $_GET['p']-1 ?>" <?php endif; ?> 

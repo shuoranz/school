@@ -23,7 +23,8 @@
     <link href="/css/superfish.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
     <link href="/fontello/css/fontello.css" rel="stylesheet">
-     <!-- color scheme css -->
+    <link href="/css/main.css" rel="stylesheet">
+	 <!-- color scheme css -->
     <link href="/css/color_scheme.css" rel="stylesheet">
     
 	<!-- JQUERY -->
@@ -79,7 +80,7 @@
 </header><!-- End header -->
 
 <nav>
-<div class="container">
+<div class="container" style="position: relative">
 	<div class="row">
 		<div class="col-md-12">
 			<div id="mobnav-btn"></div>
@@ -130,5 +131,11 @@
               
 		</div>
 	</div><!-- End row -->
+	<div class="container" id="message" style="display:none;">
+		<?php displayMessage(); ?>
+	</div>
 </div><!-- End container -->
 </nav>
+<script src="/js/messageAnimation.js"></script>
+
+

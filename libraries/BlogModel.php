@@ -86,7 +86,7 @@ class BlogModel {
     }
     public function getAllCategories() {
         $this->db->query("select * from blog_category where deleted = 0");
-        $result = $this->db->resultSet();
+        $result = $this->db->resultset();
         return $result;
     }
     public function getBlogReplyCount($blog_id) {
@@ -98,7 +98,7 @@ class BlogModel {
     public function getTagNameById($tag_id) {
         $this->db->query("select tag, tag_color from blog_tag where id = :id");
         $this->db->bind(':id', $tag_id);
-        $result = $this->db->resultSet()[0];
+        $result = $this->db->resultset()[0];
         return $result;
     }
     public function isLoggedUserAdmin($user_id) {
@@ -113,7 +113,7 @@ class BlogModel {
                           where blog_id = :blog_id and comment_id = :comment_id");
         $this->db->bind(':blog_id', $blog_id);
         $this->db->bind(':comment_id', $comment_id);
-        $result = $this->db->resultSet();
+        $result = $this->db->resultset();
         return $result;
     }
     public function create($data) {
@@ -151,7 +151,8 @@ class BlogModel {
     public function getCommentsByBlog_id($blog_id) {
         $this->db->query("select blog_reply.*, users.username, users.avatar from 
                         blog_reply inner join users on blog_reply.user_id = users.id
-                        where blog_id = :blog_id and replyee_id = -1 and comment_id = -1");
+                        where blog_id = :blog_id and replyee_id = -1 and comment_id = -1 and blog_reply.deleted = 0
+                        ");
         $this->db->bind(':blog_id', $blog_id);
         $results = $this->db->resultset();
         return $results;
@@ -185,6 +186,100 @@ class BlogModel {
         $this->db->query("update blog set deleted = 1
                           where id = :blog_id");
         $this->db->bind(':blog_id', $blog_id);
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function likedBlog($blog_id) {
+        if (!isLoggedIn()) {
+            return false;
+        } else {
+            $user_id = getUser()['user_id'];
+            $this->db->query("select * from blog_likes where user_id = :user_id and blog_id = :blog_id");
+            $this->db->bind(":user_id", $user_id);
+            $this->db->bind(":blog_id", $blog_id);
+            $results = $this->db->resultset();
+            if (count($results) == 0 || $results[0]['deleted'] != 0) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
+    public function likeBlog($user_id, $blog_id, $curCount) {
+        $this->db->query("select * from blog_likes where user_id = :user_id and blog_id = :blog_id");
+        $this->db->bind(":user_id", $user_id);
+        $this->db->bind(":blog_id", $blog_id);
+        $response = array();
+        $results = $this->db->resultset();
+        if (count($results) == 0) {
+            $this->db->query("insert into blog_likes(user_id, blog_id) values (:user_id, :blog_id)");
+            $this->db->bind(":user_id", $user_id);
+            $this->db->bind(":blog_id", $blog_id);
+            if($this->db->execute()){
+                $response['success'] = TRUE;
+                $response['message'] = "Successfully liked this blog";
+            } else {
+                $response['success'] = FALSE;
+                $response['message'] = "Something went wrong!";
+            }
+        } else {
+            $this->db->query("update blog_likes set deleted = 0
+                              where user_id = :user_id and blog_id= :blog_id");
+            $this->db->bind(":user_id", $user_id);
+            $this->db->bind(":blog_id", $blog_id);
+            if($this->db->execute()){
+                $response['success'] = TRUE;
+                $response['message'] = "Successfully liked this blog";
+            } else {
+                $response['success'] = FALSE;
+                $response['message'] = "Something went wrong!";
+            }
+        }
+        return $response;
+    }
+    public function unlikeBlog($user_id, $blog_id, $curCount) {
+        $this->db->query("select * from blog_likes where user_id = :user_id and blog_id = :blog_id");
+        $this->db->bind(":user_id", $user_id);
+        $this->db->bind(":blog_id", $blog_id);
+        $response = array();
+        $results = $this->db->resultset();
+        if (count($results) == 0) {
+            $response['success'] = FALSE;
+            $response['message'] = "Something went wrong!";
+        } else {
+            $this->db->query("update blog_likes set deleted = 1
+                              where user_id = :user_id and blog_id= :blog_id");
+            $this->db->bind(":user_id", $user_id);
+            $this->db->bind(":blog_id", $blog_id);
+            if($this->db->execute()){
+                $response['success'] = TRUE;
+                $response['message'] = "Successfully unliked this blog";
+            } else {
+                $response['success'] = FALSE;
+                $response['message'] = "Something went wrong!";
+            }
+        }
+        return $response;
+    }
+    public function setBlogLikeCount($blog_id, $countToSet) {
+        $this->db->query("update blog set like_count = :countToSet
+                                  where id = :blog_id");
+        $this->db->bind(":countToSet", $countToSet);
+        $this->db->bind(":blog_id", $blog_id);
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function editBlogReply($id, $body) {
+        $this->db->query("update blog_reply set body = :body
+                                  where id = :id");
+        $this->db->bind(":body", $body);
+        $this->db->bind(":id", $id);
         if($this->db->execute()){
             return true;
         } else {

@@ -12,7 +12,8 @@ var blogConfig = {
         
     },
     ckfinder: {
-        uploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images&responseType=json',
+        // uploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images&responseType=json',
+        uploadUrl: 'https://example.com/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images&responseType=json',
         openerMethod: 'modal',
         // options: {
         //     resourceType: 'Images',

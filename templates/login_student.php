@@ -31,7 +31,7 @@
 					<input type="password" name="password" class=" form-control" placeholder="Password" style="margin-bottom:5px;">
 					<span class="input-icon"><i class="icon-lock"></i></span>
 				</div>
-				<?php displayMessage(); ?>
+				
 				<p class="small">
 					<a href="#">Forgot Password?</a>
 				</p>
