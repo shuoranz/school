@@ -18,6 +18,9 @@
     <!-- GOOGLE WEB FONT -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Raleway:400,500,600,700,800" rel="stylesheet">
     
+	<!-- REVOLUTION BANNER CSS SETTINGS -->
+	<link href="rs-plugin/css/settings.css" media="screen" rel="stylesheet">
+	
     <!-- CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/superfish.css" rel="stylesheet">
@@ -107,6 +110,9 @@
 					</ul>
 				</li>
 				<li class="normal_drop_down">
+					<a href="/team/">Counseling Team</a>
+				</li>
+				<li class="normal_drop_down">
 					<a href="/forum/">Forum</a>
 				</li>
 				<!--
@@ -116,7 +122,8 @@
 				-->
 				<li><a href="/blog/?p=1">Blog</a></li>
 				<li><a href="/news/">News</a></li>
-				<li><a href="/contact/">Contact Us</a></li>
+				<li><a href="/about_us/">About Us</a></li>
+				<li><a href="/join_us/">Join Us</a></li>
 			</ul>
             
             <div class="col-md-3 pull-right hidden-sm hidden-xs">
