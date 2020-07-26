@@ -65,6 +65,16 @@ function getUser(){
 }
 
 //check whether user is admin (top)
+function isSuperAdmin(){
+	if (!isLoggedIn()){
+		return false;
+	}
+	if (!isset($_SESSION['role']) || empty($_SESSION['role'])){
+		return false;
+	}
+	return $_SESSION['role'] === "superAdmin" ? true : false;
+}
+//check whether user is admin
 function isAdmin(){
 	if (!isLoggedIn()){
 		return false;
@@ -72,7 +82,7 @@ function isAdmin(){
 	if (!isset($_SESSION['role']) || empty($_SESSION['role'])){
 		return false;
 	}
-	return $_SESSION['role'] === "admin" ? true : false;
+	return $_SESSION['role'] === "admin" || isSuperAdmin() ? true : false;
 }
 
 //check whether user is teacher or above

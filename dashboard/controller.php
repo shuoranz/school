@@ -87,12 +87,32 @@
 	
 	function course_category_create()
 	{
-		
+		if (!isset($_REQUEST['category']))
+		{
+			exit("wrong parameter");
+		}
+		$courseModel = new CourseModel;
+		$data['create_category'] = $_REQUEST['category'];
+		$courseModel->createCategory($data);
+		echo "success";
 	}
 	
 	function course_course_create()
 	{
-		
+		if (!isset($_REQUEST['course_title'])
+			|| !isset($_REQUEST['user_id'])
+			|| !isset($_REQUEST['course_description'])
+			|| !isset($_REQUEST['category_id']))
+		{
+			exit("wrong parameter");
+		}
+		$courseModel = new CourseModel;
+		$data['course_title'] = $_REQUEST['course_title'];
+		$data['user_id'] = $_REQUEST['user_id'];
+		$data['course_description'] = $_REQUEST['course_description'];
+		$data['category_id'] = $_REQUEST['category_id'];
+		$courseModel->createCourse($data);
+		echo "success";
 	}
 	
 	function course_video_create()

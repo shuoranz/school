@@ -5,22 +5,31 @@ class CourseModel {
         $this->db = new Database;
     }
     // get all courses
-    public function getAllCourses($category_id){
+    public function getAllCourses($category_id, $user_id){
 		$categoryCondition = $category_id == "" ? "1" : "course.category_id = :category_id";
+		$userCondition = $user_id == "" ? "1" : "course.created_by = :user_id";
         $this->db->query("select course.*, users.username, users.avatar, course_category.name 
                           from course inner join users on course.created_by = users.id 
                                     inner join course_category on course.category_id = course_category.id 
-									where $categoryCondition 
+									where $categoryCondition and $categoryCondition and course.deleted = 0
                                     order by course.id asc");
         $this->db->bind(':category_id',$category_id);
+		if ($userCondition != "1"){
+			$this->db->bind(':user_id',$user_id);
+		}
+		
         //Assign Result Set
         $results = $this->db->resultset();
         return $results;
     }
-	public function getCourseVideosByCourseId($course_id) {
+	public function getCourseVideosByCourseId($course_id, $user_id = "") {
+		$userCondition = $user_id == "" ? "1" : "created_by = :user_id";
         $this->db->query("select * from course_video
-                                    where course_id = :course_id");
-        $this->db->bind(':course_id',$course_id);
+                                    where deleted = 0 and course_id = :course_id and " . $userCondition);
+        if ($userCondition != "1") {
+			$this->db->bind(':user_id',$user_id);
+		}
+		$this->db->bind(':course_id',$course_id);
         //Assign Result Set
         $results = $this->db->resultset();
         return $results;
@@ -35,6 +44,13 @@ class CourseModel {
         $results = $this->db->resultset();
         return $results[0];
     }
+	public function getCategoryById($category_id) {
+		$this->db->query("select * from course_category where id = :id");
+        $this->db->bind(':id',$category_id);
+        //Assign Result Set
+        $results = $this->db->resultset();
+        return $results[0];
+	}
 	public function getVideoById($video_id) {
         $this->db->query("select * from course_video where id = :video_id");
         $this->db->bind(':video_id',$video_id);
@@ -42,6 +58,25 @@ class CourseModel {
         $results = $this->db->resultset();
         return $results[0];
     }
+	public function searchVideosByAttribute($search_title, $search_teacher)
+	{
+		if ($search_title == "" && $search_teacher == ""){
+			return array();
+		}
+		$titleCondition = $search_title == "" ? "1" : "cv.title like :search_title";
+		$teacherCondition = $search_teacher == "" ? "1" : "u.username like :search_teacher";
+        $this->db->query("select cv.*, u.*, c.title as course_title from course_video cv inner join users u on cv.created_by = u.id inner join course c on c.id = cv.course_id
+                                    where cv.deleted = 0 and " . $titleCondition . " and " . $teacherCondition);
+        if ($titleCondition != "1") {
+			$this->db->bind(':search_title','%'.$search_title.'%');
+		}
+		if ($teacherCondition != "1") {
+			$this->db->bind(':search_teacher','%'.$search_teacher.'%');
+		}
+        //Assign Result Set
+        $results = $this->db->resultset();
+        return $results;
+	}
     public function getCourseReplyCount($course_id) {
         $this->db->query("select id from course_reply where course_id = :course_id");
         $this->db->bind(':course_id',$course_id);
@@ -101,6 +136,30 @@ class CourseModel {
             return false;
         }
     }
+	
+	public function createCourse($data) {
+        $this->db->query("insert into course (`title`, `description`, `category_id`, `created_by`, `create_date`, `status`)
+        values (:title, :description, :category_id, :created_by, :create_date, :status)");
+        
+		$data['course_title'] = $_REQUEST['course_title'];
+		$data['user_id'] = $_REQUEST['user_id'];
+		$data['course_description'] = $_REQUEST['course_description'];
+		$data['category_id'] = $_REQUEST['category_id'];
+		
+        $this->db->bind(':title',$data['course_title']);
+        $this->db->bind(':created_by', $data['user_id']);
+        $this->db->bind(':description', $data['course_description']);
+        $this->db->bind(':category_id', $data['category_id']);
+		$this->db->bind(':status', 'pending');
+        $this->db->bind(':create_date',date("Y-m-d H:i:s"));
+        
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+	
 	public function createVideo($data) {
         $this->db->query("insert into course_video (`title`, `description`, `url`, `course_id`, `created_by`, `create_date`, `status`)
         values (:title, :description, :url, :course_id, :created_by, :create_date, :status)");
@@ -125,6 +184,22 @@ class CourseModel {
             return false;
         }
     }
+	
+	public function createCategory($data)
+	{
+		$this->db->query("insert into course_category (`category`, `name`) values (:category, :name)");
+		
+        $this->db->bind(':category',$data['create_category']);
+        $this->db->bind(':name',$data['create_category']);
+        
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+	}
+	
+	
     public function postCourseComment($data) {
         $this->db->query("insert into course_reply(created_by, body, course_id, replyee_id, comment_id) 
         values (:created_by, :body, :course_id, :replyee_id, :comment_id)");

@@ -42,7 +42,7 @@ ul#top_nav li a{
 	color:#ccc;
 }
 ul#top_nav li a:hover{
-	color:#fff;
+	color:#000;
 }
 ul#top_nav li:first-child{
 	border-left: none;
@@ -343,7 +343,7 @@ footer hr{
 a.button_top {
 	border:none;
 	margin-top:5px;
-	background:#292929;
+	background:#30d9a4;
 	color:#fff;
 	font-size:11px;
 	padding:5px 16px 2px 16px;
@@ -368,7 +368,8 @@ a.button_top#apply {
 	background: #F66;
 	
 }
-a.button_top:hover {background:#30d9a4; color:#fff;}
+a.button_top:hover {background:#292929; color:#fff;}
+
 
 a.button_medium, .button_medium {
 	border:none;

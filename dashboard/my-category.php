@@ -8,7 +8,9 @@
 //Create User Object
 //$user = new User;
 
-
+if(!isAdmin()){
+	redirect('/login/','You need to log in', 'success');
+}
 $courseModel = new CourseModel;
 //Get Template and Assign Vars
 $template = new Template('templates/manage_category.php');

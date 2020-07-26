@@ -104,7 +104,7 @@
                                         <tr>
                                             <th colspan="7">Manage Courses</th>
                                             <th colspan="1">
-												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addStudentDiv">
+												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCourseDiv">
 													<i class="fe fe-plus mr-2"></i>Add Course
 												</button>
 											</th>
@@ -163,6 +163,54 @@
     </div>    
 </div>
 
+<!-- Add New Task -->
+<div class="modal fade" id="addCourseDiv" tabindex="-1" role="dialog" style="top:90px;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="title" id="defaultModalLabel">Add New Course</h6>
+            </div>
+            <div class="modal-body">
+                <div class="row clearfix">
+					<div class="col-12">
+                        <div class="form-group">                                    
+                            <input type="text" class="form-control" placeholder="Course Title" id="course_title">
+                        </div>
+                    </div>
+					<div class="col-12">
+                        <div class="form-group">
+							<p>category: </p>
+                            <select class="form-control show-tick" id="">
+                                <option disabled selected><?php echo $category['name']; ?></option>
+                            </select>
+                        </div>
+                    </div>
+					<div class="col-12">
+                        <div class="form-group">                                    
+                            <textarea class="form-control" placeholder="Course Description" id="course_description"></textarea>
+                        </div>
+                    </div>
+					<input type="hidden" name="user_id" id="user_id" value="1">
+					<!--
+					<div class="col-12">
+                        <div class="form-group">
+                            <select class="form-control show-tick" id="create_teacher_duration">
+                                <option disabled selected>Select Duration</option>
+                                <option value="2">7 days</option>
+                                <option value="1">1 year</option>
+                            </select>
+                        </div>
+                    </div>
+					-->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="addCourseBtn">Create</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="../assets/bundles/lib.vendor.bundle.js"></script>
 
@@ -173,5 +221,40 @@
 
 <script src="../assets/js/core.js"></script>
 <script src="../assets/js/page/project-index.js"></script>
+<script type="text/javascript">
+
+	$("#addCourseBtn").click(function(){
+		var course_title = $("#course_title").val();
+		var course_description = $("#course_description").val();
+		var category_id = <?php echo $category['id']; ?>;
+		var user_id = $("#user_id").val();
+		
+		if (course_title == null || course_description == null || category_id == null || user_id == null){
+			alert("error, please check all your inputs");
+			return false;
+		}
+		
+		$.post("controller", 
+		{
+			action: "course_course_create",
+			course_title: course_title,
+			course_description: course_description,
+			category_id: category_id,
+			user_id: user_id
+		},
+		function(data, status){
+			//alert("Data: " + data + "\nStatus: " + status);
+			if ( status === "success" && data.indexOf("success") !== -1 ){
+				alert("success!");
+				setTimeout(function(){ location.reload(); }, 1000);
+				
+			} else {
+				alert("something wrong in backend");
+				return false;
+			}
+		});
+	});
+	
+</script>
 </body>
 </html>

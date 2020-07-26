@@ -8,7 +8,9 @@
 //Create User Object
 //$user = new User;
 
-
+if(!isAdmin()){
+	redirect('/login/','You need to log in', 'success');
+}
 $courseModel = new CourseModel;
 //Get Template and Assign Vars
 $template = new Template('templates/manage_video.php');
@@ -18,6 +20,7 @@ $courseId = !isset($_GET["course"]) || $_GET["course"] == 0 ? "" : (int)$_GET["c
 
 $template->course = $courseModel->getCourseById($courseId);
 
+$template->currentUser = getUser();
 $videos = array();
 //foreach($template->courses as $oneCourse){
 	//$courseId = $oneCourse["id"];
