@@ -18,6 +18,9 @@
     <!-- GOOGLE WEB FONT -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Raleway:400,500,600,700,800" rel="stylesheet">
     
+	<!-- REVOLUTION BANNER CSS SETTINGS -->
+	<link href="rs-plugin/css/settings.css" media="screen" rel="stylesheet">
+	
     <!-- CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/superfish.css" rel="stylesheet">
@@ -36,7 +39,7 @@
 	<script src="/js/retina.min.js"></script>
 	<script src="/assets/validate.js"></script>
 	<script src="/js/jquery.placeholder.js"></script>
-	<script src="/js/functions.js"></script>
+	
 	<script src="/js/classie.js"></script>
 	<script src="/js/uisearch.js"></script>
 
@@ -45,7 +48,6 @@
       <script src="http://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="http://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
-
   </head>
   
   <body>
@@ -107,6 +109,9 @@
 					</ul>
 				</li>
 				<li class="normal_drop_down">
+					<a href="/team/">Counseling Team</a>
+				</li>
+				<li class="normal_drop_down">
 					<a href="/forum/">Forum</a>
 				</li>
 				<!--
@@ -116,7 +121,8 @@
 				-->
 				<li><a href="/blog/?p=1">Blog</a></li>
 				<li><a href="/news/">News</a></li>
-				<li><a href="/contact/">Contact Us</a></li>
+				<li><a href="/about_us/">About Us</a></li>
+				<li><a href="/join_us/">Join Us</a></li>
 			</ul>
             
             <div class="col-md-3 pull-right hidden-sm hidden-xs">
@@ -137,5 +143,5 @@
 </div><!-- End container -->
 </nav>
 <script src="/js/messageAnimation.js"></script>
-
+<script src="/js/functions.js"></script>
 
