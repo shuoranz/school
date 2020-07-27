@@ -1,5 +1,5 @@
 <?php include('includes/header.php'); ?>
-
+	<link href="/css/homepage.css" rel="stylesheet">
     <section class="tp-banner-container">
 		<div class="tp-banner" >
 			<ul class="sliderwrapper">	<!-- SLIDE  -->
@@ -280,66 +280,99 @@
 		</div>
 	</section><!-- End slider -->
     
+	
+	
     <section id="main-features">
     <div class="divider_top_black"></div>
     <div class="container">
         <div class="row">
             <div class=" col-md-10 col-md-offset-1 text-center">
-				<!--
-				<h2>College Counseling made Easy for High School Counselors and students</h2>
-                <p class="lead">
-                    This platform is dedicated to college success for college bound students by offering them support and coaching through a series of free videos offered by professional and certified college counselors.  The videos cover all the topics students should know about, from how to apply for college, financial aid and scholarships, to summer programs and college life.  The step by step recommendations help students and parents gain knowledge to navigate the college preparation and application process, as well as lightens the burden on high school counselors by streamlining the entire college counseling and college application process with innovative tools.
-                </p>
-				
-                <h2>Premium Videos with Extensive College Counseling Content made by Professional and Certified College Counselors</h2>
-                <p class="lead">
-                    We are a team of College Counseling experts with extensive knowledge on the ever-evolving admissions landscape. We know what the students need, thought hard about the need, and designed a program specifically for it to include cutting-edge educational best practices to help students break down their goals and make them painlessly achievable and fun!
-                </p>
-				-->
 				<h2>Why Us?</h2>
             </div>
         </div>
         <div class="row">
-			<div class="col-md-6">
+			<div class="col-md-3">
                 <div class="feature">
                     <i class="icon-video"></i>
                     <h3>100+ Video lessons and counting</h3>
-                    <p>
-                        Lorem ipsum dolor sit amet, vix erat audiam ei. Cum doctus civibus efficiantur in. Nec id tempor imperdiet deterruisset, doctus volumus explicari qui ex, appareat similique an usu.
-                    </p>
+					<p></p>
                 </div>
             </div>
-			<div class="col-md-6">
+			<div class="col-md-3">
                 <div class="feature">
                     <i class="icon-trophy"></i>
                     <h3>Expert Counseling Team</h3>
-                    <p>
-                        Lorem ipsum dolor sit amet, vix erat audiam ei. Cum doctus civibus efficiantur in. Nec id tempor imperdiet deterruisset, doctus volumus explicari qui ex, appareat similique an usu.
-                    </p>
+					<p></p>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <div class="feature">
                     <i class="icon-mic"></i>
                     <h3>One-Stop College Counseling</h3>
-                    <p>
-                        Lorem ipsum dolor sit amet, vix erat audiam ei. Cum doctus civibus efficiantur in. Nec id tempor imperdiet deterruisset, doctus volumus explicari qui ex, appareat similique an usu.
-                    </p>
+					<p></p>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <div class="feature">
                     <i class=" icon-ok-4"></i>
                     <h3>Track progress and stimulate motivation</h3>
-                    <p>
-                        Lorem ipsum dolor sit amet, vix erat audiam ei. Cum doctus civibus efficiantur in. Nec id tempor imperdiet deterruisset, doctus volumus explicari qui ex, appareat similique an usu.
-                    </p>
+					<p></p>
                 </div>
             </div>
         </div><!-- End row -->
         </div><!-- End container-->
     </section><!-- End main-features -->
-    
+    				<h2></h2>
+                
+				
+                
+                
+	<section id="main_content">
+		<div class="divider_top_black"></div>
+		<div class="container">
+			<!--
+			<div class="row">
+				<div class=" col-md-10 col-md-offset-1 text-center">
+					<h2>Join Us</h2>
+				</div>
+			</div>
+			-->
+			<div class="row">
+				<div class="col-md-3">
+					<div class="feature feature-1">
+						<img src="/img/teacher_video.svg" alt="collge counseling">
+					</div>
+				</div>
+				<div class="col-md-9">
+					<div class="feature feature-1">
+						<h3>College Counseling made Easy for High School Counselors and students</h3>
+						<p class="lead">
+							This platform is dedicated to college success for college bound students by offering them support and coaching through a series of free videos offered by professional and certified college counselors.  The videos cover all the topics students should know about, from how to apply for college, financial aid and scholarships, to summer programs and college life.  The step by step recommendations help students and parents gain knowledge to navigate the college preparation and application process, as well as lightens the burden on high school counselors by streamlining the entire college counseling and college application process with innovative tools.
+						</p>
+					</div>
+				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-md-9">
+					<div class="feature feature-1">
+						<h3>Premium Videos with Extensive College Counseling Content made by Professional and Certified College Counselors</h3>
+						<p class="lead">
+							We are a team of College Counseling experts with extensive knowledge on the ever-evolving admissions landscape. We know what the students need, thought hard about the need, and designed a program specifically for it to include cutting-edge educational best practices to help students break down their goals and make them painlessly achievable and fun!
+						</p>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="feature feature-1">
+						<img src="/img/teacher_book.svg" alt="collge counseling">
+					</div>
+				</div>
+			</div><!-- End row -->
+        </div><!-- End container-->
+    </section><!-- End main-features -->	
+				
+				
+				
     <section id="main_content_gray">
     	<div class="container">
         	<div class="row">
@@ -494,7 +527,137 @@
                 </div>
             </div>
         </div>
-       </section><!-- End testimonials -->
+    </section><!-- End testimonials -->
+	
+	
+	
+	<section id="main_content_gray">
+    	<div class="container">
+        	<div class="row">
+				<div class="col-md-12 text-center">
+					<h2>Latest News </h2>
+					<br>
+					<br>
+					<!--<p class="lead">Lorem ipsum dolor sit amet, ius minim gubergren ad.</p>-->
+				</div>
+			</div><!-- End row -->
+        
+			<div class="row">
+			
+				<?php for ($i=0; $i<4; $i++) { ?>
+				<div class="col-lg-3 col-md-6 col-sm-6">
+					<div class="col-item">
+						<div class="photo">
+							<a href="#"><img src="img/art.jpg" alt="" /></a>
+							<div class="cat_row"><a href="#">ART</a><span class="pull-right"><i class=" icon-mic"></i>teacher name</span></div>
+						</div>
+						<div class="info">
+							<div class="row">
+								<div class="course_info col-md-12 col-sm-12">
+									<h4>Impressionist</h4>
+									<p > Lorem ipsum dolor sit amet, no sit sonet corpora indoctum, quo ad fierent insolens. Duo aeterno ancillae ei. </p>
+									<!--
+									<div class="rating">
+										<i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>
+									</div>
+									<div class="price pull-right">199$</div>
+									-->
+								</div>
+							</div>
+							<!--
+							<div class="separator clearfix">
+								<p class="btn-add"> <a href="apply_2.html"><i class="icon-export-4"></i> Subscribe</a></p>
+								<p class="btn-details"> <a href="course_details_1.html"><i class=" icon-list"></i> Details</a></p>
+							</div>
+							-->
+						</div>
+					</div>
+				</div>
+				<?php } ?>      
+							
+	   
+			</div><!-- End row -->
+			<div class="row">
+				<div class="col-md-12">
+					 <a href="/news/" class="button_medium_outline pull-right">View all news</a>
+				</div>
+			</div>
+        </div>   <!-- End container -->
+    </section><!-- End section gray -->
+	
+	
+	<section id="testimonials_2">
+        <div class="container">
+            <div class="row">
+                <div class='col-md-offset-2 col-md-8 text-center'>
+                    <h2 style="font-size:40px;">Participating High Schools</h2>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='col-md-offset-2 col-md-8'>
+                    <div class="carousel slide" data-ride="carousel" id="quote-carousel">
+                        <!-- Bottom Carousel Indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-target="#quote-carousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#quote-carousel" data-slide-to="1"></li>
+                            <li data-target="#quote-carousel" data-slide-to="2"></li>
+                        </ol>
+                        <!-- Carousel Slides / Quotes -->
+                        <div class="carousel-inner">
+                            <!-- Quote 1 -->
+                            <div class="item active">
+                                <blockquote>
+                                    <div class="row">
+                                        <div class="col-sm-3 text-center">
+                                            <img class="img-circle" src="img/testimonial_1.jpg" alt="">
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p>
+                                                Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit!
+                                            </p>
+                                            <small>Someone famous</small>
+                                        </div>
+                                    </div>
+                                </blockquote>
+                            </div>
+                            <!-- Quote 2 -->
+                            <div class="item">
+                                <blockquote>
+                                    <div class="row">
+                                        <div class="col-sm-3 text-center">
+                                            <img class="img-circle" src="img/testimonial_2.jpg" alt="">
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam auctor nec lacus ut tempor. Mauris.
+                                            </p>
+                                            <small>Someone famous</small>
+                                        </div>
+                                    </div>
+                                </blockquote>
+                            </div>
+                            <!-- Quote 3 -->
+                            <div class="item">
+                                <blockquote>
+                                    <div class="row">
+                                        <div class="col-sm-3 text-center">
+                                            <img class="img-circle" src="img/testimonial_1.jpg" alt="">
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut rutrum elit in arcu blandit, eget pretium nisl accumsan. Sed ultricies commodo tortor, eu pretium mauris.
+                                            </p>
+                                            <small>Someone famous</small>
+                                        </div>
+                                    </div>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- End testimonials -->
 
 <footer>
 <div class="container">

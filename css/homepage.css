@@ -1,0 +1,11 @@
+.feature-1 > p {
+	font-size: 16px;
+	line-height: 1.6;
+}
+#main_content_gray h2, h3, p {
+	color: #503920;
+}
+
+#main_content h2, h3, p {
+	color: #000;
+}

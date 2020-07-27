@@ -114,7 +114,8 @@ a#logo {
 }
 #main_content_gray{
 	padding:60px 0 30px 0;
-	background-color:#fafafa;
+	/* background-color:#fafafa; */
+	background-color: #faf7f5;
 }
 #announce{
 	padding:60px 0;
@@ -700,9 +701,15 @@ a.button_fullwidth-3:hover, .button_fullwidth-3:hover  {background:#262c2d; colo
 	font-weight:600;
 	padding:60px 0;
 }
+#main-features .feature {
+	padding-left: 65px;
+	position:relative;
+	padding-bottom: 1px;
+}
 .feature {
 	padding-left: 95px;
 	position:relative;
+	padding-bottom: 1px;
 }
 .feature i{
 	margin:0;
@@ -713,7 +720,7 @@ a.button_fullwidth-3:hover, .button_fullwidth-3:hover  {background:#262c2d; colo
 	margin:0;
 	width:65px;
 	height:65px;
-	line-height:60px;
+	line-height:65px;
 	text-align:center;
 	-webkit-border-radius: 50%;
 	-moz-border-radius: 50%;
@@ -722,7 +729,42 @@ a.button_fullwidth-3:hover, .button_fullwidth-3:hover  {background:#262c2d; colo
 	font-size:26px;
 	color:#1abc9c;
 }
-
+#main_content .feature i{
+	margin:0;
+	position:absolute; 
+	top:0;
+	left:0;
+	padding:0;
+	margin:0;
+	width:65px;
+	height:65px;
+	line-height:65px;
+	text-align:center;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	border:2px solid silver;
+	font-size:26px;
+	color:#1abc9c;
+}
+#main-features .feature i{
+	margin:0;
+	position:absolute; 
+	top:-5px;
+	left:0;
+	padding:0;
+	margin:0;
+	width:50px;
+	height:50px;
+	line-height:50px;
+	text-align:center;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	border:2px solid #fff;
+	font-size:20px;
+	color:#FFC;
+}
 #main-features_green .feature i{
 	margin:0;
 	position:absolute; 
@@ -745,7 +787,36 @@ a.button_fullwidth-3:hover, .button_fullwidth-3:hover  {background:#262c2d; colo
 	background: #1abc9c url(../img/users_bg.jpg) repeat 0 0;
 	padding:60px 0;
 	color:#fff;
+}
+#testimonials_2 {
+	background: white url(../img/school-logos-1.png) repeat 0 0;
+	background-size: 450px 420px;
+	padding:60px 0;
+	color:#000;
+}
+/*
+#testimonials_2 .container::after{
+	position: relative;
+	color: #ffffff;  
+	font-size: 14rem;
+	line-height: 0.9;
+	text-align: center;
+	opacity: 1;
+}
+#testimonials_2::after {
+	background: #1abc9c url(../img/school-logos.jpg) repeat 0 0;
+	padding:60px 0;
+	color:#fff;
+	content: "";
+      background-size: cover;
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+      opacity: 0.75;
 	}
+*/
 .container_count {
 	width:60px;
 	display:inline-block;
