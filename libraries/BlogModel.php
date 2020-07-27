@@ -82,7 +82,10 @@ class BlogModel {
         $this->db->bind(':blog_id',$blog_id);
         //Assign Result Set
         $results = $this->db->resultset();
-        return $results[0];
+        if(count($results) == 1) {
+            return $results[0];
+        }
+        return NULL;
     }
     public function getAllCategories() {
         $this->db->query("select * from blog_category where deleted = 0");
@@ -90,7 +93,7 @@ class BlogModel {
         return $result;
     }
     public function getBlogReplyCount($blog_id) {
-        $this->db->query("select id from blog_reply where blog_id = :blog_id");
+        $this->db->query("select id from blog_reply where blog_id = :blog_id and deleted = 0");
         $this->db->bind(':blog_id',$blog_id);
         $rows = $this->db->resultset();
         return $this->db->rowCount();
@@ -134,6 +137,33 @@ class BlogModel {
             return false;
         }
     }
+    public function edit($data, $blog_id) {
+        $sql = "update blog set category_id = :category_id,
+                                          user_id = :user_id,
+                                          tag = :tag,".
+                                          (isset($data['cover'])?"cover = :cover,":"").
+                                          "title = :title,
+                                          body = :body,
+                                          last_activity = :last_activity
+                          where id = :blog_id";
+        $this->db->query($sql);
+        
+        $this->db->bind(':category_id',$data['category_id']);
+        $this->db->bind(':user_id',$data['user_id']);
+        $this->db->bind(':tag', $data['tag']);
+        if(isset($data['cover'])) {
+            $this->db->bind(':cover', $data['cover']);
+        }
+        $this->db->bind(':title',$data['title']);
+        $this->db->bind(':body',$data['body']);
+        $this->db->bind(':last_activity',date("Y-m-d H:i:s"));
+        $this->db->bind(':blog_id', $blog_id);
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
     public function postBlogComment($data) {
         $this->db->query("insert into blog_reply(user_id, body, blog_id, replyee_id, comment_id) 
         values (:user_id, :body, :blog_id, :replyee_id, :comment_id)");
@@ -151,7 +181,7 @@ class BlogModel {
     public function getCommentsByBlog_id($blog_id) {
         $this->db->query("select blog_reply.*, users.username, users.avatar from 
                         blog_reply inner join users on blog_reply.user_id = users.id
-                        where blog_id = :blog_id and replyee_id = -1 and comment_id = -1 and blog_reply.deleted = 0
+                        where blog_id = :blog_id and replyee_id = -1 and comment_id = -1
                         ");
         $this->db->bind(':blog_id', $blog_id);
         $results = $this->db->resultset();
@@ -279,6 +309,16 @@ class BlogModel {
         $this->db->query("update blog_reply set body = :body
                                   where id = :id");
         $this->db->bind(":body", $body);
+        $this->db->bind(":id", $id);
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function deleteBlogReply($id) {
+        $this->db->query("update blog_reply set deleted = 1
+                                  where id = :id");
         $this->db->bind(":id", $id);
         if($this->db->execute()){
             return true;

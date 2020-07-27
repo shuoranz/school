@@ -53,21 +53,14 @@
                
                 
 				<div class="widget">
-					<h4>Recent post</h4>
+					<h4>Feture post</h4>
                     
 					<ul class="recent_post">
 						<li>
 						<i class="icon-calendar-empty"></i> 16th July, 2020
 						<div><a href="#">It is a long established fact that a reader will be distracted </a></div>
 						</li>
-						<li>
-						<i class="icon-calendar-empty"></i> 16th July, 2020
-						<div><a href="#">It is a long established fact that a reader will be distracted </a></div>
-						</li>
-						<li>
-						<i class="icon-calendar-empty"></i> 16th July, 2020
-						<div><a href="#">It is a long established fact that a reader will be distracted </a></div>
-						</li>
+						
 					</ul>
 				</div><!-- End widget -->
                 
@@ -76,9 +69,6 @@
 					<a href="#">Lorem ipsum</a>
 					<a href="#">Dolor</a>
 					<a href="#">Long established</a>
-					<a href="#">Sit amet</a>
-					<a href="#">Latin words</a>
-					<a href="#">Excepteur sint</a>
 				</div><!-- End widget -->
                 
 			</div><!-- End box-sidebar -->
@@ -88,7 +78,7 @@
 		 <?php if ($isAdmin) : ?>
 			<a href="/blog/create" 
 			 style="border: 1px solid black; padding: 5px 10px; background-color: grey; color: white;">
-			 create(仅admin) 
+			 create(Only Admin) 
 			</a>
 		 <?php endif; ?>
 		 <div class="sort-container" >
@@ -112,7 +102,7 @@
 	 <?php foreach ($blogs as $blog) : ?>
      		<div class="post">
 				 <?php if($isAdmin): ?>
-					<a href=<?php echo "/blog/edit/?id=" . $blog['id'] ?> class="edit-link"> 
+					<a href=<?php echo "/blog/edit/?id=".$blog['id'] ?> class="edit-link"> 
 						<i class="icon-edit"></i>
 					 </a>
 					 <button class="post-delete" onclick="deleteBlog(<?php echo $blog['id'] ?>)"> 
@@ -123,7 +113,7 @@
 				</div>
 			    <div class="right">
 					<div class="blog-title-container">
-						<a class="blog-title-link" href="/blog/thread/?id= <?php echo $blog['id']; ?>" title="single_post.html">
+						<a class="blog-title-link" href="/blog/thread/?id=<?php echo $blog['id']; ?>" title="single_post.html">
 							<h2 class='blog-title'><?php echo $blog['title'] ?></h2>
 						</a>
 					</div>

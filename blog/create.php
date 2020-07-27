@@ -4,7 +4,7 @@
 ?>
 <?php 
 if(!isAdmin()) {
-    redirect('/blog', 'You are not admin!','error');
+    redirect('/blog/?p=1', 'You are not admin!','error');
 }
 //Create Blog object
 $blog = new BlogModel;

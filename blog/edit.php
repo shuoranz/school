@@ -4,14 +4,16 @@
 ?>
 <?php 
 if(!isAdmin()) {
-    redirect('/blog', 'You are not admin!','error');
+    redirect('/blog/?p=1', 'You are not admin!','error');
 }
 //Create Blog object
+if(!isset($_GET['id'])||(!is_numeric($_GET['id']) || strpos($_GET['id'],"." ))) {
+    redirect('/blog/?p=1','Invalid URL!','error');
+}
 $blog = new BlogModel;
-if (isset($_POST['do_create'])){
+if (isset($_POST['post_edit'])){
     //Create Validator object
     $validate = new Validator;
-    
     //Create data array
     $data = array();
     $data['title'] = $_POST['title'];
@@ -29,17 +31,15 @@ if (isset($_POST['do_create'])){
             move_uploaded_file($_FILES["cover"]["tmp_name"], "cover/" . $timestampFileName);
             $data['cover'] = "/blog/cover/" . $timestampFileName;
         } else {
-            redirect('/blog/create', 'Only jpeg jpg png are allowed for Cover image', 'error');
+            redirect('/blog/edit/?id='.$_GET['id'], 'Only jpeg jpg png are allowed for Cover image', 'error');
         }
-    } else {
-        redirect('/blog/create', 'You must upload a cover image','error');
-    }
+    } 
 
     //Required Fields
     $field_array = array('title','body','category_id');
     
     if($validate->isRequired($field_array)){
-        if($blog->create($data)){
+        if($blog->edit($data, $_GET['id'])){
             redirect('/blog/?p=1', 'Your blog has been posted', 'success');
         } else {
             redirect('create.php', 'Something went wrong with your post.', 'error');
@@ -50,8 +50,14 @@ if (isset($_POST['do_create'])){
     
 }
 //Get Template and Assign Vars
-$template = new Template($pre_position.'templates/blog_create.php');
+$blog_id = $_GET['id'];
+$cur_blog = $blog->getBlogById($blog_id);
+if($cur_blog == NULL) {
+    redirect('/blog/?p=1','Invalid URL!','error');
+}
 
+$template = new Template($pre_position.'templates/blog_edit.php');
+$template->blog = $cur_blog;
 //Assign Vars
 
 //Display template

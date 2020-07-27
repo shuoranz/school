@@ -35,5 +35,16 @@ if (isset($_POST['comment_reply'])) {
             redirect('/blog/thread/?id=' . $blog_id, 'Something went wrong!', 'error');
         }
     }
+} else if(isset($_POST['delete-reply'])) {
+    $id = $_POST['id'];
+    $blog_id = $_POST['blog_id'];
+    $field_array = array('id');
+    if($validate->isRequired($field_array)) {
+        if($blog->deleteBlogReply($id)) {
+            redirect('/blog/thread/?id=' . $blog_id, 'Your reply has been deleted', 'success');
+        } else {
+            redirect('/blog/thread/?id=' . $blog_id, 'Something went wrong!', 'error');
+        }
+    }
 }
 ?>

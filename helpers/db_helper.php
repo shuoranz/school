@@ -42,6 +42,12 @@
         //return result
         return $results;
     }
+    function getBlogTags() {
+        $db=new Database;
+        $db->query("select * from blog_tag where deleted = 0");
+        $result = $db->resultset();
+        return $result;
+    }
     //User Post Count
     function userPostCount($user_id){
         $db = new Database;

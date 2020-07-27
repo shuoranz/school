@@ -4,6 +4,9 @@
 ?>
 <?php
     $blog = new BlogModel; 
+    if(!isset($_GET['id'])||(!is_numeric($_GET['id']) || strpos($_GET['id'],"." ))) {
+        redirect('/blog/?p=1','Invalid URL!','error');
+    }
     $blog_id = $_GET['id'];
     $cur_blog = $blog->getBlogById($blog_id);
     $template = new Template($pre_position.'templates/blog.php');

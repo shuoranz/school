@@ -157,30 +157,48 @@ $(document).ready(function() {
 $('input, textarea').placeholder();
 
 function showReplyForm(event, replyee_id, comment_id, blog_id) {
-	$parent = $(event.target).parent();
-	if($parent.children(".reply-form").length == 0) {
-		$parent.append(
-			"<form action='/blog/reply' method='POST' class='reply-form' style='margin-top: 5px;'>\
-				<textarea rows='8' cols='100' name='body'></textarea>\
-				<input type='hidden' name='blog_id' value='" + blog_id + "'/> \
-				<input type='hidden' name='replyee_id' value='" + replyee_id + "' />\
-				<input type='hidden' name='comment_id' value='" + comment_id + "'/>\
-				<input type='submit' style='margin-top: 5px;' name='comment_reply' value='提交' />\
-			</form>");
+	if($(".reply-content #reply-form").length == 0) {
+		$parent = $(event.target).parent().parent();
+		var prevHtml = $parent.html();
+		if($parent.children(".reply-form").length == 0) {
+			$parent.append(
+				"<form action='/blog/reply' id='reply-form' method='POST' class='reply-form' style='margin-top: 5px;'\
+					onsubmit='$(\"#body-div\").val($(\"#edit-div\").text());'>\
+					<div id='edit-div' class='div-textarea' contenteditable='true'></div>\
+					<input type='hidden' name='blog_id' value='" + blog_id + "'/> \
+					<input type='hidden' name='replyee_id' value='" + replyee_id + "' />\
+					<input type='hidden' name='comment_id' value='" + comment_id + "'/>\
+					<input type='hidden' name='body' value='' id='body-div'/>\
+					<input type='submit' style='margin-top: 8px;' name='comment_reply' value='submit' />\
+				</form>\
+				<button id='reply-cancel' style='position:relative;top:8px;left:-10px; float: right'>Cancel</button>");
+			$("#reply-cancel").click(function(){
+				$parent.html(prevHtml);
+			});
+		}
 	}
 }	
 
 function showReplyCommentForm(event, replyee_id, comment_id, blog_id) {
-	$parent = $(event.target).parent().parent();
-	if($parent.children(".reply-form").length == 0) {
-		$parent.append(
-			"<form action='/blog/reply' method='POST' class='reply-form' style='margin-top: 5px;'>\
-				<textarea rows='8' cols='100' name='body'></textarea>\
-				<input type='hidden' name='blog_id' value='" + blog_id + "'/> \
-				<input type='hidden' name='replyee_id' value='" + replyee_id + "' />\
-				<input type='hidden' name='comment_id' value='" + comment_id + "'/>\
-				<input type='submit' style='margin: 8px 0px;' name='comment_reply' value='提交' />\
-			</form>");
+	if($(".reply-content #reply-form").length == 0) {
+		var $parent = $(event.target).parent().parent();
+		var prevHtml = $parent.html();
+		if($parent.children(".reply-form").length == 0) {
+			$parent.append(
+				"<form action='/blog/reply' id='reply-form' method='POST' class='reply-form' style='margin-top: 5px;'\
+					 onsubmit='$(\"#body-div\").val($(\"#edit-div\").text());'>\
+					<div id='edit-div' class='div-textarea' contenteditable='true'></div>\
+					<input type='hidden' name='blog_id' value='" + blog_id + "'/> \
+					<input type='hidden' name='replyee_id' value='" + replyee_id + "' />\
+					<input type='hidden' name='comment_id' value='" + comment_id + "'/>\
+					<input type='hidden' name='body' value='' id='body-div'/>\
+					<input type='submit' style='margin: 8px 0px;' name='comment_reply' value='submit' />\
+				</form>\
+				<button id='reply-cancel' style='position:relative;top:8px;left:-10px; float: right'>Cancel</button>");
+			$("#reply-cancel").click(function(){
+				$parent.html(prevHtml);
+			});
+		}
 	}
 }
 function toogleBlogSelect(event, name) {
@@ -240,38 +258,40 @@ function getRequest() {
 	return args;
 }
 function deleteBlog(blog_id) {
-	var popup = "<div id='delete-popup' style='position: fixed; \
-											   width: 400px; \
-											   height: 250px; \
-											   background-color: #eaeaea;\
-											   top:50%;\
-											   left:50%;\
-											   box-shadow: 0px 2px 8px 0px rgba(74,74,74,0.81);\
-											   border-radius: 10px;\
-											   transform: translate(-50%, -50%);\
-											   z-index: 5;\
-											   text-align: center'>\
-					<form method='POST' action='/blog/delete/?id=" + blog_id +"' style='width: 100%'>\
-						<div style='margin-top: 40px; font-size: 18px'>Are you sure you want to delete this blog?</div>\
-						<input type='hidden' name='blog_id' value='"+blog_id+"'>\
-						<div style='position: absolute; width: 100%; bottom: 40px;'>\
-							<div style='text-align: left'>\
-								<input style='background-color: red;\
-											   border:1px solid black;\
-											   border-radius: 2px;\
-											   color: whitesmoke;\
-											   margin-left: 50px;'\
-										type='submit' name='delete-post' value='Yes'>\
+	if($("body #delete-popup").length == 0) {
+		var popup = "<div id='delete-popup' style='position: fixed; \
+												width: 400px; \
+												height: 250px; \
+												background-color: #eaeaea;\
+												top:50%;\
+												left:50%;\
+												box-shadow: 0px 2px 8px 0px rgba(74,74,74,0.81);\
+												border-radius: 10px;\
+												transform: translate(-50%, -50%);\
+												z-index: 5;\
+												text-align: center'>\
+						<form method='POST' action='/blog/delete/?id=" + blog_id +"' style='width: 100%'>\
+							<div style='margin-top: 40px; font-size: 18px'>Are you sure you want to delete this blog?</div>\
+							<input type='hidden' name='blog_id' value='"+blog_id+"'>\
+							<div style='position: absolute; width: 100%; bottom: 40px;'>\
+								<div style='text-align: left'>\
+									<input style='background-color: red;\
+												border:1px solid black;\
+												border-radius: 2px;\
+												color: whitesmoke;\
+												margin-left: 50px;'\
+											type='submit' name='delete-post' value='Yes'>\
+								</div>\
 							</div>\
-						</div>\
-					</form>\
-					<button id='close-popup' style='position: absolute; bottom: 40px; right: 50px;'> No </button>\
-				 </div>";
-	$('body').append(popup);
-	$("#close-popup").click(function(event) {
-		event.preventDefault();
-		$('#delete-popup').remove();
-	});
+						</form>\
+						<button id='close-popup' style='position: absolute; bottom: 40px; right: 50px;'> No </button>\
+					</div>";
+		$('body').append(popup);
+		$("#close-popup").click(function(event) {
+			event.preventDefault();
+			$('#delete-popup').remove();
+		});
+	}
 }
 function likeOrUnlike(event, blog_id, like, cur_count) {
 	// since it's ajax, like parameter above can not only depend on what template rendered
@@ -324,26 +344,83 @@ function likeOrUnlike(event, blog_id, like, cur_count) {
 	});
 }
 function editReply(event,reply_id, cur_body, blog_id) {
-	var target = $(event.target);
-	var replyBody = target.parents(".reply-content").children(".reply-body"); 
-	var prevText = replyBody.html();
-	replyBody.html("<form method='POST' action='/blog/reply' onsubmit='processBlogReplyEdit()'>\
-						<div id='edit-div' class='div-textarea' contenteditable='true' name='body' >"+ cur_body +"</div>\
-						<input id='hidden-body' type='hidden' name='body' value=''>\
-						<input type='hidden' name='blog_id' value='"+ blog_id +"'>\
-						<input type='hidden' name='id' value='"+reply_id+"'>\
-						<input style='margin-top:10px;'type='submit' name='reply-edit' value='Save'>\
-					</form>\
-					<button id='reply-cancel' style='position: relative;\
-								   top: -26px;\
-								   left: 57px;'>\
-							cancel</button>");
-	$("#reply-cancel").click(function() {
-		replyBody.html(prevText);
-	});
-	
+	if($(".reply-body #edit-form").length == 0) {
+		var target = $(event.target);
+		var replyBody = target.parents(".reply-content").children(".reply-body"); 
+		var prevText = replyBody.html();
+		replyBody.html("<form method='POST' id='edit-form' action='/blog/reply' onsubmit='processBlogReplyEdit()'>\
+							<div id='edit-div' class='div-textarea' contenteditable='true' name='body' >"+ cur_body +"</div>\
+							<input id='hidden-body' type='hidden' name='body' value=''>\
+							<input type='hidden' name='blog_id' value='"+ blog_id +"'>\
+							<input type='hidden' name='id' value='"+reply_id+"'>\
+							<input style='margin-top:10px;'type='submit' name='reply-edit' value='Save'>\
+						</form>\
+						<button id='reply-cancel' style='position: relative;\
+									top: -26px;\
+									left: 57px;'>\
+								cancel</button>");
+		$("#reply-cancel").click(function() {
+			replyBody.html(prevText);
+		});
+	}	
 }
 function processBlogReplyEdit() {
 	$("#hidden-body").val($("#edit-div").text());
 }
+function deleteReply(reply_id, blog_id) {
+	if($('body #delete-popup').length == 0) {
+		var popup = "<div id='delete-popup' style='position: fixed; \
+												width: 400px; \
+												height: 250px; \
+												background-color: #eaeaea;\
+												top:50%;\
+												left:50%;\
+												box-shadow: 0px 2px 8px 0px rgba(74,74,74,0.81);\
+												border-radius: 10px;\
+												transform: translate(-50%, -50%);\
+												z-index: 5;\
+												text-align: center'>\
+						<form method='POST' action='/blog/reply' style='width: 100%'>\
+							<div style='margin-top: 40px; font-size: 18px'>Are you sure you want to delete this reply?</div>\
+							<input type='hidden' name='blog_id' value='"+blog_id+"'>\
+							<input type='hidden' name='id' value='"+reply_id+"'>\
+							<div style='position: absolute; width: 100%; bottom: 40px;'>\
+								<div style='text-align: left'>\
+									<input style='background-color: red;\
+												border:1px solid black;\
+												border-radius: 2px;\
+												color: whitesmoke;\
+												margin-left: 50px;'\
+											type='submit' name='delete-reply' value='Yes'>\
+								</div>\
+							</div>\
+						</form>\
+						<button id='close-popup' style='position: absolute; bottom: 40px; right: 50px;'> No </button>\
+					</div>";
+		
+		$('body').append(popup);
+		$("#close-popup").click(function(event) {
+			event.preventDefault();
+			$('#delete-popup').remove();
+		});
+	}
+}
+function processTags() {
+	var temp = [];
+	$("form input[type='checkbox'][name='tag']").each(
+		function() {
+			if($(this).is(':checked')) {
+				temp.push($(this).val());
+			} 
+		}
+	);
+	var returnStr = "";
+	returnStr = temp.join(",")
+	return returnStr;
+}
+function processFormSubmit() {
+	$("form input[name='tags'][type='hidden']").val(processTags());
+	document.getElementById('editor').value=window.editor.getData();
+}
+
 

@@ -175,7 +175,6 @@ body .post .post_info .post-right {
 	background-color: #fafbfc;
 }
 .comment-date {
-	float: right;
 	color: #a9a9a9;
 }
 .comment-owner-avatar {
@@ -195,8 +194,6 @@ body .post .post_info .post-right {
 	margin: 0px 90px;
 }
 .reply-button {
-    float:right;
-	margin-bottom: 15px;
 	border: none;
     background-color: transparent;
     color: #488dc6;
@@ -245,18 +242,22 @@ body .post .post_info .post-right {
 }
 .reply-content {
     position: relative;
-    width: 100%;
-    padding-bottom: 40px;
+	width: 100%;
+	padding-top: 7px;
+    padding-bottom: 45px;
 }
 .reply-body > span {
 	padding: 0px;
 	color: #969696;
 }
 .dateAndReply {
-    position: absolute;
+	position: absolute;
+	display: flex;
+	align-items: center;
     right: 3px;
 	bottom: 0px;
 	color: #a9a9a9;
+	font-family: Arial, Helvetica, sans-serif;
 }
 .replycomment {
 	margin-left: 7px;
@@ -379,7 +380,11 @@ figure.table table{
 	cursor: pointer;
 	margin: 0px 5px;
 }
-.comment_info span.reply-edit > i {
-	position: relative;
-	top:2px;
+.comment_info span.reply-delete {
+	padding: 0px;
+	cursor: pointer;
+	margin: 0px 5px;
+}
+.comment_info span.reply-delete:hover {
+	color: #d5361c;
 }
