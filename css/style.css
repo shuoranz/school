@@ -20,7 +20,7 @@ CSS STRUCTURE:
 body {
 	font-family: 'Raleway', Arial, Helvetica, sans-serif;
 	font-size:14px;
-	line-height:20px;
+	line-height:22px;	/* 20 */
 	margin:0;
 	background-color:#fff;
 	color:#2d4050;

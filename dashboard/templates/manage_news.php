@@ -1,6 +1,6 @@
 <?php
 
-	$pageUrl = "Teachers";
+	$pageUrl = "Blog";
 
 ?>
 <?php include 'includes/html_header.php'; ?>
@@ -21,11 +21,12 @@
                         </div>                        
                     </div>
                 </div>
+				<!--
                 <div class="row clearfix row-deck">
                     <div class="col-xl-2 col-lg-4 col-md-6">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Total Teacher</h3>
+                                <h3 class="card-title">Total Blog</h3>
                             </div>
                             <div class="card-body">
                                 <h5 class="number mb-0 font-32 counter">31</h5>
@@ -36,7 +37,7 @@
                     <div class="col-xl-2 col-lg-4 col-md-6">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Active Teacher</h3>
+                                <h3 class="card-title">Active Blog</h3>
                             </div>
                             <div class="card-body">
                                 <h5 class="number mb-0 font-32 counter">25</h5>
@@ -47,7 +48,7 @@
 					<div class="col-xl-2 col-lg-4 col-md-6">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Inactive Teacher</h3>
+                                <h3 class="card-title">Inactive Blog</h3>
                             </div>
                             <div class="card-body">
                                 <h5 class="number mb-0 font-32 counter">31</h5>
@@ -58,7 +59,7 @@
                     <div class="col-xl-2 col-lg-4 col-md-6">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Register Teacher</h3>
+                                <h3 class="card-title">Register Blog</h3>
                             </div>
                             <div class="card-body">
                                 <h5 class="number mb-0 font-32 counter">25</h5>
@@ -69,7 +70,7 @@
 					<div class="col-xl-2 col-lg-4 col-md-6">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Temporary Teacher</h3>
+                                <h3 class="card-title">Temporary Blog</h3>
                             </div>
                             <div class="card-body">
                                 <h5 class="number mb-0 font-32 counter">25</h5>
@@ -78,11 +79,13 @@
                         </div>
                     </div>
                 </div>
+				-->
             </div>
         </div>
 		<div class="section-body mt-3">
             <div class="container-fluid">
                 <div class="row clearfix">
+					<!--
 					<div class="col-12">
                         <div class="card">
                             <div class="card-body">
@@ -119,44 +122,50 @@
                             </div>
                         </div>
                     </div>
+					-->
                     <div class="col-12">
                         <div class="card">
                             <div class="table-responsive">
                                 <table class="table table-hover table-striped table-vcenter mb-0 text-nowrap">
                                     <thead>
                                         <tr>
-                                            <th colspan="8">Manage Teacher</th>
+                                            <th colspan="7">Manage News</th>
                                             <th colspan="1">
-												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addTeacherDiv">
-													<i class="fe fe-plus mr-2"></i>Add Teacher
+												<!--
+												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addStudentDiv">
+													<i class="fe fe-plus mr-2"></i>Add Student
 												</button>
+												-->
+												<a type="button" class="btn btn-primary" href="/news/create">
+													<i class="fe fe-plus mr-2"></i>Add News
+												</a>
 											</th>
                                         </tr>
                                         <tr>
                                             <!--<th class="w30">&nbsp;</th>-->
                                             <th>ID</th>
-                                            <th>Username</th>
-											<th>Status</th>
-											<th>First Name</th>
-											<th>Last Name</th>
-                                            <th>Email Address</th>
+                                            <th>Title</th>
+											<th>status</th>
+											<th>Category</th>
+                                            <!--<th>Tags</th>-->
+											<th>Created By</th>
                                             <th>Created Date</th>
-											<th>Last Activity</th>
-											<th>Valid Through</th>
+											<th>Published By</th>
+											<th>Published Date</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-										<?php foreach ($teachers as $teacher) : ?>
+										<?php foreach ($all_news as $blog) : ?>
 										<tr>
-                                            <td><a href="#"><?php echo $teacher['id']; ?></a></td>
-                                            <td><span><?php echo $teacher['username']; ?></span></td>
-                                            <td><span class="tag tag-default"><?php echo $teacher['role']; ?></span></td>
-                                            <td><span><?php echo $teacher['first_name']; ?></span></td>
-                                            <td><span><?php echo $teacher['last_name']; ?></span></td>
-                                            <td><span><?php echo $teacher['email']; ?></span></td>
-											<td><span><?php echo $teacher['join_date']; ?></span></td>
-                                            <td><span><?php echo $teacher['last_activity']; ?></span></td>
-                                            <td><?php echo $teacher['expiration_date']; ?></td>
+                                            <td><a href="/news/thread/?id=<?php echo $blog['id']; ?>"><?php echo $blog['id']; ?></a></td>
+                                            <td><a href="/news/thread/?id=<?php echo $blog['id']; ?>"><?php echo mb_substr($blog['title'], 0, 30); echo mb_strlen($blog['title'], 'UTF-8') > 30 ? "..." : ""; ?></a></td>
+                                            <td><span class="tag tag-default"><?php echo $blog['status']; ?></span></td>
+                                            <td><span><?php echo $blog['category']; ?></span></td>
+                                            <!--<td><span><?php echo $blog['tag']; ?></span></td>-->
+                                            <td><span><?php echo $blog['user_id']; ?></span></td>
+											<td><span><?php echo $blog['create_date']; ?></span></td>
+                                            <td><span><?php echo $blog['published_by']; ?></span></td>
+											<td><span><?php echo $blog['last_activity']; ?></span></td>
                                         </tr>
 										<?php endforeach; ?>
 										<!--
@@ -166,6 +175,17 @@
 										-->
                                     </tbody>
                                 </table>
+								<div class="text-center">
+										<ul class="pagination">
+											<li><a <?php if($_GET['p'] > 1): ?>href="/dashboard/blog?p=<?php echo $_GET['p']-1 ?>" <?php endif; ?> 
+													<?php if($_GET['p'] == 1): ?> style="background-color: #eee" <?php endif; ?>>Prev</a></li>
+											<?php foreach($pages as $page): ?>
+											<li <?php if($page==$_GET['p']): ?>class="active"<?php endif; ?>><a href="/dashboard/blog?p=<?php echo $page ?>"><?php echo $page ?></a></li>
+											<?php endforeach; ?>
+											<li><a <?php if($_GET['p'] < $pageMax): ?>href="/dashboard/blog?p=<?php echo $_GET['p']+1 ?>" <?php endif; ?>
+												<?php if($_GET['p'] == $pageMax): ?>style="background-color: #eee" <?php endif; ?>>Next</a></li>
+										</ul><!-- end pagination-->
+								</div>
                             </div>
                         </div>
                     </div>
@@ -176,57 +196,17 @@
 </div>
 
 <!-- Add New Task -->
-<div class="modal fade" id="addTeacherDiv" tabindex="-1" role="dialog" style="top:90px;">
+<div class="modal fade" id="addStudentDiv" tabindex="-1" role="dialog" style="top:90px;">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h6 class="title" id="defaultModalLabel">Create New Teacher User</h6>
+                <h6 class="title" id="defaultModalLabel">Create New Student Users</h6>
             </div>
             <div class="modal-body">
-                <div class="row clearfix">
-					<div class="col-12">
-                        <div class="form-group">                                    
-                            <input type="text" class="form-control" placeholder="Username" id="create_teacher_username">
-                        </div>
-                    </div>
-					<div class="col-12">
-                        <div class="form-group">                                    
-                            <input type="text" class="form-control" placeholder="Email Address" id="create_teacher_emailaddress">
-                        </div>
-                    </div>
-					<div class="col-12">
-                        <div class="form-group">                                    
-                            <input type="text" class="form-control" placeholder="Password" id="create_teacher_password">
-                        </div>
-                    </div>
-					<div class="col-12">
-                        <div class="form-group">                                    
-                            <input type="text" class="form-control" placeholder="Confirm Password" id="create_teacher_password_confirm">
-                        </div>
-                    </div>
-					<div class="col-12">
-                        <div class="form-group">                                    
-                            <input type="text" class="form-control" placeholder="First Name" id="create_teacher_firstname">
-                        </div>
-                    </div>
-					<div class="col-12">
-                        <div class="form-group">                                    
-                            <input type="text" class="form-control" placeholder="Last Name" id="create_teacher_lastname">
-                        </div>
-                    </div>
-					<div class="col-12">
-                        <div class="form-group">
-                            <select class="form-control show-tick" id="create_teacher_duration">
-                                <option disabled selected>Select Duration</option>
-                                <option value="7">7 days</option>
-                                <option value="365">1 year</option>
-                            </select>
-                        </div>
-                    </div>        
-                </div>
+                
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="addTeacherBtn">Create</button>
+                <button type="button" class="btn btn-primary" id="addStudentBtn">Create</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -246,40 +226,22 @@
 <script src="../assets/js/page/project-index.js"></script>
 <script type="text/javascript">
 
-	$("#addTeacherBtn").click(function(){
-		var create_teacher_username = $("#create_teacher_username").val();
-		var create_teacher_emailaddress = $("#create_teacher_emailaddress").val();
-		var create_teacher_password = $("#create_teacher_password").val();
-		var create_teacher_password_confirm = $("#create_teacher_password_confirm").val();
-		var create_teacher_firstname = $("#create_teacher_firstname").val();
-		var create_teacher_lastname = $("#create_teacher_lastname").val();
-		var create_teacher_duration = $("#create_teacher_duration").val();
-
-
-		if (create_teacher_username == null 
-		 || create_teacher_emailaddress ==  null 
-		 || create_teacher_password ==  null 
-		 || create_teacher_password_confirm ==  null 
-		 || create_teacher_firstname ==  null 
-		 || create_teacher_lastname ==  null 
-		 || create_teacher_duration == null){
+	$("#addStudentBtn").click(function(){
+		var code_role = $("#create_code_role").val();
+		var code_duration = $("#create_code_duration").val();
+		var create_code_amt = $("#create_code_amt").val();
+		
+		if (code_role == null || code_duration ==  null || create_code_amt == null){
 			alert("error, please check all your inputs");
 			return false;
 		}
-		if (create_teacher_password != create_teacher_password_confirm) {
-			alert("password are different");
-			return false;
-		}
+		
 		$.post("controller", 
 		{
-			action: "manage_teacher_create",
-			create_teacher_username : create_teacher_username,
-			create_teacher_emailaddress : create_teacher_emailaddress,
-			create_teacher_password : create_teacher_password,
-			create_teacher_password_confirm : create_teacher_password_confirm,
-			create_teacher_firstname : create_teacher_firstname,
-			create_teacher_lastname : create_teacher_lastname,
-			create_teacher_duration : create_teacher_duration
+			action: "invitation_code_create",
+			role: code_role,
+			type: code_duration,
+			amnt: create_code_amt
 		},
 		function(data, status){
 			//alert("Data: " + data + "\nStatus: " + status);

@@ -717,7 +717,7 @@
 		</div><!-- End col-md-4 -->
 	</div><!-- End row -->
 </div>
-<div id="copy_right">© 1998-2014</div>
+<div id="copy_right">© 2020</div>
 </footer>
 
 <div id="toTop">Back to top</div>

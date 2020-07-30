@@ -97,7 +97,7 @@
 												<div class="reply-content">
 													<?php echo $reply['username'] ?>
 													<?php if(strcmp($reply['replyee_id'], $comment['id']) != 0): ?>
-														Reply <?php echo getUsernameByBlogReplyId($reply['replyee_id']) ?>
+														Reply <?php echo getUsernameByVideoReplyId($reply['replyee_id']) ?>
 													<?php endif ?>
 													: <?php echo $reply['body']?>
 													<div class="dateAndReply"> 

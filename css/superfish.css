@@ -41,8 +41,8 @@ ul.sf-menu li ul {
 .sf-menu {
 	margin-bottom: 0;
 	text-transform:uppercase;
-	font-size:12px;
-	font-weight:800;
+	font-size:15px;
+	font-weight:700;
 }
 .sf-menu ul {
 	min-width: 12em; /* allow long menu items to determine submenu width */

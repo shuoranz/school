@@ -180,10 +180,50 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h6 class="title" id="defaultModalLabel">Create New Student Users</h6>
+                <h6 class="title" id="defaultModalLabel">Create New Student User</h6>
             </div>
             <div class="modal-body">
-                
+                <div class="row clearfix">
+					<div class="col-12">
+                        <div class="form-group">                                    
+                            <input type="text" class="form-control" placeholder="Username" id="create_teacher_username">
+                        </div>
+                    </div>
+					<div class="col-12">
+                        <div class="form-group">                                    
+                            <input type="text" class="form-control" placeholder="Email Address" id="create_teacher_emailaddress">
+                        </div>
+                    </div>
+					<div class="col-12">
+                        <div class="form-group">                                    
+                            <input type="text" class="form-control" placeholder="Password" id="create_teacher_password">
+                        </div>
+                    </div>
+					<div class="col-12">
+                        <div class="form-group">                                    
+                            <input type="text" class="form-control" placeholder="Confirm Password" id="create_teacher_password_confirm">
+                        </div>
+                    </div>
+					<div class="col-12">
+                        <div class="form-group">                                    
+                            <input type="text" class="form-control" placeholder="First Name" id="create_teacher_firstname">
+                        </div>
+                    </div>
+					<div class="col-12">
+                        <div class="form-group">                                    
+                            <input type="text" class="form-control" placeholder="Last Name" id="create_teacher_lastname">
+                        </div>
+                    </div>
+					<div class="col-12">
+                        <div class="form-group">
+                            <select class="form-control show-tick" id="create_teacher_duration">
+                                <option disabled selected>Select Duration</option>
+                                <option value="7">7 days</option>
+                                <option value="365">1 year</option>
+                            </select>
+                        </div>
+                    </div>        
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" id="addStudentBtn">Create</button>
@@ -207,21 +247,39 @@
 <script type="text/javascript">
 
 	$("#addStudentBtn").click(function(){
-		var code_role = $("#create_code_role").val();
-		var code_duration = $("#create_code_duration").val();
-		var create_code_amt = $("#create_code_amt").val();
-		
-		if (code_role == null || code_duration ==  null || create_code_amt == null){
+		var create_teacher_username = $("#create_teacher_username").val();
+		var create_teacher_emailaddress = $("#create_teacher_emailaddress").val();
+		var create_teacher_password = $("#create_teacher_password").val();
+		var create_teacher_password_confirm = $("#create_teacher_password_confirm").val();
+		var create_teacher_firstname = $("#create_teacher_firstname").val();
+		var create_teacher_lastname = $("#create_teacher_lastname").val();
+		var create_teacher_duration = $("#create_teacher_duration").val();
+
+
+		if (create_teacher_username == null 
+		 || create_teacher_emailaddress ==  null 
+		 || create_teacher_password ==  null 
+		 || create_teacher_password_confirm ==  null 
+		 || create_teacher_firstname ==  null 
+		 || create_teacher_lastname ==  null 
+		 || create_teacher_duration == null){
 			alert("error, please check all your inputs");
 			return false;
 		}
-		
+		if (create_teacher_password != create_teacher_password_confirm) {
+			alert("password are different");
+			return false;
+		}
 		$.post("controller", 
 		{
-			action: "invitation_code_create",
-			role: code_role,
-			type: code_duration,
-			amnt: create_code_amt
+			action: "manage_student_create",
+			create_teacher_username : create_teacher_username,
+			create_teacher_emailaddress : create_teacher_emailaddress,
+			create_teacher_password : create_teacher_password,
+			create_teacher_password_confirm : create_teacher_password_confirm,
+			create_teacher_firstname : create_teacher_firstname,
+			create_teacher_lastname : create_teacher_lastname,
+			create_teacher_duration : create_teacher_duration
 		},
 		function(data, status){
 			//alert("Data: " + data + "\nStatus: " + status);

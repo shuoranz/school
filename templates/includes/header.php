@@ -69,8 +69,12 @@
                 <li><a href="/about_us.html">About</a></li>
                 <li><a href="/apply.html">Wizard Apply</a></li>
 				-->
+				
 				<?php if(isLoggedIn()) : ?>
 				<li><a>Welcome <?php echo getUser()['username']; ?>!</a></li>
+				<?php if(isTeacherOrAbove()) : ?>
+				<li><a href="/dashboard">Dashboard</a></li>
+				<?php endif; ?>
 				<li><a id="top_a_tag" href="/logout">Logout</a></li>
 				<?php else : ?>
                 <li><a id="top_a_tag" href="/register">Register</a></li>
@@ -119,10 +123,20 @@
 					<a href="/program/">Program Intro</a>
 				</li>
 				-->
-				<li><a href="/blog/?p=1">Blog</a></li>
-				<li><a href="/news/?p=1">News</a></li>
-				<li><a href="/about_us/">About Us</a></li>
-				<li><a href="/join_us/">Join Us</a></li>
+				<li class="normal_drop_down">
+					<a href="/news/?p=1">News</a>
+					<div class="mobnav-subarrow"></div>
+					<ul>
+						<li><a href="/blog/?p=1">Blog</a></li>
+					</ul>
+				</li>
+				<li class="normal_drop_down">
+					<a href="/about_us/">About Us</a>
+					<div class="mobnav-subarrow"></div>
+					<ul>
+						<li><a href="/join_us/">Join Us</a></li>
+					</ul>
+				</li>
 			</ul>
             
             <div class="col-md-3 pull-right hidden-sm hidden-xs">

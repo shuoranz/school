@@ -131,9 +131,14 @@
                                         <tr>
                                             <th colspan="8">Manage Blog</th>
                                             <th colspan="1">
+												<!--
 												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addStudentDiv">
 													<i class="fe fe-plus mr-2"></i>Add Student
 												</button>
+												-->
+												<a type="button" class="btn btn-primary" href="/blog/create">
+													<i class="fe fe-plus mr-2"></i>Add Blog
+												</a>
 											</th>
                                         </tr>
                                         <tr>
@@ -150,10 +155,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-										<?php foreach ($Blog as $blog) : ?>
+										<?php foreach ($blogs as $blog) : ?>
 										<tr>
-                                            <td><a href=""><?php echo $blog['id']; ?></a></td>
-                                            <td><span><?php echo mb_substr($blog['title'], 0, 30); echo mb_strlen($blog['title'], 'UTF-8') > 30 ? "..." : ""; ?></span></td>
+                                            <td><a href="/blog/thread/?id=<?php echo $blog['id']; ?>"><?php echo $blog['id']; ?></a></td>
+                                            <td><a href="/blog/thread/?id=<?php echo $blog['id']; ?>"><?php echo mb_substr($blog['title'], 0, 30); echo mb_strlen($blog['title'], 'UTF-8') > 30 ? "..." : ""; ?></a></td>
                                             <td><span class="tag tag-default"><?php echo $blog['status']; ?></span></td>
                                             <td><span><?php echo $blog['name']; ?></span></td>
                                             <td><span><?php echo $blog['tag']; ?></span></td>

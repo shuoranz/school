@@ -77,12 +77,58 @@
 	
 	function manage_student_create()
 	{
+		if (!isset($_REQUEST['create_teacher_username'])
+		|| !isset($_REQUEST['create_teacher_emailaddress'])
+		|| !isset($_REQUEST['create_teacher_password'])
+		|| !isset($_REQUEST['create_teacher_password_confirm'])
+		|| !isset($_REQUEST['create_teacher_firstname'])
+		|| !isset($_REQUEST['create_teacher_lastname'])
+		|| !isset($_REQUEST['create_teacher_duration'])
+		){
+			exit("wrong parameter");
+		}
 		
+		$data["first_name"] = $_REQUEST['create_teacher_firstname'];
+		$data["last_name"] = $_REQUEST['create_teacher_lastname'];
+		$data["email"] = $_REQUEST['create_teacher_emailaddress'];
+		$data["avatar"] = '';
+		$data["username"] = $_REQUEST['create_teacher_username'];
+		$data["password"] = $_REQUEST['create_teacher_password'];
+		$data["last_activity"] = date("Y-m-d H:i:s");
+		$data["expiration_date"] = date("Y-m-d H:i:s", strtotime("+".$_REQUEST['create_teacher_duration']." days"));
+		$data["role"] = 'student';
+		
+		$userModel = new User;
+		$userModel->registerByAdmin($data);
+		echo "success";
 	}
 	
 	function manage_teacher_create()
 	{
+		if (!isset($_REQUEST['create_teacher_username'])
+		|| !isset($_REQUEST['create_teacher_emailaddress'])
+		|| !isset($_REQUEST['create_teacher_password'])
+		|| !isset($_REQUEST['create_teacher_password_confirm'])
+		|| !isset($_REQUEST['create_teacher_firstname'])
+		|| !isset($_REQUEST['create_teacher_lastname'])
+		|| !isset($_REQUEST['create_teacher_duration'])
+		){
+			exit("wrong parameter");
+		}
 		
+		$data["first_name"] = $_REQUEST['create_teacher_firstname'];
+		$data["last_name"] = $_REQUEST['create_teacher_lastname'];
+		$data["email"] = $_REQUEST['create_teacher_emailaddress'];
+		$data["avatar"] = '';
+		$data["username"] = $_REQUEST['create_teacher_username'];
+		$data["password"] = $_REQUEST['create_teacher_password'];
+		$data["last_activity"] = date("Y-m-d H:i:s");
+		$data["expiration_date"] = date("Y-m-d H:i:s", strtotime("+".(int)$_REQUEST['create_teacher_duration']." days"));
+		$data["role"] = 'teacher';
+		
+		$userModel = new User;
+		$userModel->registerByAdmin($data);
+		echo "success";
 	}
 	
 	function course_category_create()

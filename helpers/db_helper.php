@@ -105,5 +105,32 @@
         $result = $db->resultset()[0];
         return $result['username'];
     }
+	function getUsernameByCourseReplyId($reply_id) {
+        $db = new Database;
+        $db->query('select course_reply.id, users.username from 
+                    course_reply inner join users on course_reply.created_by = users.id
+                    where course_reply.id = :reply_id');
+        $db->bind(':reply_id', $reply_id);
+        $result = $db->resultset()[0];
+        return $result['username'];
+    }
+	function getUsernameByVideoReplyId($reply_id) {
+		$db = new Database;
+        $db->query('select course_video_reply.id, users.username from 
+                    course_video_reply inner join users on course_video_reply.created_by = users.id
+                    where course_video_reply.id = :reply_id');
+        $db->bind(':reply_id', $reply_id);
+        $result = $db->resultset()[0];
+        return $result['username'];
+	}
+	function getUsernameByForumReplyId($reply_id) {
+		$db = new Database;
+        $db->query('select forum_reply.id, users.username from 
+                    forum_reply inner join users on forum_reply.created_by = users.id
+                    where forum_reply.id = :reply_id');
+        $db->bind(':reply_id', $reply_id);
+        $result = $db->resultset()[0];
+        return $result['username'];
+	}
 
 ?>
