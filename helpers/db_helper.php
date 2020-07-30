@@ -42,9 +42,23 @@
         //return result
         return $results;
     }
+    function getNewsCategories() {
+        $db=new Database;
+        $db->query('select * from news_category');
+        //Run query and assign it to results variable
+        $results = $db->resultset();
+        //return result
+        return $results;
+    }
     function getBlogTags() {
         $db=new Database;
         $db->query("select * from blog_tag where deleted = 0");
+        $result = $db->resultset();
+        return $result;
+    }
+    function getNewsTags() {
+        $db=new Database;
+        $db->query("select * from news_tag where deleted = 0");
         $result = $db->resultset();
         return $result;
     }

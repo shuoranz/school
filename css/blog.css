@@ -1,5 +1,5 @@
 #main_content .post h2.blog-title {
-    font-size: 19px;
+    font-size: 18px;
     font-weight: 500;
     line-height:32px;
     overflow: hidden;
@@ -191,7 +191,7 @@ body .post .post_info .post-right {
 	padding: 15px;
 }
 .blog-container {
-	margin: 0px 90px;
+	margin: 0px 130px;
 }
 .reply-button {
 	border: none;
@@ -387,4 +387,9 @@ figure.table table{
 }
 .comment_info span.reply-delete:hover {
 	color: #d5361c;
+}
+.no-login-prompt {
+    padding: 20px;
+    background-color: #f3f3f3;
+    margin-bottom: 15px;
 }

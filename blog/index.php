@@ -57,21 +57,23 @@
 			$isURIValid = FALSE;
 		}
 	}
-	$pageValid = true;
+	// redirect if page is invalid
 	$blogCount = $blog->getBlogCountByConditions($conditions);
 	$redirectURI = $blog->buildRedirectURI($conditions);
 	if(!isset($_GET['p']) || (!is_numeric($_GET['p']) || strpos($_GET['p'], "."))) {
 		redirect("/blog/" . $redirectURI . "p=1", "invalid URL parameters","error");
-	} else if ($_GET['p'] > ceil($blogCount / $perPage)) {
+	} else if ($_GET['p'] > ceil($blogCount / $perPage) && ceil($newsCount / $perPage) > 0) {
 		redirect("/blog/" . $redirectURI . "p=" . ceil($blogCount / $perPage), "invalid URL parameters","error");
+	} else if ($_GET['p'] <= 0) {
+		redirect("/blog/" . $redirectURI . "p=1","invalid URL parameters","error");
 	} else if(!$isURIValid) {
 		redirect("/blog/" . $redirectURI . "p=" . $_GET['p'], "invalid URL parameters","error");
 	}
 	
+	// get all blogs on current page
 	$all_blogs = $blog->getPageBlogs($conditions, $_GET['p'], $perPage);
-	// get necessary tag info for all blogs
+	// get necessary tag info for all blogs, assign to $tags
 	$tags = array();
-	$temp = preg_split('/,/', "");
 	for ($i = 0; $i < count($all_blogs);$i++) {
 		$tagsStr = $all_blogs[$i]['tag'];
 		$tagsArr = preg_split('/,/',$tagsStr);
@@ -83,10 +85,15 @@
 			}
 		}
 	}
-	// formatting displayed date time
-	date_default_timezone_set("Asia/Shanghai");
+	// assign $tags back to $blog['tag']
 	for ($i = 0; $i < count($all_blogs);$i++) {
-		$all_blogs[$i]['reply_num'] = $blog->getBlogReplyCount($all_blogs[$i]['id']);
+		$all_blogs[$i]['tag'] = array();
+		foreach($tags[$i] as $tagName=>$tagColor) {
+			$all_blogs[$i]['tag'][$tagName] = $tagColor;
+		}
+	}
+	// formatting displayed date time
+	for ($i = 0; $i < count($all_blogs);$i++) {
 		$cur_date = $all_blogs[$i]["create_date"];
 		$all_blogs[$i]['create_date'] = DateFormatter($cur_date);
 	}
@@ -144,7 +151,6 @@
 	$template->blogs = $all_blogs;
 	$template->pageMax = $pageMax;
 	$template->pages = $pages;
-	$template->tags = $tags;
 	$template->categories = $all_categories;
 	echo $template;
 ?>

@@ -9,6 +9,9 @@
     }
     $blog_id = $_GET['id'];
     $cur_blog = $blog->getBlogById($blog_id);
+    if($cur_blog == NULL) {
+        redirect('/blog/?p=1','Invalid URL!','error');
+    }
     $template = new Template($pre_position.'templates/blog.php');
     $cur_blog['reply_num'] = $blog->getBlogReplyCount($blog_id);
     $cur_date = $cur_blog['create_date'];
@@ -17,8 +20,6 @@
     
     // view_count + 1 as user/guest visit this page,
     $blog->addOneBlogViewCount($blog_id, $cur_blog['view_count'] + 1);
-    
-    $template->blog = $cur_blog;
     $comments = $blog->getCommentsByBlog_id($blog_id);
     
     for($i = 0; $i < count($comments); $i++) {
@@ -32,6 +33,6 @@
         }
     }
     $template->comments = $comments;
-    
+    $template->blog = $cur_blog;
     echo $template;
 ?>

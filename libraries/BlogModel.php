@@ -4,12 +4,12 @@ class BlogModel {
     public function __construct(){
         $this->db = new Database;
     }
-    // get all blogs
+    // get count by conditions
     public function getBlogCountByConditions($conditions) {
         $sql = "select blog.*, users.username, users.avatar, blog_category.name, count(blog_reply.id) as reply_count
                 from blog inner join users on blog.user_id = users.id 
                           inner join blog_category on blog.category_id = blog_category.id
-                          left join blog_reply on blog_reply.blog_id = blog.id
+                          left join blog_reply on blog_reply.blog_id = blog.id and blog_reply.deleted = 0
                 where blog.deleted = 0";
         // processing WHERE conditions.
         if (strcmp($conditions["c"], "") != 0) {
@@ -37,10 +37,11 @@ class BlogModel {
     }
     public function getPageBlogs($conditions, $pageNum, $perPage){
         $limit = ($pageNum - 1)*$perPage; 
-        $sql = "select blog.*, users.username, users.avatar, blog_category.name, count(blog_reply.id) as reply_count
+        $sql = "select blog.*, users.username, users.avatar, blog_category.name, 
+                count(blog_reply.id) as reply_count
                 from blog inner join users on blog.user_id = users.id 
                           inner join blog_category on blog.category_id = blog_category.id
-                          left join blog_reply on blog_reply.blog_id = blog.id
+                          left join blog_reply on blog_reply.blog_id = blog.id and blog_reply.deleted = 0
                 where blog.deleted = 0";
         // processing WHERE conditions.
         if (strcmp($conditions["c"], "") != 0) {
@@ -75,10 +76,13 @@ class BlogModel {
         return $results[0]["count"];
     }
     public function getBlogById($blog_id) {
-        $this->db->query("select blog.*, users.username, users.avatar, blog_category.name 
+        $this->db->query("select blog.*, users.username, users.avatar, blog_category.name,
+                          count(blog_reply.id) as reply_count  
                           from blog inner join users on blog.user_id = users.id 
-                                    inner join blog_category on blog.category_id = blog_category.id 
-                                    where blog.id = :blog_id");
+                                    inner join blog_category on blog.category_id = blog_category.id
+                                    left join blog_reply on blog_reply.blog_id = blog.id and blog_reply.deleted = 0 
+                                    where blog.id = :blog_id and blog.deleted = 0 
+                                    group by blog.id");
         $this->db->bind(':blog_id',$blog_id);
         //Assign Result Set
         $results = $this->db->resultset();

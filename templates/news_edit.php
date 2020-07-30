@@ -3,7 +3,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1 text-center">
-			<h2>Blog</h2>
+			<h2>News</h2>
 			<p class="lead">
 				Everything carefully prepared for you
 			</p>
@@ -19,7 +19,7 @@
 
     <ol class="breadcrumb">
       <li><a href="/">Home</a></li>
-      <li><a href="/blog/?p=1">Blog</a></li>
+      <li><a href="/news/?p=1">News</a></li>
 	  <li class="active">Create</li>
     </ol>
     
@@ -44,13 +44,13 @@
 				  onsubmit="processFormSubmit()">
 				<div class="form-group">
 					<label>Post Title</label>
-					<input type="text" class="form-control" name="title" value=<?php echo $blog['title'] ?> />
+					<input type="text" class="form-control" name="title" value=<?php echo $news['title'] ?> />
 				</div>
 				<div class="form-group">
 					<label>Category</label>
 					<select class="form-control" name="category_id">
-						<?php foreach(getBlogCategories() as $category) : ?>
-                        <option value="<?php echo $category['id']; ?>" <?php if($category['id'] == $blog['category_id']): ?>selected="selected"<?php endif; ?>><?php echo $category['name']; ?></option>
+						<?php foreach(getNewsCategories() as $category) : ?>
+                        <option value="<?php echo $category['id']; ?>" <?php if($category['id'] == $news['category_id']): ?>selected="selected"<?php endif; ?>><?php echo $category['category']; ?></option>
 						<?php endforeach; ?>
                     </select>
                 </div>
@@ -58,7 +58,7 @@
                         <label>Tags</label>
                         <div style="display:flex; align-items: center; flex-wrap: wrap;
 							background-color: #eeeeee; padding: 10px; border-radius: 5px;">
-                            <?php foreach(getBlogTags() as $tag): ?>
+                            <?php foreach(getNewsTags() as $tag): ?>
                             <label style="display: flex;">
                                 <input type="checkbox" name="tag" value="<?php echo $tag['id'] ?>"
                                     style="margin-left:5px;">
@@ -97,7 +97,7 @@
 		blogConfig)
 		.then( editor => {
             window.editor = editor;
-            editor.setData('<?php echo $blog['body'] ?>');
+            editor.setData('<?php echo $news['body'] ?>');
 		} )
 		.catch( error => {
 			console.error( error );
@@ -105,7 +105,7 @@
         
 </script>
 <script>
-	var temp = '<?php echo $blog['tag']?>'.trim();
+	var temp = '<?php echo $news['tag']?>'.trim();
 	var arr = [];
 	if(temp != '') {
 		arr = temp.split(",");

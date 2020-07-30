@@ -28,11 +28,6 @@
             <div class="col-md-12">
                 <div class="single-post">
                     <h3 class='blog-title'><?php echo $blog['title'] ?></h3>
-                    <!-- <div class="post-right">
-							<i class="icon-eye"></i><?php echo $blog['view_count'] ?>
-								<i class="icon-thumbs-up"></i><?php echo $blog['like_count'] ?>
-								<i class="icon-comment"></i><?php echo $blog['reply_num'] ?>
-							</div> -->
                     <div class="post_info clearfix">
                         <div class="post-left">
                             <ul>
@@ -187,7 +182,7 @@
                     </div>
                 </form>
                 <?php else: ?>
-                <div>Please login to leave a comment!</div>
+                <div class="no-login-prompt">Please login to leave a comment!</div>
                 <?php endif;?>
 
 

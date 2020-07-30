@@ -120,7 +120,7 @@
 				</li>
 				-->
 				<li><a href="/blog/?p=1">Blog</a></li>
-				<li><a href="/news/">News</a></li>
+				<li><a href="/news/?p=1">News</a></li>
 				<li><a href="/about_us/">About Us</a></li>
 				<li><a href="/join_us/">Join Us</a></li>
 			</ul>

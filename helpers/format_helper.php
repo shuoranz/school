@@ -34,7 +34,7 @@ function is_active($category){
     }
 }
 function removeEmptyLinesAndReturnHtml($html) {
-    $html = preg_replace("/(\s(?!style=[\"'])|\&nbsp\;|　|\xc2\xa0)/","",$html);
+    $html = preg_replace("/(\s(?!style=[\"'])|\&nbsp\;|　|\xc2\xa0)/"," ",$html);
 	$html = str_replace('<p></p>', '', $html);
     $html = str_replace('<h1></h1>','', $html);
     $html = str_replace('<h2></h2>','', $html);

@@ -20,7 +20,7 @@
 
         <ol class="breadcrumb">
             <li><a href="/">Home</a></li>
-            <li><a href="/blog">Blog</a></li>
+            <li><a href="/blog/?p=1">Blog</a></li>
             <li class="active">Create</li>
         </ol>
 
@@ -41,8 +41,7 @@
                 </div>
             </aside>
             <div class="col-md-9 box_style_2">
-                <form role="form" method="post" enctype="multipart/form-data"
-                    onsubmit="processFormSubmit()">
+                <form role="form" method="post" enctype="multipart/form-data" onsubmit="processFormSubmit()">
                     <div class="form-group">
                         <label>Post Title</label>
                         <input type="text" class="form-control" name="title" placeholder="enter the title..." />
@@ -50,7 +49,7 @@
                     <div class="form-group">
                         <label>Category</label>
                         <select class="form-control" name="category_id">
-                            <?php foreach(getBlogCategories() as $category) : ?>
+                            <?php foreach(getBlogCategories() as $category): ?>
                             <option value="<?php echo $category['id']; ?>"><?php echo $category['name']; ?></option>
                             <?php endforeach; ?>
                         </select>
@@ -71,7 +70,7 @@
                             <?php endforeach; ?>
                         </div>
                     </div>
-					<input type="hidden" name="tags" value="">
+                    <input type="hidden" name="tags" value="">
                     <div class="form-group">
                         <label>Cover Image</label>
                         <input type="file" name="cover" id="cover">
@@ -79,7 +78,7 @@
                     <div class="form-group">
                         <label>Content</label>
                         <textarea id="editor" class="form-control" name="body" style="height:200px;">
-					</textarea>
+					    </textarea>
                     </div>
                     <button type="submit" class="button_medium" name="do_create">Submit</button>
                 </form>

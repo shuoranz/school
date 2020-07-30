@@ -7,15 +7,17 @@ if(!isAdmin()) {
     redirect('/news/?p=1', 'You are not admin!','error');
 }
 //Create News object
-$newsModel = new NewsModel;
-if (isset($_POST['news_create'])){
+if(!isset($_GET['id'])||(!is_numeric($_GET['id']) || strpos($_GET['id'],"." ))) {
+    redirect('/news/?p=1','Invalid URL!','error');
+}
+$news = new NewsModel;
+if (isset($_POST['post_edit'])){
     //Create Validator object
     $validate = new Validator;
-    
-    // //Create data array
+    //Create data array
     $data = array();
     $data['title'] = $_POST['title'];
-    // //$data['slug'] = ucwords(str_replace(' ', '-', $_POST['slug']));
+    //$data['slug'] = ucwords(str_replace(' ', '-', $_POST['slug']));
     $data['body'] = $_POST['body'];
 	$data['category_id'] = $_POST['category_id'];
 	$data['tag'] = $_POST['tags'];
@@ -29,19 +31,16 @@ if (isset($_POST['news_create'])){
             move_uploaded_file($_FILES["cover"]["tmp_name"], "cover/" . $timestampFileName);
             $data['cover'] = "/news/cover/" . $timestampFileName;
         } else {
-            redirect('/news/create', 'Only jpeg jpg png are allowed for Cover image', 'error');
+            redirect('/news/edit/?id='.$_GET['id'], 'Only jpeg jpg png are allowed for Cover image', 'error');
         }
-    } else {
-        redirect('/news/create', 'You must upload a cover image','error');
-    }
+    } 
 
-    // //Required Fields
+    //Required Fields
     $field_array = array('title','body','category_id');
     
     if($validate->isRequired($field_array)){
-        //Create Topic
-        if($newsModel->create($data)){
-            redirect('/news/?p=1', 'Your News has been posted', 'success');
+        if($news->edit($data, $_GET['id'])){
+            redirect('/news/?p=1', 'Your news has been posted', 'success');
         } else {
             redirect('create.php', 'Something went wrong with your post.', 'error');
         }
@@ -51,13 +50,14 @@ if (isset($_POST['news_create'])){
     
 }
 //Get Template and Assign Vars
+$news_id = $_GET['id'];
+$cur_news = $news->getNewsById($news_id);
+if($cur_news == NULL) {
+    redirect('/news/?p=1','Invalid URL!','error');
+}
 
-
-
-$template = new Template($pre_position.'templates/news_create.php');
-$news_categories = $newsModel->getNewsCategories();
-$template->news_categories = $news_categories;
-
+$template = new Template($pre_position.'templates/news_edit.php');
+$template->news = $cur_news;
 //Assign Vars
 
 //Display template
