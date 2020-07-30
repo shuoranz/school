@@ -10,7 +10,7 @@
 	<div id="header_top" class="header_top">
         <div class="container">
             <div class="hleft">
-                <a class="header-brand" href="/dashboard/"><i class="fa fa-soccer-ball-o brand-logo"></i></a>
+                <a class="header-brand" href="/"><i class="fa fa-soccer-ball-o brand-logo"></i></a>
                 <div class="dropdown">
                     <a href="javascript:void(0)" class="nav-link user_btn"><img class="avatar" src="../assets/images/user.png" alt="" data-toggle="tooltip" data-placement="right" title="User Menu"/></a>
                     <!--
@@ -324,8 +324,8 @@
 				<li class="g_heading">Business Administrator</li>
 				<li class="<?php echo $pageUrl=='Forum' ? 'active' : ''; ?>"><a href="/dashboard/"><i class="fa fa-comments-o"></i><span>Audit Forums(not done)</span></a></li>
 				<li class="<?php echo $pageUrl=='MyCourses' ? 'active' : ''; ?>"><a href="/dashboard/my-category"><i class="fa fa-book"></i><span>Manage Courses</span></a></li>
-				<li class="<?php echo $pageUrl=='Blog' ? 'active' : ''; ?>"><a href="/dashboard/blog"><i class="fa fa-bold"></i><span>Blog(not done)</span></a></li>
-				<li class="<?php echo $pageUrl=='News' ? 'active' : ''; ?>"><a href="/dashboard/news"><i class="fa fa-newspaper-o"></i><span>News(not done)</span></a></li>
+				<li class="<?php echo $pageUrl=='Blog' ? 'active' : ''; ?>"><a href="/dashboard/blog?p=1"><i class="fa fa-bold"></i><span>Blog</span></a></li>
+				<li class="<?php echo $pageUrl=='News' ? 'active' : ''; ?>"><a href="/dashboard/news?p=1"><i class="fa fa-newspaper-o"></i><span>News</span></a></li>
 				<?php endif; ?>
 				
 				<?php if (isSuperAdmin()) : ?>

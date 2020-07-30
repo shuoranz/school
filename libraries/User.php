@@ -67,6 +67,45 @@ class User {
 			}
 		}
     }
+	
+	//Register User
+    public function registerByAdmin($data){
+
+        //Query
+        $this->db->query('insert into users (first_name, last_name, email, role, avatar, username, password, last_activity, expiration_date) values (:first_name, :last_name, :email, :role, :avatar, :username, :password, :last_activity, :expiration_date)');
+        //Bind Values
+        $this->db->bind(':first_name',$data['first_name']);
+		$this->db->bind(':last_name',$data['last_name']);
+        $this->db->bind(':email',$data['email']);
+		$this->db->bind(':role',$data['role']);
+        $this->db->bind(':avatar',$data['avatar']);
+        $this->db->bind(':username',$data['username']);
+        $this->db->bind(':password',$data['password']);
+        $this->db->bind(':last_activity',$data['last_activity']);
+		$this->db->bind(':expiration_date',$data['expiration_date']);
+
+        //Execute
+		try {
+			if ($this->db->execute()){
+				return $this->ic->updateInvitationCodeByUserId($this->db->lastInsertId(), 'applied', $data['invitation_code']) ? true : 'invitation_code_error';
+			} else {
+				return false;
+			}
+		} catch (Exception $e) {
+			if (!isset($e->errorInfo[2])){
+				return false;
+			}
+			$error_msg = $e->errorInfo[2];
+			if (stripos($error_msg, 'duplicate') !== false){
+				if (stripos($error_msg, 'username') !== false){
+					return "duplicate_username";
+				}
+				if (stripos($error_msg, 'email') !== false){
+					return "duplicate_email";
+				}
+			}
+		}
+    }
     
     //Upload User Avatar
     public function uploadAvatar(){
