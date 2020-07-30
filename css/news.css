@@ -36,6 +36,7 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+    flex-wrap: nowrap;
     max-width: 100%;
 }
 .tags {
@@ -362,4 +363,38 @@ figure.image_resized {
 .post-delete:hover {
     color: #d95c2c;
 }
-    
+.editAndDelete {
+    font-size: 15px;
+    display: flex;
+}
+.replyEditDelete {
+    display: flex;
+}
+.reply-edit {
+    background-color: transparent;
+    color: #1cbbb4;
+    border: none;
+    font-size: 16px;
+    margin-right: 10px;
+    cursor:pointer;
+    line-height: 26px;
+}
+.reply-delete {
+    background-color: transparent;
+    color: #a9a9a9;
+    border: none;
+    font-size: 16px;
+    margin-right: 10px;
+    cursor:pointer;
+    line-height: 26px;
+}
+.reply-delete:hover {
+    color: #e85748;
+}
+.admin-editAndDelete {
+    font-size: 20px;
+    display: flex;
+}
+.admin-editAndDelete .post-delete {
+    font-size: 20px;
+}

@@ -55,7 +55,8 @@
 					</select>
 				</div>
 				<div class="form-group">
-					<input type="file" id="img" name="img" accept="image/*">
+				<label>Upload Images </label> <span style="font-family: sans-serif">(<span class="counter"> 0 </span> / 5 )</span>
+					<input type="file" id="img" name="img" accept="image/*" multiple="true">
 				</div>
 				<div class="form-group">
 					<label>Content</label>

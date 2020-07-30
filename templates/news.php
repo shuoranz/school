@@ -63,6 +63,16 @@
 			</div>
      </aside>  -->
             <div class="col-md-12">
+                <?php if(isAdmin()):?>
+                <div class="admin-editAndDelete">
+                    <a href=<?php echo "/news/edit/?id=".$news['id'] ?> class="edit-link">
+                        <i class="icon-edit"></i>
+                    </a>
+                    <button class="post-delete" onclick="deleteNews(<?php echo $news['id'] ?>)">
+                        <i class="icon-trash-empty"></i>
+                    </button>
+                </div>
+                <?php endif;?>
                 <div class="single-post">
                     <h3 class='news-title'><?php echo $news['title'] ?></h3>
                     <div class="post_info clearfix">
@@ -115,6 +125,7 @@
                 <div id="comments">
                     <ol>
                         <?php foreach($comments as $comment) : ?>
+                        <?php if($comment['deleted'] == 0): ?>
                         <li>
                             <div class="single-comment">
                                 <div class="comment-owner">
@@ -128,24 +139,44 @@
                                             <?php echo $news["complete_date"] ?>
                                         </div>
                                     </div>
-									<?php if(isLoggedIn()): ?>
-									<div>
-										<button onclick="newsReply(event, <?php echo $comment['id']?>,<?php echo $news['id'] ?>)" class="reply-button">Reply</button>
-									</div>
+                                    <?php if(isLoggedIn()): ?>
+                                    <div class="replyEditDelete">
+                                        <?php if((getUser()['user_id'] == $comment['user_id']) || isAdmin()):?>
+                                        <span class="reply-delete"
+                                            onclick="deleteNewsReply(<?php echo $comment['id'] ?>, <?php echo $news['id'] ?>)">
+                                            <i class="icon-trash-empty"></i>
+                                        </span>
+                                        <?php endif;?>
+                                        <?php if(getUser()['user_id'] == $comment['user_id']):?>
+                                        <span class="reply-edit"
+                                            onclick="editNewsReply(event, <?php echo $comment['id'] ?>, '<?php echo $comment['body'] ?>', <?php echo $news['id'] ?>)">
+                                            <i class="icon-edit"></i>
+                                        </span>
+                                        <?php endif; ?>
+                                        <button
+                                            onclick="newsReply(event, <?php echo $comment['id']?>,<?php echo $news['id'] ?>)"
+                                            class="reply-button">Reply</button>
+                                    </div>
                                     <?php endif; ?>
                                 </div>
                                 <div class="comment_info">
-									<?php if($comment['replyee_id'] != -1): ?>
-										<div class="quote-block">
-										<span><?php echo $comment['quote']['username'] ?>: </span><i>"<?php echo $comment['quote']['body']?>"</i>
-										</div>
-									<?php endif; ?>
+                                    <?php if($comment['replyee_id'] != -1): ?>
+                                    <div class="quote-block">
+                                        <span><?php echo $comment['quote']['username'] ?>: </span>
+                                        <?php if($comment['quote']['deleted'] == 0): ?>
+                                        <i>"<?php echo $comment['quote']['body']?>"</i>
+                                        <?php else: ?>
+                                        [This reply has been deleted]
+                                        <?php endif; ?>
+                                    </div>
+                                    <?php endif; ?>
                                     <p>
                                         <?php echo $comment['body'] ?>
                                     </p>
                                 </div>
                             </div>
                         </li>
+                        <?php endif;?>
                         <?php endforeach ?>
                     </ol>
                 </div>

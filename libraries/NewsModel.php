@@ -311,5 +311,26 @@ class NewsModel {
             return false;
         }
     }
+    public function editNewsReply($id, $body) {
+        $this->db->query("update news_reply set body = :body
+                                  where id = :id");
+        $this->db->bind(":body", $body);
+        $this->db->bind(":id", $id);
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function deleteNewsReply($id) {
+        $this->db->query("update news_reply set deleted = 1
+                                  where id = :id");
+        $this->db->bind(":id", $id);
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 ?>

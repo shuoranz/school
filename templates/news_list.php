@@ -109,7 +109,7 @@
                                 </a>
                             </div>
                             <?php if(isAdmin()):?>
-                            <div style="font-size: 15px;">
+                            <div class="editAndDelete">
                                 <a href=<?php echo "/news/edit/?id=".$news['id'] ?> class="edit-link">
                                     <i class="icon-edit"></i>
                                 </a>

@@ -75,4 +75,12 @@ function DateFormatter($cur_date) {
 		return $ymd;
     }
 }
+function allRepliesDeleted($replies) {
+    foreach($replies as $reply) {
+        if($reply['deleted'] == 0) {
+            return FALSE;
+        }
+    }
+    return TRUE;
+}
 ?>

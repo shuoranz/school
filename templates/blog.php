@@ -26,6 +26,16 @@
 
         <div class="row blog-container">
             <div class="col-md-12">
+            <?php if(isAdmin()): ?>
+            <div class="admin-edit-delete">
+                        <a class="edit-link" href=<?php echo "/blog/edit/?id=".$blog['id'] ?> class="edit-link">
+                            <i class="icon-edit"></i>
+                        </a>
+                        <button class="post-delete" onclick="deleteBlog(<?php echo $blog['id'] ?>)">
+                            <i class="icon-trash-empty"></i>
+                        </button>
+            </div>
+            <?php endif; ?>
                 <div class="single-post">
                     <h3 class='blog-title'><?php echo $blog['title'] ?></h3>
                     <div class="post_info clearfix">
@@ -63,6 +73,7 @@
                 <div id="comments">
                     <ol>
                         <?php foreach($comments as $comment) : ?>
+                        <?php if($comment['deleted'] == 0 || (count($comment['replies']) > 0 && !allRepliesDeleted($comment['replies']))): ?>
                         <li>
                             <div class="comment_right clearfix">
                                 <div class="comment-owner">
@@ -161,8 +172,7 @@
 
                             </div>
                         </li>
-                        <hr>
-                        </hr>
+                        <?php endif; ?>
                         <?php endforeach ?>
                     </ol>
                 </div><!-- End Comments -->
