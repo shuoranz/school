@@ -1,4 +1,9 @@
 <?php include('includes/header.php'); ?>
+<style>
+.ck-editor__editable_inline {
+    min-height: 250px;
+}
+</style>
 <!-- <section id="sub-header">
 <div class="container">
 	<div class="row">

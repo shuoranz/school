@@ -19,7 +19,7 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Raleway:400,500,600,700,800" rel="stylesheet">
     
 	<!-- REVOLUTION BANNER CSS SETTINGS -->
-	<link href="rs-plugin/css/settings.css" media="screen" rel="stylesheet">
+	<link href="/rs-plugin/css/settings.css" media="screen" rel="stylesheet">
 	
     <!-- CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">

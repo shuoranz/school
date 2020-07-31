@@ -45,7 +45,7 @@
 		</ol>
 		<div class="row">
      		<div class="col-md-8">
-				<iframe src="https://player.vimeo.com/video/438633048" width="750" height="420" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+				<iframe src="https://player.vimeo.com/video/<?php echo $video["url"];?>" width="750" height="420" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 				<!-- width="640" height="360" -->
 				<!--<iframe src="http://www.youtube.com/embed/pgk-719mTxM?wmode=transparent" style="border:0;height:650px;" class="video_course"></iframe>-->
 				<h3><?php echo $video["title"]; ?></h3>
@@ -148,7 +148,7 @@
 						</div>
 						<div class="media-body">
 							<h5 class="media-heading"><a href="#"><?php echo $course["username"]; ?></a></h5>
-							<p>Lorem ipsum dolor sit amet, vix erat audiam ei. Cum doctus civibus efficiantur in. </p>
+							<p><?php echo $course["about"]; ?></p>
 						</div>
 					</div>
 				</div>

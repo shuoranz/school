@@ -1,7 +1,11 @@
 <?php
 	$pre_position = '../';
 	require($pre_position.'core/init.php'); ?>
-<?php 
+<?php
+
+if (!isStudentOrAbove()){
+	redirect('/login/','You have been logged in first', 'success');
+}
 
 //Create Topic Object
 $course = new CourseModel;
@@ -18,7 +22,6 @@ if (!isset($_GET["vid"]) || empty($_GET["vid"])) {
 } else {
 	$videoId = (int)$_GET["vid"];
 }
-
 
 
 

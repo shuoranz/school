@@ -35,7 +35,7 @@ class CourseModel {
         return $results;
     }
     public function getCourseById($course_id) {
-        $this->db->query("select course.*, users.username, users.avatar, course_category.name 
+        $this->db->query("select course.*, users.username, users.avatar, course_category.name, users.about 
                           from course inner join users on course.created_by = users.id 
                                     inner join course_category on course.category_id = course_category.id 
                                     where course.id = :course_id");
