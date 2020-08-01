@@ -58,15 +58,15 @@
 											foreach ($videos[$course["id"]] as $key => $video) :
 										?>
 										<tr>
-                                            <td><a href=""><?php echo $video['id']; ?></a></td>
-                                            <td><span><?php echo mb_substr($video['title'], 0, 30); echo mb_strlen($video['title'], 'UTF-8') > 30 ? "..." : ""; ?></span></td>
+                                            <td><a href="/course/video/?vid=<?php echo $video['id']; ?>"><?php echo $video['id']; ?></a></td>
+                                            <td><a href="/course/video/?vid=<?php echo $video['id']; ?>"><?php echo mb_substr($video['title'], 0, 30); echo mb_strlen($video['title'], 'UTF-8') > 30 ? "..." : ""; ?></a></td>
 											<td><span><?php echo ""; //$course['description']; ?></span></td>
                                             <td><span class="tag tag-default"><?php echo $video['status']; ?></span></td>
 											<td><span><?php echo $course['title']; ?></span></td>
                                             <td><span><?php echo $course['name']; ?></span></td>
-                                            <td><span><?php echo $video['created_by']; ?></span></td>
+                                            <td><span><?php echo getUserNameByUserId($video['created_by']); ?></span></td>
 											<td><span><?php echo $video['create_date']; ?></span></td>
-                                            <td><span><?php echo $video['published_by']; ?></span></td>
+                                            <td><span><?php echo getUserNameByUserId($video['published_by']); ?></span></td>
                                         </tr>
 										<?php 
 											endforeach; 

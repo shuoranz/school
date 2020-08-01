@@ -60,7 +60,7 @@
 		<div class="col-md-9 col-sm-9 col-xs-9">
 			<div class=" pull-right">
 				<?php if(!isLoggedIn()) : ?>
-				<a href="/login" class="button_top" id="login_top">Sign in</a>
+				<a href="/login" class="button_top" id="login_top" style="margin-top: 10px;">Sign in</a>
 				<?php endif; ?>
 				<!--<a href="/apply_2.html" class="button_top hidden-xs" id="apply">Apply now</a>-->
 			</div>
@@ -77,7 +77,8 @@
 				<?php endif; ?>
 				<li><a id="top_a_tag" href="/logout">Logout</a></li>
 				<?php else : ?>
-                <li><a id="top_a_tag" href="/register">Register</a></li>
+                <!--<li><a id="top_a_tag" href="/register">Register</a></li>-->
+				<li><a id="TreeTrailBtn" class="button_top" href="/register">Free Trail</a></li>
 				<?php endif; ?>
             </ul>
 		</div>
@@ -94,6 +95,7 @@
 				<li class="normal_drop_down">
 					<a href="/">Home</a>
 				</li>
+				<!--
 				<li class="normal_drop_down">
 					<a href="/course/">Online Courses</a>
 					<div class="mobnav-subarrow"></div>
@@ -103,14 +105,11 @@
 						foreach($courseCategories as $courseCategory) : ?>
 						<li><a href="/course/?category=<?php echo $courseCategory["id"]; ?>"><?php echo $courseCategory["name"]; ?></a></li>
 						<?php endforeach ?>
-						<!--
-						<li><a href="/course/?id=1">Mathematic</a></li>
-						<li><a href="/course/?id=2">Literature</a></li>
-						<li><a href="/course/?id=3">Physics</a></li>
-						<li><a href="/course/?id=4">Chemistry</a></li>
-						<li><a href="/course/?id=5">SAT Preparation</a></li>
-						-->
 					</ul>
+				</li>
+				-->
+				<li class="normal_drop_down">
+					<a href="/course/">Online Courses</a>
 				</li>
 				<li class="normal_drop_down">
 					<a href="/team/">Counseling Team</a>
@@ -124,16 +123,19 @@
 				</li>
 				-->
 				<li class="normal_drop_down">
-					<a href="/news/?p=1">News</a>
+					<a href="">News</a>
 					<div class="mobnav-subarrow"></div>
+						
 					<ul>
+						<li><a href="/news/?p=1">News</a></li>
 						<li><a href="/blog/?p=1">Blog</a></li>
 					</ul>
 				</li>
 				<li class="normal_drop_down">
-					<a href="/about_us/">About Us</a>
+					<a href="">About Us</a>
 					<div class="mobnav-subarrow"></div>
 					<ul>
+						<li><a href="/about_us/">About Us</a></li>
 						<li><a href="/join_us/">Join Us</a></li>
 					</ul>
 				</li>

@@ -5,6 +5,16 @@
                         <a href="javascript:void(0)" class="icon menu_toggle mr-3"><i class="fa  fa-align-left"></i></a>
                         <h1 class="page-title"><?php echo $pageUrl; ?></h1>                        
                     </div>
+					<div class="right">
+						<div class="notification d-flex">
+                            <div class="dropdown d-flex">
+                                <button type="button" class="btn btn-primary">
+									<a style="color:white;" href="/logout">Logout</a></li>
+								</button>
+                            </div>
+						</div>
+					</div>
+					
 					<!--
                     <div class="right">
                         <div class="input-icon xs-hide mr-4">

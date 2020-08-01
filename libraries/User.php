@@ -138,10 +138,10 @@ class User {
     }
     
     //User login 
-    public function login($username,$password){
-        $this->db->query('select * from users where username = :username and password = :password');
+    public function login($loginEmail,$password){
+        $this->db->query('select * from users where email = :email and password = :password');
         //Bind values
-        $this->db->bind('username', $username);
+        $this->db->bind('email', $loginEmail);
         $this->db->bind('password', $password);
         $result = $this->db->single();
         //check result

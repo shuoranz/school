@@ -132,5 +132,16 @@
         $result = $db->resultset()[0];
         return $result['username'];
 	}
+	
+	function getUserNameByUserId($user_id) {
+		if ($user_id == 0){
+			return "";
+		}
+		$db = new Database;
+        $db->query('select * from users where id = :user_id');
+        $db->bind(':user_id', $user_id);
+        $result = $db->resultset()[0];
+        return $result['username'];
+	}
 
 ?>

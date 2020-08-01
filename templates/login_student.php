@@ -24,7 +24,7 @@
 				<hr class="hr-or"><span class="span-or">or</span></div>
 				-->
 				<div class="form-group">
-					<input type="text" name="username" class=" form-control " placeholder="Username">
+					<input type="text" name="emailaddress" class=" form-control " placeholder="Email Address">
 					<span class="input-icon"><i class=" icon-user"></i></span>
 				</div>
 				<div class="form-group" style="margin-bottom:5px;">

@@ -11,13 +11,14 @@
 
     <div class="page">
         <?php include 'includes/page-top.php'; ?>
+		<!--
         <div class="section-body mt-3">
             <div class="container-fluid">
                 <div class="row clearfix">
                     <div class="col-lg-12">
                         <div class="mb-4">
                             <h4>Welcome Xiaowen!</h4>
-                            <!--<small>Study hard, for the well is deep, and our brains are shallow.</small>-->
+                            <small>Study hard, for the well is deep, and our brains are shallow.</small>
                         </div>                        
                     </div>
                 </div>
@@ -69,6 +70,7 @@
                 </div>
             </div>
         </div>
+		-->
 		<div class="section-body mt-3">
             <div class="container-fluid">
                 <div class="row clearfix">
@@ -105,9 +107,9 @@
                                             <td><span><?php echo $code['code']; ?></span></td>
                                             <td><span class="tag tag-default"><?php echo $code['status']; ?></span></td>
                                             <td><span><?php echo $code['code_type']; ?></span></td>
-                                            <td><span><?php echo $code['created_by']; ?></span></td>
+                                            <td><span><?php echo getUserNameByUserId($code['created_by']); ?></span></td>
                                             <td><span><?php echo $code['created_date']; ?></span></td>
-											<td><span><?php echo $code['activated_by']; ?></span></td>
+											<td><span><?php echo getUserNameByUserId($code['activated_by']); ?></span></td>
                                             <td><span><?php echo $code['activated_time_start']; ?></span></td>
                                             <td><?php echo $code['active_duration']; ?> days</td>
                                         </tr>
