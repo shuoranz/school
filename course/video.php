@@ -4,7 +4,7 @@
 <?php
 
 if (!isStudentOrAbove()){
-	redirect('/login/','You have been logged in first', 'success');
+	redirect('/login/?url='.urlencode(ltrim($_SERVER['REQUEST_URI'],"/")),'You have to log in first', 'success');
 }
 
 //Create Topic Object

@@ -8,7 +8,13 @@
 				<img src="img/login_logo.png" alt="">
 			</p>
 			<h4 style="padding:13px 0;">Login</h4>
-			<form method="POST">
+			<?php
+				$returnFormUrl = isset($_GET['url']) ? $_GET['url'] : "";
+				if($returnFormUrl != "") {
+					$returnFormUrl = "?url=".$returnFormUrl;
+				}
+			?>
+			<form action="/login<?php echo $returnFormUrl; ?>" method="POST">
 			<!--
             <div class="row">
 				<div class="col-md-6 col-sm-6 login_social">
