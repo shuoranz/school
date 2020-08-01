@@ -196,5 +196,36 @@ class User {
 		$results = $this->db->resultset();
         return $results;
 	}
+	
+	//Get teacher by condition
+	public function getAllTeacherUsersWithCondition($conditionArray)
+	{
+		$appendCondition = "";
+		foreach($conditionArray as $key => $conditionValue) {
+			$appendCondition .= " and lower($key) like :".$key;
+		}
+		$this->db->query('select * from users where role like "%teacher%"'.$appendCondition);
+		foreach($conditionArray as $key => $conditionValue) {
+			$this->db->bind(':'.$key,'%'.$conditionValue.'%');
+		}
+		$results = $this->db->resultset();
+        return $results;
+	}
+	
+	//Get teacher by condition
+	public function getAllStudentUsersWithCondition($conditionArray)
+	{
+		$appendCondition = "";
+		foreach($conditionArray as $key => $conditionValue) {
+			$appendCondition .= " and lower($key) like :".$key;
+		}
+		$this->db->query('select * from users where role like "%student%"'.$appendCondition);
+		foreach($conditionArray as $key => $conditionValue) {
+			$this->db->bind(':'.$key,'%'.$conditionValue.'%');
+		}
+		$results = $this->db->resultset();
+        return $results;
+	}
+	
 }
 ?>

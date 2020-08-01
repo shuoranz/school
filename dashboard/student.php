@@ -3,21 +3,27 @@
 	require($pre_position.'core/init.php'); 
 ?>
 <?php 
-//Create Topic Object
-//$topic = new TopicModel;
+
+$template = new Template('templates/manage_student.php');
+
 //Create User Object
 $user = new User;
-//Get Template and Assign Vars
-$template = new Template('templates/manage_student.php');
-$template->students = $user->getAllStudentUsers();
-//$template->invitationCodes = $ic->getAllInvitationCodes();
-//Assign Variables to template object
-/*
-$template->topics = $topic->getAllTopics();
-$template->totalTopics = $topic->getTotalTopics();
-$template->totalCategories = $topic->getTotalCategories();
-$template->totalUsers = $user->getTotalUsers();
-*/
+
+$searchArray = isset($_GET["search"]) ? json_decode($_GET["search"]) : null;
+if (empty($searchArray))
+{
+	$template->students = $user->getAllStudentUsers();
+} else {
+	$searchCondtions = array();
+	$searchOptions = array('id','first_name','last_name','email','username');
+	foreach($searchArray as $key => $searchValue){
+		if (in_array($key, $searchOptions) && !empty($searchValue)) {
+			$searchCondtions[$key] = $searchValue;
+		}
+	}
+	$template->students = empty($searchCondtions) ? $user->getAllStudentUsers() : $user->getAllStudentUsersWithCondition($searchCondtions);
+
+}
 
 //Display template
 echo $template;
