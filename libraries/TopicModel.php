@@ -10,7 +10,14 @@ class TopicModel {
     
     //Get All Topics
     public function getAllTopics(){
-        $this->db->query("select forum.*, users.username, users.avatar, forum_category.name from forum inner join users on forum.user_id = users.id inner join forum_category on forum.category_id = forum_category.id order by create_date desc");
+        $this->db->query("select forum.*, users.username, users.avatar, forum_category.name, 
+                          count(forum_reply.id) as reply_count
+                          from forum inner join users on forum.user_id = users.id 
+                                     inner join forum_category on forum.category_id = forum_category.id 
+                                     left join forum_reply on forum_reply.topic_id = forum.id and forum_reply.deleted = 0
+                                     where forum.deleted = 0
+                                     group by forum.id
+                                     order by create_date desc");
         
         //Assign Result Set
         $results = $this->db->resultset();
@@ -110,7 +117,22 @@ class TopicModel {
             return false;
         }
     }
-	
+	public function likedTopic($topic_id) {
+        if (!isLoggedIn()) {
+            return false;
+        } else {
+            $user_id = getUser()['user_id'];
+            $this->db->query("select * from blog_likes where user_id = :user_id and blog_id = :blog_id");
+            $this->db->bind(":user_id", $user_id);
+            $this->db->bind(":blog_id", $topic_id);
+            $results = $this->db->resultset();
+            if (count($results) == 0 || $results[0]['deleted'] != 0) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+    }
 	//Edit a new topic
 	public function edit($data) {
         $this->db->query("update forum set category_id=:category_id,title=:title,body=:body,last_activity=:last_activity where id=:id");
@@ -178,6 +200,17 @@ class TopicModel {
         $this->db->bind(':body', $data['body']);
         $this->db->bind(':replyee_id', $data['replyee_id']);
         $this->db->bind(':comment_id', $data['comment_id']);
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function addOneTopicViewCount($topic_id, $view_count) {
+        $this->db->query("update forum set view_count = :view_count
+                          where id= :topic_id");
+        $this->db->bind(':view_count', $view_count);
+        $this->db->bind(':topic_id', $topic_id);
         if($this->db->execute()){
             return true;
         } else {

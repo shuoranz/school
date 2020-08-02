@@ -35,11 +35,8 @@ if(isset($_POST['do_reply'])){
 
 //Get Template and Assign Vars
 $template = new Template($pre_position.'templates/forum_thread.php');
-
-
-
 	$cur_topic = $topic->getTopic($topic_id);
-
+    $topic->addOneTopicViewCount($topic_id, $cur_topic['view_count']+1);
     $cur_topic['reply_num'] = $topic->getTopicReplyCount($topic_id);
     $cur_date = $cur_topic['create_date'];
     $ymd = preg_split("/[\s]+/", $cur_date)[0];

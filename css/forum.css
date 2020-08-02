@@ -1,0 +1,19 @@
+.publisher img {
+    width: 70px;
+    margin-right: 0px;
+}
+.publisher .username {
+    width: 100%;
+    text-align:center;
+}
+.publisher {
+    margin-right:15px;
+}
+
+.create_date.col-md-1 {
+    padding: 0px;
+    color: #8a8a8a;
+}
+.view-like-reply {
+    color: #8a8a8a;
+}
