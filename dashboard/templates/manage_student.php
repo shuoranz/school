@@ -20,31 +20,31 @@
                                 <div class="row">
                                     <div class="col-lg-2 col-md-4 col-sm-6">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="id">
+                                            <input type="text" class="form-control" placeholder="id" id="search_id" value="<?php echo isset($id)?$id:""; ?>">
                                         </div>
                                     </div>
                                     <div class="col-lg-2 col-md-4 col-sm-6">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Username">
+                                            <input type="text" class="form-control" placeholder="Username" id="search_username" value="<?php echo isset($username)?$username:""; ?>">
                                         </div>
                                     </div>
 									<div class="col-lg-2 col-md-4 col-sm-6">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Email Address">
+                                            <input type="text" class="form-control" placeholder="Email Address" id="search_email" value="<?php echo isset($email)?$email:""; ?>">
                                         </div>
                                     </div>
                                     <div class="col-lg-2 col-md-4 col-sm-6">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="First Name">
+                                            <input type="text" class="form-control" placeholder="First Name" id="search_fname" value="<?php echo isset($first_name)?$first_name:""; ?>">
                                         </div>
                                     </div>
                                     <div class="col-lg-2 col-md-4 col-sm-6">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Last Name">
+                                            <input type="text" class="form-control" placeholder="Last Name" id="search_lname" value="<?php echo isset($last_name)?$last_name:""; ?>">
                                         </div>
                                     </div>
                                     <div class="col-lg-2 col-md-4 col-sm-6">
-                                        <a href="javascript:void(0);" class="btn btn-primary btn-block" title="">Search</a>
+                                        <a href="#" class="btn btn-primary btn-block" title="" id="search_user">Search</a>
                                     </div>
                                 </div>
                             </div>
@@ -225,6 +225,27 @@
 		});
 	});
 	
+	$("#search_user").click(function(){
+		var searchQuery = "";
+		var e1, e2, e3, e4, e5;
+		e1 = $("#search_id").val().replace(/[^0-9]/g, '');
+		e2 = $("#search_username").val().replace(/[^a-zA-Z0-9]/g, '');
+		e3 = $("#search_email").val().replace(/[^a-zA-Z0-9@]/g, '');
+		e4 = $("#search_fname").val().replace(/[^a-zA-Z0-9]/g, '');
+		e5 = $("#search_lname").val().replace(/[^a-zA-Z0-9]/g, '');
+		searchQuery += e1 ? '"id":"'+ e1 + '",' : "";
+		searchQuery += e2 ? '"username":"' + e2 + '",' : "";
+		searchQuery += e3 ? '"email":"' + e3 + '",' : "";
+		searchQuery += e4 ? '"first_name":"' + e4 + '",' : "";
+		searchQuery += e5 ? '"last_name":"' + e5 + '",' : "";
+		if (searchQuery == "") {
+			return false;
+		} else {
+			searchQuery = "{"+searchQuery.replace(/,\s*$/, "")+"}";
+		}
+		//alert(searchQuery);
+		window.location.href = "/dashboard/student?search=" + searchQuery;
+	});
 </script>
 </body>
 </html>

@@ -19,6 +19,7 @@ if (empty($searchArray))
 	foreach($searchArray as $key => $searchValue){
 		if (in_array($key, $searchOptions) && !empty($searchValue)) {
 			$searchCondtions[$key] = $searchValue;
+			$template->$key = $searchValue;
 		}
 	}
 	$template->students = empty($searchCondtions) ? $user->getAllStudentUsers() : $user->getAllStudentUsersWithCondition($searchCondtions);
