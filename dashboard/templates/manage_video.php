@@ -141,7 +141,7 @@
                             </select>
                         </div>
                     </div>
-					<input type="hidden" value="1" id="user_id" />
+					<input type="hidden" value="<?php echo getUser()['user_id'] ?>" id="user_id" />
                 </div>
             </div>
             <div class="modal-footer">

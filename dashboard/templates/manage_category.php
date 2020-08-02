@@ -16,7 +16,7 @@
                 <div class="row clearfix">
                     <div class="col-lg-12">
                         <div class="mb-4">
-                            <h4>Welcome Xiaowen!</h4>
+                            <h4>Welcome <?php echo getUser()['username']; ?>!</h4>
                             <!--<small>Study hard, for the well is deep, and our brains are shallow.</small>-->
                         </div>                        
                     </div>
@@ -27,6 +27,7 @@
             <div class="container-fluid">
                 <div class="row clearfix">
 					<div class="col-6">
+						<?php if( isAdmin() ) : ?>
 						<div class="card">
                             <div class="card-body">
                                 <div class="row">
@@ -46,23 +47,28 @@
                                 </div>
                             </div>
                         </div>
+						<?php endif; ?>
                         <div class="card">
                             <div class="table-responsive">
                                 <table class="table table-hover table-striped table-vcenter mb-0 text-nowrap">
                                     <thead>
                                         <tr>
                                             <th colspan="2">Manage Category</th>
+											<?php if( isAdmin() ) : ?>
                                             <th colspan="1">
 												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addVideoDiv">
 													<i class="fe fe-plus mr-2"></i>Add Category
 												</button>
 											</th>
+											<?php endif; ?>
                                         </tr>
                                         <tr>
                                             <!--<th class="w30">&nbsp;</th>-->
                                             <th>Category ID</th>
                                             <th>Category Name</th>
+											<?php if( isAdmin() ) : ?>
 											<th>Delete</th>
+											<?php endif; ?>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -72,7 +78,9 @@
 										<tr>
                                             <td><a href="/dashboard/my-courses?category=<?php echo $category['id']; ?>"><?php echo $category['id']; ?></a></td>
                                             <td><a href="/dashboard/my-courses?category=<?php echo $category['id']; ?>"><?php echo $category['name']; ?></a></td>
+											<?php if( isAdmin() ) : ?>
 											<td><a href="">Delete</a></td>
+											<?php endif; ?>
                                         </tr>
 										<?php 
 										endforeach; 

@@ -1,12 +1,3 @@
-	<script>
-	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-	  ga('create', 'UA-41474117-3', 'auto');
-	  ga('send', 'pageview');
-	</script>
 	<div id="header_top" class="header_top">
         <div class="container">
             <div class="hleft">
@@ -312,7 +303,9 @@
 				<?php if (isTeacherOrAbove()) : ?>
 				<li class="g_heading">Teacher</li>
 				<li class="<?php echo $pageUrl=='Dashboard' ? 'active' : ''; ?>"><a href="/dashboard/"><i class="fa fa-dashboard"></i><span>Dashboard(not done)</span></a></li>
-				<li class="<?php echo $pageUrl=='TeacherCourses' ? 'active' : ''; ?>"><a href="/dashboard/my-category"><i class="fa fa-book"></i><span>My Courses(not done)</span></a></li>
+				<?php if (isTeacher()) : ?>
+				<li class="<?php echo $pageUrl=='MyCourses' ? 'active' : ''; ?>"><a href="/dashboard/my-category"><i class="fa fa-book"></i><span>My Courses</span></a></li>
+				<?php endif; ?>
 				<!--<li class="<?php echo $pageUrl=='MyVideos' ? 'active' : ''; ?>"><a href="/dashboard/my-videos"><i class="fa fa-youtube-play"></i><span>My Videos</span></a></li>
 				<li class="<?php echo $pageUrl=='Calendar' ? 'active' : ''; ?>"><a href="calendar.php"><i class="fa fa-calendar"></i><span>Calendar</span></a></li>
 				<li class="<?php echo $pageUrl=='TodoList' ? 'active' : ''; ?>"><a href="todo-list.php"><i class="fa fa-check-square-o"></i><span>Todo List</span></a></li>

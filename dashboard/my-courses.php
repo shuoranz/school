@@ -8,16 +8,17 @@
 //Create User Object
 //$user = new User;
 
-if(!isAdmin()){
+if(!isTeacherOrAbove()){
 	redirect('/login/','You need to log in', 'success');
 }
+
+
 $courseModel = new CourseModel;
 //Get Template and Assign Vars
 $template = new Template('templates/manage_course.php');
 
 $categroyId = !isset($_GET["category"]) || $_GET["category"] == 0 ? "" : (int)$_GET["category"];
-
-$template->courses = $courseModel->getAllCourses($categroyId, "");
+$template->courses = $courseModel->getAllCourses($categroyId, isAdmin()?"":getUser()['user_id']);
 $template->category = $courseModel->getCategoryById($categroyId);
 
 //Assign Variables to template object

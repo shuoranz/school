@@ -16,81 +16,11 @@
                 <div class="row clearfix">
                     <div class="col-lg-12">
                         <div class="mb-4">
-                            <h4>Welcome Xiaowen!</h4>
+                            <h4>Welcome <?php echo getUser()['username']; ?>!</h4>
                             <!--<small>Study hard, for the well is deep, and our brains are shallow.</small>-->
                         </div>                        
                     </div>
                 </div>
-				<!--
-                <div class="row clearfix row-deck">
-                    <div class="col-xl-2 col-lg-4 col-md-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Active Courses</h3>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="number mb-0 font-32 counter">31</h5>
-                                <span class="font-12">Good job! ... <a href="#">More</a></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-lg-4 col-md-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Pending Courses</h3>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="number mb-0 font-32 counter">25</h5>
-                                <span class="font-12">Well done! ... <a href="#">More</a></span>
-                            </div>
-                        </div>
-                    </div>
-					<div class="col-xl-2 col-lg-4 col-md-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Unpublished Courses</h3>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="number mb-0 font-32 counter">31</h5>
-                                <span class="font-12">Good job! ... <a href="#">More</a></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-lg-4 col-md-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Deleted Courses</h3>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="number mb-0 font-32 counter">25</h5>
-                                <span class="font-12">Well done! ... <a href="#">More</a></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-lg-4 col-md-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Courses Viewed</h3>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="number mb-0 font-32 counter">17</h5>
-                                <span class="font-12">learn... <a href="#">More</a></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-lg-4 col-md-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Courses Liked</h3>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="number mb-0 font-32 counter">350</h5>
-                                <span class="font-12">days left... <a href="#">More</a></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-				-->
             </div>
         </div>
 		<div class="section-body mt-3">
@@ -129,9 +59,9 @@
                                             <td><span class="tag tag-default"><?php echo $course['status']; ?></span></td>
                                             <td><span><?php echo $course['name']; ?></span></td>
                                             <td><span><?php echo "" ; //$course['description']; ?></span></td>
-                                            <td><span><?php echo $course['created_by']; ?></span></td>
+                                            <td><span><?php echo getUserNameByUserId($course['created_by']); ?></span></td>
 											<td><span><?php echo $course['create_date']; ?></span></td>
-                                            <td><span><?php echo $course['published_by']; ?></span></td>
+                                            <td><span><?php echo getUserNameByUserId($course['published_by']); ?></span></td>
                                         </tr>
 										<?php endforeach; ?>
 										<!--
@@ -190,7 +120,7 @@
                             <textarea class="form-control" placeholder="Course Description" id="course_description"></textarea>
                         </div>
                     </div>
-					<input type="hidden" name="user_id" id="user_id" value="1">
+					<input type="hidden" name="user_id" id="user_id" value="<?php echo getUser()['user_id'] ?>">
 					<!--
 					<div class="col-12">
                         <div class="form-group">

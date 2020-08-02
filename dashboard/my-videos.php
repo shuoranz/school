@@ -8,7 +8,7 @@
 //Create User Object
 //$user = new User;
 
-if(!isAdmin()){
+if(!isTeacherOrAbove()){
 	redirect('/login/','You need to log in', 'success');
 }
 $courseModel = new CourseModel;
