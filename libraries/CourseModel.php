@@ -11,7 +11,7 @@ class CourseModel {
         $this->db->query("select course.*, users.username, users.avatar, course_category.name 
                           from course inner join users on course.created_by = users.id 
                                     inner join course_category on course.category_id = course_category.id 
-									where $categoryCondition and $categoryCondition and course.deleted = 0
+									where $categoryCondition and $userCondition and course.deleted = 0
                                     order by course.id asc");
         $this->db->bind(':category_id',$category_id);
 		if ($userCondition != "1"){

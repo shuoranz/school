@@ -97,6 +97,15 @@ function isTeacherOrAbove(){
 	}
 	return $_SESSION['role'] === "teacher" || isAdmin() ? true : false;
 }
+function isTeacher(){
+	if (!isLoggedIn()){
+		return false;
+	}
+	if (!isset($_SESSION['role']) || empty($_SESSION['role'])){
+		return false;
+	}
+	return $_SESSION['role'] === "teacher" ? true : false;
+}
 
 //check whether user is teacher or above
 function isStudentOrAbove(){
