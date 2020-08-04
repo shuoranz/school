@@ -17,3 +17,22 @@
 .view-like-reply {
     color: #8a8a8a;
 }
+.file-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+button.icon-button {
+    background-color: transparent;
+    padding: 0px;
+    border: none;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+i.icon-cancel {
+    color: #f15e29;
+}
+i.icon-plus {
+    color: #1cbbb4;
+}

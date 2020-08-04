@@ -3,15 +3,12 @@
 	require($pre_position.'core/init.php'); 
 ?>
 <?php 
-
-// for test
-$_SESSION['user_id'] = 4;
-$_SESSION['username'] = 'shuoran';
-$_SESSION['name'] = 'Ian';
-
+// TODO: permission
+if(!isLoggedIn()) {
+    redirect('/blog/?p=1', 'You did not login!','error');
+}
 //Create Topic object
 $topic = new TopicModel;
-
 if (isset($_POST['do_create'])){
     //Create Validator object
     $validate = new Validator;
@@ -23,10 +20,24 @@ if (isset($_POST['do_create'])){
     $data['body'] = $_POST['body'];
     $data['category_id'] = $_POST['category_id'];
     $data['user_id'] = getUser()['user_id'];
-    
+    $data['imgs'] = "";
+    $counter = $_POST['counter'];
+    echo $counter;
+    for($i = 0; $i < $counter; $i++) {
+        $name = "img-" . $i;
+        if($_FILES[$name]["error"] == 0) {
+            $temp = explode(".", $_FILES[$name]["name"]);
+            $extension = end($temp);
+            list($msec, $sec) = explode(" ", microtime()); 
+            $msectime = (float)sprintf('%.0f', (floatval($msec) + floatval($sec)) * 1000);
+            $timestampFileName = $msectime . "." . $extension;
+            move_uploaded_file($_FILES[$name]["tmp_name"], "topic-imgs/" . $timestampFileName);
+            $data['imgs'] .= ($data['imgs'] == "" ? "/forum/topic-imgs/" . $timestampFileName :
+                                                    ",/forum/topic-imgs/". $timestampFileName); 
+        }
+    }
     //Required Fields
     $field_array = array('title','body','category_id');
-    
     if($validate->isRequired($field_array)){
         //Create Topic
         if($topic->create($data)){

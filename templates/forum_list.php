@@ -30,7 +30,7 @@
             <!--
      
      -->
-            <a class="button_medium" href="/forum/create">Create</a>
+            
             <div class="row">
                 <div class="col-md-3">
                     <aside>
@@ -54,21 +54,6 @@
                                         <div><a href="#">It is a long established fact that a reader will be distracted
                                             </a></div>
                                     </li>
-                                    <li>
-                                        <i class="icon-calendar-empty"></i> 16th July, 2020
-                                        <div><a href="#">It is a long established fact that a reader will be distracted
-                                            </a></div>
-                                    </li>
-                                    <li>
-                                        <i class="icon-calendar-empty"></i> 16th July, 2020
-                                        <div><a href="#">It is a long established fact that a reader will be distracted
-                                            </a></div>
-                                    </li>
-                                    <li>
-                                        <i class="icon-calendar-empty"></i> 16th July, 2020
-                                        <div><a href="#">It is a long established fact that a reader will be distracted
-                                            </a></div>
-                                    </li>
                                 </ul>
                             </div>
 
@@ -76,6 +61,7 @@
                     </aside>
                 </div>
                 <div class="col-md-9">
+                <a class="button_medium" href="/forum/create">Create</a>
                     <?php foreach ($topics as $topic) : ?>
                     <div class="media list_news">
                         <div class="col-md-9">
@@ -128,5 +114,5 @@
     </div><!-- End container -->
 </section><!-- End main_content-->
 
-
+<script src="/forum/forum.js"><script>
 <?php include('includes/footer.php'); ?>

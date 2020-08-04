@@ -102,13 +102,14 @@ class TopicModel {
     
     //Create a new topic
     public function create($data) {
-        $this->db->query("insert into forum (category_id,user_id,title,body,last_activity)
-        values (:category_id,:user_id,:title,:body,:last_activity)");
+        $this->db->query("insert into forum (category_id,user_id,title,body,imgs,last_activity)
+        values (:category_id,:user_id,:title,:body,:imgs,:last_activity)");
         
         $this->db->bind(':category_id',$data['category_id']);
         $this->db->bind(':user_id',$data['user_id']);
         $this->db->bind(':title',$data['title']);
         $this->db->bind(':body',$data['body']);
+        $this->db->bind(':imgs',$data['imgs']);
         $this->db->bind(':last_activity',date("Y-m-d H:i:s"));
         
         if($this->db->execute()){
