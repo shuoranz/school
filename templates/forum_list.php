@@ -30,7 +30,7 @@
             <!--
      
      -->
-            
+
             <div class="row">
                 <div class="col-md-3">
                     <aside>
@@ -61,7 +61,9 @@
                     </aside>
                 </div>
                 <div class="col-md-9">
-                <a class="button_medium" href="/forum/create">Create</a>
+                    <?php if(isStudentOrAbove()): ?>
+                    <a class="button_medium" href="/forum/create">Create</a>
+                    <?php endif; ?>
                     <?php foreach ($topics as $topic) : ?>
                     <div class="media list_news">
                         <div class="col-md-9">
@@ -71,10 +73,13 @@
                                 <div class="username"><?php echo $topic['username'] ?></div>
                             </div>
                             <div class="media-body">
-                                <h4 class="media-heading"><a href="/forum/thread/?id= <?php echo $topic['id']; ?>">
-                                        <?php echo $topic['title']; ?> </a></h4>
-                                <p><?php echo mb_substr($topic['body'], 0, 100); ?> <a
-                                        href="/forum/thread/?id= <?php echo $topic['id']; ?>"> read more....</a></p>
+                                <h4 class="media-heading">
+                                    <a href="/forum/thread/?id= <?php echo $topic['id']; ?>">
+                                        <?php echo $topic['title']; ?>
+                                    </a></h4>
+                                <p><?php echo mb_substr($topic['body'], 0, 100); ?> <a <?php if(isStudentOrAbove()): ?>
+                                        href="/forum/thread/?id= <?php echo $topic['id']; ?>" <?php endif; ?>> read
+                                        more...</a></p>
                             </div>
                         </div><!-- End col-md-8-->
                         <div class="col-md-2 view-like-reply">
@@ -113,6 +118,7 @@
         </div> <!-- End row-->
     </div><!-- End container -->
 </section><!-- End main_content-->
-
-<script src="/forum/forum.js"><script>
-<?php include('includes/footer.php'); ?>
+<script src="/forum/forum.js">
+< script >
+    <
+    ? php include('includes/footer.php'); ? >

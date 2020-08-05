@@ -117,6 +117,15 @@ function isStudentOrAbove(){
 	}
 	return $_SESSION['role'] === "student" || isTeacherOrAbove() ? true : false;
 }
+function isStudentGuest() {
+    if (!isLoggedIn()){
+		return false;
+	}
+	if (!isset($_SESSION['role']) || empty($_SESSION['role'])){
+		return false;
+    }
+    return $_SESSION['role'] === "student(guest)" ? true : false;
+}
 
 //check whether user is guest or above
 function isGuestOrAbove(){

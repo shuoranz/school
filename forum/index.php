@@ -2,6 +2,9 @@
 	$pre_position = '../';
 	require($pre_position.'core/init.php'); ?>
 <?php 
+if(!isLoggedIn()) {
+	redirect("/login","Please login to view forum topics","error");
+}
 //Create Topic Object
 $topic = new TopicModel;
 //Create User Object
