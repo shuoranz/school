@@ -141,8 +141,8 @@ class User {
     public function login($loginEmail,$password){
         $this->db->query('select * from users where email = :email and password = :password');
         //Bind values
-        $this->db->bind('email', $loginEmail);
-        $this->db->bind('password', $password);
+        $this->db->bind(':email', $loginEmail);
+        $this->db->bind(':password', $password);
         $result = $this->db->single();
         //check result
         if($this->db->rowCount()>0){
@@ -226,6 +226,73 @@ class User {
 		$results = $this->db->resultset();
         return $results;
 	}
+	public function isEmailAddressExist($emailAddress)
+	{
+		$this->db->query('select * from users where email = :email');
+        //Bind values
+        $this->db->bind(':email', $emailAddress);
+        $result = $this->db->single();
+        //check result
+        if($this->db->rowCount()>0){
+            return true;
+        } else {
+            return false;
+        }
+	}
+	public function sendResetPasswordEmail($emailAddress)
+	{
+		$this->db->query('select * from users where email = :email');
+        //Bind values
+        $this->db->bind(':email', $emailAddress);
+        $result = $this->db->single();
+        //check result
+        if($this->db->rowCount()>0){
+            $resetUrlToken = $result['reset_password'];
+			echo $_SERVER['SERVER_NAME'] . "/reset_password/?token=" . $resetUrlToken;
+            return true;
+        } else {
+            return false;
+        }
+	}
+	public function validToken($token)
+	{
+		$this->db->query('select * from users where reset_password = :reset_password');
+        //Bind values
+        $this->db->bind(':reset_password', $token);
+        $result = $this->db->single();
+        //check result
+        if($this->db->rowCount()>0){
+            return $result['email'];
+        } else {
+            return false;
+        }
+	}
 	
+	public function resetUserByToken($token, $email_address, $password)
+	{
+		if (strtolower($this->validToken($token)) != strtolower($email_address)) {
+			return false;
+		}
+		
+		//Query
+        $this->db->query('update users set password = :password, last_activity = :last_activity, reset_password = :new_token where email = :email and reset_password = :token');
+        //Bind Values
+        $this->db->bind(':email', $email_address);
+        $this->db->bind(':password',$password);
+        $this->db->bind(':last_activity',date("Y-m-d H:i:s"));
+		$this->db->bind(':new_token',md5($token));
+		$this->db->bind(':token',$token);
+        //Execute
+		
+		try {
+			if ($this->db->execute()){
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception $e) {
+			return false;
+		}
+	}
 }
 ?>
