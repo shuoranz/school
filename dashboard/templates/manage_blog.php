@@ -4,7 +4,6 @@
 
 ?>
 <?php include 'includes/html_header.php'; ?>
-
 <div id="main_content">
 
     <?php include 'includes/header.php'; ?>
@@ -159,7 +158,11 @@
 										<tr>
                                             <td><a href="/blog/thread/?id=<?php echo $blog['id']; ?>"><?php echo $blog['id']; ?></a></td>
                                             <td><a href="/blog/thread/?id=<?php echo $blog['id']; ?>"><?php echo mb_substr($blog['title'], 0, 30); echo mb_strlen($blog['title'], 'UTF-8') > 30 ? "..." : ""; ?></a></td>
-                                            <td><span class="tag tag-default"><?php echo $blog['status']; ?></span></td>
+                                            <td>
+                                                <div class="dropdown">
+                                                <span class="tag tag-default" onclick="showStatusDropDown(event)"><?php echo $blog['status']; ?></span>
+                                                </div>
+                                            </td>
                                             <td><span><?php echo $blog['name']; ?></span></td>
                                             <td><span><?php echo $blog['tag']; ?></span></td>
                                             <td><span><?php echo $blog['user_id']; ?></span></td>

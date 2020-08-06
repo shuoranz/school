@@ -3,6 +3,9 @@
 	require($pre_position.'core/init.php'); 
 ?>
 <?php 
+if(!isStudentOrAbove()) {
+    redirect("/forum", "Please request a demo to view forum topic", "error");
+}
 //Create Topic Object
 $topic = new TopicModel;
 

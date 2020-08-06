@@ -2,6 +2,7 @@
 // >1 : show it as long as page redirects (may have more features in the future)
 function msgAnimate(alternative = null, success = true) {
     var message = $("#message > div").html();
+    // triggered by redirect
     if (message != '') {
         $("#message").slideDown("fast", function() {
             setTimeout(function() {
@@ -10,6 +11,7 @@ function msgAnimate(alternative = null, success = true) {
             });
             }, 3000);
         });
+        // asychronizly, triggered by ajax callback
     } else if(alternative != null && alternative !='') {
         if(!success) {
             $("#message > div").removeClass("alert-success");

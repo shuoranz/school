@@ -1,5 +1,5 @@
 .publisher img {
-    width: 70px;
+    width: 60px;
     margin-right: 0px;
 }
 .publisher .username {
@@ -16,6 +16,7 @@
 }
 .view-like-reply {
     color: #8a8a8a;
+    padding: 0px;
 }
 .file-container {
     display: flex;
@@ -35,4 +36,64 @@ i.icon-cancel {
 }
 i.icon-plus {
     color: #1cbbb4;
+}
+.like-button {
+    cursor: pointer;
+}
+ul.categories {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-weight: 600;
+    font-size: 14px;
+}
+ul.categories li a.active {
+    background: #0cbdaa url(../img/arrow.png) no-repeat 96% center;
+    color: #fff;
+}
+ul.categories li a {
+    text-decoration: none;
+    padding: 4px 10px;
+    display: block;
+    margin-bottom: 3px;
+}
+.sort-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+.selectpicker {
+    padding: 3px;
+    border: 1px solid silver;
+    margin-left: 10px;
+    height: 26px
+}
+div.desc-container {
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    border: 1px solid silver;
+    position: relative;
+    left: -1px;
+    cursor: pointer;
+}
+.desc-container i {
+    font-size: 9px;
+    position: absolute;
+    color: #cdcdcd;
+}
+.desc-container i.active {
+    color: #0cbdaa;
+}
+.desc-container i.icon-up-open {
+    top: -3px;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+.desc-container i.icon-down-open {
+    bottom: -3px;
+    left: 50%;
+    transform: translate(-50%, 0%);
 }

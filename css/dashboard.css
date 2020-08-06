@@ -1,0 +1,14 @@
+.pagination li {
+    margin: 0px 5px;
+}
+.pagination {
+    margin-top: 1em;
+    justify-content: center;
+}
+.pagination li a {
+    padding:0px 3px;
+}
+.pagination li.active a {
+    background-color: #00A9BD;
+    color: whitesmoke;
+}

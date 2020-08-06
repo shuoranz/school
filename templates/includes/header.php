@@ -115,7 +115,7 @@
 					<a href="/team/">Counseling Team</a>
 				</li>
 				<li class="normal_drop_down">
-					<a href="/forum/">Forum</a>
+					<a href="/forum/?p=1">Forum</a>
 				</li>
 				<!--
 				<li class="normal_drop_down">

@@ -18,6 +18,7 @@
 <!-- Core css -->
 <link rel="stylesheet" href="../assets/css/main.css"/>
 <link rel="stylesheet" href="../assets/css/theme1.css"/>
+<link rel="stylesheet" href="/css/dashboard.css" />
 </head>
 
 <body class="font-montserrat">

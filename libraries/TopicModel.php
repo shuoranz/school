@@ -7,19 +7,71 @@ class TopicModel {
     public function __construct(){
         $this->db = new Database;
     }
-    
+    // get count by conditions
+    public function getTopicCountByConditions($conditions) {
+        $sql = "select forum.*, users.username, users.avatar, forum_category.name, count(forum_reply.id) as reply_count
+                from forum inner join users on forum.user_id = users.id 
+                          inner join forum_category on forum.category_id = forum_category.id
+                          left join forum_reply on forum_reply.topic_id = forum.id and forum_reply.deleted = 0
+                where forum.deleted = 0";
+        // processing WHERE conditions.
+        if (strcmp($conditions["c"], "") != 0) {
+            $sql = $sql . " and forum.category_id = " . $conditions["c"];
+        } 
+        // processing GROUP BY conditions.
+        $sql = $sql . " group by forum.id";
+        // processing ORDER BY conditions.
+        if (strcmp($conditions["ob"], "cd") == 0) {
+            $sql = $sql . " order by create_date"; 
+        } else if (strcmp($conditions["ob"], "lc") == 0) {
+            $sql = $sql . " order by like_count";
+        } else if (strcmp($conditions["ob"], "vc") == 0) {
+            $sql = $sql . " order by view_count";
+        } else if (strcmp($conditions["ob"], "rc") == 0) {
+            $sql = $sql . " order by reply_count";
+        }
+        // processing desc or asc
+        if ($conditions["desc"] == 1) {
+            $sql = $sql . " desc";
+        }
+        $this->db->query($sql);
+        $results = $this->db->resultset();
+        return count($results);
+    }
+
     //Get All Topics
-    public function getAllTopics(){
-        $this->db->query("select forum.*, users.username, users.avatar, forum_category.name, 
+    public function getPageTopics($conditions, $pageNum, $perPage){
+        $limit = ($pageNum - 1)*$perPage; 
+        $sql = "select forum.*, users.username, users.avatar, forum_category.name, 
                           count(forum_reply.id) as reply_count
                           from forum inner join users on forum.user_id = users.id 
                                      inner join forum_category on forum.category_id = forum_category.id 
                                      left join forum_reply on forum_reply.topic_id = forum.id and forum_reply.deleted = 0
-                                     where forum.deleted = 0
-                                     group by forum.id
-                                     order by create_date desc");
-        
-        //Assign Result Set
+                                     where forum.deleted = 0";
+        // processing WHERE conditions.
+        if (strcmp($conditions["c"], "") != 0) {
+            $sql = $sql . " and forum.category_id = " . $conditions["c"];
+        } 
+        // processing GROUP BY conditions.
+        $sql = $sql . " group by forum.id";
+        // processing ORDER BY conditions.
+        if (strcmp($conditions["ob"], "cd") == 0) {
+            $sql = $sql . " order by create_date"; 
+        } else if (strcmp($conditions["ob"], "lc") == 0) {
+            $sql = $sql . " order by like_count";
+        } else if (strcmp($conditions["ob"], "vc") == 0) {
+            $sql = $sql . " order by view_count";
+        } else if (strcmp($conditions["ob"], "rc") == 0) {
+            $sql = $sql . " order by reply_count";
+        }
+        // processing desc or asc
+        if ($conditions["desc"] == 1) {
+            $sql = $sql . " desc";
+        }
+        if ($pageNum > 0) {
+            $sql = $sql . " limit " . $limit . "," . $perPage;
+        }
+        $this->db->query($sql);
         $results = $this->db->resultset();
         return $results;
     }
@@ -48,7 +100,11 @@ class TopicModel {
         $results = $this->db->resultset();
         return $results;
     }
-    
+    public function getAllCategories() {
+        $this->db->query("select * from forum_category where deleted = 0");
+        $result = $this->db->resultset();
+        return $result;
+    }
     //Get Category details
     public function getCategory($category_id){
         $this->db->query('select * from forum_category where id = :category_id');
@@ -123,15 +179,84 @@ class TopicModel {
             return false;
         } else {
             $user_id = getUser()['user_id'];
-            $this->db->query("select * from blog_likes where user_id = :user_id and blog_id = :blog_id");
+            $this->db->query("select * from forum_likes where user_id = :user_id and topic_id = :topic_id");
             $this->db->bind(":user_id", $user_id);
-            $this->db->bind(":blog_id", $topic_id);
+            $this->db->bind(":topic_id", $topic_id);
             $results = $this->db->resultset();
             if (count($results) == 0 || $results[0]['deleted'] != 0) {
                 return false;
             } else {
                 return true;
             }
+        }
+    }
+
+    public function likeTopic($user_id, $topic_id, $curCount) {
+        $this->db->query("select * from forum_likes where user_id = :user_id and topic_id = :topic_id");
+        $this->db->bind(":user_id", $user_id);
+        $this->db->bind(":topic_id", $topic_id);
+        $response = array();
+        $results = $this->db->resultset();
+        if (count($results) == 0) {
+            $this->db->query("insert into forum_likes(user_id, topic_id) values (:user_id, :topic_id)");
+            $this->db->bind(":user_id", $user_id);
+            $this->db->bind(":topic_id", $topic_id);
+            if($this->db->execute()){
+                $response['success'] = TRUE;
+                $response['message'] = "Successfully liked this topic";
+            } else {
+                $response['success'] = FALSE;
+                $response['message'] = "Something went wrong!";
+            }
+        } else {
+            $this->db->query("update forum_likes set deleted = 0
+                              where user_id = :user_id and topic_id= :topic_id");
+            $this->db->bind(":user_id", $user_id);
+            $this->db->bind(":topic_id", $topic_id);
+            if($this->db->execute()){
+                $response['success'] = TRUE;
+                $response['message'] = "Successfully liked this topic";
+            } else {
+                $response['success'] = FALSE;
+                $response['message'] = "Something went wrong!";
+            }
+        }
+        return $response;
+    }
+
+    public function unlikeTopic($user_id, $topic_id, $curCount) {
+        $this->db->query("select * from forum_likes where user_id = :user_id and topic_id = :topic_id");
+        $this->db->bind(":user_id", $user_id);
+        $this->db->bind(":topic_id", $topic_id);
+        $response = array();
+        $results = $this->db->resultset();
+        if (count($results) == 0) {
+            $response['success'] = FALSE;
+            $response['message'] = "Something went wrong!";
+        } else {
+            $this->db->query("update forum_likes set deleted = 1
+                              where user_id = :user_id and topic_id= :topic_id");
+            $this->db->bind(":user_id", $user_id);
+            $this->db->bind(":topic_id", $topic_id);
+            if($this->db->execute()){
+                $response['success'] = TRUE;
+                $response['message'] = "Successfully unliked this topic";
+            } else {
+                $response['success'] = FALSE;
+                $response['message'] = "Something went wrong!";
+            }
+        }
+        return $response;
+    }
+    public function setTopicLikeCount($topic_id, $countToSet) {
+        $this->db->query("update forum set like_count = :countToSet
+                                  where id = :topic_id");
+        $this->db->bind(":countToSet", $countToSet);
+        $this->db->bind(":topic_id", $topic_id);
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
         }
     }
 	//Edit a new topic
@@ -175,7 +300,21 @@ class TopicModel {
         $results = $this->db->resultset();
         return $results;
     }
-	
+    
+    public function buildRedirectURI ($conditions) {
+        $result = "?";
+        foreach($conditions as $name=>$value) {
+            if (strcmp($name, "c") == 0 && strcmp($conditions["c"], "") != 0) {
+                $result = $result . "c=" . $conditions["c"] . "&";
+            } else if (strcmp($name, "ob") == 0 && strcmp($conditions["ob"], "cd") != 0) {
+                $result = $result . "ob=" . $conditions["ob"] . "&";
+            } else if (strcmp($name, "desc") == 0 && $conditions["desc"] != 1) {
+                $result = $result . "desc=" . $conditions["desc"] . "&";
+            }
+        }
+        return $result;
+    }
+
 	public function getAllRepliesUnderTopicComment($topic_id, $comment_id) {
         $this->db->query("select forum_reply.*, users.username, users.avatar from 
                           forum_reply inner join users on forum_reply.user_id = users.id

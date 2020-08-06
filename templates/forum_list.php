@@ -44,18 +44,20 @@
                                     </span>
                                 </div>
                             </div>
-
                             <div class="widget">
-                                <h4>Featured Events</h4>
-
-                                <ul class="recent_post">
-                                    <li>
-                                        <i class="icon-calendar-empty"></i> 16th July, 2020
-                                        <div><a href="#">It is a long established fact that a reader will be distracted
-                                            </a></div>
-                                    </li>
+                                <h4>Categories</h4>
+                                <ul class="categories">
+                                    <li><a href='/forum/?p=1' <?php if(!isset($_GET['c'])): ?> class="active"
+                                            <?php endif; ?>>All
+                                            Topics</a></li>
+                                    <?php foreach($categories as $category): ?>
+                                    <li><a href='/forum/?c=<?php echo $category["id"] ?>&p=1'
+                                            <?php if(isset($_GET['c']) && $_GET['c'] == $category["id"]): ?>
+                                            class="active" <?php endif; ?>><?php echo $category['name'] ?></a></li>
+                                    <?php endforeach; ?>
                                 </ul>
-                            </div>
+                            </div><!-- End widget -->
+                            <br />
 
                         </div>
                     </aside>
@@ -64,8 +66,28 @@
                     <?php if(isStudentOrAbove()): ?>
                     <a class="button_medium" href="/forum/create">Create</a>
                     <?php endif; ?>
+                    <div class="sort-container">
+                        Sort By
+                        <select class="selectpicker" style="padding: 3px;" onchange="toogleSelect(event,'ob')">
+                            <option value="cd" id="default" <?php if(!isset($_GET['ob'])): ?> selected <?php endif; ?>>
+                                Create Date</option>
+                            <option value="lc" <?php if(isset($_GET['ob']) && $_GET['ob'] == 'lc'): ?> selected
+                                <?php endif; ?>>Likes</option>
+                            <option value="vc" <?php if(isset($_GET['ob']) && $_GET['ob'] == 'vc'): ?> selected
+                                <?php endif; ?>>Views</option>
+                            <option value="rc" <?php if(isset($_GET['ob']) && $_GET['ob'] == 'rc'): ?> selected
+                                <?php endif; ?>>Replies</option>
+                        </select>
+                        <div class="desc-container" onclick="toggleForumDesc(event)">
+                            <i class="icon-up-open <?php if(isset($_GET['desc']) && $_GET['desc'] == 0): ?>active<?php endif; ?>"
+                                id="asc"></i>
+                            <i class="icon-down-open <?php if(!isset($_GET['desc'])): ?>active<?php endif; ?>"
+                                id="desc"></i>
+                        </div>
+                        <a id="hidden-sort" style="display:none;"> </a>
+                    </div>
                     <?php foreach ($topics as $topic) : ?>
-                    <div class="media list_news">
+                    <div class="media">
                         <div class="col-md-9">
                             <!--<div class="circ-wrapper pull-left"><h3>15<br>July</h3></div>-->
                             <div class='pull-left publisher'>
@@ -77,9 +99,9 @@
                                     <a href="/forum/thread/?id= <?php echo $topic['id']; ?>">
                                         <?php echo $topic['title']; ?>
                                     </a></h4>
-                                <p><?php echo mb_substr($topic['body'], 0, 100); ?> <a <?php if(isStudentOrAbove()): ?>
-                                        href="/forum/thread/?id= <?php echo $topic['id']; ?>" <?php endif; ?>> read
-                                        more...</a></p>
+                                <p><?php echo mb_substr($topic['body'], 0, 100); ?>
+                                    <a href="/forum/thread/?id= <?php echo $topic['id']; ?>"> read more...</a>
+                                </p>
                             </div>
                         </div><!-- End col-md-8-->
                         <div class="col-md-2 view-like-reply">
@@ -87,7 +109,7 @@
                             <span class="like-button">
                                 <i class="icon-thumbs-up<?php echo $topic['liked']?'-alt':''?>"
                                     <?php if($topic['liked']): ?>style="color: #1cbbb4;" <?php endif; ?>
-                                    onclick="likeOrUnlike(event, <?php echo $topic['id'] ?>,<?php echo $topic['liked']? 'false': 'true' ?>,<?php echo $topic['like_count']?>)"></i>
+                                    onclick="likeOrUnlikeTopic(event, <?php echo $topic['id'] ?>,<?php echo $topic['liked']? 'false': 'true' ?>,<?php echo $topic['like_count']?>)"></i>
                                 <div style="display: inline;" class="like_count">
                                     <?php echo $topic['like_count'] ?></div>
                             </span>
@@ -104,13 +126,18 @@
 
             <div class="text-center">
                 <ul class="pagination">
-                    <li><a href="#">Prev</a></li>
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">Next</a></li>
+                    <li><a <?php if($_GET['p'] > 1): ?>href="/forum/?p=<?php echo $_GET['p']-1 ?>" <?php endif; ?>
+                            <?php if($_GET['p'] == 1): ?> style="background-color: #eee" <?php endif; ?>>Prev</a>
+                    </li>
+                    <?php foreach($pages as $page): ?>
+                    <li <?php if($page==$_GET['p']): ?>class="active" <?php endif; ?>>
+                        <a href="/forum/<?php echo copyAndSetPageURI($_GET, $page) ?>"><?php echo $page ?></a>
+                    </li>
+                    <?php endforeach; ?>
+                    <li><a <?php if($_GET['p'] < $pageMax): ?>href="/forum/?p=<?php echo $_GET['p']+1 ?>"
+                            <?php endif; ?> <?php if($_GET['p'] == $pageMax): ?>style="background-color: #eee"
+                            <?php endif; ?>>Next</a>
+                    </li>
                 </ul><!-- end pagination-->
             </div>
 
@@ -118,7 +145,5 @@
         </div> <!-- End row-->
     </div><!-- End container -->
 </section><!-- End main_content-->
-<script src="/forum/forum.js">
-< script >
-    <
-    ? php include('includes/footer.php'); ? >
+<script src="/forum/forum.js"></script>
+<?php include('includes/footer.php'); ?>
