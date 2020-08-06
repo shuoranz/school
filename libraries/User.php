@@ -248,8 +248,10 @@ class User {
         //check result
         if($this->db->rowCount()>0){
             $resetUrlToken = $result['reset_password'];
-			echo $_SERVER['SERVER_NAME'] . "/reset_password/?token=" . $resetUrlToken;
-            return true;
+			$content = 'Copy the following url to your browser, do not share with others.<br>\r\n';
+			$content .= $_SERVER['SERVER_NAME'] . "/reset_password/?token=" . $resetUrlToken;
+			$phpMail = new MailModel();
+			return $phpMail->sendEmail("School Reset Password",$content,$emailAddress,"");
         } else {
             return false;
         }
