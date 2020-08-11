@@ -11,6 +11,30 @@ class User {
 		$this->ic = new InvitationCodeModel;
     }
     
+	//Register Demo User
+    public function registerDemoUser($data){
+		$this->db->query('insert into users_demo (first_name, last_name, email, role, school_district, school_zipcode, phone_number, last_activity) 
+			values (:first_name, :last_name, :email, :role, :school_district, :school_zipcode, :phone_number, :last_activity)');
+        //Bind Values
+        $this->db->bind(':first_name',$data['FirstName']);
+		$this->db->bind(':last_name',$data['LastName']);
+        $this->db->bind(':email',$data['EmailAddress']);
+		$this->db->bind(':role',$data['ApplyRole']);
+        $this->db->bind(':school_district',$data['SchoolDistrict']);
+        $this->db->bind(':school_zipcode',$data['SchoolZipcode']);
+        $this->db->bind(':phone_number',$data['PhoneNumber']);
+        $this->db->bind(':last_activity',date("Y-m-d H:i:s"));
+		try {
+			if ($this->db->execute()){
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+	
     //Register User
     public function register($data){
 		if (!empty($data['invitation_code'])){

@@ -78,7 +78,7 @@
 				<li><a id="top_a_tag" href="/logout">Logout</a></li>
 				<?php else : ?>
                 <!--<li><a id="top_a_tag" href="/register">Register</a></li>-->
-				<li><a id="TreeTrailBtn" class="button_top" href="/register">Free Trail</a></li>
+				<li><a id="TreeTrailBtn" class="button_top" href="/request_demo">Free Trail</a></li>
 				<?php endif; ?>
             </ul>
 		</div>
