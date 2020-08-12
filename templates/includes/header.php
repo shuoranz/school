@@ -78,7 +78,7 @@
 				<li><a id="top_a_tag" href="/logout">Logout</a></li>
 				<?php else : ?>
                 <!--<li><a id="top_a_tag" href="/register">Register</a></li>-->
-				<li><a id="TreeTrailBtn" class="button_top" href="/register">Free Trail</a></li>
+				<li><a id="TreeTrailBtn" class="button_top" href="/request_demo">Free Trail</a></li>
 				<?php endif; ?>
             </ul>
 		</div>
@@ -140,7 +140,7 @@
 					</ul>
 				</li>
 			</ul>
-            
+            <!--
             <div class="col-md-3 pull-right hidden-sm hidden-xs">
                     <div id="sb-search" class="sb-search">
 						<form>
@@ -149,7 +149,8 @@
 							<span class="sb-icon-search"></span>
 						</form>
 					</div>
-              </div><!-- End search -->
+              </div>
+			  End search -->
               
 		</div>
 	</div><!-- End row -->
