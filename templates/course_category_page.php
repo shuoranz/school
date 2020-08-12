@@ -46,7 +46,7 @@
 							<h3 class="u-custom-font u-font-roboto u-text u-text-grey-10 u-text-1">Ultimate Online Courses & Consulting</h3>
 							<h1 class="u-text u-text-body-alt-color u-title u-text-2">View our stunning<br>Online Course Videos
 							</h1>
-							<p class="u-custom-font u-font-roboto u-text u-text-grey-10 u-text-3">Free Course Demo Trail, No cost in first 7 days<br><b>Joomla,&nbsp;</b><b>SAT, Conseslor, Essay, College Application Courses Online</b>
+							<p class="u-custom-font u-font-roboto u-text u-text-grey-10 u-text-3">Free Course Demo Trail, No cost in first 7 days<br><b>SAT, Conseslor, Essay, College Application Courses Online</b>
 							</p>
 							<a href="/request_demo" class="u-border-radius-4 u-btn u-btn-round u-button-style u-palette-1-base u-btn-1">Free Trail</a>
 						  </div>
@@ -71,32 +71,6 @@
 								</div>
 
 							  </div>
-							  <!--
-							  <div class="mac-app u-align-center u-container-style u-custom-color-4 u-layout-cell u-opacity u-opacity-80 u-size-12 u-size-20-md u-layout-cell-2" data-href="/download-mac#">
-								<div class="u-container-layout u-valign-middle">
-								  <p class="u-custom-font u-font-roboto u-text u-text-body-alt-color u-text-5">Download Mac OS App »<br>
-								  </p>
-								</div>
-							  </div>
-							  <div class="u-align-center u-container-style u-custom-color-4 u-layout-cell u-opacity u-opacity-80 u-size-12 u-size-20-md wp-plugin u-layout-cell-3" data-href="/download-wordpress#">
-								<div class="u-container-layout u-valign-middle">
-								  <p class="u-custom-font u-font-roboto u-text u-text-body-alt-color u-text-6">Get<br>WordPress Plugin »<br>
-								  </p>
-								</div>
-							  </div>
-							  <div class="joomla-plugin u-align-center u-container-style u-custom-color-4 u-layout-cell u-opacity u-opacity-80 u-size-12 u-size-30-md u-layout-cell-4" data-href="/download-joomla#">
-								<div class="u-container-layout u-valign-middle u-container-layout-5">
-								  <p class="u-custom-font u-font-roboto u-text u-text-body-alt-color u-text-7">Get<br>Joomla Extension »<br>
-								  </p>
-								</div>
-							  </div>
-							  <div class="start-editor u-align-center u-container-style u-custom-color-4 u-layout-cell u-opacity u-opacity-80 u-right-cell u-size-12 u-size-30-md u-layout-cell-5" data-href="/Editor/Siteboard/#/dashboard">
-								<div class="u-container-layout u-valign-middle u-container-layout-6">
-								  <p class="u-custom-font u-font-roboto u-text u-text-body-alt-color u-text-8">Start<br> Online »<br>
-								  </p>
-								</div>
-							  </div>
-							  -->
 						<?php if ($category_count % 5 == 4): ?>
 							</div>
 						  </div>
@@ -153,6 +127,7 @@
 						</div>
 					  </div>
 					</section>
+
 					<section class="u-clearfix u-white u-section-8" id="carousel_dc69">
 					  <div class="u-clearfix u-sheet u-sheet-1">
 						<div class="u-container-style u-expanded-width-lg u-expanded-width-md u-expanded-width-xl u-group u-group-1">
@@ -189,6 +164,7 @@
 						</div>
 					  </div>
 					</section>
+
 					<section class="u-clearfix u-grey-5 u-section-9" id="carousel_9c6e">
 					  <div class="u-clearfix u-sheet u-sheet-1">
 						<img alt="" class="u-image u-image-contain u-image-default u-image-1 animated lazyloaded fadeOutUp" data-animation-name="fadeIn" data-animation-duration="1000" data-animation-delay="0" data-animation-direction="Down" data-image-width="350" data-image-height="210" style="will-change: transform, opacity; animation-duration: 1000ms;" src="/src_course_category/bars2.png">
