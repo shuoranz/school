@@ -159,9 +159,17 @@
                                             <td><a href="/blog/thread/?id=<?php echo $blog['id']; ?>"><?php echo $blog['id']; ?></a></td>
                                             <td><a href="/blog/thread/?id=<?php echo $blog['id']; ?>"><?php echo mb_substr($blog['title'], 0, 30); echo mb_strlen($blog['title'], 'UTF-8') > 30 ? "..." : ""; ?></a></td>
                                             <td>
-                                                <div class="dropdown">
-                                                <span class="tag tag-default" onclick="showStatusDropDown(event)"><?php echo $blog['status']; ?></span>
-                                                </div>
+                                                <span class="tag tag-default status" onclick="showStatusDropDown(event, 'blog', <?php echo $blog['id'] ?>)">
+                                                    <span id="status-<?php echo $blog['id']; ?>">
+                                                    <?php if($blog['deleted'] != 0 || $blog['status'] == 'deleted'): ?>
+                                                    deleted
+                                                    <?php else: ?>
+                                                    <?php echo $blog['status']; ?>
+                                                    <?php endif; ?>
+                                                    </span>
+                                                    <i class="icon-right-dir"></i>
+                                                </span>
+                                                
                                             </td>
                                             <td><span><?php echo $blog['name']; ?></span></td>
                                             <td><span><?php echo $blog['tag']; ?></span></td>
@@ -260,5 +268,7 @@
 	});
 	
 </script>
+<script src="/dashboard/templates/assets/js/dashboard.js"></script>
+<script src="/js/messageAnimation.js"></script>
 </body>
 </html>

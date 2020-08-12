@@ -10,7 +10,7 @@
 	//Get Template and Assign Vars
 	$template = new Template('templates/manage_blog.php');
 	// how many rows shown in one page
-	$perPage = 7;
+	$perPage = 12;
 	// max pagination links
 	$paginationNum = 5;
 	// get all categories
@@ -21,20 +21,20 @@
 	$isURIValid = TRUE;
 	$conditions = array("c"=>"","ob"=>"cd","desc"=>1); 
 	// redirect if page is invalid
-	$blogCount = $blog->getBlogCountByConditions($conditions);
+	$blogCount = $blog->getBlogCount();
 	$redirectURI = $blog->buildRedirectURI($conditions);
 	if(!isset($_GET['p']) || (!is_numeric($_GET['p']) || strpos($_GET['p'], "."))) {
-		redirect("/blog/" . $redirectURI . "p=1", "invalid URL parameters","error");
+		redirect("/dashboard/blog" . $redirectURI . "p=1", "invalid URL parameters","error");
 	} else if ($_GET['p'] > ceil($blogCount / $perPage) && ceil($newsCount / $perPage) > 0) {
-		redirect("/blog/" . $redirectURI . "p=" . ceil($blogCount / $perPage), "invalid URL parameters","error");
+		redirect("/dashboard/blog" . $redirectURI . "p=" . ceil($blogCount / $perPage), "invalid URL parameters","error");
 	} else if ($_GET['p'] <= 0) {
-		redirect("/blog/" . $redirectURI . "p=1","invalid URL parameters","error");
+		redirect("/dashboard/blog" . $redirectURI . "p=1","invalid URL parameters","error");
 	} else if(!$isURIValid) {
-		redirect("/blog/" . $redirectURI . "p=" . $_GET['p'], "invalid URL parameters","error");
+		redirect("/dashboard/blog" . $redirectURI . "p=" . $_GET['p'], "invalid URL parameters","error");
 	}
 	
 	// get all blogs on current page
-	$all_blogs = $blog->getPageBlogs($conditions, $_GET['p'], $perPage);
+	$all_blogs = $blog->getAllBlogs($conditions, $_GET['p'], $perPage);
 
 
 	// prepare pagination

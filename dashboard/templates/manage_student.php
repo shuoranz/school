@@ -81,7 +81,21 @@
 										<tr>
                                             <td><a href="#"><?php echo $student['id']; ?></a></td>
                                             <td><span><?php echo $student['username']; ?></span></td>
-                                            <td><span class="tag tag-default"><?php echo $student['role']; ?></span></td>
+                                            <td>
+                                                <span class="tag tag-default status" onclick="showStatusDropDown(event, 'users', <?php echo $student['id'] ?>)">
+                                                    <span id="status-<?php echo $student['id']; ?>">
+                                                    <?php if($student['deleted'] != 0 ): ?>
+                                                    deleted
+                                                    <?php else: ?>
+                                                    <?php echo $student['role']; ?>
+                                                    <?php endif; ?>
+                                                    </span>
+                                                    <i class="icon-right-dir"></i>
+                                                </span>
+                                                <span style="display: none" id="hidden-role-<?php echo $student['id']; ?>">
+                                                    <?php echo $student['role'];?>
+                                                </span>
+                                            </td>
                                             <td><span><?php echo $student['first_name']; ?></span></td>
                                             <td><span><?php echo $student['last_name']; ?></span></td>
                                             <td><span><?php echo $student['email']; ?></span></td>
@@ -247,5 +261,7 @@
 		window.location.href = "/dashboard/student?search=" + searchQuery;
 	});
 </script>
+<script src="/dashboard/templates/assets/js/dashboard.js"></script>
+<script src="/js/messageAnimation.js"></script>
 </body>
 </html>

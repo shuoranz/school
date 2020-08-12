@@ -12,3 +12,26 @@
     background-color: #00A9BD;
     color: whitesmoke;
 }
+.status {
+    cursor: pointer;
+    position: relative;
+}
+.db-right-popup {
+   position: absolute;
+   transform: translateX(103%); 
+   right: -8px;
+   z-index: 5;
+   display: flex;
+   flex-direction: row;
+   justify-content: flex-start;
+   align-items: center;
+   background-color: white;
+   top: -1px;
+
+}
+.db-right-popup > div {
+    background-color: #e9e9e9;
+    margin-right: 6px;
+    padding:2px 4px;
+    border-radius: 3px;
+}

@@ -16,7 +16,11 @@
 		'manage_teacher_create',
 		'course_category_create',
 		'course_course_create',
-		'course_video_create'
+		'course_video_create',
+		'publish',
+		'revoke',
+		'restore',
+		'delete'
 	);
 	if (in_array($action_input, $actions_default)) {
 		call_user_func($action_input); 
@@ -180,4 +184,139 @@
 		$courseModel->createVideo($data);
 		echo "success";
 	}
-	
+	function publish() {
+		$responseObj = array();
+		if(!isset($_REQUEST['table']) || !isset($_REQUEST['id']) ) {
+			$responseObj['success'] = FALSE;
+			$responseObj['message'] = "Something went wrong!";
+		} else {
+			$table = $_REQUEST['table'];
+			$allowedTable = array("course","course_video","forum","blog","news");
+			if(!in_array($table, $allowedTable)) {
+				$responseObj['success'] = FALSE;
+				$responseObj['message'] = "Something went wrong!";
+			} else {
+				$model = new DataModel;
+				$id = $_REQUEST['id'];
+				if($model->publish($table, $id)) {
+					$responseObj['success'] = TRUE;
+					$responseObj['message'] = "Successfully published ". $table . ": " . $id;
+				} else {
+					$responseObj['success'] = FALSE;
+					$responseObj['message'] = "Couldn't publish ". $table . ": " . $id;
+				}
+			}
+		}
+		exit(json_encode($responseObj));
+	}
+	function revoke() {
+		$responseObj = array();
+		if(!isset($_REQUEST['table']) || !isset($_REQUEST['id']) ) {
+			$responseObj['success'] = FALSE;
+			$responseObj['message'] = "Something went wrong!";
+		} else {
+			$table = $_REQUEST['table'];
+			$allowedTable = array("course","course_video","forum","blog","news");
+			if(!in_array($table, $allowedTable)) {
+				$responseObj['success'] = FALSE;
+				$responseObj['message'] = "Something went wrong!";
+			} else {
+				$model = new DataModel;
+				$id = $_REQUEST['id'];
+				if($model->revoke($table, $id)) {
+					$responseObj['success'] = TRUE;
+					$responseObj['message'] = "Successfully revoked ". $table . ": " . $id;
+				} else {
+					$responseObj['success'] = FALSE;
+					$responseObj['message'] = "Couldn't revoke ". $table . ": " . $id;
+				}
+			}
+		}
+		exit(json_encode($responseObj));
+	}
+	function restore() {
+		$responseObj = array();
+		if(!isset($_REQUEST['table']) || !isset($_REQUEST['id'])) {
+			$responseObj['success'] = FALSE;
+			$responseObj['message'] = "Something went wrong!";
+		} else {
+			$table = $_REQUEST['table'];
+			$allowedTable = array("course","course_video","forum","blog","news","users");
+			if(!in_array($table, $allowedTable)) {
+				$responseObj['success'] = FALSE;
+				$responseObj['message'] = "Something went wrong!";
+			} else {
+				if($table == "users") {
+					simpleRestore();
+					return;
+				}	
+				$model = new DataModel;
+				$id = $_REQUEST['id'];
+				if($model->restore($table, $id)) {
+					$responseObj['success'] = TRUE;
+					$responseObj['message'] = "Successfully restored ". $table . ": " . $id;
+				} else {
+					$responseObj['success'] = FALSE;
+					$responseObj['message'] = "Couldn't restore ". $table . ": " . $id;
+				}
+			}
+		}
+		exit(json_encode($responseObj));
+	}
+	function delete() {
+		$responseObj = array();
+		if(!isset($_REQUEST['table']) || !isset($_REQUEST['id'])) {
+			$responseObj['success'] = FALSE;
+			$responseObj['message'] = "Something went wrong!";
+		} else {
+			$table = $_REQUEST['table'];
+			$allowedTable = array("course","course_video","forum","blog","news","users");
+			if(!in_array($table, $allowedTable)) {
+				$responseObj['success'] = FALSE;
+				$responseObj['message'] = "No such table!";
+			} else {
+				if ($table == "users") {
+					simpleDelete();
+					return;
+				}
+				$model = new DataModel;
+				$id = $_REQUEST['id'];
+				if($model->delete($table, $id)) {
+					$responseObj['success'] = TRUE;
+					$responseObj['message'] = "Successfully deleted ". $table . ": " . $id;
+				} else {
+					$responseObj['success'] = FALSE;
+					$responseObj['message'] = "Couldn't delete ". $table . ": " . $id;
+				}
+			}
+		}
+		exit(json_encode($responseObj));
+	}
+	function simpleDelete() {
+		$model = new DataModel;
+		$table = $_REQUEST['table'];
+		$id = $_REQUEST['id'];
+		$responseObj = array();
+		if($model->simpleDelete($table, $id)) {
+			$responseObj['success'] = TRUE;
+			$responseObj['message'] = "Successfully deleted ". $table . ": " . $id;
+		} else {
+			$responseObj['success'] = FALSE;
+			$responseObj['message'] = "Couldn't delete ". $table . ": " . $id;
+		}
+		exit(json_encode($responseObj));
+	}
+	function simpleRestore() {
+		$model = new DataModel;
+		$table = $_REQUEST['table'];
+		$id = $_REQUEST['id'];
+		$responseObj = array();
+		if($model->simpleRestore($table, $id)) {
+			$responseObj['success'] = TRUE;
+			$responseObj['message'] = "Successfully restored ". $table . ": " . $id;
+		} else {
+			$responseObj['success'] = FALSE;
+			$responseObj['message'] = "Couldn't restore ". $table . ": " . $id;
+		}
+		exit(json_encode($responseObj));
+	}

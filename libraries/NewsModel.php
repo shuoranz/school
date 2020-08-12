@@ -10,7 +10,7 @@ class NewsModel {
                 from news inner join users on news.user_id = users.id 
                           inner join news_category on news.category_id = news_category.id
                           left join news_reply on news_reply.news_id = news.id and news_reply.deleted = 0
-                where news.deleted = 0";
+                where news.deleted = 0 and news.status = 'published'";
         // processing WHERE conditions
         if (strcmp($conditions["c"], "") != 0) {
             $sql = $sql . " and news.category_id = " . $conditions["c"];
@@ -41,7 +41,7 @@ class NewsModel {
                 from news inner join users on news.user_id = users.id 
                           inner join news_category on news.category_id = news_category.id
                           left join news_reply on news_reply.news_id = news.id and news_reply.deleted = 0
-                where news.deleted = 0";
+                where news.deleted = 0 and news.status = 'published'";
         // processing WHERE conditions.
         if (strcmp($conditions["c"], "") != 0) {
             $sql = $sql . " and news.category_id = " . $conditions["c"];
@@ -79,6 +79,40 @@ class NewsModel {
         }
         return $result;
     }
+    public function getAllNews($conditions, $pageNum, $perPage) {
+        $limit = ($pageNum - 1)*$perPage; 
+        $sql = "select news.*, users.username, users.avatar, news_category.category, 
+                count(news_reply.id) as reply_count
+                from news inner join users on news.user_id = users.id 
+                          inner join news_category on news.category_id = news_category.id
+                          left join news_reply on news_reply.news_id = news.id and news_reply.deleted = 0";
+        // processing WHERE conditions.
+        if (strcmp($conditions["c"], "") != 0) {
+            $sql = $sql . " and news.category_id = " . $conditions["c"];
+        } 
+        // processing GROUP BY conditions.
+        $sql = $sql . " group by news.id";
+        // processing ORDER BY conditions.
+        if (strcmp($conditions["ob"], "cd") == 0) {
+            $sql = $sql . " order by create_date"; 
+        } else if (strcmp($conditions["ob"], "lc") == 0) {
+            $sql = $sql . " order by like_count";
+        } else if (strcmp($conditions["ob"], "vc") == 0) {
+            $sql = $sql . " order by view_count";
+        } else if (strcmp($conditions["ob"], "rc") == 0) {
+            $sql = $sql . " order by reply_count";
+        }
+        // processing desc or asc
+        if ($conditions["desc"] == 1) {
+            $sql = $sql . " desc";
+        }
+        if ($pageNum > 0) {
+            $sql = $sql . " limit " . $limit . "," . $perPage;
+        }
+        $this->db->query($sql);
+        $results = $this->db->resultset();
+        return $results;
+    }
     public function getNewsCategories() {
         $this->db->query("select * from news_category");
         $results = $this->db->resultset();
@@ -101,6 +135,11 @@ class NewsModel {
         } else {
             return false;
         }
+    }
+    public function getNewsCount() {
+        $this->db->query("select count(*) as count from news");
+        $results = $this->db->resultset();
+        return $results[0]["count"];
     }
     public function edit($data, $news_id) {
         $sql = "update news set category_id = :category_id,

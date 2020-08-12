@@ -10,7 +10,7 @@ class BlogModel {
                 from blog inner join users on blog.user_id = users.id 
                           inner join blog_category on blog.category_id = blog_category.id
                           left join blog_reply on blog_reply.blog_id = blog.id and blog_reply.deleted = 0
-                where blog.deleted = 0";
+                where blog.deleted = 0 and blog.status = 'published'";
         // processing WHERE conditions.
         if (strcmp($conditions["c"], "") != 0) {
             $sql = $sql . " and blog.category_id = " . $conditions["c"];
@@ -35,6 +35,7 @@ class BlogModel {
         $results = $this->db->resultset();
         return count($results);
     }
+  
     public function getPageBlogs($conditions, $pageNum, $perPage){
         $limit = ($pageNum - 1)*$perPage; 
         $sql = "select blog.*, users.username, users.avatar, blog_category.name, 
@@ -42,7 +43,7 @@ class BlogModel {
                 from blog inner join users on blog.user_id = users.id 
                           inner join blog_category on blog.category_id = blog_category.id
                           left join blog_reply on blog_reply.blog_id = blog.id and blog_reply.deleted = 0
-                where blog.deleted = 0";
+                where blog.deleted = 0 and blog.status = 'published'";
         // processing WHERE conditions.
         if (strcmp($conditions["c"], "") != 0) {
             $sql = $sql . " and blog.category_id = " . $conditions["c"];
@@ -70,8 +71,43 @@ class BlogModel {
         $results = $this->db->resultset();
         return $results;
     }
+    public function getAllBlogs($conditions, $pageNum, $perPage) {
+        $limit = ($pageNum - 1)*$perPage; 
+        $sql = "select blog.*, users.username, users.avatar, blog_category.name, 
+                count(blog_reply.id) as reply_count
+                from blog inner join users on blog.user_id = users.id 
+                          inner join blog_category on blog.category_id = blog_category.id
+                          left join blog_reply on blog_reply.blog_id = blog.id and blog_reply.deleted = 0";
+        // processing WHERE conditions.
+        if (strcmp($conditions["c"], "") != 0) {
+            $sql = $sql . " and blog.category_id = " . $conditions["c"];
+        } 
+        // processing GROUP BY conditions.
+        $sql = $sql . " group by blog.id";
+        // processing ORDER BY conditions.
+        if (strcmp($conditions["ob"], "cd") == 0) {
+            $sql = $sql . " order by create_date"; 
+        } else if (strcmp($conditions["ob"], "lc") == 0) {
+            $sql = $sql . " order by like_count";
+        } else if (strcmp($conditions["ob"], "vc") == 0) {
+            $sql = $sql . " order by view_count";
+        } else if (strcmp($conditions["ob"], "rc") == 0) {
+            $sql = $sql . " order by reply_count";
+        }
+        // processing desc or asc
+        if ($conditions["desc"] == 1) {
+            $sql = $sql . " desc";
+        }
+        if ($pageNum > 0) {
+            $sql = $sql . " limit " . $limit . "," . $perPage;
+        }
+        $this->db->query($sql);
+        $results = $this->db->resultset();
+        return $results;
+    }
+        
     public function getBlogCount() {
-        $this->db->query("select count(*) as count from blog where deleted = 0");
+        $this->db->query("select count(*) as count from blog");
         $results = $this->db->resultset();
         return $results[0]["count"];
     }

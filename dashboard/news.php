@@ -10,7 +10,7 @@
 	//Get Template and Assign Vars
 	$template = new Template('templates/manage_news.php');
 	// how many rows shown in one page
-	$perPage = 7;
+	$perPage = 12;
 	// max pagination links
 	$paginationNum = 5;
 	// get all categories
@@ -27,7 +27,7 @@
 
 
 	// redirect if page is invalid
-	$newsCount = $newsModel->getNewsCountByConditions($conditions);
+	$newsCount = $newsModel->getNewsCount();
 	$redirectURI = $newsModel->buildRedirectURI($conditions);
 	if(!isset($_GET['p']) || (!is_numeric($_GET['p']) || strpos($_GET['p'], "."))) {
 		redirect("/news/" . $redirectURI . "p=1", "invalid URL parameters","error");
@@ -40,7 +40,7 @@
 	}
 
 	// get all news on current page
-	$all_news = $newsModel->getPageNews($conditions, $_GET['p'], $perPage);
+	$all_news = $newsModel->getAllNews($conditions, $_GET['p'], $perPage);
 
 
 	// prepare pagination

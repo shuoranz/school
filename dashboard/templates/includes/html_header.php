@@ -19,6 +19,8 @@
 <link rel="stylesheet" href="../assets/css/main.css"/>
 <link rel="stylesheet" href="../assets/css/theme1.css"/>
 <link rel="stylesheet" href="/css/dashboard.css" />
+<link href="/fontello/css/fontello.css" rel="stylesheet">
+
 </head>
 
 <body class="font-montserrat">
