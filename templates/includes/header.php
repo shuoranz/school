@@ -140,7 +140,7 @@
 					</ul>
 				</li>
 			</ul>
-            
+            <!--
             <div class="col-md-3 pull-right hidden-sm hidden-xs">
                     <div id="sb-search" class="sb-search">
 						<form>
@@ -149,7 +149,8 @@
 							<span class="sb-icon-search"></span>
 						</form>
 					</div>
-              </div><!-- End search -->
+              </div>
+			  End search -->
               
 		</div>
 	</div><!-- End row -->
