@@ -29,3 +29,6 @@
     <div class="loader">
     </div>
 </div>
+<div class="container" id="message" style="display:none;">
+		<?php displayMessage(); ?>
+</div>
