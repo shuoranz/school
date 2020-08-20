@@ -77,6 +77,26 @@ function isSuperAdmin(){
 	return $_SESSION['role'] === "superAdmin" ? true : false;
 }
 //check whether user is admin
+function isAdminPlus(){
+	if (!isLoggedIn()){
+		return false;
+	}
+	if (!isset($_SESSION['role']) || empty($_SESSION['role'])){
+		return false;
+	}
+	return $_SESSION['role'] === "adminPlus" ? true : false;
+}
+//check whether user is admin
+function isAdminNormal(){
+	if (!isLoggedIn()){
+		return false;
+	}
+	if (!isset($_SESSION['role']) || empty($_SESSION['role'])){
+		return false;
+	}
+	return $_SESSION['role'] === "admin" ? true : false;
+}
+//check whether user is admin
 function isAdmin(){
 	if (!isLoggedIn()){
 		return false;
@@ -84,7 +104,7 @@ function isAdmin(){
 	if (!isset($_SESSION['role']) || empty($_SESSION['role'])){
 		return false;
 	}
-	return $_SESSION['role'] === "admin" || isSuperAdmin() ? true : false;
+	return $_SESSION['role'] === "admin" || isSuperAdmin() || isAdminPlus() ? true : false;
 }
 
 //check whether user is teacher or above
@@ -95,7 +115,7 @@ function isTeacherOrAbove(){
 	if (!isset($_SESSION['role']) || empty($_SESSION['role'])){
 		return false;
 	}
-	return $_SESSION['role'] === "teacher" || isAdmin() ? true : false;
+	return $_SESSION['role'] === "teacher" || isTeacherPlus() || isAdmin() ? true : false;
 }
 function isTeacher(){
 	if (!isLoggedIn()){
@@ -105,6 +125,15 @@ function isTeacher(){
 		return false;
 	}
 	return $_SESSION['role'] === "teacher" ? true : false;
+}
+function isTeacherPlus(){
+	if (!isLoggedIn()){
+		return false;
+	}
+	if (!isset($_SESSION['role']) || empty($_SESSION['role'])){
+		return false;
+	}
+	return $_SESSION['role'] === "teacherPlus" ? true : false;
 }
 
 //check whether user is teacher or above

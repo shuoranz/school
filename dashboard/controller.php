@@ -15,12 +15,14 @@
 		'manage_student_create',
 		'manage_teacher_create',
 		'course_category_create',
+		'category_create',
 		'course_course_create',
 		'course_video_create',
 		'publish',
 		'revoke',
 		'restore',
-		'delete'
+		'delete',
+		'update_category'
 	);
 	if (in_array($action_input, $actions_default)) {
 		call_user_func($action_input); 
@@ -144,6 +146,18 @@
 		$courseModel = new CourseModel;
 		$data['create_category'] = $_REQUEST['category'];
 		$courseModel->createCategory($data);
+		echo "success";
+	}
+	function category_create()
+	{
+		if (!isset($_REQUEST['category']))
+		{
+			exit("wrong parameter");
+		}
+		$model = new DataModel;
+		$data['create_category'] = $_REQUEST['category'];
+		$data['table_name'] = $_REQUEST['table'];
+		$model->createCategory($data);
 		echo "success";
 	}
 	
@@ -317,6 +331,33 @@
 		} else {
 			$responseObj['success'] = FALSE;
 			$responseObj['message'] = "Couldn't restore ". $table . ": " . $id;
+		}
+		exit(json_encode($responseObj));
+	}
+	
+	function update_category() {
+		$responseObj = array();
+		if(!isset($_REQUEST['table']) || !isset($_REQUEST['id'])) {
+			$responseObj['success'] = FALSE;
+			$responseObj['message'] = "Something went wrong!";
+		} else {
+			$table = $_REQUEST['table'];
+			$id = $_REQUEST['id'];
+			$event = $_REQUEST['eventid'];
+			$allowedTable = array("course_category","blog_category","news_category","forum_category");
+			if(!in_array($table, $allowedTable)) {
+				$responseObj['success'] = FALSE;
+				$responseObj['message'] = "No such table!";
+			} else {
+				$model = new DataModel;
+				if($model->updateCategory($table, $id, $event)) {
+					$responseObj['success'] = TRUE;
+					$responseObj['message'] = "Successfully update ". $table . ": " . $id;
+				} else {
+					$responseObj['success'] = FALSE;
+					$responseObj['message'] = "Couldn't update ". $table . ": " . $id;
+				}
+			}
 		}
 		exit(json_encode($responseObj));
 	}

@@ -86,5 +86,28 @@ class DataModel {
             return false;
         }
     }
+	public function updateCategory($table, $id, $event) {
+		$sql = "update ".$table." set deleted = :deleted where id = :id";
+        $this->db->query($sql);
+        $this->db->bind(":id", $id);
+		$this->db->bind(":deleted", $event);
+        if($this->db->execute()){
+           return true;
+        } else {
+            return false;
+        }
+	}
+	public function createCategory($data) {
+		$this->db->query("insert into ".$data['table_name']." (`category`, `name`) values (:category, :name)");
+		
+        $this->db->bind(':category',$data['create_category']);
+        $this->db->bind(':name',$data['create_category']);
+        
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+	}
 }
 ?>

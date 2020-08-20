@@ -1,6 +1,6 @@
 <?php
 
-	$pageUrl = "MyCourses";
+	$pageUrl = "Category";
 
 ?>
 <?php include 'includes/html_header.php'; ?>
@@ -17,6 +17,16 @@
                     <div class="col-lg-12">
                         <div class="mb-4">
                             <h4>Welcome <?php echo getUser()['username']; ?>!</h4>
+							<h4>Manage <?php echo $categoryName; ?> Category</h4>
+							<?php
+								for ($i=1; $i<=4; $i++) {
+									if ($i == $_GET["c"]) continue;
+									if ($i == 1) echo "<a href='/dashboard/manage-category?c=1'>manage course category</a><br>";
+									if ($i == 2) echo "<a href='/dashboard/manage-category?c=2'>manage forum category</a><br>";
+									if ($i == 3) echo "<a href='/dashboard/manage-category?c=3'>manage blog category</a><br>";
+									if ($i == 4) echo "<a href='/dashboard/manage-category?c=4'>manage news category</a><br>";
+								}
+							?>
                             <!--<small>Study hard, for the well is deep, and our brains are shallow.</small>-->
                         </div>                        
                     </div>
@@ -27,38 +37,23 @@
             <div class="container-fluid">
                 <div class="row clearfix">
 					<div class="col-6">
-						<?php if( isAdmin() ) : ?>
-						<div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-5 col-md-6 col-sm-12">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Teacher Name" id="search_teacher">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-5 col-md-6 col-sm-12">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Video Title" id="search_title">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2 col-md-4 col-sm-6">
-                                        <a id="search_course_videos" class="btn btn-primary btn-block" title="" style="color:white;">Search</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-						<?php endif; ?>
                         <div class="card">
                             <div class="table-responsive">
                                 <table class="table table-hover table-striped table-vcenter mb-0 text-nowrap">
                                     <thead>
                                         <tr>
-                                            <th colspan="2">Manage Category</th>
+                                            <th colspan="2">Manage <?php echo $categoryName; ?> Category</th>
+                                            <th colspan="1">
+												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addVideoDiv">
+													<i class="fe fe-plus mr-2"></i>Add <?php echo $categoryName; ?> Category
+												</button>
+											</th>
                                         </tr>
                                         <tr>
                                             <!--<th class="w30">&nbsp;</th>-->
                                             <th>Category ID</th>
                                             <th>Category Name</th>
+											<th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -66,8 +61,25 @@
 										foreach ($categories as $category) : 
 										?>
 										<tr>
-                                            <td><a href="/dashboard/my-courses?category=<?php echo $category['id']; ?>"><?php echo $category['id']; ?></a></td>
-                                            <td><a href="/dashboard/my-courses?category=<?php echo $category['id']; ?>"><?php echo $category['name']; ?></a></td>
+                                            <td><?php echo $category['id']; ?></td>
+                                            <td><?php echo $category['category']; ?></td>
+											<td style="width:50%">
+                                                <span class="tag tag-default status"
+                                                    onclick="showStatusDropDownCategory(event, '<?php echo strtolower($categoryName)."_category" ?>', <?php echo $category['id'] ?>)">
+                                                    <span id="status-<?php echo $category['id']; ?>">
+                                                        <?php
+														if($category['deleted'] == 0) {
+															echo "pending";
+														} else if ($category['deleted'] == 1) {
+															echo "deleted";
+														} else if ($category['deleted'] == 2) {
+															echo "published";
+														}
+														?>
+                                                    </span>
+                                                    <i class="icon-right-dir"></i>
+                                                </span>
+                                            </td>
                                         </tr>
 										<?php 
 										endforeach; 
@@ -106,13 +118,14 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h6 class="title" id="defaultModalLabel">Add New Category</h6>
+                <h6 class="title" id="defaultModalLabel">Add <?php echo $categoryName; ?> Category</h6>
             </div>
             <div class="modal-body">
                 <div class="row clearfix">
 					<div class="col-12">
                         <div class="form-group">                                    
-                            <input type="text" class="form-control" placeholder="Category Title" id="create_category">
+                            <input type="text" class="form-control" placeholder="<?php echo $categoryName; ?> Category Title" id="create_category">
+							<input type="hidden" value="<?php echo strtolower($categoryName)."_category"; ?>" id="category_table">
                         </div>
                     </div>
 					<!--
@@ -159,8 +172,9 @@
 		
 		$.post("controller", 
 		{
-			action: "course_category_create",
-			category: category
+			action: "category_create",
+			category: category,
+			table: $("#category_table").val()
 		},
 		function(data, status){
 			//alert("Data: " + data + "\nStatus: " + status);
@@ -185,5 +199,6 @@
 		window.location.href = "/dashboard/search_video?"+search_title+"&"+search_teacher;
 	});
 </script>
+<script src="/dashboard/templates/assets/js/dashboard.js"></script>
 </body>
 </html>
