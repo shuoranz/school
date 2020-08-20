@@ -109,5 +109,16 @@ class DataModel {
             return false;
         }
 	}
+	public function updateUserRole($table, $id, $role) {
+		$sql = "update users set role = :role where id = :id";
+        $this->db->query($sql);
+        $this->db->bind(":id", $id);
+		$this->db->bind(":role", $role);
+        if($this->db->execute()){
+           return true;
+        } else {
+            return false;
+        }
+	}
 }
 ?>

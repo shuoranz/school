@@ -22,7 +22,8 @@
 		'revoke',
 		'restore',
 		'delete',
-		'update_category'
+		'update_category',
+		'grade_teacher'
 	);
 	if (in_array($action_input, $actions_default)) {
 		call_user_func($action_input); 
@@ -351,6 +352,33 @@
 			} else {
 				$model = new DataModel;
 				if($model->updateCategory($table, $id, $event)) {
+					$responseObj['success'] = TRUE;
+					$responseObj['message'] = "Successfully update ". $table . ": " . $id;
+				} else {
+					$responseObj['success'] = FALSE;
+					$responseObj['message'] = "Couldn't update ". $table . ": " . $id;
+				}
+			}
+		}
+		exit(json_encode($responseObj));
+	}
+	
+	function grade_teacher() {
+		$responseObj = array();
+		if(!isset($_REQUEST['table']) || !isset($_REQUEST['id'])) {
+			$responseObj['success'] = FALSE;
+			$responseObj['message'] = "Something went wrong!";
+		} else {
+			$table = $_REQUEST['table'];
+			$id = $_REQUEST['id'];
+			$role = $_REQUEST['role'];
+			$allowedTable = array("users");
+			if(!in_array($table, $allowedTable) || !in_array($role, array("teacher", "teacher(super)")) ) {
+				$responseObj['success'] = FALSE;
+				$responseObj['message'] = "No such table!";
+			} else {
+				$model = new DataModel;
+				if($model->updateUserRole($table, $id, $role)) {
 					$responseObj['success'] = TRUE;
 					$responseObj['message'] = "Successfully update ". $table . ": " . $id;
 				} else {

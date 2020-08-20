@@ -17,12 +17,17 @@ function showStatusDropDown(event, table, id) {
         var pendingOptions = ["publish", "edit", "delete", "top"];
         var deletedOptions = ["restore"];
         var studentOptions = ["delete"];
+		var teacherOptions = ["delete", "upgradeTeacher"];
+		var superTeacherOptions =  ["delete", "downgradeTeacher"];
         var allowedOptions = {
             "pending": pendingOptions,
             "published": publishedOptions,
             "deleted" : deletedOptions,
             "student": studentOptions,
             "student(guest)": studentOptions,
+			"teacher": teacherOptions,
+            "teacher(guest)": teacherOptions,
+			"teacher(super)": superTeacherOptions,
         };
         var optionsToHtml = {
             "publish" : "<div onclick='publish(\""+ table + "\", " + id + ")'>Publish</div>",
@@ -30,7 +35,9 @@ function showStatusDropDown(event, table, id) {
             "edit" : "<div onclick='edit(\"" + table + "\"," + id + ")'>Edit</div>",
             "delete": "<div onclick='remove(\"" + table + "\"," + id + ")'>Delete</div>",
             "top": "<div onclick='top(\"" + table + "\"," + id + ")'>Top</div>",
-            "restore" : "<div onclick='restore(\"" + table + "\"," + id + ")'>Restore</div>"
+            "restore" : "<div onclick='restore(\"" + table + "\"," + id + ")'>Restore</div>",
+			"upgradeTeacher" : "<div onclick='gradeTeacher(\"" + table + "\"," + id + ", \"teacher(super)\")'>Upgrade Teacher</div>",
+			"downgradeTeacher" : "<div onclick='gradeTeacher(\"" + table + "\"," + id + ", \"teacher\")'>Downgrade Teacher</div>"
         };
         if(status in allowedOptions) {
             var all_options = allowedOptions[status];
@@ -431,4 +438,33 @@ function removeCategory(table, id) {
 			$('#delete-popup').remove();
 		});
 	}
+}
+function gradeTeacher(table, id, newRole) {
+   $.ajax({
+       type: "POST",
+       url: "/dashboard/controller",
+       data: {
+           table: table,
+           id: id,
+		   role: newRole,
+           action: "grade_teacher"
+       },
+       contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+       success: function(response) {
+           var responseObj = JSON.parse(response);
+           var statusTxtSelector = "#status-"+id;
+           if($(statusTxtSelector).length == 1) {
+                $(statusTxtSelector).text(newRole);
+                var arrowIcon = $(".db-right-popup").parent().children("i");
+                $(".db-right-popup").remove();
+                arrowIcon.toggleClass("icon-left-dir");
+                arrowIcon.toggleClass("icon-right-dir");
+           }
+           msgAnimate(responseObj['message']);
+       },
+       error: function(e) {
+           console.log(e.status);
+           console.log(e.responseText);
+       }
+   });
 }

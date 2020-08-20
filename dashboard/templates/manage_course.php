@@ -56,7 +56,21 @@
 										<tr>
                                             <td><a href="/dashboard/my-videos?course=<?php echo $course['id']; ?>"><?php echo $course['id']; ?></a></td>
                                             <td><a href="/dashboard/my-videos?course=<?php echo $course['id']; ?>"><?php echo mb_substr($course['title'], 0, 30); echo mb_strlen($course['title'], 'UTF-8') > 30 ? "..." : ""; ?></a></td>
-                                            <td><span class="tag tag-default"><?php echo $course['status']; ?></span></td>
+                                            <td>
+												<span class="tag tag-default status"
+                                                    onclick="showStatusDropDown(event, 'course', <?php echo $course['id'] ?>)">
+                                                    <span id="status-<?php echo $course['id']; ?>">
+                                                        <?php if($course['deleted'] != 0 || $course['status'] == 'deleted'): ?>
+                                                        deleted
+                                                        <?php else: ?>
+                                                        <?php echo $course['status']; ?>
+                                                        <?php endif; ?>
+                                                    </span>
+                                                    <i class="icon-right-dir"></i>
+                                                </span>
+											
+											</td>
+											
                                             <td><span><?php echo $course['name']; ?></span></td>
                                             <td><span><?php echo "" ; //$course['description']; ?></span></td>
                                             <td><span><?php echo getUserNameByUserId($course['created_by']); ?></span></td>
@@ -186,5 +200,6 @@
 	});
 	
 </script>
+<script src="/dashboard/templates/assets/js/dashboard.js"></script>
 </body>
 </html>

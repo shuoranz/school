@@ -81,7 +81,21 @@
 										<tr>
                                             <td><a href="#"><?php echo $teacher['id']; ?></a></td>
                                             <td><span><?php echo $teacher['username']; ?></span></td>
-                                            <td><span class="tag tag-default"><?php echo $teacher['role']; ?></span></td>
+                                            <td>
+												<span class="tag tag-default status" onclick="showStatusDropDown(event, 'users', <?php echo $teacher['id'] ?>)">
+                                                    <span id="status-<?php echo $teacher['id']; ?>">
+                                                    <?php if($teacher['deleted'] != 0 ): ?>
+                                                    deleted
+                                                    <?php else: ?>
+                                                    <?php echo $teacher['role']; ?>
+                                                    <?php endif; ?>
+                                                    </span>
+                                                    <i class="icon-right-dir"></i>
+                                                </span>
+                                                <span style="display: none" id="hidden-role-<?php echo $teacher['id']; ?>">
+                                                    <?php echo $teacher['role'];?>
+                                                </span>
+											</td>
                                             <td><span><?php echo $teacher['first_name']; ?></span></td>
                                             <td><span><?php echo $teacher['last_name']; ?></span></td>
                                             <td><span><?php echo $teacher['email']; ?></span></td>
@@ -246,5 +260,6 @@
 		window.location.href = "/dashboard/student?search=" + searchQuery;
 	});
 </script>
+<script src="/dashboard/templates/assets/js/dashboard.js"></script>
 </body>
 </html>

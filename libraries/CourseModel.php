@@ -7,11 +7,13 @@ class CourseModel {
     // get all courses
     public function getAllCourses($category_id, $user_id){
 		$categoryCondition = $category_id == "" ? "1" : "course.category_id = :category_id";
-		$userCondition = $user_id == "" ? "1" : "course.created_by = :user_id";
+		$userCondition = $user_id == "" || "admin" ? "1" : "course.created_by = :user_id";
+		$deleteCondition = empty($user_id) ? "course.deleted = 0" : "1";
+		$statusCondition = empty($user_id) ? "course.status = 'published'" : "1";
         $this->db->query("select course.*, users.username, users.avatar, course_category.name 
                           from course inner join users on course.created_by = users.id 
                                     inner join course_category on course.category_id = course_category.id 
-									where $categoryCondition and $userCondition and course.deleted = 0
+									where $categoryCondition and $userCondition and $deleteCondition and $statusCondition
                                     order by course.id asc");
         $this->db->bind(':category_id',$category_id);
 		if ($userCondition != "1"){
@@ -25,7 +27,7 @@ class CourseModel {
 	public function getCourseVideosByCourseId($course_id, $user_id = "") {
 		$userCondition = $user_id == "" ? "1" : "created_by = :user_id";
         $this->db->query("select * from course_video
-                                    where deleted = 0 and course_id = :course_id and " . $userCondition);
+                                    where deleted = 0 and course_id = :course_id and deleted = 0 and status = 'published' and " . $userCondition);
         if ($userCondition != "1") {
 			$this->db->bind(':user_id',$user_id);
 		}
@@ -52,7 +54,7 @@ class CourseModel {
         return $results[0];
 	}
 	public function getVideoById($video_id) {
-        $this->db->query("select * from course_video where id = :video_id");
+        $this->db->query("select * from course_video where id = :video_id and deleted = 0 and status = 'published'");
         $this->db->bind(':video_id',$video_id);
         //Assign Result Set
         $results = $this->db->resultset();

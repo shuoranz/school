@@ -133,7 +133,7 @@ function isTeacherPlus(){
 	if (!isset($_SESSION['role']) || empty($_SESSION['role'])){
 		return false;
 	}
-	return $_SESSION['role'] === "teacherPlus" ? true : false;
+	return $_SESSION['role'] === "teacher(super)" ? true : false;
 }
 
 //check whether user is teacher or above
