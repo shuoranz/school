@@ -14,6 +14,7 @@
 		'invitation_code_delete',
 		'manage_student_create',
 		'manage_teacher_create',
+		'manage_admin_create',
 		'course_category_create',
 		'category_create',
 		'course_course_create',
@@ -23,7 +24,9 @@
 		'restore',
 		'delete',
 		'update_category',
-		'grade_teacher'
+		'grade_teacher',
+		'grade_admin',
+		'update_demo_user'
 	);
 	if (in_array($action_input, $actions_default)) {
 		call_user_func($action_input); 
@@ -60,7 +63,10 @@
 				$type = "365";
 				break;
 			case 2:
-				$type = "7";
+				$type = "14";
+				break;
+			case 3:
+				$type = "183";
 				break;
 			default:
 				exit("wrong account type");
@@ -132,6 +138,34 @@
 		$data["last_activity"] = date("Y-m-d H:i:s");
 		$data["expiration_date"] = date("Y-m-d H:i:s", strtotime("+".(int)$_REQUEST['create_teacher_duration']." days"));
 		$data["role"] = 'teacher';
+		
+		$userModel = new User;
+		$userModel->registerByAdmin($data);
+		echo "success";
+	}
+	
+	function manage_admin_create()
+	{
+		if (!isset($_REQUEST['create_teacher_username'])
+		|| !isset($_REQUEST['create_teacher_emailaddress'])
+		|| !isset($_REQUEST['create_teacher_password'])
+		|| !isset($_REQUEST['create_teacher_password_confirm'])
+		|| !isset($_REQUEST['create_teacher_firstname'])
+		|| !isset($_REQUEST['create_teacher_lastname'])
+		|| !isset($_REQUEST['create_teacher_duration'])
+		){
+			exit("wrong parameter");
+		}
+		
+		$data["first_name"] = $_REQUEST['create_teacher_firstname'];
+		$data["last_name"] = $_REQUEST['create_teacher_lastname'];
+		$data["email"] = $_REQUEST['create_teacher_emailaddress'];
+		$data["avatar"] = '';
+		$data["username"] = $_REQUEST['create_teacher_username'];
+		$data["password"] = $_REQUEST['create_teacher_password'];
+		$data["last_activity"] = date("Y-m-d H:i:s");
+		$data["expiration_date"] = date("Y-m-d H:i:s", strtotime("+".(int)$_REQUEST['create_teacher_duration']." days"));
+		$data["role"] = 'admin';
 		
 		$userModel = new User;
 		$userModel->registerByAdmin($data);
@@ -285,7 +319,7 @@
 			$responseObj['message'] = "Something went wrong!";
 		} else {
 			$table = $_REQUEST['table'];
-			$allowedTable = array("course","course_video","forum","blog","news","users");
+			$allowedTable = array("course","course_video","forum","blog","news","users","users_demo","blog_category","news_category","course_category","forum_category");
 			if(!in_array($table, $allowedTable)) {
 				$responseObj['success'] = FALSE;
 				$responseObj['message'] = "No such table!";
@@ -379,6 +413,60 @@
 			} else {
 				$model = new DataModel;
 				if($model->updateUserRole($table, $id, $role)) {
+					$responseObj['success'] = TRUE;
+					$responseObj['message'] = "Successfully update ". $table . ": " . $id;
+				} else {
+					$responseObj['success'] = FALSE;
+					$responseObj['message'] = "Couldn't update ". $table . ": " . $id;
+				}
+			}
+		}
+		exit(json_encode($responseObj));
+	}
+	
+	function grade_admin() {
+		$responseObj = array();
+		if(!isset($_REQUEST['table']) || !isset($_REQUEST['id'])) {
+			$responseObj['success'] = FALSE;
+			$responseObj['message'] = "Something went wrong!";
+		} else {
+			$table = $_REQUEST['table'];
+			$id = $_REQUEST['id'];
+			$role = $_REQUEST['role'];
+			$allowedTable = array("users");
+			if(!in_array($table, $allowedTable) || !in_array($role, array("admin", "adminPlus")) ) {
+				$responseObj['success'] = FALSE;
+				$responseObj['message'] = "No such table!";
+			} else {
+				$model = new DataModel;
+				if($model->updateUserRole($table, $id, $role)) {
+					$responseObj['success'] = TRUE;
+					$responseObj['message'] = "Successfully update ". $table . ": " . $id;
+				} else {
+					$responseObj['success'] = FALSE;
+					$responseObj['message'] = "Couldn't update ". $table . ": " . $id;
+				}
+			}
+		}
+		exit(json_encode($responseObj));
+	}
+	
+	function update_demo_user() {
+		$responseObj = array();
+		if(!isset($_REQUEST['table']) || !isset($_REQUEST['id'])) {
+			$responseObj['success'] = FALSE;
+			$responseObj['message'] = "Something went wrong!";
+		} else {
+			$table = $_REQUEST['table'];
+			$id = $_REQUEST['id'];
+			$role = $_REQUEST['role'];
+			$allowedTable = array("users_demo");
+			if(!in_array($table, $allowedTable) || !in_array($role, array("invited")) ) {
+				$responseObj['success'] = FALSE;
+				$responseObj['message'] = "No such table!";
+			} else {
+				$model = new DataModel;
+				if($model->updateDemoUserRole($table, $id, $role)) {
 					$responseObj['success'] = TRUE;
 					$responseObj['message'] = "Successfully update ". $table . ": " . $id;
 				} else {

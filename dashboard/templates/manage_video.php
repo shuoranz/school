@@ -62,7 +62,18 @@
                                             <td><a href="/course/video/?vid=<?php echo $video['id']; ?>"><?php echo mb_substr($video['title'], 0, 30); echo mb_strlen($video['title'], 'UTF-8') > 30 ? "..." : ""; ?></a></td>
 											<td><span><?php echo ""; //$course['description']; ?></span></td>
                                             <td>
-												<span class="tag tag-default status"
+												<?php
+													if($video['deleted'] != 0) {
+														$tagFlag = "tag-green";
+													} else if ($video['status'] == "published") {
+														$tagFlag = "tag-danger";
+													} else if ($video['status'] == "pending") {
+														$tagFlag = "tag-info";
+													} else {
+														$tagFlag = "tag-default";
+													}
+												?>
+												<span class="tag <?php echo $tagFlag; ?> status"
                                                     onclick="showStatusDropDown(event, 'course_video', <?php echo $video['id'] ?>)">
                                                     <span id="status-<?php echo $video['id']; ?>">
                                                         <?php if($video['deleted'] != 0 || $video['status'] == 'deleted'): ?>

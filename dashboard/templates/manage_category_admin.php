@@ -64,7 +64,16 @@
                                             <td><?php echo $category['id']; ?></td>
                                             <td><?php echo $category['category']; ?></td>
 											<td style="width:50%">
-                                                <span class="tag tag-default status"
+												<?php
+													if($category['deleted'] == 0) {
+														$tagFlag = "tag-info";
+													} else if ($category['deleted'] == 1) {
+														$tagFlag = "tag-danger";
+													} else if ($category['deleted'] == 2) {
+														$tagFlag = "tag-default";
+													}
+												?>
+                                                <span class="tag <?php echo $tagFlag; ?> status"
                                                     onclick="showStatusDropDownCategory(event, '<?php echo strtolower($categoryName)."_category" ?>', <?php echo $category['id'] ?>)">
                                                     <span id="status-<?php echo $category['id']; ?>">
                                                         <?php

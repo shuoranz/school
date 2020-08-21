@@ -1,6 +1,6 @@
 <?php
 
-	$pageUrl = "Students";
+	$pageUrl = "FreeTrail";
 
 ?>
 <?php include 'includes/html_header.php'; ?>
@@ -14,6 +14,7 @@
 		<div class="section-body mt-3">
             <div class="container-fluid">
                 <div class="row clearfix">
+					<!--
 					<div class="col-12">
                         <div class="card">
                             <div class="card-body">
@@ -50,67 +51,69 @@
                             </div>
                         </div>
                     </div>
+					-->
+					<h4>Free Trail Application</h4>
                     <div class="col-12">
                         <div class="card">
                             <div class="table-responsive">
                                 <table class="table table-hover table-striped table-vcenter mb-0 text-nowrap">
                                     <thead>
                                         <tr>
-                                            <th colspan="8">Manage Students</th>
+                                            <th colspan="8">Manage Free Tail Application</th>
+											<!--
                                             <th colspan="1">
 												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addStudentDiv">
-													<i class="fe fe-plus mr-2"></i>Add Student
+													<i class="fe fe-plus mr-2"></i>Add Admin
 												</button>
 											</th>
+											-->
                                         </tr>
                                         <tr>
                                             <!--<th class="w30">&nbsp;</th>-->
-                                            <th>ID</th>
-                                            <th>Username</th>
+											<th>Email Address</th>
 											<th>Status</th>
 											<th>First Name</th>
 											<th>Last Name</th>
-                                            <th>Email Address</th>
-                                            <th>Created Date</th>
-											<th>Last Activity</th>
-											<th>Valid Through</th>
+                                            <th>School District</th>
+											<th>School Zipcode</th>
+											<th>Phone Number</th>
+											<th>Apply Time</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-										<?php foreach ($students as $student) : ?>
+										<?php foreach ($users as $user) : ?>
 										<tr>
-                                            <td><a href="#"><?php echo $student['id']; ?></a></td>
-                                            <td><span><?php echo $student['username']; ?></span></td>
+                                            <td><?php echo $user['email']; ?></td>
                                             <td>
 												<?php
-													if($student['deleted'] != 0) {
+													if($user['deleted'] != 0) {
 														$tagFlag = "tag-green";
-													} else if ($student['role'] == "student") {
+													} else if ($user['status'] == "new") {
 														$tagFlag = "tag-danger";
-													} else {
-														$tagFlag = "tag-default";
+													} else if ($user['status'] == "invited") {
+														$tagFlag = "tag-info";
 													}
 												?>
-                                                <span class="tag <?php echo $tagFlag; ?> status" onclick="showStatusDropDown(event, 'users', <?php echo $student['id'] ?>)">
-                                                    <span id="status-<?php echo $student['id']; ?>">
-                                                    <?php if($student['deleted'] != 0 ): ?>
+                                                <span class="tag <?php echo $tagFlag; ?> status" onclick="showStatusDropDown(event, 'users_demo', <?php echo $user['id'] ?>)">
+                                                    <span id="status-<?php echo $user['id']; ?>">
+                                                    <?php if($user['deleted'] != 0 ): ?>
                                                     deleted
                                                     <?php else: ?>
-                                                    <?php echo $student['role']; ?>
+                                                    <?php echo $user['status']; ?>
                                                     <?php endif; ?>
                                                     </span>
                                                     <i class="icon-right-dir"></i>
                                                 </span>
-                                                <span style="display: none" id="hidden-role-<?php echo $student['id']; ?>">
-                                                    <?php echo $student['role'];?>
+                                                <span style="display: none" id="hidden-role-<?php echo $user['id']; ?>">
+                                                    <?php echo $user['role'];?>
                                                 </span>
                                             </td>
-                                            <td><span><?php echo $student['first_name']; ?></span></td>
-                                            <td><span><?php echo $student['last_name']; ?></span></td>
-                                            <td><span><?php echo $student['email']; ?></span></td>
-											<td><span><?php echo $student['join_date']; ?></span></td>
-                                            <td><span><?php echo $student['last_activity']; ?></span></td>
-                                            <td><?php echo $student['expiration_date']; ?></td>
+                                            <td><span><?php echo $user['first_name']; ?></span></td>
+                                            <td><span><?php echo $user['last_name']; ?></span></td>
+                                            <td><span><?php echo $user['school_district']; ?></span></td>
+											<td><span><?php echo $user['school_zipcode']; ?></span></td>
+                                            <td><span><?php echo $user['phone_number']; ?></span></td>
+                                            <td><?php echo $user['last_activity']; ?></td>
                                         </tr>
 										<?php endforeach; ?>
 										<!--
@@ -134,7 +137,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h6 class="title" id="defaultModalLabel">Create New Student User</h6>
+                <h6 class="title" id="defaultModalLabel">Create New Administrator</h6>
             </div>
             <div class="modal-body">
                 <div class="row clearfix">
@@ -172,7 +175,7 @@
                         <div class="form-group">
                             <select class="form-control show-tick" id="create_teacher_duration">
                                 <option disabled selected>Select Duration</option>
-                                <option value="14">14 days</option>
+                                <option value="7">7 days</option>
                                 <option value="365">1 year</option>
                             </select>
                         </div>

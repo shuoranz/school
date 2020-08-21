@@ -11,66 +11,6 @@
 
     <div class="page">
         <?php include 'includes/page-top.php'; ?>
-		<!--
-        <div class="section-body mt-3">
-            <div class="container-fluid">
-                <div class="row clearfix">
-                    <div class="col-lg-12">
-                        <div class="mb-4">
-                            <h4>Welcome Xiaowen!</h4>
-                            <small>Study hard, for the well is deep, and our brains are shallow.</small>
-                        </div>                        
-                    </div>
-                </div>
-                <div class="row clearfix row-deck">
-                    <div class="col-xl-2 col-lg-4 col-md-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Vacant 1y Invitation Code</h3>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="number mb-0 font-32 counter">31</h5>
-                                <span class="font-12">Good job! ... <a href="#">More</a></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-lg-4 col-md-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Used 1y Invitation Code</h3>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="number mb-0 font-32 counter">25</h5>
-                                <span class="font-12">Well done! ... <a href="#">More</a></span>
-                            </div>
-                        </div>
-                    </div>
-					<div class="col-xl-2 col-lg-4 col-md-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Vacant 7d Invitation Code</h3>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="number mb-0 font-32 counter">31</h5>
-                                <span class="font-12">Good job! ... <a href="#">More</a></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-lg-4 col-md-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">Used 7d Invitation Code</h3>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="number mb-0 font-32 counter">25</h5>
-                                <span class="font-12">Well done! ... <a href="#">More</a></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-		-->
 		<div class="section-body mt-3">
             <div class="container-fluid">
                 <div class="row clearfix">
@@ -103,9 +43,16 @@
                                     <tbody>
 										<?php foreach ($invitationCodes as $code) : ?>
 										<tr>
+											<?php
+												if ($code['status'] == "new") {
+													$tagFlag = "tag-danger";
+												} else if ($code['status'] == "applied") {
+													$tagFlag = "tag-info";
+												}
+											?>
                                             <td><a href="#"><?php echo $code['id']; ?></a></td>
                                             <td><span><?php echo $code['code']; ?></span></td>
-                                            <td><span class="tag tag-default"><?php echo $code['status']; ?></span></td>
+                                            <td><span class="tag <?php echo $tagFlag; ?>"><?php echo $code['status']; ?></span></td>
                                             <td><span><?php echo $code['code_type']; ?></span></td>
                                             <td><span><?php echo getUserNameByUserId($code['created_by']); ?></span></td>
                                             <td><span><?php echo $code['created_date']; ?></span></td>
@@ -151,9 +98,7 @@
 					<div class="col-12">
                         <div class="form-group">
                             <select class="form-control show-tick" id="create_code_duration">
-                                <option disabled selected>Select Duration</option>
-                                <option value="2">7 days</option>
-                                <option value="1">1 year</option>
+                                
                             </select>
                         </div>
                     </div>
@@ -184,7 +129,19 @@
 <script src="../assets/js/core.js"></script>
 <script src="../assets/js/page/project-index.js"></script>
 <script type="text/javascript">
-
+	$("#create_code_role").change(function(){
+		var code_role = $("#create_code_role").val();
+		var optionHtml = "";
+		if (code_role == "2") {
+			optionHtml += '<option value="3" selected>half year</option>';
+		} else if (code_role == "1") {               
+			optionHtml += '<option disabled selected>Select Duration</option>';
+			optionHtml += '<option value="2">14 days</option>';
+			optionHtml += '<option value="1">1 year</option>';
+		}
+		$("#create_code_duration").html(optionHtml);
+		
+	});
 	$("#createInvitationCodeBtn").click(function(){
 		var code_role = $("#create_code_role").val();
 		var code_duration = $("#create_code_duration").val();

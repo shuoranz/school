@@ -159,7 +159,16 @@
                                             <td><a href="/blog/thread/?id=<?php echo $blog['id']; ?>"><?php echo $blog['id']; ?></a></td>
                                             <td><a href="/blog/thread/?id=<?php echo $blog['id']; ?>"><?php echo mb_substr($blog['title'], 0, 30); echo mb_strlen($blog['title'], 'UTF-8') > 30 ? "..." : ""; ?></a></td>
                                             <td>
-                                                <span class="tag tag-default status" onclick="showStatusDropDown(event, 'blog', <?php echo $blog['id'] ?>)">
+												<?php
+													if($blog['deleted'] != 0) {
+														$tagFlag = "tag-green";
+													} else if ($blog['status'] == "published") {
+														$tagFlag = "tag-danger";
+													} else if ($blog['status'] == "pending") {
+														$tagFlag = "tag-info";
+													}
+												?>
+                                                <span class="tag <?php echo $tagFlag; ?> status" onclick="showStatusDropDown(event, 'blog', <?php echo $blog['id'] ?>)">
                                                     <span id="status-<?php echo $blog['id']; ?>">
                                                     <?php if($blog['deleted'] != 0 || $blog['status'] == 'deleted'): ?>
                                                     deleted

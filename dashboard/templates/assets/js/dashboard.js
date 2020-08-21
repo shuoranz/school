@@ -19,6 +19,9 @@ function showStatusDropDown(event, table, id) {
         var studentOptions = ["delete"];
 		var teacherOptions = ["delete", "upgradeTeacher"];
 		var superTeacherOptions =  ["delete", "downgradeTeacher"];
+		var adminOptions = ["delete", "upgradeAdmin"];
+		var adminPlusOptions =  ["delete", "downgradeAdmin"];
+		var newDemoOption = ["delete", "invited"];
         var allowedOptions = {
             "pending": pendingOptions,
             "published": publishedOptions,
@@ -28,6 +31,9 @@ function showStatusDropDown(event, table, id) {
 			"teacher": teacherOptions,
             "teacher(guest)": teacherOptions,
 			"teacher(super)": superTeacherOptions,
+			"admin": adminOptions,
+			"adminPlus":adminPlusOptions,
+			"new": newDemoOption
         };
         var optionsToHtml = {
             "publish" : "<div onclick='publish(\""+ table + "\", " + id + ")'>Publish</div>",
@@ -37,7 +43,10 @@ function showStatusDropDown(event, table, id) {
             "top": "<div onclick='top(\"" + table + "\"," + id + ")'>Top</div>",
             "restore" : "<div onclick='restore(\"" + table + "\"," + id + ")'>Restore</div>",
 			"upgradeTeacher" : "<div onclick='gradeTeacher(\"" + table + "\"," + id + ", \"teacher(super)\")'>Upgrade Teacher</div>",
-			"downgradeTeacher" : "<div onclick='gradeTeacher(\"" + table + "\"," + id + ", \"teacher\")'>Downgrade Teacher</div>"
+			"downgradeTeacher" : "<div onclick='gradeTeacher(\"" + table + "\"," + id + ", \"teacher\")'>Downgrade Teacher</div>",
+			"upgradeAdmin" : "<div onclick='gradeAdmin(\"" + table + "\"," + id + ", \"adminPlus\")'>Upgrade Admin</div>",
+			"downgradeAdmin" : "<div onclick='gradeAdmin(\"" + table + "\"," + id + ", \"admin\")'>Downgrade Admin</div>",
+			"invited" : "<div onclick='updateDemoUser(\"" + table + "\"," + id + ", \"invited\")'>invite</div>"
         };
         if(status in allowedOptions) {
             var all_options = allowedOptions[status];
@@ -448,6 +457,64 @@ function gradeTeacher(table, id, newRole) {
            id: id,
 		   role: newRole,
            action: "grade_teacher"
+       },
+       contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+       success: function(response) {
+           var responseObj = JSON.parse(response);
+           var statusTxtSelector = "#status-"+id;
+           if($(statusTxtSelector).length == 1) {
+                $(statusTxtSelector).text(newRole);
+                var arrowIcon = $(".db-right-popup").parent().children("i");
+                $(".db-right-popup").remove();
+                arrowIcon.toggleClass("icon-left-dir");
+                arrowIcon.toggleClass("icon-right-dir");
+           }
+           msgAnimate(responseObj['message']);
+       },
+       error: function(e) {
+           console.log(e.status);
+           console.log(e.responseText);
+       }
+   });
+}
+function gradeAdmin(table, id, newRole) {
+   $.ajax({
+       type: "POST",
+       url: "/dashboard/controller",
+       data: {
+           table: table,
+           id: id,
+		   role: newRole,
+           action: "grade_admin"
+       },
+       contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+       success: function(response) {
+           var responseObj = JSON.parse(response);
+           var statusTxtSelector = "#status-"+id;
+           if($(statusTxtSelector).length == 1) {
+                $(statusTxtSelector).text(newRole);
+                var arrowIcon = $(".db-right-popup").parent().children("i");
+                $(".db-right-popup").remove();
+                arrowIcon.toggleClass("icon-left-dir");
+                arrowIcon.toggleClass("icon-right-dir");
+           }
+           msgAnimate(responseObj['message']);
+       },
+       error: function(e) {
+           console.log(e.status);
+           console.log(e.responseText);
+       }
+   });
+}
+function updateDemoUser(table, id, newRole) {
+	$.ajax({
+       type: "POST",
+       url: "/dashboard/controller",
+       data: {
+           table: table,
+           id: id,
+		   role: newRole,
+           action: "update_demo_user"
        },
        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
        success: function(response) {

@@ -120,5 +120,16 @@ class DataModel {
             return false;
         }
 	}
+	public function updateDemoUserRole($table, $id, $role) {
+		$sql = "update users_demo set status = :role where id = :id";
+        $this->db->query($sql);
+        $this->db->bind(":id", $id);
+		$this->db->bind(":role", $role);
+        if($this->db->execute()){
+           return true;
+        } else {
+            return false;
+        }
+	}
 }
 ?>

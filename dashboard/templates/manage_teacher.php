@@ -82,7 +82,18 @@
                                             <td><a href="#"><?php echo $teacher['id']; ?></a></td>
                                             <td><span><?php echo $teacher['username']; ?></span></td>
                                             <td>
-												<span class="tag tag-default status" onclick="showStatusDropDown(event, 'users', <?php echo $teacher['id'] ?>)">
+												<?php
+													if($teacher['deleted'] != 0) {
+														$tagFlag = "tag-green";
+													} else if ($teacher['role'] == "teacher") {
+														$tagFlag = "tag-danger";
+													} else if ($teacher['role'] == "teacher(super)") {
+														$tagFlag = "tag-info";
+													} else {
+														$tagFlag = "tag-default";
+													}
+												?>
+												<span class="tag <?php echo $tagFlag; ?> status" onclick="showStatusDropDown(event, 'users', <?php echo $teacher['id'] ?>)">
                                                     <span id="status-<?php echo $teacher['id']; ?>">
                                                     <?php if($teacher['deleted'] != 0 ): ?>
                                                     deleted
@@ -162,9 +173,7 @@
 					<div class="col-12">
                         <div class="form-group">
                             <select class="form-control show-tick" id="create_teacher_duration">
-                                <option disabled selected>Select Duration</option>
-                                <option value="7">7 days</option>
-                                <option value="365">1 year</option>
+                                <option value="183" selected>half year</option>
                             </select>
                         </div>
                     </div>        
