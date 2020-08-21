@@ -182,9 +182,9 @@
                                             </td>
                                             <td><span><?php echo $blog['name']; ?></span></td>
                                             <td><span><?php echo $blog['tag']; ?></span></td>
-                                            <td><span><?php echo $blog['user_id']; ?></span></td>
+                                            <td><span><?php echo getUserNameByUserId($blog['user_id']); ?></span></td>
 											<td><span><?php echo $blog['create_date']; ?></span></td>
-                                            <td><span><?php echo $blog['published_by']; ?></span></td>
+                                            <td><span><?php echo getUserNameByUserId($blog['published_by']); ?></span></td>
 											<td><span><?php echo $blog['last_activity']; ?></span></td>
                                         </tr>
 										<?php endforeach; ?>

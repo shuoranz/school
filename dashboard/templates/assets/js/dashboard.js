@@ -133,7 +133,20 @@ function revoke(table, id) {
     });
 }
 function edit(table, id) {
-    location.href = "/"+table+"/edit/?id=" + id;
+    if(table == "blog" || table == "forum" || table == "news"){
+		location.href = "/"+table+"/edit/?id=" + id;
+	} else if (table == "course_video") {
+		$("#edit_video_title").val($("#video_"+id+" td:nth-child(2) a").html());
+		$("#edit_vimeo_id").val($("#video_"+id+" td:nth-child(3) span").html());
+		$("#edit_video_description").val($("#video_"+id+" td:nth-child(4) span").html());
+		$("#edit_video_id").val(id);
+		$('#editVideoDivBtn').trigger('click');
+	} else if (table == "course") {
+		$("#edit_course_title").val($("#course_"+id+" td:nth-child(2) a").html());
+		$("#edit_course_description").val($("#course_"+id+" td:nth-child(5) span").html());
+		$("#edit_course_id").val(id);
+		$('#editCourseDivBtn').trigger('click');
+	}
 }
 function restore(table, id) {
     $.ajax({
@@ -351,7 +364,7 @@ function revokeCategory(table, id) {
     });
 }
 function editCategory(table, id) {
-    location.href = "/"+table+"/edit/?id=" + id;
+	
 }
 function restoreCategory(table, id) {
     $.ajax({

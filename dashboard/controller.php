@@ -18,7 +18,9 @@
 		'course_category_create',
 		'category_create',
 		'course_course_create',
+		'course_course_edit',
 		'course_video_create',
+		'course_video_edit',
 		'publish',
 		'revoke',
 		'restore',
@@ -231,6 +233,48 @@
 		$data['video_description'] = $_REQUEST['video_description'];
 		$data['course_id'] = $_REQUEST['course_id'];
 		$courseModel->createVideo($data);
+		echo "success";
+	}
+	
+	function course_course_edit()
+	{
+		if (!isset($_REQUEST['course_title'])
+			|| !isset($_REQUEST['course_id'])
+			|| !isset($_REQUEST['user_id'])
+			|| !isset($_REQUEST['course_description'])
+			|| !isset($_REQUEST['category_id']))
+		{
+			exit("wrong parameter");
+		}
+		$courseModel = new CourseModel;
+		$data['course_title'] = $_REQUEST['course_title'];
+		$data['course_id'] = $_REQUEST['course_id'];
+		$data['user_id'] = $_REQUEST['user_id'];
+		$data['course_description'] = $_REQUEST['course_description'];
+		$data['category_id'] = $_REQUEST['category_id'];
+		$courseModel->editCourse($data);
+		echo "success";
+	}
+	
+	function course_video_edit()
+	{
+		if (!isset($_REQUEST['video_title'])
+			|| !isset($_REQUEST['vimeo_id'])
+			|| !isset($_REQUEST['video_id'])
+			|| !isset($_REQUEST['user_id'])
+			|| !isset($_REQUEST['video_description'])
+			|| !isset($_REQUEST['course_id']))
+		{
+			exit("wrong parameter");
+		}
+		$courseModel = new CourseModel;
+		$data['video_title'] = $_REQUEST['video_title'];
+		$data['vimeo_id'] = $_REQUEST['vimeo_id'];
+		$data['video_id'] = $_REQUEST['video_id'];
+		$data['user_id'] = $_REQUEST['user_id'];
+		$data['video_description'] = $_REQUEST['video_description'];
+		$data['course_id'] = $_REQUEST['course_id'];
+		$courseModel->editVideo($data);
 		echo "success";
 	}
 	function publish() {

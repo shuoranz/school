@@ -187,9 +187,9 @@
                                             </td>
                                             <td><span><?php echo $news['category']; ?></span></td>
                                             <!--<td><span><?php echo $news['tag']; ?></span></td>-->
-                                            <td><span><?php echo $news['user_id']; ?></span></td>
+                                            <td><span><?php echo getUserNameByUserId($news['user_id']); ?></span></td>
                                             <td><span><?php echo $news['create_date']; ?></span></td>
-                                            <td><span><?php echo $news['published_by']; ?></span></td>
+                                            <td><span><?php echo getUserNameByUserId($news['published_by']); ?></span></td>
                                             <td><span><?php echo $news['last_activity']; ?></span></td>
                                         </tr>
                                         <?php endforeach; ?>

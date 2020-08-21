@@ -187,6 +187,49 @@ class CourseModel {
         }
     }
 	
+	public function editCourse($data) {
+        $this->db->query("update course set `title` = :title, `description` = :description, `create_date` = :create_date where id = :id");
+        
+		$data['course_title'] = $_REQUEST['course_title'];
+		$data['course_id'] = $_REQUEST['course_id'];
+		$data['course_description'] = $_REQUEST['course_description'];
+		$data['category_id'] = $_REQUEST['category_id'];
+		
+        $this->db->bind(':title',$data['course_title']);
+        $this->db->bind(':description', $data['course_description']);
+        $this->db->bind(':create_date',date("Y-m-d H:i:s"));
+        $this->db->bind(':id', $data['course_id']);
+		
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+	
+	public function editVideo($data) {
+        $this->db->query("update course_video set `title` = :title, `description` = :description, `url` = :url, `create_date` = :create_date where id = :id");
+        
+		$data['video_title'] = $_REQUEST['video_title'];
+		$data['vimeo_id'] = $_REQUEST['vimeo_id'];
+		$data['video_id'] = $_REQUEST['video_id'];
+		$data['user_id'] = $_REQUEST['user_id'];
+		$data['video_description'] = $_REQUEST['video_description'];
+		$data['course_id'] = $_REQUEST['course_id'];
+		
+        $this->db->bind(':title',$data['video_title']);
+        $this->db->bind(':url',$data['vimeo_id']);
+		$this->db->bind(':id',$data['video_id']);
+        $this->db->bind(':description', $data['video_description']);
+        $this->db->bind(':create_date',date("Y-m-d H:i:s"));
+        
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+	
 	public function createCategory($data)
 	{
 		$this->db->query("insert into course_category (`category`, `name`) values (:category, :name)");
