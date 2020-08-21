@@ -71,11 +71,12 @@ class BlogModel {
         $results = $this->db->resultset();
         return $results;
     }
-    public function getAllBlogs($conditions, $pageNum, $perPage) {
+    public function getAllBlogs($conditions, $pageNum, $perPage, $admin="") {
         $limit = ($pageNum - 1)*$perPage; 
+		$adminCondition = empty($admin) ? "1" : "blog.user_id = $admin";
         $sql = "select blog.*, users.username, users.avatar, blog_category.name, 
                 count(blog_reply.id) as reply_count
-                from blog inner join users on blog.user_id = users.id 
+                from blog inner join users on blog.user_id = users.id and $adminCondition
                           inner join blog_category on blog.category_id = blog_category.id
                           left join blog_reply on blog_reply.blog_id = blog.id and blog_reply.deleted = 0";
         // processing WHERE conditions.
@@ -106,8 +107,9 @@ class BlogModel {
         return $results;
     }
         
-    public function getBlogCount() {
-        $this->db->query("select count(*) as count from blog");
+    public function getBlogCount($admin="") {
+		$adminCondition = empty($admin) ? "1" : "user_id = $admin";
+        $this->db->query("select count(*) as count from blog where $adminCondition");
         $results = $this->db->resultset();
         return $results[0]["count"];
     }

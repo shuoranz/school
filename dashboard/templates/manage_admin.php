@@ -91,7 +91,7 @@
 														$tagFlag = "tag-info";
 													}
 												?>
-                                                <span class="tag <?php echo $tagFlag; ?> status" onclick="showStatusDropDown(event, 'users', <?php echo $admin['id'] ?>)">
+                                                <span class="tag <?php echo $tagFlag; ?> <?php echo isSuperAdmin() || (isAdminPlus() && $admin['role']=="admin") ? "status" : ""; ?>" onclick="showStatusDropDown(event, 'users', <?php echo $admin['id'] ?>)">
                                                     <span id="status-<?php echo $admin['id']; ?>">
                                                     <?php if($admin['deleted'] != 0 ): ?>
                                                     deleted
@@ -171,7 +171,7 @@
 					<div class="col-12">
                         <div class="form-group">
                             <select class="form-control show-tick" id="create_teacher_duration">
-                                <option value="730" selected>2 years</option>
+                                <option value="183" selected>half years</option>
                             </select>
                         </div>
                     </div>        

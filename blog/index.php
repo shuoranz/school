@@ -62,7 +62,7 @@
 	$redirectURI = $blog->buildRedirectURI($conditions);
 	if(!isset($_GET['p']) || (!is_numeric($_GET['p']) || strpos($_GET['p'], "."))) {
 		redirect("/blog/" . $redirectURI . "p=1", "invalid URL parameters","error");
-	} else if ($_GET['p'] > ceil($blogCount / $perPage) && ceil($newsCount / $perPage) > 0) {
+	} else if ($_GET['p'] > ceil($blogCount / $perPage) && ceil($blogCount / $perPage) > 0) {
 		redirect("/blog/" . $redirectURI . "p=" . ceil($blogCount / $perPage), "invalid URL parameters","error");
 	} else if ($_GET['p'] <= 0) {
 		redirect("/blog/" . $redirectURI . "p=1","invalid URL parameters","error");
