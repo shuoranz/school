@@ -73,7 +73,7 @@
 														$tagFlag = "tag-default";
 													}
 												?>
-												<span class="tag <?php echo $tagFlag; ?> status"
+												<span class="tag <?php echo $tagFlag; ?> <?php echo isAdmin() ? "status" : ""; ?>"
                                                     onclick="showStatusDropDown(event, 'course', <?php echo $course['id'] ?>)">
                                                     <span id="status-<?php echo $course['id']; ?>">
                                                         <?php if($course['deleted'] != 0 || $course['status'] == 'deleted'): ?>
