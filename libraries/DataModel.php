@@ -15,6 +15,17 @@ class DataModel {
             return false;
         }
     }
+    public function setPublisher($user_id, $table, $id) {
+        $sql = "update ".$table." set published_by= :publisher where id = :id";
+        $this->db->query($sql);
+        $this->db->bind(":publisher", $user_id);
+        $this->db->bind(":id", $id);
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
     public function revoke($table, $id) {
         $sql = "update ".$table." set status = 'pending'
         where id = :id";

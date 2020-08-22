@@ -8,8 +8,9 @@ class LogModel {
         $this->db = new Database;
     }
     public function writeToSystemLog($user_id, $action, $item, $item_id, $content) {
-        $this->db->query("insert into log (user_id, action, item, item_id, content) 
-                        values (:user_id, :action, :item, :item_id, :content)");
+        $this->db->query("insert into log (date, user_id, action, item, item_id, content) 
+                        values (:date, :user_id, :action, :item, :item_id, :content)");
+        $this->db->bind(':date', date("Y-m-d"));
         $this->db->bind(':user_id', $user_id);
         $this->db->bind(':action', $action);
         $this->db->bind(':item', $item);
