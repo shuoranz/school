@@ -40,12 +40,13 @@ if (isset($_POST['post_edit'])){
     
     if($validate->isRequired($field_array)){
         if($news->edit($data, $_GET['id'])){
-            redirect('/news/?p=1', 'Your news has been posted', 'success');
+            writeToSystemLog(getUser()['user_id'], "edit", "news", $_GET['id'], "");
+            redirect('/dashboard/news?p=1', 'Your news change has been saved', 'success');
         } else {
-            redirect('create.php', 'Something went wrong with your post.', 'error');
+            redirect('/news/edit/?id='.$_GET['id'], 'Something went wrong with your edit.', 'error');
         }
     } else {
-        redirect('create.php', 'Please fill in all required fields', 'error');
+        redirect('/news/edit/?id='.$_GET['id'], 'Please fill in all required fields', 'error');
     }
     
 }
@@ -62,5 +63,9 @@ $template->news = $cur_news;
 
 //Display template
 echo $template;
-
+function writeToSystemLog($user_id, $action, $item, $item_id, $content="") {
+    $logModel = new LogModel;
+    $logModel->writeToSystemLog($user_id, $action, $item, $item_id, $content);
+    return;
+}
 ?>

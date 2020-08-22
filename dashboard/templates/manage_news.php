@@ -129,7 +129,7 @@
                                 <table class="table table-hover table-striped table-vcenter mb-0 text-nowrap">
                                     <thead>
                                         <tr>
-                                            <th colspan="7">Manage News</th>
+                                            <th colspan="1">Manage News</th>
                                             <th colspan="1">
                                                 <!--
 												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addStudentDiv">
@@ -140,6 +140,7 @@
                                                     <i class="fe fe-plus mr-2"></i>Add News
                                                 </a>
                                             </th>
+                                            <th colspan="7"></th>
                                         </tr>
                                         <tr>
                                             <!--<th class="w30">&nbsp;</th>-->

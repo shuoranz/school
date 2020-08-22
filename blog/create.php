@@ -39,8 +39,10 @@ if (isset($_POST['do_create'])){
     $field_array = array('title','body','category_id');
     
     if($validate->isRequired($field_array)){
-        if($blog->create($data)){
-            redirect('/blog/?p=1', 'Your blog has been posted', 'success');
+        $create_result = $blog->create($data); 
+        if($create_result >= 0){
+            writeToSystemLog(getUser()['user_id'], "created", "blog", $create_result, "");
+            redirect('/dashboard/blog?p=1', 'Your blog has been posted', 'success');
         } else {
             redirect('create.php', 'Something went wrong with your post.', 'error');
         }
@@ -56,5 +58,9 @@ $template = new Template($pre_position.'templates/blog_create.php');
 
 //Display template
 echo $template;
-
+function writeToSystemLog($user_id, $action, $item, $item_id, $content="") {
+    $logModel = new LogModel;
+    $logModel->writeToSystemLog($user_id, $action, $item, $item_id, $content);
+    return;
+}
 ?>

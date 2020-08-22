@@ -40,7 +40,9 @@ if (isset($_POST['news_create'])){
     
     if($validate->isRequired($field_array)){
         //Create Topic
-        if($newsModel->create($data)){
+        $create_result = $newsModel->create($data);
+        if($create_result >= 0){
+            writeToSystemLog(getUser()['user_id'], "created", "news", $create_result, "");
             redirect('/news/?p=1', 'Your News has been posted', 'success');
         } else {
             redirect('create.php', 'Something went wrong with your post.', 'error');
@@ -62,5 +64,9 @@ $template->news_categories = $news_categories;
 
 //Display template
 echo $template;
-
+function writeToSystemLog($user_id, $action, $item, $item_id, $content="") {
+    $logModel = new LogModel;
+    $logModel->writeToSystemLog($user_id, $action, $item, $item_id, $content);
+    return;
+}
 ?>

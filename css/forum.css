@@ -97,3 +97,16 @@ div.desc-container {
     left: 50%;
     transform: translate(-50%, 0%);
 }
+.imgs-container {
+    width: 100%;
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.forum-img {
+   width: 31%;
+   cursor: pointer;
+}

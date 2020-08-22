@@ -55,7 +55,8 @@ $template = new Template($pre_position.'templates/forum_thread.php');
 		$cur_topic['create_date'] = $mo . "-" . $d;
 	} else {
 		$cur_topic['create_date'] = $ymd;
-	}
+    }
+    
     $comments = $topic->getCommentsByTopic_id($topic_id);
     
     for($i = 0; $i < count($comments); $i++) {
@@ -68,8 +69,10 @@ $template = new Template($pre_position.'templates/forum_thread.php');
             }
         }
     }
-
-
+    $imgs = array();
+    if (isset($cur_topic['imgs']) && $cur_topic['imgs'] != "") {
+        $imgs = preg_split("/,/", $cur_topic['imgs']);
+    }
 
 
 
@@ -80,9 +83,7 @@ $template->topic = $cur_topic;
 //$template->replies = $topic->getReplies($topic_id);
 $template->title = $topic->getTopic($topic_id)['title'];
 $template->comments = $comments;
-
-
-
+$template->imgs = $imgs;
 
 //Display template
 echo $template;

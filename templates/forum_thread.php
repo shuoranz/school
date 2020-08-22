@@ -1,5 +1,6 @@
 <?php include('includes/header.php'); ?>
 <link href="/css/blog.css" rel="stylesheet">
+<link href="/css/forum.css" rel="stylesheet">
 <style>
 
 
@@ -68,6 +69,7 @@ a.list-group-item.active, a.list-group-item.active:hover, a.list-group-item.acti
 .btn-primary{
     background:#5c5b69;
 }
+
 </style>
 
 <section id="sub-header">
@@ -166,9 +168,16 @@ a.list-group-item.active, a.list-group-item.active:hover, a.list-group-item.acti
 						</div>
 					</div>
 				<div class="col-md-10">
-					<div class="topic-content pull-right">
+					<div class="topic-content">
 						<p><?php echo $topic['body']; ?></p>
 					</div>
+					<?php if(count($imgs) > 0): ?>
+					<div class="imgs-container">
+					<?php foreach($imgs as $img): ?>
+						<img class="forum-img" src="<?php echo $img ?>" />
+					<?php endforeach;?>
+					</div>
+					<?php endif; ?>
 				</div>
 			</li>
 					<h4><?php echo $topic['reply_num'] ?> comments</h4>
@@ -328,5 +337,5 @@ function showTopicReplyCommentForm(event, replyee_id, comment_id, topic_id) {
 }
 
 </script>
-
+<script src="/forum/forum.js"></script>
 <?php include('includes/footer.php'); ?>

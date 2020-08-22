@@ -41,9 +41,9 @@ if (isset($_POST['do_create'])){
     if($validate->isRequired($field_array)){
         //Create Topic
         if($topic->create($data)){
-            redirect('index.php', 'Your topic has been posted', 'success');
+            redirect('/forum/?p=1', 'Your topic has been posted', 'success');
         } else {
-            redirect('topic.php?id='.$topic_id, 'Something went wrong whti your post.', 'error');
+            redirect('topic.php?id='.$topic_id, 'Something went wrong with your post.', 'error');
         }
     } else {
         redirect('create.php', 'Please fill in all required fields', 'error');

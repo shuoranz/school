@@ -326,6 +326,7 @@
 				<li class="<?php echo $pageUrl=='Students' ? 'active' : ''; ?>"><a href="/dashboard/student"><i class="fa fa-user"></i><span>Manage Students</span></a></li>
 				<li class="<?php echo $pageUrl=='Teachers' ? 'active' : ''; ?>"><a href="/dashboard/teacher"><i class="fa fa-user-plus"></i><span>Manage Teachers</span></a></li>
 				<li class="<?php echo $pageUrl=='Invitation Code' ? 'active' : ''; ?>"><a href="/dashboard/invitation-code"><i class="fa fa-ticket"></i><span>Invitation Code</span></a></li>
+                <li class="<?php echo $pageUrl=='System Log' ? 'active' : ''; ?>"><a href="/dashboard/log_list"><i class="fa fa-file-text-o"></i><span>System Log</span></a></li>
 				<?php endif; ?>
 				<!--
 				<li>

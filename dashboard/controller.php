@@ -201,6 +201,7 @@
 				if($model->publish($table, $id)) {
 					$responseObj['success'] = TRUE;
 					$responseObj['message'] = "Successfully published ". $table . ": " . $id;
+					writeToSystemLog(getUser()['user_id'], "published", $table, $id);
 				} else {
 					$responseObj['success'] = FALSE;
 					$responseObj['message'] = "Couldn't publish ". $table . ": " . $id;
@@ -226,6 +227,7 @@
 				if($model->revoke($table, $id)) {
 					$responseObj['success'] = TRUE;
 					$responseObj['message'] = "Successfully revoked ". $table . ": " . $id;
+					writeToSystemLog(getUser()['user_id'], "revoked", $table, $id);
 				} else {
 					$responseObj['success'] = FALSE;
 					$responseObj['message'] = "Couldn't revoke ". $table . ": " . $id;
@@ -255,6 +257,7 @@
 				if($model->restore($table, $id)) {
 					$responseObj['success'] = TRUE;
 					$responseObj['message'] = "Successfully restored ". $table . ": " . $id;
+					writeToSystemLog(getUser()['user_id'], "restored", $table, $id);
 				} else {
 					$responseObj['success'] = FALSE;
 					$responseObj['message'] = "Couldn't restore ". $table . ": " . $id;
@@ -284,6 +287,7 @@
 				if($model->delete($table, $id)) {
 					$responseObj['success'] = TRUE;
 					$responseObj['message'] = "Successfully deleted ". $table . ": " . $id;
+					writeToSystemLog(getUser()['user_id'], "deleted", $table, $id);
 				} else {
 					$responseObj['success'] = FALSE;
 					$responseObj['message'] = "Couldn't delete ". $table . ": " . $id;
@@ -300,6 +304,7 @@
 		if($model->simpleDelete($table, $id)) {
 			$responseObj['success'] = TRUE;
 			$responseObj['message'] = "Successfully deleted ". $table . ": " . $id;
+			writeToSystemLog(getUser()['user_id'], "deleted", $table, $id);
 		} else {
 			$responseObj['success'] = FALSE;
 			$responseObj['message'] = "Couldn't delete ". $table . ": " . $id;
@@ -314,9 +319,15 @@
 		if($model->simpleRestore($table, $id)) {
 			$responseObj['success'] = TRUE;
 			$responseObj['message'] = "Successfully restored ". $table . ": " . $id;
+			writeToSystemLog(getUser()['user_id'], "restored", $table, $id);
 		} else {
 			$responseObj['success'] = FALSE;
 			$responseObj['message'] = "Couldn't restore ". $table . ": " . $id;
 		}
 		exit(json_encode($responseObj));
+	}
+	function writeToSystemLog($user_id, $action, $item, $item_id, $content="") {
+		$logModel = new LogModel;
+		$logModel->writeToSystemLog($user_id, $action, $item, $item_id, $content);
+		return;
 	}

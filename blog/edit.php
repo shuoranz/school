@@ -40,12 +40,13 @@ if (isset($_POST['post_edit'])){
     
     if($validate->isRequired($field_array)){
         if($blog->edit($data, $_GET['id'])){
-            redirect('/blog/?p=1', 'Your blog has been posted', 'success');
+            writeToSystemLog(getUser()['user_id'], "edit", "blog", $_GET['id'], "");
+            redirect('/dashboard/blog?p=1', 'Your blog change has been saved', 'success');
         } else {
-            redirect('create.php', 'Something went wrong with your post.', 'error');
+            redirect('/blog/edit/?id='.$_GET['id'], 'Something went wrong with your edit.', 'error');
         }
     } else {
-        redirect('create.php', 'Please fill in all required fields', 'error');
+        redirect('/blog/edit/?id='.$_GET['id'], 'Please fill in all required fields', 'error');
     }
     
 }
@@ -63,4 +64,9 @@ $template->blog = $cur_blog;
 //Display template
 echo $template;
 
+function writeToSystemLog($user_id, $action, $item, $item_id, $content="") {
+    $logModel = new LogModel;
+    $logModel->writeToSystemLog($user_id, $action, $item, $item_id, $content);
+    return;
+}
 ?>
