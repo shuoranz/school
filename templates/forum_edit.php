@@ -60,7 +60,7 @@
 				</div>
 				<div class="form-group">
 					<label>Content</label>
-					<textarea id="body" rows="30" cols="80" class="form-control" name="body" style="height:200px;" placeholder="share your story..."><?php echo $topic['title']; ?></textarea>
+					<textarea id="body" rows="30" cols="80" class="form-control" name="body" style="height:200px;" placeholder="share your story..."><?php echo $topic['body']; ?></textarea>
 					<!--<script>CKEDITOR.replace('body');</script>-->
 				</div>
 				<input type="hidden" name="topic_id" value="<?php echo $topic['id']; ?>" />

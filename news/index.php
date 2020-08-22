@@ -11,7 +11,7 @@
 	//Get Template and Assign Vars
 	$template = new Template($pre_position.'templates/news_list.php');
 	// how many rows shown in one page
-	$perPage = 7;
+	$perPage = 20;
 	// max pagination links
 	$paginationNum = 5;
 	// get all categories
@@ -72,6 +72,10 @@
 
 	// get all news on current page
 	$all_news = $newsModel->getPageNews($conditions, $_GET['p'], $perPage);
+	$top_news = $newsModel->getTopNews($conditions, $_GET['p'], $perPage);
+	
+	$all_news = array_merge($top_news, $all_news);
+	
 	// get necessary tag info for all news, assign to $tags
 	$tags = array();
 	for ($i = 0; $i < count($all_news);$i++) {

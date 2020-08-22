@@ -47,7 +47,47 @@ class TopicModel {
                           from forum inner join users on forum.user_id = users.id 
                                      inner join forum_category on forum.category_id = forum_category.id 
                                      left join forum_reply on forum_reply.topic_id = forum.id and forum_reply.deleted = 0
-                                     where forum.deleted = 0";
+                                     where forum.deleted = 0 and forum.top = 0";
+        // processing WHERE conditions.
+        if (strcmp($conditions["c"], "") != 0) {
+            $sql = $sql . " and forum.category_id = " . $conditions["c"];
+        } 
+        // processing GROUP BY conditions.
+        $sql = $sql . " group by forum.id";
+        // processing ORDER BY conditions.
+        if (strcmp($conditions["ob"], "cd") == 0) {
+            $sql = $sql . " order by create_date"; 
+        } else if (strcmp($conditions["ob"], "lc") == 0) {
+            $sql = $sql . " order by like_count";
+        } else if (strcmp($conditions["ob"], "vc") == 0) {
+            $sql = $sql . " order by view_count";
+        } else if (strcmp($conditions["ob"], "rc") == 0) {
+            $sql = $sql . " order by reply_count";
+        }
+        // processing desc or asc
+        if ($conditions["desc"] == 1) {
+            $sql = $sql . " desc";
+        }
+        if ($pageNum > 0) {
+            $sql = $sql . " limit " . $limit . "," . $perPage;
+        }
+        $this->db->query($sql);
+        $results = $this->db->resultset();
+        return $results;
+    }
+	
+	//Get Top Topics
+    public function getTopTopics($conditions, $pageNum, $perPage){
+		if ($pageNum != 1){
+			return array();
+		}
+        $limit = ($pageNum - 1)*$perPage; 
+        $sql = "select forum.*, users.username, users.avatar, forum_category.name, 
+                          count(forum_reply.id) as reply_count
+                          from forum inner join users on forum.user_id = users.id 
+                                     inner join forum_category on forum.category_id = forum_category.id 
+                                     left join forum_reply on forum_reply.topic_id = forum.id and forum_reply.deleted = 0
+                                     where forum.deleted = 0 and forum.top = 1";
         // processing WHERE conditions.
         if (strcmp($conditions["c"], "") != 0) {
             $sql = $sql . " and forum.category_id = " . $conditions["c"];
@@ -101,7 +141,7 @@ class TopicModel {
         return $results;
     }
     public function getAllCategories() {
-        $this->db->query("select * from forum_category where deleted = 0");
+        $this->db->query("select * from forum_category where deleted = 2");
         $result = $this->db->resultset();
         return $result;
     }

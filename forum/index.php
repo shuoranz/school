@@ -12,7 +12,7 @@ $user = new User;
 //Get Template and Assign Vars
 $template = new Template($pre_position.'templates/forum_list.php');
 // how many rows shown in one page
-$perPage = 7;
+$perPage = 20;
 // max pagination links
 $paginationNum = 5;
 //Assign Variables to template object
@@ -71,13 +71,16 @@ if(!isset($_GET['p']) || (!is_numeric($_GET['p']) || strpos($_GET['p'], "."))) {
 }
 // get all topics on current page
 $topics = $topic->getPageTopics($conditions, $_GET['p'], $perPage);
+$topTopics = $topic->getTopTopics($conditions, $_GET['p'], $perPage);
+
+$topics = array_merge($topTopics, $topics);
 
 for ($i = 0; $i < count($topics);$i++) {
 	// if currently logged user liked each topic
 	$topics[$i]['liked'] = $topic->likedTopic($topics[$i]['id']);
 	// formatting displayed date time
 	$cur_date = $topics[$i]["create_date"];
-	$topics[$i]['create_date'] = DateFormatter($cur_date);
+	$topics[$i]['create_date'] = $cur_date; // DateFormatter($cur_date);
 }
 //Display template
 $pageMax = ceil($topicCount / $perPage);

@@ -26,6 +26,7 @@
         <div class="row">
             <aside class="col-md-4">
                 <div class=" box_style_1">
+					<!--
                     <div class="widget" style="margin-top:15px;">
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Search...">
@@ -33,8 +34,9 @@
                                 <button class="btn btn-default" type="button" style="margin-left:0;"><i
                                         class="icon-search"></i></button>
                             </span>
-                        </div><!-- /input-group -->
-                    </div><!-- End Search -->
+                        </div>
+                    </div>
+					-->
 
                     <div class="widget">
                         <h4>Categories</h4>
@@ -51,7 +53,7 @@
 
 
                     <div class="widget">
-                        <h4>Feture post</h4>
+                        <h4>Feture Blog</h4>
 
                         <ul class="recent_post">
                             <li>
@@ -62,13 +64,15 @@
 
                         </ul>
                     </div><!-- End widget -->
-
+					
+					<!--
                     <div class="widget tags add_bottom_30">
                         <h4>Tags</h4>
                         <a href="#">Lorem ipsum</a>
                         <a href="#">Dolor</a>
                         <a href="#">Long established</a>
-                    </div><!-- End widget -->
+                    </div>
+					-->
 
                 </div><!-- End box-sidebar -->
             </aside><!-- End aside -->
@@ -121,6 +125,11 @@
                                 </a>
                             </div>
                             <div class="tag-list">
+								<?php if ($blog["top"] == "1"): ?>
+								<div class="blog-tag" style="background-color: red; color: white;">
+                                    顶置
+                                </div>	
+								<?php endif; ?>
                                 <?php foreach ($blog['tag'] as $tagName=>$tagColor) : ?>
                                 <div class="blog-tag" style="background-color: <?php echo $tagColor ?>; color: white;">
                                     <?php echo $tagName ?>

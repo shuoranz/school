@@ -11,7 +11,7 @@
 	//Get Template and Assign Vars
 	$template = new Template($pre_position.'templates/blog_list.php');
 	// how many rows shown in one page
-	$perPage = 7;
+	$perPage = 20;
 	// max pagination links
 	$paginationNum = 5;
 	// get all categories
@@ -72,6 +72,9 @@
 	
 	// get all blogs on current page
 	$all_blogs = $blog->getPageBlogs($conditions, $_GET['p'], $perPage);
+	$top_blogs = $blog->getTopBlogs($conditions, $_GET['p'], $perPage);
+	$all_blogs = array_merge($top_blogs, $all_blogs);
+	
 	// get necessary tag info for all blogs, assign to $tags
 	$tags = array();
 	for ($i = 0; $i < count($all_blogs);$i++) {

@@ -41,7 +41,41 @@ class NewsModel {
                 from news inner join users on news.user_id = users.id 
                           inner join news_category on news.category_id = news_category.id
                           left join news_reply on news_reply.news_id = news.id and news_reply.deleted = 0
-                where news.deleted = 0 and news.status = 'published'";
+                where news.deleted = 0 and news.status = 'published' and news.top = 0";
+        // processing WHERE conditions.
+        if (strcmp($conditions["c"], "") != 0) {
+            $sql = $sql . " and news.category_id = " . $conditions["c"];
+        } 
+        // processing GROUP BY conditions.
+        $sql = $sql . " group by news.id";
+        // processing ORDER BY conditions.
+        if (strcmp($conditions["ob"], "cd") == 0) {
+            $sql = $sql . " order by create_date"; 
+        } else if (strcmp($conditions["ob"], "lc") == 0) {
+            $sql = $sql . " order by like_count";
+        } else if (strcmp($conditions["ob"], "vc") == 0) {
+            $sql = $sql . " order by view_count";
+        } else if (strcmp($conditions["ob"], "rc") == 0) {
+            $sql = $sql . " order by reply_count";
+        }
+        // processing desc or asc
+        if ($conditions["desc"] == 1) {
+            $sql = $sql . " desc";
+        }
+        $this->db->query($sql);
+        $results = $this->db->resultset();
+        return $results;
+    }
+	public function getTopNews($conditions, $pageNum, $perPage) {
+		if ($pageNum != 1){
+			return array();
+		}
+        $limit = ($pageNum - 1)*$perPage;
+        $sql = "select news.*, users.username, users.avatar, news_category.category, count(news_reply.id) as reply_count
+                from news inner join users on news.user_id = users.id 
+                          inner join news_category on news.category_id = news_category.id
+                          left join news_reply on news_reply.news_id = news.id and news_reply.deleted = 0
+                where news.deleted = 0 and news.status = 'published' and news.top = 1";
         // processing WHERE conditions.
         if (strcmp($conditions["c"], "") != 0) {
             $sql = $sql . " and news.category_id = " . $conditions["c"];
@@ -188,7 +222,7 @@ class NewsModel {
         }
     }
     public function getAllCategories() {
-        $this->db->query("select * from news_category where deleted = 0");
+        $this->db->query("select * from news_category where deleted = 2");
         $result = $this->db->resultset();
         return $result;
     }

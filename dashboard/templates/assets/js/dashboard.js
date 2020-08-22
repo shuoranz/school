@@ -14,7 +14,7 @@ function showStatusDropDown(event, table, id) {
             </div>");
         var rightPopup = statusSpan.children(".db-right-popup");
         var publishedOptions = ["revoke", "edit", "delete"];
-        var pendingOptions = ["publish", "edit", "delete", "top"];
+        var pendingOptions = ["publish", "edit", "delete"];
         var deletedOptions = ["restore"];
         var studentOptions = ["delete"];
 		var teacherOptions = ["delete", "upgradeTeacher"];

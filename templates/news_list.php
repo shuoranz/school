@@ -27,6 +27,7 @@
 
             <aside class="col-md-4">
                 <div class=" box_style_1">
+					<!--
                     <div class="widget" style="margin-top:15px;">
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Search...">
@@ -34,8 +35,9 @@
                                 <button class="btn btn-default" type="button" style="margin-left:0;"><i
                                         class="icon-search"></i></button>
                             </span>
-                        </div><!-- /input-group -->
-                    </div><!-- End Search -->
+                        </div>
+                    </div>
+					-->
                     <div class="widget">
                         <h4>Categories</h4>
                         <ul class="categories">
@@ -97,6 +99,11 @@
                     <div class="news-body">
                         <div class="tags-and-title">
                             <div class="tags">
+								<?php if ($news["top"] == "1"): ?>
+								<div class="tag" style="background-color: red; color: white;">
+                                    顶置
+                                </div>	
+								<?php endif; ?>
                                 <?php foreach($news['tag'] as $tagName=>$tagColor): ?>
                                 <div class="tag" style="background-color: <?php echo $tagColor?>">
                                     <?php echo $tagName ?>

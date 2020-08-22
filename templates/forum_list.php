@@ -27,14 +27,11 @@
         </ol>
 
         <div class="row">
-            <!--
-     
-     -->
-
             <div class="row">
                 <div class="col-md-3">
                     <aside>
                         <div class=" box_style_1">
+							<!--
                             <div class="widget" style="margin-top:15px;">
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="Search...">
@@ -44,6 +41,7 @@
                                     </span>
                                 </div>
                             </div>
+							-->
                             <div class="widget">
                                 <h4>Categories</h4>
                                 <ul class="categories">
@@ -90,7 +88,7 @@
                     <?php $imgsArr = preg_split('/,/', $topic['imgs']); ?>
                     <?php if($topic['status'] === "published" || (isAdmin() || getUser()['user_id'] === $topic['user_id'] || $topic['imgs'] === "")): ?>
                     <div class="media">
-                        <div class="col-md-9">
+                        <div class="col-md-10">
                             <!--<div class="circ-wrapper pull-left"><h3>15<br>July</h3></div>-->
                             <div class='pull-left publisher'>
                                 <img class="avatar pull-left" src="/images/avatars/<?php echo $topic['avatar']; ?>" />
@@ -116,9 +114,12 @@
                                     <?php echo $topic['like_count'] ?></div>
                             </span>
                             <i class="icon-comment"></i><?php echo $topic['reply_count'] ?>
-                        </div>
-                        <div class="col-md-1 create_date">
-                            <i><?php echo $topic['create_date'] ?></i>
+							
+							<br>
+							<i><?php echo $topic['create_date'] ?></i>
+							<?php if ($topic["top"] == 1) : ?>
+							<br><i>Top Topic</i>
+							<?php endif; ?>
                         </div>
                     </div>
                     <?php endif; ?>
