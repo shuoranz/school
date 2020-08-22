@@ -87,6 +87,8 @@
                         <a id="hidden-sort" style="display:none;"> </a>
                     </div>
                     <?php foreach ($topics as $topic) : ?>
+                    <?php $imgsArr = preg_split('/,/', $topic['imgs']); ?>
+                    <?php if($topic['status'] === "published" || (isAdmin() || getUser()['user_id'] === $topic['user_id'] || $topic['imgs'] === "")): ?>
                     <div class="media">
                         <div class="col-md-9">
                             <!--<div class="circ-wrapper pull-left"><h3>15<br>July</h3></div>-->
@@ -119,6 +121,7 @@
                             <i><?php echo $topic['create_date'] ?></i>
                         </div>
                     </div>
+                    <?php endif; ?>
                     <?php endforeach; ?>
                 </div>
             </div>

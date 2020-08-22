@@ -318,7 +318,7 @@
 				<li class="<?php echo $pageUrl=='Students' ? 'active' : ''; ?>"><a href="/dashboard/student"><i class="fa fa-user"></i><span>Manage Students</span></a></li>
 				<li class="<?php echo $pageUrl=='Teachers' ? 'active' : ''; ?>"><a href="/dashboard/teacher"><i class="fa fa-user-plus"></i><span>Manage Teachers</span></a></li>
 				<li class="<?php echo $pageUrl=='MyCourses' ? 'active' : ''; ?>"><a href="/dashboard/my-category"><i class="fa fa-book"></i><span>Manage Courses</span></a></li>
-				<li class="<?php echo $pageUrl=='Forum' ? 'active' : ''; ?>"><a href="/dashboard/manage-forum"><i class="fa fa-comments-o"></i><span>Forums</span></a></li>
+				<li class="<?php echo $pageUrl=='Forum' ? 'active' : ''; ?>"><a href="/dashboard/forum?p=1"><i class="fa fa-comments-o"></i><span>Forums</span></a></li>
 				<li class="<?php echo $pageUrl=='Blog' ? 'active' : ''; ?>"><a href="/dashboard/blog?p=1"><i class="fa fa-bold"></i><span>Blog</span></a></li>
 				<li class="<?php echo $pageUrl=='News' ? 'active' : ''; ?>"><a href="/dashboard/news?p=1"><i class="fa fa-newspaper-o"></i><span>News</span></a></li>
 				
@@ -328,7 +328,7 @@
 				<li class="<?php echo $pageUrl=='Students' ? 'active' : ''; ?>"><a href="/dashboard/student"><i class="fa fa-user"></i><span>Manage Students</span></a></li>
 				<li class="<?php echo $pageUrl=='Teachers' ? 'active' : ''; ?>"><a href="/dashboard/teacher"><i class="fa fa-user-plus"></i><span>Manage Teachers</span></a></li>
 				<li class="<?php echo $pageUrl=='MyCourses' ? 'active' : ''; ?>"><a href="/dashboard/my-category"><i class="fa fa-book"></i><span>Manage Courses</span></a></li>
-				<li class="<?php echo $pageUrl=='Forum' ? 'active' : ''; ?>"><a href="/dashboard/manage-forum"><i class="fa fa-comments-o"></i><span>Forums</span></a></li>
+				<li class="<?php echo $pageUrl=='Forum' ? 'active' : ''; ?>"><a href="/dashboard/forum?p=1"><i class="fa fa-comments-o"></i><span>Forums</span></a></li>
 				<li class="<?php echo $pageUrl=='Blog' ? 'active' : ''; ?>"><a href="/dashboard/blog?p=1"><i class="fa fa-bold"></i><span>Blog</span></a></li>
 				<li class="<?php echo $pageUrl=='News' ? 'active' : ''; ?>"><a href="/dashboard/news?p=1"><i class="fa fa-newspaper-o"></i><span>News</span></a></li>
 				<li class="<?php echo $pageUrl=='Invitation Code' ? 'active' : ''; ?>"><a href="/dashboard/invitation-code"><i class="fa fa-ticket"></i><span>Invitation Code</span></a></li>
@@ -342,7 +342,7 @@
 				<li class="<?php echo $pageUrl=='Students' ? 'active' : ''; ?>"><a href="/dashboard/student"><i class="fa fa-user"></i><span>Manage Students</span></a></li>
 				<li class="<?php echo $pageUrl=='Teachers' ? 'active' : ''; ?>"><a href="/dashboard/teacher"><i class="fa fa-user-plus"></i><span>Manage Teachers</span></a></li>
 				<li class="<?php echo $pageUrl=='MyCourses' ? 'active' : ''; ?>"><a href="/dashboard/my-category"><i class="fa fa-book"></i><span>Manage Courses</span></a></li>
-				<li class="<?php echo $pageUrl=='Forum' ? 'active' : ''; ?>"><a href="/dashboard/manage-forum"><i class="fa fa-comments-o"></i><span>Forums</span></a></li>
+				<li class="<?php echo $pageUrl=='Forum' ? 'active' : ''; ?>"><a href="/dashboard/forum?p=1"><i class="fa fa-comments-o"></i><span>Forums</span></a></li>
 				<li class="<?php echo $pageUrl=='Blog' ? 'active' : ''; ?>"><a href="/dashboard/blog?p=1"><i class="fa fa-bold"></i><span>Blog</span></a></li>
 				<li class="<?php echo $pageUrl=='News' ? 'active' : ''; ?>"><a href="/dashboard/news?p=1"><i class="fa fa-newspaper-o"></i><span>News</span></a></li>
 				<li class="<?php echo $pageUrl=='Invitation Code' ? 'active' : ''; ?>"><a href="/dashboard/invitation-code"><i class="fa fa-ticket"></i><span>Invitation Code</span></a></li>

@@ -68,15 +68,10 @@
 		}
 	}
 
-
-	
-
 	$template->isAdmin = isAdmin();
 	$template->blogs = $all_blogs;
 	$template->pageMax = $pageMax;
 	$template->pages = $pages;
 	$template->categories = $all_categories;
 	echo $template;
-	
-
 ?>

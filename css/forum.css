@@ -109,4 +109,5 @@ div.desc-container {
 .forum-img {
    width: 31%;
    cursor: pointer;
+   margin-bottom:10px;
 }

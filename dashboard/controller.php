@@ -294,6 +294,7 @@
 				if($model->publish($table, $id)) {
 					$responseObj['success'] = TRUE;
 					$responseObj['message'] = "Successfully published ". $table . ": " . $id;
+					setPublisher(getUser()['user_id'], $table, $id);
 					writeToSystemLog(getUser()['user_id'], "published", $table, $id);
 				} else {
 					$responseObj['success'] = FALSE;
@@ -424,7 +425,9 @@
 		$logModel->writeToSystemLog($user_id, $action, $item, $item_id, $content);
 		return;
 	}
-	
+	function setPublisher($user_id, $table, $id) {
+		$model = new DataModel;
+	}
 	function update_category() {
 		$responseObj = array();
 		if(!isset($_REQUEST['table']) || !isset($_REQUEST['id'])) {
