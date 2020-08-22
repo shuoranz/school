@@ -4,7 +4,9 @@
 
 ?>
 <?php include 'includes/html_header.php'; ?>
-
+<style type="text/css">
+	table {word-break:break-all; word-wrap:break-all;}
+</style>
 <div id="main_content">
 
     <?php include 'includes/header.php'; ?>
@@ -37,6 +39,9 @@
 												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCourseDiv">
 													<i class="fe fe-plus mr-2"></i>Add Course
 												</button>
+												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editCourseDiv" id="editCourseDivBtn" style="display:none;">
+													<i class="fe fe-plus mr-2"></i>Edit Course
+												</button>
 											</th>
                                         </tr>
                                         <tr>
@@ -53,12 +58,37 @@
                                     </thead>
                                     <tbody>
 										<?php foreach ($courses as $course) : ?>
-										<tr>
+										<tr id="course_<?php echo $course['id']; ?>">
                                             <td><a href="/dashboard/my-videos?course=<?php echo $course['id']; ?>"><?php echo $course['id']; ?></a></td>
-                                            <td><a href="/dashboard/my-videos?course=<?php echo $course['id']; ?>"><?php echo mb_substr($course['title'], 0, 30); echo mb_strlen($course['title'], 'UTF-8') > 30 ? "..." : ""; ?></a></td>
-                                            <td><span class="tag tag-default"><?php echo $course['status']; ?></span></td>
+                                            <td><a href="/dashboard/my-videos?course=<?php echo $course['id']; ?>"><?php echo $course['title']; ?></a></td>
+                                            <td>
+												<?php
+													if($course['deleted'] != 0) {
+														$tagFlag = "tag-green";
+													} else if ($course['status'] == "published") {
+														$tagFlag = "tag-danger";
+													} else if ($course['status'] == "pending") {
+														$tagFlag = "tag-info";
+													} else {
+														$tagFlag = "tag-default";
+													}
+												?>
+												<span class="tag <?php echo $tagFlag; ?> <?php echo isAdmin() ? "status" : ""; ?>"
+                                                    onclick="showStatusDropDown(event, 'course', <?php echo $course['id'] ?>)">
+                                                    <span id="status-<?php echo $course['id']; ?>">
+                                                        <?php if($course['deleted'] != 0 || $course['status'] == 'deleted'): ?>
+                                                        deleted
+                                                        <?php else: ?>
+                                                        <?php echo $course['status']; ?>
+                                                        <?php endif; ?>
+                                                    </span>
+                                                    <i class="icon-right-dir"></i>
+                                                </span>
+											
+											</td>
+											
                                             <td><span><?php echo $course['name']; ?></span></td>
-                                            <td><span><?php echo "" ; //$course['description']; ?></span></td>
+                                            <td style="white-space: normal;"><span><?php echo $course['description']; ?></span></td>
                                             <td><span><?php echo getUserNameByUserId($course['created_by']); ?></span></td>
 											<td><span><?php echo $course['create_date']; ?></span></td>
                                             <td><span><?php echo getUserNameByUserId($course['published_by']); ?></span></td>
@@ -142,6 +172,57 @@
     </div>
 </div>
 
+
+<!-- Edit New Task -->
+<div class="modal fade" id="editCourseDiv" tabindex="-1" role="dialog" style="top:90px;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="title" id="defaultModalLabel">Edit Course</h6>
+            </div>
+            <div class="modal-body">
+                <div class="row clearfix">
+					<div class="col-12">
+                        <div class="form-group">                                    
+                            <input type="text" class="form-control" placeholder="Course Title" id="edit_course_title">
+                        </div>
+                    </div>
+					<div class="col-12">
+                        <div class="form-group">
+							<p>category: </p>
+                            <select class="form-control show-tick" id="">
+                                <option disabled selected><?php echo $category['name']; ?></option>
+                            </select>
+                        </div>
+                    </div>
+					<div class="col-12">
+                        <div class="form-group">                                    
+                            <textarea class="form-control" placeholder="Course Description" id="edit_course_description"></textarea>
+                        </div>
+                    </div>
+					<input type="hidden" name="course_id" id="edit_course_id" value="">
+					<input type="hidden" name="user_id" id="edit_user_id" value="<?php echo getUser()['user_id'] ?>">
+					<!--
+					<div class="col-12">
+                        <div class="form-group">
+                            <select class="form-control show-tick" id="create_teacher_duration">
+                                <option disabled selected>Select Duration</option>
+                                <option value="2">7 days</option>
+                                <option value="1">1 year</option>
+                            </select>
+                        </div>
+                    </div>
+					-->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="editCourseBtn">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="../assets/bundles/lib.vendor.bundle.js"></script>
 
 <script src="../assets/bundles/apexcharts.bundle.js"></script>
@@ -185,6 +266,41 @@
 		});
 	});
 	
+	$("#editCourseBtn").click(function(){
+		var course_title = $("#edit_course_title").val();
+		var course_description = $("#edit_course_description").val();
+		var category_id = <?php echo $category['id']; ?>;
+		var user_id = $("#edit_user_id").val();
+		var course_id = $("#edit_course_id").val();
+		
+		if (course_title == null || course_description == null || category_id == null || user_id == null){
+			alert("error, please check all your inputs");
+			return false;
+		}
+		
+		$.post("controller", 
+		{
+			action: "course_course_edit",
+			course_title: course_title,
+			course_description: course_description,
+			category_id: category_id,
+			user_id: user_id,
+			course_id: course_id
+		},
+		function(data, status){
+			//alert("Data: " + data + "\nStatus: " + status);
+			if ( status === "success" && data.indexOf("success") !== -1 ){
+				alert("success!");
+				setTimeout(function(){ location.reload(); }, 1000);
+				
+			} else {
+				alert("something wrong in backend");
+				return false;
+			}
+		});
+	});
+	
 </script>
+<script src="/dashboard/templates/assets/js/dashboard.js"></script>
 </body>
 </html>

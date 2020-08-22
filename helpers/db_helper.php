@@ -17,34 +17,50 @@
     }
 
     //Get all categories in DB
-    function getCategories(){
+    function getCategories($admin = 0){
         $db=new Database;
-        $db->query('select * from forum_category');
+		if ($admin == 0)  {
+			$db->query('select * from forum_category where deleted = 2');	// 0 is pending, 1 is deleted, 2 is published
+		} else {
+			$db->query('select * from forum_category');
+		}
         //Run query and assign it to results variable
         $results = $db->resultset();
         //return result
         return $results;
     }
-	function getAllCourseCategories(){
+	function getAllCourseCategories($admin = 0){
 		$db=new Database;
-        $db->query('select * from course_category where deleted = 0');
+		if ($admin == 0) {
+			$db->query('select * from course_category where deleted = 2');	// 0 is pending, 1 is deleted, 2 is published
+		} else {
+			$db->query('select * from course_category');
+		}
         //Run query and assign it to results variable
         $results = $db->resultset();
         //return result
         return $results;
 	}
     // Get all blog_categories in DB
-    function getBlogCategories() {
+    function getBlogCategories($admin = 0) {
         $db=new Database;
-        $db->query('select * from blog_category');
+		if ($admin == 0) {
+			$db->query('select * from blog_category where deleted = 2');	// 0 is pending, 1 is deleted, 2 is published
+		} else {
+			$db->query('select * from blog_category');
+		}
         //Run query and assign it to results variable
-        $results = $db->resultset();
+        $results = $db->resultset($admin = 0);
         //return result
         return $results;
     }
-    function getNewsCategories() {
+    function getNewsCategories($admin = 0) {
         $db=new Database;
-        $db->query('select * from news_category');
+		if ($admin == 0) {
+			$db->query('select * from news_category where deleted = 2');	// 0 is pending, 1 is deleted, 2 is published
+		} else {
+			$db->query('select * from news_category');
+		}
         //Run query and assign it to results variable
         $results = $db->resultset();
         //return result

@@ -165,7 +165,16 @@
                                                     href="/news/thread/?id=<?php echo $news['id']; ?>"><?php echo mb_substr($news['title'], 0, 30); echo mb_strlen($news['title'], 'UTF-8') > 30 ? "..." : ""; ?></a>
                                             </td>
                                             <td>
-                                                <span class="tag tag-default status"
+												<?php
+													if($news['deleted'] != 0) {
+														$tagFlag = "tag-green";
+													} else if ($news['status'] == "published") {
+														$tagFlag = "tag-danger";
+													} else if ($news['status'] == "pending") {
+														$tagFlag = "tag-info";
+													}
+												?>
+                                                <span class="tag <?php echo $tagFlag; ?> status"
                                                     onclick="showStatusDropDown(event, 'news', <?php echo $news['id'] ?>)">
                                                     <span id="status-<?php echo $news['id']; ?>">
                                                         <?php if($news['deleted'] != 0 || $news['status'] == 'deleted'): ?>
@@ -179,9 +188,9 @@
                                             </td>
                                             <td><span><?php echo $news['category']; ?></span></td>
                                             <!--<td><span><?php echo $news['tag']; ?></span></td>-->
-                                            <td><span><?php echo $news['user_id']; ?></span></td>
+                                            <td><span><?php echo getUserNameByUserId($news['user_id']); ?></span></td>
                                             <td><span><?php echo $news['create_date']; ?></span></td>
-                                            <td><span><?php echo $news['published_by']; ?></span></td>
+                                            <td><span><?php echo getUserNameByUserId($news['published_by']); ?></span></td>
                                             <td><span><?php echo $news['last_activity']; ?></span></td>
                                         </tr>
                                         <?php endforeach; ?>

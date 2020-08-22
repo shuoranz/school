@@ -221,6 +221,22 @@ class User {
         return $results;
 	}
 	
+	//Get all administritor
+	public function getAllAdministrator()
+	{
+		$this->db->query('select * from users where role like "%admin%"');
+		$results = $this->db->resultset();
+        return $results;
+	}
+	
+	//Get all free trail user
+	public function getAllDemoUsers()
+	{
+		$this->db->query('select * from users_demo order by status desc');
+		$results = $this->db->resultset();
+        return $results;
+	}
+	
 	//Get teacher by condition
 	public function getAllTeacherUsersWithCondition($conditionArray)
 	{

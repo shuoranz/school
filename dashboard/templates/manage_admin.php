@@ -1,6 +1,6 @@
 <?php
 
-	$pageUrl = "Students";
+	$pageUrl = "Admin";
 
 ?>
 <?php include 'includes/html_header.php'; ?>
@@ -56,10 +56,10 @@
                                 <table class="table table-hover table-striped table-vcenter mb-0 text-nowrap">
                                     <thead>
                                         <tr>
-                                            <th colspan="8">Manage Students</th>
+                                            <th colspan="8">Manage Administration</th>
                                             <th colspan="1">
 												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addStudentDiv">
-													<i class="fe fe-plus mr-2"></i>Add Student
+													<i class="fe fe-plus mr-2"></i>Add Admin
 												</button>
 											</th>
                                         </tr>
@@ -77,40 +77,40 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-										<?php foreach ($students as $student) : ?>
+										<?php foreach ($administrator as $admin) : ?>
 										<tr>
-                                            <td><a href="#"><?php echo $student['id']; ?></a></td>
-                                            <td><span><?php echo $student['username']; ?></span></td>
+                                            <td><a href="#"><?php echo $admin['id']; ?></a></td>
+                                            <td><span><?php echo $admin['username']; ?></span></td>
                                             <td>
 												<?php
-													if($student['deleted'] != 0) {
+													if($admin['deleted'] != 0) {
 														$tagFlag = "tag-green";
-													} else if ($student['role'] == "student") {
+													} else if ($admin['role'] == "admin") {
 														$tagFlag = "tag-danger";
-													} else {
-														$tagFlag = "tag-default";
+													} else if ($admin['role'] == "adminPlus") {
+														$tagFlag = "tag-info";
 													}
 												?>
-                                                <span class="tag <?php echo $tagFlag; ?> status" onclick="showStatusDropDown(event, 'users', <?php echo $student['id'] ?>)">
-                                                    <span id="status-<?php echo $student['id']; ?>">
-                                                    <?php if($student['deleted'] != 0 ): ?>
+                                                <span class="tag <?php echo $tagFlag; ?> <?php echo isSuperAdmin() || (isAdminPlus() && $admin['role']=="admin") ? "status" : ""; ?>" onclick="showStatusDropDown(event, 'users', <?php echo $admin['id'] ?>)">
+                                                    <span id="status-<?php echo $admin['id']; ?>">
+                                                    <?php if($admin['deleted'] != 0 ): ?>
                                                     deleted
                                                     <?php else: ?>
-                                                    <?php echo $student['role']; ?>
+                                                    <?php echo $admin['role']; ?>
                                                     <?php endif; ?>
                                                     </span>
                                                     <i class="icon-right-dir"></i>
                                                 </span>
-                                                <span style="display: none" id="hidden-role-<?php echo $student['id']; ?>">
-                                                    <?php echo $student['role'];?>
+                                                <span style="display: none" id="hidden-role-<?php echo $admin['id']; ?>">
+                                                    <?php echo $admin['role'];?>
                                                 </span>
                                             </td>
-                                            <td><span><?php echo $student['first_name']; ?></span></td>
-                                            <td><span><?php echo $student['last_name']; ?></span></td>
-                                            <td><span><?php echo $student['email']; ?></span></td>
-											<td><span><?php echo $student['join_date']; ?></span></td>
-                                            <td><span><?php echo $student['last_activity']; ?></span></td>
-                                            <td><?php echo $student['expiration_date']; ?></td>
+                                            <td><span><?php echo $admin['first_name']; ?></span></td>
+                                            <td><span><?php echo $admin['last_name']; ?></span></td>
+                                            <td><span><?php echo $admin['email']; ?></span></td>
+											<td><span><?php echo $admin['join_date']; ?></span></td>
+                                            <td><span><?php echo $admin['last_activity']; ?></span></td>
+                                            <td><?php echo $admin['expiration_date']; ?></td>
                                         </tr>
 										<?php endforeach; ?>
 										<!--
@@ -134,7 +134,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h6 class="title" id="defaultModalLabel">Create New Student User</h6>
+                <h6 class="title" id="defaultModalLabel">Create New Administrator</h6>
             </div>
             <div class="modal-body">
                 <div class="row clearfix">
@@ -171,9 +171,7 @@
 					<div class="col-12">
                         <div class="form-group">
                             <select class="form-control show-tick" id="create_teacher_duration">
-                                <option disabled selected>Select Duration</option>
-                                <option value="14">14 days</option>
-                                <option value="365">1 year</option>
+                                <option value="183" selected>half years</option>
                             </select>
                         </div>
                     </div>        
@@ -226,7 +224,7 @@
 		}
 		$.post("controller", 
 		{
-			action: "manage_student_create",
+			action: "manage_admin_create",
 			create_teacher_username : create_teacher_username,
 			create_teacher_emailaddress : create_teacher_emailaddress,
 			create_teacher_password : create_teacher_password,

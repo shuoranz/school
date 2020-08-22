@@ -39,10 +39,10 @@
 				</div>
 				
 				<p class="small">
-					<a href="#">Forgot Password?</a>
+					<a href="/forgot_password">Forgot Password?</a>
 				</p>
 				<input type="submit" class="button_fullwidth" name="do_login" />
-				<a href="/register " class="button_fullwidth-2">Register</a>
+				<a href="/request_demo" class="button_fullwidth-2">Free demo</a>
 			</form>
 		</div>
 	</div>

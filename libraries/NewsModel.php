@@ -79,11 +79,12 @@ class NewsModel {
         }
         return $result;
     }
-    public function getAllNews($conditions, $pageNum, $perPage) {
+    public function getAllNews($conditions, $pageNum, $perPage, $admin="") {
         $limit = ($pageNum - 1)*$perPage; 
+		$adminCondition = empty($admin) ? "1" : "news.user_id = $admin";
         $sql = "select news.*, users.username, users.avatar, news_category.category, 
                 count(news_reply.id) as reply_count
-                from news inner join users on news.user_id = users.id 
+                from news inner join users on news.user_id = users.id and $adminCondition
                           inner join news_category on news.category_id = news_category.id
                           left join news_reply on news_reply.news_id = news.id and news_reply.deleted = 0";
         // processing WHERE conditions.
@@ -136,8 +137,9 @@ class NewsModel {
             return -1;
         }
     }
-    public function getNewsCount() {
-        $this->db->query("select count(*) as count from news");
+    public function getNewsCount($admin="") {
+		$adminCondition = empty($admin) ? "1" : "user_id = $admin";
+        $this->db->query("select count(*) as count from news where $adminCondition");
         $results = $this->db->resultset();
         return $results[0]["count"];
     }

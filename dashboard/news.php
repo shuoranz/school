@@ -27,7 +27,15 @@
 
 
 	// redirect if page is invalid
-	$newsCount = $newsModel->getNewsCount();
+	
+	if (isAdminNormal()) {
+		// get this admin news on current page
+		$newsCount = $newsModel->getNewsCount(getUser()["user_id"]);
+	} else {
+		// get all news on current page
+		$newsCount = $newsModel->getNewsCount();
+	}
+	
 	$redirectURI = $newsModel->buildRedirectURI($conditions);
 	if(!isset($_GET['p']) || (!is_numeric($_GET['p']) || strpos($_GET['p'], "."))) {
 		redirect("/news/" . $redirectURI . "p=1", "invalid URL parameters","error");
@@ -39,8 +47,14 @@
 		redirect("/news/" . $redirectURI . "p=" . $_GET['p'], "invalid URL parameters","error");
 	}
 
-	// get all news on current page
-	$all_news = $newsModel->getAllNews($conditions, $_GET['p'], $perPage);
+	if (isAdminNormal()) {
+		// get this admin news on current page
+		$all_news = $newsModel->getAllNews($conditions, $_GET['p'], $perPage,getUser()["user_id"]);
+	} else {
+		// get all news on current page
+		$all_news = $newsModel->getAllNews($conditions, $_GET['p'], $perPage);
+	}
+	
 
 
 	// prepare pagination
