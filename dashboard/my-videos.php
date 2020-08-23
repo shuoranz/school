@@ -18,13 +18,14 @@ $template = new Template('templates/manage_video.php');
 $categroyId = !isset($_GET["category"]) || $_GET["category"] == 0 ? "" : (int)$_GET["category"];
 $courseId = !isset($_GET["course"]) || $_GET["course"] == 0 ? "" : (int)$_GET["course"];
 
+$userRole = isAdmin() ? "admin" : getUser()["user_id"];
 $template->course = $courseModel->getCourseById($courseId);
 
 $template->currentUser = getUser();
 $videos = array();
 //foreach($template->courses as $oneCourse){
 	//$courseId = $oneCourse["id"];
-	$videos[$courseId] = $courseModel->getCourseVideosByCourseId($courseId);
+	$videos[$courseId] = $courseModel->getCourseVideosByCourseId($courseId, $userRole);
 //}
 $template->videos = $videos;
 

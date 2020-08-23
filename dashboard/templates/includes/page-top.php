@@ -8,6 +8,7 @@
 					<div class="right">
 						<div class="notification d-flex">
                             <div class="dropdown d-flex">
+								<span style="padding: 10px 30px 10px 0;"><?php echo getUser()["emailaddress"]; ?></span>
                                 <button type="button" class="btn btn-primary">
 									<a style="color:white;" href="/logout">Logout</a></li>
 								</button>

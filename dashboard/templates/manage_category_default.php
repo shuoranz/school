@@ -11,18 +11,20 @@
 
     <div class="page">
         <?php include 'includes/page-top.php'; ?>
+		<!--
         <div class="section-body mt-3">
             <div class="container-fluid">
                 <div class="row clearfix">
                     <div class="col-lg-12">
                         <div class="mb-4">
                             <h4>Welcome <?php echo getUser()['username']; ?>!</h4>
-                            <!--<small>Study hard, for the well is deep, and our brains are shallow.</small>-->
+                            <small>Study hard, for the well is deep, and our brains are shallow.</small>
                         </div>                        
                     </div>
                 </div>
             </div>
         </div>
+		-->
 		<div class="section-body mt-3">
             <div class="container-fluid">
                 <div class="row clearfix">

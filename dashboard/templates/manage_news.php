@@ -13,15 +13,15 @@
         <?php include 'includes/page-top.php'; ?>
         <div class="section-body mt-3">
             <div class="container-fluid">
+				<!--
                 <div class="row clearfix">
                     <div class="col-lg-12">
                         <div class="mb-4">
                             <h4>Welcome Xiaowen!</h4>
-                            <!--<small>Study hard, for the well is deep, and our brains are shallow.</small>-->
+                            <small>Study hard, for the well is deep, and our brains are shallow.</small>
                         </div>
                     </div>
                 </div>
-                <!--
                 <div class="row clearfix row-deck">
                     <div class="col-xl-2 col-lg-4 col-md-6">
                         <div class="card">

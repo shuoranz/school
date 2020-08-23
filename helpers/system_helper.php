@@ -63,6 +63,7 @@ function getUser(){
     $userArray['user_id'] = $_SESSION['user_id'];
     $userArray['username'] = $_SESSION['username'];
     $userArray['name'] = $_SESSION['name'];
+	$userArray['emailaddress'] = $_SESSION['emailaddress'];
     return $userArray;
 }
 

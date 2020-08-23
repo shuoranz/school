@@ -104,7 +104,7 @@ class User {
 		$this->db->bind(':role',$data['role']);
         $this->db->bind(':avatar',$data['avatar']);
         $this->db->bind(':username',$data['username']);
-        $this->db->bind(':password',$data['password']);
+        $this->db->bind(':password',md5($data['password']));
         $this->db->bind(':last_activity',$data['last_activity']);
 		$this->db->bind(':expiration_date',$data['expiration_date']);
 
@@ -183,6 +183,7 @@ class User {
         $_SESSION['user_id'] = $result['id'];
         $_SESSION['username'] = $result['username'];
         $_SESSION['name'] = $result['first_name'];
+		$_SESSION['emailaddress'] = $result['email'];
 		$_SESSION['expiration_date'] = $result['expiration_date'];
 		$_SESSION['role'] = strtotime($result['expiration_date']) > time()? $result['role'] : 'guest';
     }

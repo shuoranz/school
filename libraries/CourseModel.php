@@ -26,8 +26,15 @@ class CourseModel {
     }
 	public function getCourseVideosByCourseId($course_id, $user_id = "") {
 		$userCondition = $user_id == "" ? "1" : "created_by = :user_id";
+		$deleteCondition = "deleted = 0";
+		$statusCondition = "status = 'published'";
+		if ($user_id == "admin") {
+			$userCondition = 1;
+			$deleteCondition = "1";
+			$statusCondition = "1";
+		}
         $this->db->query("select * from course_video
-                                    where deleted = 0 and course_id = :course_id and deleted = 0 and status = 'published' and " . $userCondition);
+                                    where course_id = :course_id and $deleteCondition and $statusCondition and " . $userCondition);
         if ($userCondition != "1") {
 			$this->db->bind(':user_id',$user_id);
 		}

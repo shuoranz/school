@@ -16,7 +16,7 @@
                 <div class="row clearfix">
                     <div class="col-lg-12">
                         <div class="mb-4">
-                            <h4>Welcome <?php echo getUser()['username']; ?>!</h4>
+                            <!--<h4>Welcome <?php echo getUser()['username']; ?>!</h4>-->
 							<h4>Manage <?php echo $categoryName; ?> Category</h4>
 							<?php
 								for ($i=1; $i<=4; $i++) {

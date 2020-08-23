@@ -332,6 +332,7 @@
 				<li class="<?php echo $pageUrl=='Blog' ? 'active' : ''; ?>"><a href="/dashboard/blog?p=1"><i class="fa fa-bold"></i><span>Blog</span></a></li>
 				<li class="<?php echo $pageUrl=='News' ? 'active' : ''; ?>"><a href="/dashboard/news?p=1"><i class="fa fa-newspaper-o"></i><span>News</span></a></li>
 				<li class="<?php echo $pageUrl=='Invitation Code' ? 'active' : ''; ?>"><a href="/dashboard/invitation-code"><i class="fa fa-ticket"></i><span>Invitation Code</span></a></li>
+				<li class="<?php echo $pageUrl=='System Log' ? 'active' : ''; ?>"><a href="/dashboard/log_list"><i class="fa fa-file-text-o"></i><span>System Log</span></a></li>
 				<li class="<?php echo $pageUrl=='Category' ? 'active' : ''; ?>"><a href="/dashboard/manage-category"><i class="fa fa-list"></i><span>Manage Category</span></a></li>
 				<li class="<?php echo $pageUrl=='Admin' ? 'active' : ''; ?>"><a href="/dashboard/manage-admin"><i class="fa fa-key"></i><span>Manage Admin</span></a></li>
 				<li class="<?php echo $pageUrl=='FreeTrail' ? 'active' : ''; ?>"><a href="/dashboard/free-trail"><i class="fa fa-gift"></i><span>Free Trail</span></a></li>
