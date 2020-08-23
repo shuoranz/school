@@ -36,7 +36,8 @@
 	}
 	
     // get all topics on current page
-    $all_topics = $forum->getPageTopics($conditions, $_GET['p'], $perPage);
+	$admin = isAdmin() ? "" : getUser()["user_id"];
+    $all_topics = $forum->getAllTopics($conditions, $_GET['p'], $perPage, $admin);
 
 
 	

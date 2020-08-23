@@ -108,8 +108,6 @@ class TopicModel {
         if ($pageNum > 0) {
             $sql = $sql . " limit " . $limit . "," . $perPage;
         }
-		echo $sql;
-		exit();
         $this->db->query($sql);
         $results = $this->db->resultset();
         return $results;

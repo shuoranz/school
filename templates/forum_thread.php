@@ -159,7 +159,7 @@ a.list-group-item.active, a.list-group-item.active:hover, a.list-group-item.acti
 				<div class="row">
 					<div class="col-md-2">
 						<div class="user-info">
-							<img class="avatar pull-left" src="/images/avatars/<?php echo $topic['avatar']; ?>" />
+							<img class="avatar pull-left" src="/images/avatars/<?php echo empty($topic['avatar']) ? "noimage.png" : $topic['avatar']; ?>" />
 							<ul>
 								<li><strong><?php echo $topic['username']; ?></strong></li>
 								<li><?php echo userPostCount($topic['user_id']); ?> Posts</li>

@@ -91,7 +91,7 @@
                         <div class="col-md-10">
                             <!--<div class="circ-wrapper pull-left"><h3>15<br>July</h3></div>-->
                             <div class='pull-left publisher'>
-                                <img class="avatar pull-left" src="/images/avatars/<?php echo $topic['avatar']; ?>" />
+                                <img class="avatar pull-left" src="/images/avatars/<?php echo empty($topic['avatar']) ? "noimage.png" : $topic['avatar']; ?>" />
                                 <div class="username"><?php echo $topic['username'] ?></div>
                             </div>
                             <div class="media-body">
