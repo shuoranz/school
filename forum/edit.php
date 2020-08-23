@@ -23,6 +23,7 @@ if (isset($_POST['do_edit'])){
     $data['category_id'] = $_POST['category_id'];
     $data['user_id'] = getUser()['user_id'];
 	$data['topic_id'] = $_POST['topic_id'];
+	$data['top'] = isset($_POST['top']) ? $_POST['top'] : 0;
     
     //Required Fields
     $field_array = array('title','body','category_id');

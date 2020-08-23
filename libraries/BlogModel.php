@@ -202,8 +202,8 @@ class BlogModel {
         return $result;
     }
     public function create($data) {
-        $this->db->query("insert into blog (category_id,user_id,tag,cover,title,body,last_activity)
-        values (:category_id,:user_id,:tag,:cover,:title,:body,:last_activity)");
+        $this->db->query("insert into blog (category_id,user_id,tag,cover,title,body,last_activity,top)
+        values (:category_id,:user_id,:tag,:cover,:title,:body,:last_activity,:top)");
         
         $this->db->bind(':category_id',$data['category_id']);
         $this->db->bind(':user_id',$data['user_id']);
@@ -212,6 +212,7 @@ class BlogModel {
         $this->db->bind(':title',$data['title']);
         $this->db->bind(':body',$data['body']);
         $this->db->bind(':last_activity',date("Y-m-d H:i:s"));
+		$this->db->bind(':top',$data['top']);
         
         if($this->db->execute()){
             return $this->db->lastInsertId();
@@ -226,7 +227,8 @@ class BlogModel {
                                           (isset($data['cover'])?"cover = :cover,":"").
                                           "title = :title,
                                           body = :body,
-                                          last_activity = :last_activity
+                                          last_activity = :last_activity,
+										  top = :top
                           where id = :blog_id";
         $this->db->query($sql);
         
@@ -240,6 +242,7 @@ class BlogModel {
         $this->db->bind(':body',$data['body']);
         $this->db->bind(':last_activity',date("Y-m-d H:i:s"));
         $this->db->bind(':blog_id', $blog_id);
+		$this->db->bind(':top',$data['top']);
         if($this->db->execute()){
             return true;
         } else {

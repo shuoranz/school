@@ -19,6 +19,7 @@ if (isset($_POST['do_create'])){
     $data['body'] = $_POST['body'];
 	$data['category_id'] = $_POST['category_id'];
 	$data['tag'] = $_POST['tags'];
+	$data['top'] = isset($_POST['top']) ? $_POST['top'] : 0;
     $data['user_id'] = getUser()['user_id'];
     $allowedExts = array("jpeg","jpg","png");
     if($_FILES["cover"]["error"] == 0) {

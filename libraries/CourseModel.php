@@ -32,6 +32,8 @@ class CourseModel {
 			$userCondition = 1;
 			$deleteCondition = "1";
 			$statusCondition = "1";
+		} else if ($user_id != "") {
+			$statusCondition = "1";
 		}
         $this->db->query("select * from course_video
                                     where course_id = :course_id and $deleteCondition and $statusCondition and " . $userCondition);

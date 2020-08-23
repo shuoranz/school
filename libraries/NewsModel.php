@@ -154,8 +154,8 @@ class NewsModel {
         return $results;
     }
     public function create($data) {
-        $this->db->query("insert into news (category_id,user_id,tag,cover,title,body,last_activity)
-        values (:category_id,:user_id,:tag,:cover,:title,:body,:last_activity)");
+        $this->db->query("insert into news (category_id,user_id,tag,cover,title,body,last_activity,top)
+        values (:category_id,:user_id,:tag,:cover,:title,:body,:last_activity,:top)");
         
         $this->db->bind(':category_id',$data['category_id']);
         $this->db->bind(':user_id',$data['user_id']);
@@ -164,6 +164,7 @@ class NewsModel {
         $this->db->bind(':title',$data['title']);
         $this->db->bind(':body',$data['body']);
         $this->db->bind(':last_activity',date("Y-m-d H:i:s"));
+		$this->db->bind(':top',$data['top']);
         
         if($this->db->execute()){
             return $this->db->lastInsertId();
@@ -184,7 +185,8 @@ class NewsModel {
                                           (isset($data['cover'])?"cover = :cover,":"").
                                           "title = :title,
                                           body = :body,
-                                          last_activity = :last_activity
+                                          last_activity = :last_activity,
+										  top = :top
                           where id = :news_id";
         $this->db->query($sql);
         
@@ -198,6 +200,7 @@ class NewsModel {
         $this->db->bind(':body',$data['body']);
         $this->db->bind(':last_activity',date("Y-m-d H:i:s"));
         $this->db->bind(':news_id', $news_id);
+		$this->db->bind(':top',$data['top']);
         if($this->db->execute()){
             return true;
         } else {

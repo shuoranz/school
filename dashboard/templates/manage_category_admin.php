@@ -17,7 +17,7 @@
                     <div class="col-lg-12">
                         <div class="mb-4">
                             <!--<h4>Welcome <?php echo getUser()['username']; ?>!</h4>-->
-							<h4>Manage <?php echo $categoryName; ?> Category</h4>
+							<!--<h4>Manage <?php echo $categoryName; ?> Category</h4>-->
 							<?php
 								for ($i=1; $i<=4; $i++) {
 									if ($i == $_GET["c"]) continue;
@@ -36,14 +36,14 @@
 		<div class="section-body mt-3">
             <div class="container-fluid">
                 <div class="row clearfix">
-					<div class="col-6">
+					<div class="col-12">
                         <div class="card">
                             <div class="table-responsive">
                                 <table class="table table-hover table-striped table-vcenter mb-0 text-nowrap">
                                     <thead>
                                         <tr>
-                                            <th colspan="2">Manage <?php echo $categoryName; ?> Category</th>
-                                            <th colspan="1">
+                                            <th colspan="1">Manage <?php echo $categoryName; ?> Category</th>
+                                            <th colspan="2">
 												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addVideoDiv">
 													<i class="fe fe-plus mr-2"></i>Add <?php echo $categoryName; ?> Category
 												</button>

@@ -55,6 +55,20 @@
 						<?php endforeach; ?>
 					</select>
 				</div>
+				<?php if(isAdminPlus() || isSuperAdmin()): ?>
+				<div class="form-group">
+					<label>Top</label>
+					<div style="display:flex; align-items: center; flex-wrap: wrap; background-color: #eeeeee; padding: 10px; border-radius: 5px;">
+						<label style="display: flex;">
+							<input type="checkbox" name="top" value="1"
+								style="margin-left:5px;">
+							<div style="padding:1px 6px;background-color:red;color: white; margin-left:8px;margin-right:10px;font-size:13px;border-radius:4px;">
+								Top
+							</div>
+						</label>
+					</div>
+				</div>
+				<?php endif; ?>
 				<div class="form-group">
 					<input type="file" id="img" name="img" accept="image/*">
 				</div>

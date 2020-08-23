@@ -39,9 +39,11 @@
                                         <tr>
                                             <th colspan="9">Manage Videos</th>
                                             <th colspan="1">
+												<?php if($course["created_by"] == getUser()["user_id"]): ?>
 												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addVideoDiv">
 													<i class="fe fe-plus mr-2"></i>Add Video
 												</button>
+												<?php endif; ?>
 												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editVideoDiv" style="display:none;" id="editVideoDivBtn">
 													<i class="fe fe-plus mr-2"></i>Edit Video
 												</button>
@@ -83,7 +85,7 @@
 														$tagFlag = "tag-default";
 													}
 												?>
-												<span class="tag <?php echo $tagFlag; ?> <?php echo isAdmin() ? "status" : ""; ?>"
+												<span class="tag <?php echo $tagFlag; ?> <?php echo isAdmin() || $course["created_by"] == getUser()["user_id"] ? "status" : ""; ?>"
                                                     onclick="showStatusDropDown(event, 'course_video', <?php echo $video['id'] ?>)">
                                                     <span id="status-<?php echo $video['id']; ?>">
                                                         <?php if($video['deleted'] != 0 || $video['status'] == 'deleted'): ?>

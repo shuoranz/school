@@ -148,6 +148,7 @@
 											<th>status</th>
 											<th>Category</th>
                                             <th>Tags</th>
+											<th>Top</th>
 											<th>Created By</th>
                                             <th>Created Date</th>
 											<th>Published By</th>
@@ -183,6 +184,7 @@
                                             </td>
                                             <td><span><?php echo $blog['name']; ?></span></td>
                                             <td><span><?php echo $blog['tag']; ?></span></td>
+											<td><span><?php echo $blog['top'] == "1" ? "Top" : ""; ?></span></td>
                                             <td><span><?php echo getUserNameByUserId($blog['user_id']); ?></span></td>
 											<td><span><?php echo $blog['create_date']; ?></span></td>
                                             <td><span><?php echo getUserNameByUserId($blog['published_by']); ?></span></td>

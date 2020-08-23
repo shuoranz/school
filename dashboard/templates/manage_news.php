@@ -149,6 +149,7 @@
                                             <th>status</th>
                                             <th>Category</th>
                                             <!--<th>Tags</th>-->
+											<th>Top</th>
                                             <th>Created By</th>
                                             <th>Created Date</th>
                                             <th>Published By</th>
@@ -187,6 +188,7 @@
                                                 </span>
                                             </td>
                                             <td><span><?php echo $news['category']; ?></span></td>
+											<td><span><?php echo $news['top'] == "1" ? "Top" : ""; ?></span></td>
                                             <!--<td><span><?php echo $news['tag']; ?></span></td>-->
                                             <td><span><?php echo getUserNameByUserId($news['user_id']); ?></span></td>
                                             <td><span><?php echo $news['create_date']; ?></span></td>

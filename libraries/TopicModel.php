@@ -198,8 +198,8 @@ class TopicModel {
     
     //Create a new topic
     public function create($data) {
-        $this->db->query("insert into forum (category_id,user_id,title,body,imgs,last_activity)
-        values (:category_id,:user_id,:title,:body,:imgs,:last_activity)");
+        $this->db->query("insert into forum (category_id,user_id,title,body,imgs,last_activity,top)
+        values (:category_id,:user_id,:title,:body,:imgs,:last_activity,:top)");
         
         $this->db->bind(':category_id',$data['category_id']);
         $this->db->bind(':user_id',$data['user_id']);
@@ -207,6 +207,7 @@ class TopicModel {
         $this->db->bind(':body',$data['body']);
         $this->db->bind(':imgs',$data['imgs']);
         $this->db->bind(':last_activity',date("Y-m-d H:i:s"));
+		$this->db->bind(':top',$data['top']);
         
         if($this->db->execute()){
             return true;
@@ -301,13 +302,14 @@ class TopicModel {
     }
 	//Edit a new topic
 	public function edit($data) {
-        $this->db->query("update forum set category_id=:category_id,title=:title,body=:body,last_activity=:last_activity where id=:id");
+        $this->db->query("update forum set category_id=:category_id,title=:title,body=:body,last_activity=:last_activity,top = :top where id=:id");
         
         $this->db->bind(':category_id',$data['category_id']);
         $this->db->bind(':title',$data['title']);
         $this->db->bind(':body',$data['body']);
         $this->db->bind(':last_activity',date("Y-m-d H:i:s"));
 		$this->db->bind(':id',$data['topic_id']);
+		$this->db->bind(':top',$data['top']);
         
         if($this->db->execute()){
             return true;

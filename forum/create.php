@@ -22,6 +22,7 @@ if (isset($_POST['do_create'])){
     $data['user_id'] = getUser()['user_id'];
     $data['imgs'] = "";
     $counter = $_POST['counter'];
+	$data['top'] = isset($_POST['top']) ? $_POST['top'] : 0;
     echo $counter;
     for($i = 0; $i < $counter; $i++) {
         $name = "img-" . $i;

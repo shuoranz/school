@@ -28,7 +28,7 @@
 		<div class="section-body mt-3">
             <div class="container-fluid">
                 <div class="row clearfix">
-					<div class="col-6">
+					<div class="col-12">
 						<?php if( isAdmin() ) : ?>
 						<div class="card">
                             <div class="card-body">
