@@ -129,7 +129,7 @@ class NewsModel {
         $sql = $sql . " group by news.id";
         // processing ORDER BY conditions.
         if (strcmp($conditions["ob"], "cd") == 0) {
-            $sql = $sql . " order by create_date"; 
+            $sql = $sql . " order by top desc, create_date"; 
         } else if (strcmp($conditions["ob"], "lc") == 0) {
             $sql = $sql . " order by like_count";
         } else if (strcmp($conditions["ob"], "vc") == 0) {

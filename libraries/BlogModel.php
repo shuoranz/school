@@ -127,14 +127,16 @@ class BlogModel {
         $sql = $sql . " group by blog.id";
         // processing ORDER BY conditions.
         if (strcmp($conditions["ob"], "cd") == 0) {
-            $sql = $sql . " order by create_date"; 
+            $sql = $sql . " order by top desc, create_date"; 
         } else if (strcmp($conditions["ob"], "lc") == 0) {
             $sql = $sql . " order by like_count";
         } else if (strcmp($conditions["ob"], "vc") == 0) {
             $sql = $sql . " order by view_count";
         } else if (strcmp($conditions["ob"], "rc") == 0) {
             $sql = $sql . " order by reply_count";
-        }
+        } else {
+			$sql = $sql . " order by ";
+		}
         // processing desc or asc
         if ($conditions["desc"] == 1) {
             $sql = $sql . " desc";

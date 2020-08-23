@@ -76,6 +76,45 @@ class TopicModel {
         return $results;
     }
 	
+	//Get All Topics
+    public function getAllTopics($conditions, $pageNum, $perPage, $admin=""){
+        $limit = ($pageNum - 1)*$perPage; 
+		$adminCondition = empty($admin) ? "1" : "forum.user_id = $admin";
+        $sql = "select forum.*, users.username, users.avatar, forum_category.name, 
+                          count(forum_reply.id) as reply_count
+                          from forum inner join users on forum.user_id = users.id and $adminCondition
+                                     inner join forum_category on forum.category_id = forum_category.id 
+                                     left join forum_reply on forum_reply.topic_id = forum.id and forum_reply.deleted = 0";
+        // processing WHERE conditions.
+        if (strcmp($conditions["c"], "") != 0) {
+            $sql = $sql . " and forum.category_id = " . $conditions["c"];
+        } 
+        // processing GROUP BY conditions.
+        $sql = $sql . " group by forum.id";
+        // processing ORDER BY conditions.
+        if (strcmp($conditions["ob"], "cd") == 0) {
+            $sql = $sql . " order by top desc, create_date"; 
+        } else if (strcmp($conditions["ob"], "lc") == 0) {
+            $sql = $sql . " order by like_count";
+        } else if (strcmp($conditions["ob"], "vc") == 0) {
+            $sql = $sql . " order by view_count";
+        } else if (strcmp($conditions["ob"], "rc") == 0) {
+            $sql = $sql . " order by reply_count";
+        }
+        // processing desc or asc
+        if ($conditions["desc"] == 1) {
+            $sql = $sql . " desc";
+        }
+        if ($pageNum > 0) {
+            $sql = $sql . " limit " . $limit . "," . $perPage;
+        }
+		echo $sql;
+		exit();
+        $this->db->query($sql);
+        $results = $this->db->resultset();
+        return $results;
+    }
+	
 	//Get Top Topics
     public function getTopTopics($conditions, $pageNum, $perPage){
 		if ($pageNum != 1){
