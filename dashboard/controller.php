@@ -114,8 +114,14 @@
 		$data["role"] = 'student';
 		
 		$userModel = new User;
-		$userModel->registerByAdmin($data);
-		echo "success";
+		$result = $userModel->registerByAdmin($data);
+		if ($result === true) {
+			echo "success";
+		} else if ($result === false) {
+			echo "failed, reason unknown";
+		} else {
+			echo $result;
+		}
 	}
 	
 	function manage_teacher_create()
@@ -142,8 +148,14 @@
 		$data["role"] = 'teacher';
 		
 		$userModel = new User;
-		$userModel->registerByAdmin($data);
-		echo "success";
+		$result = $userModel->registerByAdmin($data);
+		if ($result === true) {
+			echo "success";
+		} else if ($result === false) {
+			echo "failed, reason unknown";
+		} else {
+			echo $result;
+		}
 	}
 	
 	function manage_admin_create()
@@ -170,8 +182,14 @@
 		$data["role"] = 'admin';
 		
 		$userModel = new User;
-		$userModel->registerByAdmin($data);
-		echo "success";
+		$result = $userModel->registerByAdmin($data);
+		if ($result === true) {
+			echo "success";
+		} else if ($result === false) {
+			echo "failed, reason unknown";
+		} else {
+			echo $result;
+		}
 	}
 	
 	function course_category_create()
@@ -232,8 +250,15 @@
 		$data['user_id'] = $_REQUEST['user_id'];
 		$data['video_description'] = $_REQUEST['video_description'];
 		$data['course_id'] = $_REQUEST['course_id'];
-		$courseModel->createVideo($data);
-		echo "success";
+		
+		$result = $courseModel->createVideo($data);
+		if ($result === true) {
+			echo "success";
+		} else if ($result === false) {
+			echo "failed, reason unknown";
+		} else {
+			echo $result;
+		}
 	}
 	
 	function course_course_edit()
@@ -252,8 +277,14 @@
 		$data['user_id'] = $_REQUEST['user_id'];
 		$data['course_description'] = $_REQUEST['course_description'];
 		$data['category_id'] = $_REQUEST['category_id'];
-		$courseModel->editCourse($data);
-		echo "success";
+		$result = $courseModel->editCourse($data);
+		if ($result === true) {
+			echo "success";
+		} else if ($result === false) {
+			echo "failed, reason unknown";
+		} else {
+			echo $result;
+		}
 	}
 	
 	function course_video_edit()

@@ -187,11 +187,27 @@ class CourseModel {
 		$this->db->bind(':status', 'pending');
         $this->db->bind(':create_date',date("Y-m-d H:i:s"));
         
-        if($this->db->execute()){
-            return true;
-        } else {
-            return false;
-        }
+        //Execute
+		try {
+			if ($this->db->execute()){
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception $e) {
+			if (!isset($e->errorInfo[2])){
+				return false;
+			}
+			$error_msg = $e->errorInfo[2];
+			if (stripos($error_msg, 'duplicate') !== false){
+				if (stripos($error_msg, 'url') !== false){
+					return "duplicate vimeo url id";
+				}
+				if (stripos($error_msg, 'email') !== false){
+					return "duplicate email";
+				}
+			}
+		}
     }
 	
 	public function editCourse($data) {
@@ -230,11 +246,27 @@ class CourseModel {
         $this->db->bind(':description', $data['video_description']);
         $this->db->bind(':create_date',date("Y-m-d H:i:s"));
         
-        if($this->db->execute()){
-            return true;
-        } else {
-            return false;
-        }
+        //Execute
+		try {
+			if ($this->db->execute()){
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception $e) {
+			if (!isset($e->errorInfo[2])){
+				return false;
+			}
+			$error_msg = $e->errorInfo[2];
+			if (stripos($error_msg, 'duplicate') !== false){
+				if (stripos($error_msg, 'url') !== false){
+					return "duplicate vimeo url id";
+				}
+				if (stripos($error_msg, 'email') !== false){
+					return "duplicate email";
+				}
+			}
+		}
     }
 	
 	public function createCategory($data)

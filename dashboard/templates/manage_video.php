@@ -177,6 +177,7 @@
 					<input type="hidden" value="<?php echo getUser()['user_id'] ?>" id="user_id" />
                 </div>
             </div>
+			<div class="modal-alert" id="modal-alert" style="padding: 14px 0px 13px 33px; background-color: lightyellow;display:none;"></div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" id="addVideoBtn">Create</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -228,6 +229,7 @@
 					<input type="hidden" value="<?php echo getUser()['user_id'] ?>" id="edit_user_id" />
                 </div>
             </div>
+			<div class="modal-alert" id="modal-alert" style="padding: 14px 0px 13px 33px; background-color: lightyellow;display:none;"></div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" id="editVideoBtn">Save</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -256,8 +258,9 @@
 		var course_id = <?php echo $course['id']; ?>;
 		var user_id = $("#user_id").val();
 		
-		if (video_title == null || vimeo_id ==  null || video_description == null || course_id == null || user_id == null){
-			alert("error, please check all your inputs");
+		if (!video_title || !vimeo_id || !video_description || !course_id || !user_id ){
+			$("#modal-alert").html("error, please check all your inputs");
+			$("#modal-alert").show();
 			return false;
 		}
 		
@@ -277,7 +280,8 @@
 				setTimeout(function(){ location.reload(); }, 1000);
 				
 			} else {
-				alert("something wrong in backend");
+				$("#modal-alert").html(data);
+				$("#modal-alert").show();
 				return false;
 			}
 		});
@@ -291,8 +295,9 @@
 		var user_id = $("#edit_user_id").val();
 		var video_id = $("#edit_video_id").val();
 		
-		if (video_title == null || vimeo_id ==  null || video_description == null || course_id == null || user_id == null){
-			alert("error, please check all your inputs");
+		if (!video_title || !vimeo_id || !video_description || !course_id || !user_id){
+			$("#modal-alert").html("error, please check all your inputs");
+			$("#modal-alert").show();
 			return false;
 		}
 		
@@ -311,9 +316,9 @@
 			if ( status === "success" && data.indexOf("success") !== -1 ){
 				alert("success!");
 				setTimeout(function(){ location.reload(); }, 1000);
-				
 			} else {
-				alert("something wrong in backend");
+				$("#modal-alert").html(data);
+				$("#modal-alert").show();
 				return false;
 			}
 		});

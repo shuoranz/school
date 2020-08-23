@@ -177,6 +177,7 @@
                     </div>        
                 </div>
             </div>
+			<div class="modal-alert" id="modal-alert" style="padding: 14px 0px 13px 33px; background-color: lightyellow;display:none;"></div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" id="addStudentBtn">Create</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -208,18 +209,21 @@
 		var create_teacher_duration = $("#create_teacher_duration").val();
 
 
-		if (create_teacher_username == null 
-		 || create_teacher_emailaddress ==  null 
-		 || create_teacher_password ==  null 
-		 || create_teacher_password_confirm ==  null 
-		 || create_teacher_firstname ==  null 
-		 || create_teacher_lastname ==  null 
-		 || create_teacher_duration == null){
-			alert("error, please check all your inputs");
+		if (!create_teacher_username
+		 || !create_teacher_emailaddress
+		 || !create_teacher_password
+		 || !create_teacher_password_confirm
+		 || !create_teacher_firstname
+		 || !create_teacher_lastname
+		 || !create_teacher_duration){
+			//alert("error, please check all your inputs");
+			$("#modal-alert").html("error, please check all your inputs");
+			$("#modal-alert").show();
 			return false;
 		}
-		if (create_teacher_password != create_teacher_password_confirm) {
-			alert("password are different");
+		if (create_teacher_password != create_teacher_password_confirm || create_teacher_password == "") {
+			$("#modal-alert").html("password has issue, please check");
+			$("#modal-alert").show();
 			return false;
 		}
 		$.post("controller", 
@@ -237,10 +241,11 @@
 			//alert("Data: " + data + "\nStatus: " + status);
 			if ( status === "success" && data.indexOf("success") !== -1 ){
 				alert("success!");
-				setTimeout(function(){ location.reload(); }, 1000);
+				//setTimeout(function(){ location.reload(); }, 1000);
 				
 			} else {
-				alert("something wrong in backend");
+				$("#modal-alert").html(data);
+				$("#modal-alert").show();
 				return false;
 			}
 		});

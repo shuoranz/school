@@ -111,7 +111,8 @@ class User {
         //Execute
 		try {
 			if ($this->db->execute()){
-				return $this->ic->updateInvitationCodeByUserId($this->db->lastInsertId(), 'applied', $data['invitation_code']) ? true : 'invitation_code_error';
+				//return $this->ic->updateInvitationCodeByUserId($this->db->lastInsertId(), 'applied', $data['invitation_code']) ? true : 'invitation_code_error';
+				return true;
 			} else {
 				return false;
 			}
@@ -122,10 +123,10 @@ class User {
 			$error_msg = $e->errorInfo[2];
 			if (stripos($error_msg, 'duplicate') !== false){
 				if (stripos($error_msg, 'username') !== false){
-					return "duplicate_username";
+					return "duplicate username";
 				}
 				if (stripos($error_msg, 'email') !== false){
-					return "duplicate_email";
+					return "duplicate email";
 				}
 			}
 		}
