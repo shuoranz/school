@@ -86,7 +86,7 @@
                     </div>
                     <?php foreach ($topics as $topic) : ?>
                     <?php $imgsArr = preg_split('/,/', $topic['imgs']); ?>
-                    <?php if($topic['status'] === "published" || (isAdmin() || getUser()['user_id'] === $topic['user_id'] || $topic['imgs'] === "")): ?>
+                    <?php if($topic['status'] === "published" || (getUser()['user_id'] === $topic['user_id'])): ?>
                     <div class="media">
                         <div class="col-md-10">
                             <!--<div class="circ-wrapper pull-left"><h3>15<br>July</h3></div>-->
@@ -98,7 +98,13 @@
                                 <h4 class="media-heading">
                                     <a href="/forum/thread/?id= <?php echo $topic['id']; ?>">
                                         <?php echo $topic['title']; ?>
-                                    </a></h4>
+                                    </a>
+								</h4>
+								<?php if ($topic["top"] == "1"): ?>
+								<div class="tag" style="width:38px;background-color: red;font-size: 13px;border-radius: 4px;padding: 1px 6px;position: relative;margin-right: 5px;color: white;">
+									顶置
+								</div>	
+								<?php endif; ?>
                                 <p><?php echo mb_substr($topic['body'], 0, 100); ?>
                                     <a href="/forum/thread/?id= <?php echo $topic['id']; ?>"> read more...</a>
                                 </p>
@@ -117,9 +123,6 @@
 							
 							<br>
 							<i><?php echo $topic['create_date'] ?></i>
-							<?php if ($topic["top"] == 1) : ?>
-							<br><i>Top Topic</i>
-							<?php endif; ?>
                         </div>
                     </div>
                     <?php endif; ?>
