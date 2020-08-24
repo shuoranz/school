@@ -152,6 +152,7 @@
 											<th>Top</th>
                                             <th>Created By</th>
                                             <th>Created Date</th>
+                                            <th>Modified By</th>
                                             <th>Published By</th>
                                             <th>Published Date</th>
                                         </tr>
@@ -192,6 +193,7 @@
                                             <!--<td><span><?php echo $news['tag']; ?></span></td>-->
                                             <td><span><?php echo getUserNameByUserId($news['user_id']); ?></span></td>
                                             <td><span><?php echo $news['create_date']; ?></span></td>
+                                            <td><span><?php echo getUserNameByUserId($news['modified_by']); ?></span></td>
                                             <td><span><?php echo getUserNameByUserId($news['published_by']); ?></span></td>
                                             <td><span><?php echo $news['last_activity']; ?></span></td>
                                         </tr>

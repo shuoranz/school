@@ -73,6 +73,7 @@
                                             <th>Email Address</th>
                                             <th>Created Date</th>
 											<th>Last Activity</th>
+                                            <th>Modified By</th>
 											<th>Valid Through</th>
                                         </tr>
                                     </thead>
@@ -110,6 +111,7 @@
                                             <td><span><?php echo $student['email']; ?></span></td>
 											<td><span><?php echo $student['join_date']; ?></span></td>
                                             <td><span><?php echo $student['last_activity']; ?></span></td>
+                                            <td><span><?php echo getUserNameByUserId($student['modified_by']); ?></span></td>
                                             <td><?php echo $student['expiration_date']; ?></td>
                                         </tr>
 										<?php endforeach; ?>

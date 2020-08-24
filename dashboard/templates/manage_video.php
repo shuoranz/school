@@ -59,6 +59,7 @@
 											<th>Course Name</th>
 											<th>Category</th>
 											<th>Created By</th>
+											<th>Modified By</th>
                                             <th>Update Date</th>
 											<th>Published By</th>
                                         </tr>
@@ -100,6 +101,7 @@
 											<td style="white-space: normal;"><span><?php echo $course['title']; ?></span></td>
                                             <td style="white-space: normal;"><span><?php echo $course['name']; ?></span></td>
                                             <td><span><?php echo getUserNameByUserId($video['created_by']); ?></span></td>
+											<td><span><?php echo getUserNameByUserId($video['modified_by']); ?></span></td>
 											<td><span><?php echo $video['create_date']; ?></span></td>
                                             <td><span><?php echo getUserNameByUserId($video['published_by']); ?></span></td>
                                         </tr>

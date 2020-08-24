@@ -213,7 +213,7 @@ class CourseModel {
     }
 	
 	public function editCourse($data) {
-        $this->db->query("update course set `title` = :title, `description` = :description, `create_date` = :create_date where id = :id");
+        $this->db->query("update course set `title` = :title, `modified_by`=:user_id, `description` = :description, `create_date` = :create_date where id = :id");
         
 		$data['course_title'] = $_REQUEST['course_title'];
 		$data['course_id'] = $_REQUEST['course_id'];
@@ -224,6 +224,7 @@ class CourseModel {
         $this->db->bind(':description', $data['course_description']);
         $this->db->bind(':create_date',date("Y-m-d H:i:s"));
         $this->db->bind(':id', $data['course_id']);
+        $this->db->bind(':user_id', $data['user_id']);
 		
         if($this->db->execute()){
             return true;
@@ -233,7 +234,7 @@ class CourseModel {
     }
 	
 	public function editVideo($data) {
-        $this->db->query("update course_video set `title` = :title, `description` = :description, `url` = :url, `create_date` = :create_date where id = :id");
+        $this->db->query("update course_video set `title` = :title, `modified_by` = :user_id, `description` = :description, `url` = :url, `create_date` = :create_date where id = :id");
         
 		$data['video_title'] = $_REQUEST['video_title'];
 		$data['vimeo_id'] = $_REQUEST['vimeo_id'];
@@ -247,6 +248,7 @@ class CourseModel {
 		$this->db->bind(':id',$data['video_id']);
         $this->db->bind(':description', $data['video_description']);
         $this->db->bind(':create_date',date("Y-m-d H:i:s"));
+        $this->db->bind(':user_id', $data['user_id']);
         
         //Execute
 		try {

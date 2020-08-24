@@ -379,7 +379,7 @@
 				}	
 				$model = new DataModel;
 				$id = $_REQUEST['id'];
-				if($model->restore($table, $id)) {
+				if($model->restore($table, $id, getUser()['user_id'])) {
 					$responseObj['success'] = TRUE;
 					$responseObj['message'] = "Successfully restored ". $table . ": " . $id;
 					writeToSystemLog(getUser()['user_id'], "restored", $table, $id);
@@ -409,7 +409,7 @@
 				}
 				$model = new DataModel;
 				$id = $_REQUEST['id'];
-				if($model->delete($table, $id)) {
+				if($model->delete($table, $id, getUser()['user_id'])) {
 					$responseObj['success'] = TRUE;
 					$responseObj['message'] = "Successfully deleted ". $table . ": " . $id;
 					writeToSystemLog(getUser()['user_id'], "deleted", $table, $id);
@@ -426,7 +426,7 @@
 		$table = $_REQUEST['table'];
 		$id = $_REQUEST['id'];
 		$responseObj = array();
-		if($model->simpleDelete($table, $id)) {
+		if($model->simpleDelete($table, $id, getUser()['user_id'])) {
 			$responseObj['success'] = TRUE;
 			$responseObj['message'] = "Successfully deleted ". $table . ": " . $id;
 			writeToSystemLog(getUser()['user_id'], "deleted", $table, $id);
@@ -441,7 +441,7 @@
 		$table = $_REQUEST['table'];
 		$id = $_REQUEST['id'];
 		$responseObj = array();
-		if($model->simpleRestore($table, $id)) {
+		if($model->simpleRestore($table, $id, getUser()['user_id'])) {
 			$responseObj['success'] = TRUE;
 			$responseObj['message'] = "Successfully restored ". $table . ": " . $id;
 			writeToSystemLog(getUser()['user_id'], "restored", $table, $id);

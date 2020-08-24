@@ -55,6 +55,7 @@
                                             <th>Description</th>
 											<th>Created By</th>
                                             <th>Created Date</th>
+                                            <th>Modified By</th>
 											<th>Published By</th>
                                         </tr>
                                     </thead>
@@ -93,6 +94,7 @@
                                             <td style="white-space: normal;"><span><?php echo $course['description']; ?></span></td>
                                             <td><span><?php echo getUserNameByUserId($course['created_by']); ?></span></td>
 											<td><span><?php echo $course['create_date']; ?></span></td>
+                                            <td><span><?php echo getUserNameByUserId($course['modified_by']); ?></span></td>
                                             <td><span><?php echo getUserNameByUserId($course['published_by']); ?></span></td>
                                         </tr>
 										<?php endforeach; ?>

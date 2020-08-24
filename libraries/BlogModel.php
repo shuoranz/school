@@ -224,7 +224,7 @@ class BlogModel {
     }
     public function edit($data, $blog_id) {
         $sql = "update blog set category_id = :category_id,
-                                          user_id = :user_id,
+                                          modified_by = :user_id,
                                           tag = :tag,".
                                           (isset($data['cover'])?"cover = :cover,":"").
                                           "title = :title,

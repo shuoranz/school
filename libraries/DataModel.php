@@ -37,11 +37,12 @@ class DataModel {
             return false;
         }
     }
-    public function restore($table, $id) {
-        $sql = "update ".$table." set status = 'pending'
+    public function restore($table, $id, $user_id) {
+        $sql = "update ".$table." set status = 'pending',modified_by = :user_id
         where id = :id";
         $this->db->query($sql);
         $this->db->bind(":id", $id);
+        $this->db->bind(":user_id", $user_id);
         if($this->db->execute()){
            $sql2 = "update ".$table." set deleted = 0
            where id = :id";
@@ -56,11 +57,12 @@ class DataModel {
             return false;
         }
     }
-    public function delete($table, $id) {
-        $sql = "update ".$table." set status = 'deleted'
+    public function delete($table, $id, $user_id) {
+        $sql = "update ".$table." set status = 'deleted', modified_by = :user_id
         where id = :id";
         $this->db->query($sql);
         $this->db->bind(":id", $id);
+        $this->db->bind(":user_id", $user_id);
         if($this->db->execute()){
            $sql2 = "update ".$table." set deleted = 1
            where id = :id";
@@ -75,22 +77,24 @@ class DataModel {
             return false;
         }
     }
-    public function simpleDelete($table, $id) {
-        $sql = "update ".$table." set deleted = 1
+    public function simpleDelete($table, $id, $user_id) {
+        $sql = "update ".$table." set deleted = 1, modified_by = :user_id
         where id = :id";
         $this->db->query($sql);
         $this->db->bind(":id", $id);
+        $this->db->bind(":user_id", $user_id);
         if($this->db->execute()){
            return true;
         } else {
             return false;
         }
     }
-    public function simpleRestore($table, $id) {
-        $sql = "update ".$table." set deleted = 0
+    public function simpleRestore($table, $id, $user_id) {
+        $sql = "update ".$table." set deleted = 0, modified_by = :user_id
         where id = :id";
         $this->db->query($sql);
         $this->db->bind(":id", $id);
+        $this->db->bind(":user_id", $user_id);
         if($this->db->execute()){
            return true;
         } else {

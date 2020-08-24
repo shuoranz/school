@@ -217,6 +217,7 @@ function remove(table, id) {
                 },
                 contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                 success: function(response) {
+                    console.log(response);
                     var responseObj = JSON.parse(response);
                     var statusTxtSelector = "#status-"+id;
                     if($(statusTxtSelector).length == 1) {

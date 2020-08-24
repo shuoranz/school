@@ -151,6 +151,7 @@
 											<th>Top</th>
 											<th>Created By</th>
                                             <th>Created Date</th>
+                                            <th>Modified By</th>
 											<th>Published By</th>
 											<th>Published Date</th>
                                         </tr>
@@ -187,6 +188,7 @@
 											<td><span><?php echo $blog['top'] == "1" ? "Top" : ""; ?></span></td>
                                             <td><span><?php echo getUserNameByUserId($blog['user_id']); ?></span></td>
 											<td><span><?php echo $blog['create_date']; ?></span></td>
+                                            <td><span><?php echo getUserNameByUserId($blog['modified_by']); ?></span></td>
                                             <td><span><?php echo getUserNameByUserId($blog['published_by']); ?></span></td>
 											<td><span><?php echo $blog['last_activity']; ?></span></td>
                                         </tr>
