@@ -80,7 +80,7 @@ for ($i = 0; $i < count($topics);$i++) {
 	$topics[$i]['liked'] = $topic->likedTopic($topics[$i]['id']);
 	// formatting displayed date time
 	$cur_date = $topics[$i]["create_date"];
-	$topics[$i]['create_date'] = $cur_date; // DateFormatter($cur_date);
+	$topics[$i]['create_date'] = date("m-d", strtotime($cur_date) ); // DateFormatter($cur_date);
 }
 //Display template
 $pageMax = ceil($topicCount / $perPage);
