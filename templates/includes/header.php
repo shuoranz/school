@@ -78,7 +78,7 @@
 				<li><a id="top_a_tag" href="/logout">Logout</a></li>
 				<?php else : ?>
                 <!--<li><a id="top_a_tag" href="/register">Register</a></li>-->
-				<li><a id="TreeTrailBtn" class="button_top" href="/request_demo">Free Trail</a></li>
+				<li><a id="TreeTrailBtn" class="button_top" href="/request_demo">Request Demo</a></li>
 				<?php endif; ?>
             </ul>
 		</div>
@@ -109,34 +109,24 @@
 				</li>
 				-->
 				<li class="normal_drop_down">
-					<a href="/course/">Online Courses</a>
+					<a href="/course/">Courses</a>
 				</li>
 				<li class="normal_drop_down">
-					<a href="/team/">Counseling Team</a>
-				</li>
-				<li class="normal_drop_down">
-					<a href="/forum/?p=1">Forum</a>
-				</li>
-				<!--
-				<li class="normal_drop_down">
-					<a href="/program/">Program Intro</a>
-				</li>
-				-->
-				<li class="normal_drop_down">
-					<a href="">News</a>
+					<a class="nav_normal_point">Community</a>
 					<div class="mobnav-subarrow"></div>
-						
 					<ul>
+						<li><a href="/forum/?p=1">Forum</a></li>
 						<li><a href="/news/?p=1">News</a></li>
-						<li><a href="/blog/?p=1">Blog</a></li>
+						<li><a href="/blog/?p=1">Stories</a></li>
 					</ul>
 				</li>
 				<li class="normal_drop_down">
-					<a href="">About Us</a>
+					<a class="nav_normal_point">About Us</a>
 					<div class="mobnav-subarrow"></div>
 					<ul>
-						<li><a href="/about_us/">About Us</a></li>
+						<li><a href="/about_us/">Who We Are</a></li>
 						<li><a href="/join_us/">Join Us</a></li>
+						<li><a href="/contact_us/">Contact Us</a></li>
 					</ul>
 				</li>
 			</ul>

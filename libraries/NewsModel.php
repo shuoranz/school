@@ -410,5 +410,22 @@ class NewsModel {
             return false;
         }
     }
+	public function getHomepageNews($number = 5) {
+        $sql = "select news.*, users.username, users.avatar, news_category.category, count(news_reply.id) as reply_count
+                from news inner join users on news.user_id = users.id 
+                          inner join news_category on news.category_id = news_category.id
+                          left join news_reply on news_reply.news_id = news.id and news_reply.deleted = 0
+                where news.deleted = 0 and news.status = 'published' and cover <> ''";
+
+        // processing GROUP BY conditions.
+        $sql = $sql . " group by news.id";
+		
+        // processing ORDER BY conditions.
+        $sql = $sql . " order by create_date desc limit $number"; 
+
+        $this->db->query($sql);
+        $results = $this->db->resultset();
+        return $results;
+    }
 }
 ?>

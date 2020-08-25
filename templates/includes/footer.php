@@ -1,4 +1,5 @@
 <footer>
+<!--
 <div class="container">
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
@@ -12,36 +13,34 @@
 		</div>
 	</div>
 </div>
+-->
 
-<hr>
 
 <div class="container" id="nav-footer">
 	<div class="row text-left">
 		<div class="col-md-3 col-sm-3">
-			<h4>Browse</h4>
+			<h4>Courses</h4>
 			<ul>
-				<li><a href="/prices_plans.html">Prices</a></li>
-				<li><a href="/courses_grid.html">Courses</a></li>
-				<li><a href="/blog.html">Blog</a></li>
-				<li><a href="/contacts.html">Contacts</a></li>
+				<?php $courseCategories = getAllCourseCategories(); ?>
+				<?php foreach($courseCategories as $category_count => $courseCategory) : ?>
+				<li><a href="/course/category/?category=<?php echo $courseCategory["id"]; ?>"><?php echo $courseCategory["name"]; ?></a></li>
+				<?php endforeach; ?>
 			</ul>
 		</div><!-- End col-md-4 -->
 		<div class="col-md-3 col-sm-3">
-			<h4>Next Courses</h4>
+			<h4>Community</h4>
 			<ul>
-				<li><a href="/course_details_1.html">Biology</a></li>
-				<li><a href="/course_details_2.html">Management</a></li>
-				<li><a href="/course_details_2.html">History</a></li>
-				<li><a href="/course_details_3.html">Litterature</a></li>
+				<li><a href="/forum?p=1">Forum</a></li>
+				<li><a href="/news?p=1">News</a></li>
+				<li><a href="/blog?p=1">Stories</a></li>
 			</ul>
 		</div><!-- End col-md-4 -->
 		<div class="col-md-3 col-sm-3">
-			<h4>About Learn</h4>
+			<h4>About Us</h4>
 			<ul>
-				<li><a href="/about_us.html">About Us</a></li>
-				<li><a href="/apply_2.html">Apply</a></li>
-				<li><a href="#">Terms and conditions</a></li>
-				<li><a href="/register.html">Register</a></li>
+				<li><a href="/about_us">Who We Are</a></li>
+				<li><a href="/join_us">Join Us</a></li>
+				<li><a href="/contact_us">Contact Us</a></li>
 			</ul>
 		</div><!-- End col-md-4 -->
 		<div class="col-md-3 col-sm-3">
@@ -63,5 +62,27 @@
 <div id="toTop">Back to top</div>
 
 	<script>new UISearch( document.getElementById( 'sb-search' ) );</script>
+	<script type="text/javascript" src="/rs-plugin/js/jquery.themepunch.plugins.min.js"></script>
+	<script type="text/javascript" src="/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+	<script type="text/javascript">
+
+		var revapi;
+
+		jQuery(document).ready(function() {
+
+			   revapi = jQuery('.tp-banner').revolution(
+				{
+					delay:9000,
+					startwidth:1700,
+					startheight:600,
+					hideThumbs:true,
+					navigationType:"none",
+					fullWidth:"on",
+					forceFullWidth:"on"
+				});
+
+		});	//ready
+
+	</script>
   </body>
 </html>

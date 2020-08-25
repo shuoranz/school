@@ -413,4 +413,21 @@ class BlogModel {
             return false;
         }
     }
+	public function getHomepageBlog($number = 5) {
+        $sql = "select blog.*, users.username, users.avatar, blog_category.category, count(blog_reply.id) as reply_count
+                from blog inner join users on blog.user_id = users.id 
+                          inner join blog_category on blog.category_id = blog_category.id
+                          left join blog_reply on blog_reply.blog_id = blog.id and blog_reply.deleted = 0
+                where blog.deleted = 0 and blog.status = 'published' and cover <> ''";
+
+        // processing GROUP BY conditions.
+        $sql = $sql . " group by blog.id";
+		
+        // processing ORDER BY conditions.
+        $sql = $sql . " order by create_date desc limit $number"; 
+
+        $this->db->query($sql);
+        $results = $this->db->resultset();
+        return $results;
+    }
 }

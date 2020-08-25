@@ -19,6 +19,16 @@ $template->totalCategories = $topic->getTotalCategories();
 $template->totalUsers = $user->getTotalUsers();
 */
 //Display template
+
+$newsModel = new NewsModel;
+$template->all_news = $newsModel->getHomepageNews(5);
+
+$forumModel = new TopicModel;
+
+
+$blogModel = new BlogModel;
+$template->all_blog = $blogModel->getHomepageBlog(5);
+
 echo $template;
 
 ?>
