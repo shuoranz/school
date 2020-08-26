@@ -120,17 +120,23 @@
         
 			<div class="row">
 			
-				<?php for ($i=0; $i<4; $i++) { ?>
+				<?php $courseCategories = getAllCourseCategories(); ?>
+				<?php foreach($courseCategories as $category_count => $courseCategory) : ?>
+				<?php if ($category_count >= 4) break; ?>
 				<div class="col-lg-3 col-md-6 col-sm-6">
-					<div class="col-item">
-						<div class="photo">
-							<a href="#"><img src="img/art.jpg" alt="" /></a>
-							<div class="cat_row"><a href="#">ART</a><span class="pull-right"><i class=" icon-mic"></i>teacher name</span></div>
-						</div>
+					<div class="col-item course-grid">
+						<a href="/course/category/?category=<?php echo $courseCategory["id"]; ?>">
+							<div class="photo">
+								<div style="text-align: center;padding:5px 0;background-color:#1cbbb4;height:200px;line-height: 200px;display:table;width:100.7%;opacity: 0.85;">
+									<h4 style="display: table-cell;vertical-align: middle;color:white;"><?php echo $courseCategory["name"]; ?></h4>
+								</div>
+								<div class="cat_row"><a href="/course/category/?category=<?php echo $courseCategory["id"]; ?>">View</a><span class="pull-right"><i class=" icon-mic"></i><?php echo $courseCategory["course_cnt"]; ?> courses</span></div>
+							</div>
+						</a>
 						<div class="info">
 							<div class="row">
 								<div class="course_info col-md-12 col-sm-12">
-									<h4>Impressionist</h4>
+									<!--<h4>Impressionist</h4>-->
 									<p > Lorem ipsum dolor sit amet, no sit sonet corpora indoctum, quo ad fierent insolens. Duo aeterno ancillae ei. </p>
 									<!--
 									<div class="rating">
@@ -149,7 +155,7 @@
 						</div>
 					</div>
 				</div>
-				<?php } ?>      
+				<?php endforeach; ?>      
 							
 	   
 			</div><!-- End row -->
@@ -176,6 +182,8 @@
 						<i class="icon-mic"></i>
 						<h3>High School Counselors</h3>
 						<p>Please complete the registration form, someone will contact you shortly.</p>
+						<br>
+						<a href="/contact_us" class="button_medium_outline">Contact Us</a>
 					</div>
 				</div>
 				<div class="col-md-6">
@@ -183,6 +191,7 @@
 						<i class="icon-user"></i>
 						<h3>Individual students</h3>
 						<p>Please reach out to your high school counselor to join us through your school. You may also contact us to share your interest, so we can invite your high school to participate in our program.</p>
+						<a href="/request_demo" class="button_medium_outline">Request Demo</a>
 					</div>
 				</div>
 			</div><!-- End row -->
@@ -265,11 +274,11 @@
 	
 	
 	
-	<section id="main_content_gray">
+	<section id="main_content">
     	<div class="container">
         	<div class="row">
 				<div class="col-md-12 text-center">
-					<h2>Latest News </h2>
+					<h2>Community </h2>
 					<br>
 					<br>
 					<!--<p class="lead">Lorem ipsum dolor sit amet, ius minim gubergren ad.</p>-->
@@ -278,48 +287,190 @@
         
 			<div class="row">
 			
-				<?php for ($i=0; $i<4; $i++) { ?>
-				<div class="col-lg-3 col-md-6 col-sm-6">
-					<div class="col-item">
-						<div class="photo">
-							<a href="#"><img src="img/art.jpg" alt="" /></a>
-							<div class="cat_row"><a href="#">ART</a><span class="pull-right"><i class=" icon-mic"></i>teacher name</span></div>
+				<div class="col-md-4 homepage_community">
+					<div class="homepage_forum">
+						<div class="head-info row homepage-news-container" style="padding-bottom:0;">
+							<div style="float:left;padding:8px 0 2px 5px;">
+								<b style="font-size:18px;">News</b>
+							</div>
+							
+							<div style="float:right;padding:9px 6px 0 0">
+								<a href="/news?p=1">read more</a>
+							</div>
 						</div>
-						<div class="info">
-							<div class="row">
-								<div class="course_info col-md-12 col-sm-12">
-									<h4>Impressionist</h4>
-									<p > Lorem ipsum dolor sit amet, no sit sonet corpora indoctum, quo ad fierent insolens. Duo aeterno ancillae ei. </p>
-									<!--
-									<div class="rating">
-										<i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i>
+						<?php $top_news = $all_news[0]; ?>
+						<div class="title-info row homepage-news-container">
+							<div class="homepage-news-cover col-sm-12">
+								<a href="/news/thread/?id=<?php echo $top_news['id']; ?>"><img src="<?php echo $top_news['cover'] ?>" style="width:100%;height:100%;"></a>
+								<div class="bottom-left">
+									<div class="homepage_top_img_title">
+										<a href="/news/thread/?id=<?php echo $top_news['id']; ?>"><?php echo $top_news['title'] ?></a>
 									</div>
-									<div class="price pull-right">199$</div>
-									-->
 								</div>
 							</div>
-							<!--
-							<div class="separator clearfix">
-								<p class="btn-add"> <a href="apply_2.html"><i class="icon-export-4"></i> Subscribe</a></p>
-								<p class="btn-details"> <a href="course_details_1.html"><i class=" icon-list"></i> Details</a></p>
-							</div>
-							-->
 						</div>
+						<?php foreach($all_news as $news): ?>
+						<div class="homepage-news-container row">
+							<div class="homepage-news-cover col-sm-4">
+								<a href="/news/thread/?id=<?php echo $news['id']; ?>"><img src="<?php echo $news['cover'] ?>" style="max-width:100%;max-height:60px;"></a>
+							</div>
+							<div class="homepage-news-body col-sm-8">
+								<div class="tags-and-title">
+									<div class="homepage-title-container">
+										<a href="/news/thread/?id=<?php echo $news['id']; ?>" class="news-heading-link">
+											<p><?php echo $news['title'] ?></p>
+										</a>
+									</div>
+								</div>
+								<div class="news-info">
+									<!--
+									<div class="publisher">
+										<div class="avatar" style="background: url(../images/avatars/<?php echo $news['avatar']?>);
+																   background-size: cover; ">
+										</div>
+										<?php echo $news['username']?>
+									</div>
+									-->
+									<div class="other-info">
+										<div style="float:left">
+											<div style="margin-top:2px;float:left;"><i class="icon-eye"></i></div><span style="font-size:13px"><?php echo $news['view_count'] ?></span>
+										</div>
+										
+										<div class="date-container" style="float:right;">
+											<span style="font-size:13px"><?php echo date("m-d", strtotime($news["create_date"]) ); ?></span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<?php endforeach; ?>
 					</div>
 				</div>
-				<?php } ?>      
+				<div class="col-md-4 homepage_community">
+					<div class="homepage_forum">
+						<div class="head-info row homepage-news-container" style="padding-bottom:0;">
+							<div style="float:left;padding:8px 0 2px 5px;">
+								<b style="font-size:18px;">News</b>
+							</div>
 							
-	   
-			</div><!-- End row -->
-			<div class="row">
-				<div class="col-md-12">
-					 <a href="/news/" class="button_medium_outline pull-right">View all news</a>
+							<div style="float:right;padding:9px 6px 0 0">
+								<a href="/news?p=1">read more</a>
+							</div>
+						</div>
+						<?php $top_news = $all_news[0]; ?>
+						<div class="title-info row homepage-news-container">
+							<div class="homepage-news-cover col-sm-12">
+								<a href="/news/thread/?id=<?php echo $top_news['id']; ?>"><img src="<?php echo $top_news['cover'] ?>" style="width:100%;height:100%;"></a>
+								<div class="bottom-left">
+									<div class="homepage_top_img_title">
+										<a href="/news/thread/?id=<?php echo $top_news['id']; ?>"><?php echo $top_news['title'] ?></a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<?php foreach($all_news as $count_news => $news): ?>
+						<?php if ($count_news == 0) continue; ?>
+						<div class="homepage-news-container row">
+							<div class="homepage-news-cover col-sm-4">
+								<a href="/news/thread/?id=<?php echo $news['id']; ?>"><img src="<?php echo $news['cover'] ?>" style="max-width:100%;max-height:60px;"></a>
+							</div>
+							<div class="homepage-news-body col-sm-8">
+								<div class="tags-and-title">
+									<div class="homepage-title-container">
+										<a href="/news/thread/?id=<?php echo $news['id']; ?>" class="news-heading-link">
+											<p><?php echo $news['title'] ?></p>
+										</a>
+									</div>
+								</div>
+								<div class="news-info">
+									<!--
+									<div class="publisher">
+										<div class="avatar" style="background: url(../images/avatars/<?php echo $news['avatar']?>);
+																   background-size: cover; ">
+										</div>
+										<?php echo $news['username']?>
+									</div>
+									-->
+									<div class="other-info">
+										<div style="float:left">
+											<div style="margin-top:2px;float:left;"><i class="icon-eye"></i></div><span style="font-size:13px"><?php echo $news['view_count'] ?></span>
+										</div>
+										
+										<div class="date-container" style="float:right;">
+											<span style="font-size:13px"><?php echo date("m-d", strtotime($news["create_date"]) ); ?></span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<?php endforeach; ?>
+					</div>
 				</div>
-			</div>
+				<div class="col-md-4 homepage_community">
+					<div class="homepage_forum">
+						<div class="head-info row homepage-news-container" style="padding-bottom:0;">
+							<div style="float:left;padding:8px 0 2px 5px;">
+								<b style="font-size:18px;">Stories</b>
+							</div>
+							
+							<div style="float:right;padding:9px 6px 0 0">
+								<a href="/news?p=1">read more</a>
+							</div>
+						</div>
+						<?php $top_blog = $all_blog[0]; ?>
+						<div class="title-info row homepage-news-container">
+							<div class="homepage-news-cover col-sm-12">
+								<a href="/news/thread/?id=<?php echo $top_blog['id']; ?>"><img src="<?php echo $top_blog['cover'] ?>" style="width:100%;height:100%;"></a>
+								<div class="bottom-left">
+									<div class="homepage_top_img_title">
+										<a href="/news/thread/?id=<?php echo $top_blog['id']; ?>"><?php echo $top_blog['title'] ?></a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<?php foreach($all_blog as $count_blog => $blog): ?>
+						<?php if ($count_blog == 0) continue; ?>
+						<div class="homepage-news-container row">
+							<div class="homepage-news-cover col-sm-4">
+								<a href="/news/thread/?id=<?php echo $blog['id']; ?>"><img src="<?php echo $blog['cover'] ?>" style="max-width:100%;max-height:60px;"></a>
+							</div>
+							<div class="homepage-news-body col-sm-8">
+								<div class="tags-and-title">
+									<div class="homepage-title-container">
+										<a href="/news/thread/?id=<?php echo $blog['id']; ?>" class="news-heading-link">
+											<p><?php echo $blog['title'] ?></p>
+										</a>
+									</div>
+								</div>
+								<div class="news-info">
+									<!--
+									<div class="publisher">
+										<div class="avatar" style="background: url(../images/avatars/<?php echo $blog['avatar']?>);
+																   background-size: cover; ">
+										</div>
+										<?php echo $blog['username']?>
+									</div>
+									-->
+									<div class="other-info">
+										<div style="float:left">
+											<div style="margin-top:2px;float:left;"><i class="icon-eye"></i></div><span style="font-size:13px"><?php echo $blog['view_count'] ?></span>
+										</div>
+										
+										<div class="date-container" style="float:right;">
+											<span style="font-size:13px"><?php echo date("m-d", strtotime($blog["create_date"]) ); ?></span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<?php endforeach; ?>
+					</div>
+				</div>
+			</div><!-- End row -->
         </div>   <!-- End container -->
     </section><!-- End section gray -->
 	
-	
+	<!--
 	<section id="testimonials_2">
         <div class="container">
             <div class="row">
@@ -330,15 +481,12 @@
             <div class='row'>
                 <div class='col-md-offset-2 col-md-8'>
                     <div class="carousel slide" data-ride="carousel" id="quote-carousel">
-                        <!-- Bottom Carousel Indicators -->
                         <ol class="carousel-indicators">
                             <li data-target="#quote-carousel" data-slide-to="0" class="active"></li>
                             <li data-target="#quote-carousel" data-slide-to="1"></li>
                             <li data-target="#quote-carousel" data-slide-to="2"></li>
                         </ol>
-                        <!-- Carousel Slides / Quotes -->
                         <div class="carousel-inner">
-                            <!-- Quote 1 -->
                             <div class="item active">
                                 <blockquote>
                                     <div class="row">
@@ -354,7 +502,6 @@
                                     </div>
                                 </blockquote>
                             </div>
-                            <!-- Quote 2 -->
                             <div class="item">
                                 <blockquote>
                                     <div class="row">
@@ -370,7 +517,6 @@
                                     </div>
                                 </blockquote>
                             </div>
-                            <!-- Quote 3 -->
                             <div class="item">
                                 <blockquote>
                                     <div class="row">
@@ -391,109 +537,7 @@
                 </div>
             </div>
         </div>
-    </section><!-- End testimonials -->
+    </section>
+	-->
 
-<footer>
-<div class="container">
-	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			<h3>Subscribe to our Newsletter for latest news.</h3>
-			<div id="message-newsletter"></div>
-			<form method="post" action="assets/newsletter.php" name="newsletter" id="newsletter" class="form-inline">
-				<input name="email_newsletter" id="email_newsletter" type="email" value="" placeholder="Your Email" class="form-control">
-				<button id="submit-newsletter" class=" button_outline"> Subscribe</button>
-			</form>
-		</div>
-	</div>
-</div>
-
-<hr>
-
-<div class="container" id="nav-footer">
-	<div class="row text-left">
-		<div class="col-md-3 col-sm-3">
-			<h4>Browse</h4>
-			<ul>
-				<li><a href="prices_plans.html">Prices</a></li>
-				<li><a href="courses_grid.html">Courses</a></li>
-				<li><a href="blog.html">Blog</a></li>
-				<li><a href="contacts.html">Contacts</a></li>
-			</ul>
-		</div><!-- End col-md-4 -->
-		<div class="col-md-3 col-sm-3">
-			<h4>Next Courses</h4>
-			<ul>
-				<li><a href="course_details_1.html">Biology</a></li>
-				<li><a href="course_details_2.html">Management</a></li>
-				<li><a href="course_details_2.html">History</a></li>
-				<li><a href="course_details_3.html">Litterature</a></li>
-			</ul>
-		</div><!-- End col-md-4 -->
-		<div class="col-md-3 col-sm-3">
-			<h4>About Learn</h4>
-			<ul>
-				<li><a href="about_us.html">About Us</a></li>
-				<li><a href="apply_2.html">Apply</a></li>
-				<li><a href="#">Terms and conditions</a></li>
-				<li><a href="register.html">Register</a></li>
-			</ul>
-		</div><!-- End col-md-4 -->
-		<div class="col-md-3 col-sm-3">
-			<ul id="follow_us">
-				<li><a href="#"><i class="icon-facebook"></i></a></li>
-				<li><a href="#"><i class="icon-twitter"></i></a></li>
-				<li><a href="#"><i class=" icon-google"></i></a></li>
-			</ul>
-			<ul>
-				<li><strong class="phone">+0034 43244 44</strong><br><small>Mon - Fri / 9.00AM - 06.00PM</small></li>
-				<li>Questions? <a href="#">questions@domain.com</a></li>
-			</ul>
-		</div><!-- End col-md-4 -->
-	</div><!-- End row -->
-</div>
-<div id="copy_right">© 2020</div>
-</footer>
-
-<div id="toTop">Back to top</div>
-
-<!-- JQUERY
-<script src="js/jquery-2.2.4.min.js"></script>
- -->
-<!-- jQuery REVOLUTION Slider  -->
-<script type="text/javascript" src="/rs-plugin/js/jquery.themepunch.plugins.min.js"></script>
-<script type="text/javascript" src="/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
-<script type="text/javascript">
-
-	var revapi;
-
-	jQuery(document).ready(function() {
-
-		   revapi = jQuery('.tp-banner').revolution(
-			{
-				delay:9000,
-				startwidth:1700,
-				startheight:600,
-				hideThumbs:true,
-				navigationType:"none",
-				fullWidth:"on",
-				forceFullWidth:"on"
-			});
-
-	});	//ready
-
-</script>
-
-<!-- OTHER JS
-<script src="js/superfish.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/retina.min.js"></script>
-<script src="assets/validate.js"></script>
-<script src="js/jquery.placeholder.js"></script>
-<script src="js/functions.js"></script>
-<script src="js/classie.js"></script>
-<script src="js/uisearch.js"></script>
-<script>new UISearch( document.getElementById( 'sb-search' ) );</script>
- --> 
-
-  </body>
-</html>
+<?php include('includes/footer.php'); ?>

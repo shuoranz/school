@@ -32,7 +32,7 @@
 	function getAllCourseCategories($admin = 0){
 		$db=new Database;
 		if ($admin == 0) {
-			$db->query('select * from course_category where deleted = 2');	// 0 is pending, 1 is deleted, 2 is published
+			$db->query('select *, (select count(*) from course where category_id = course_category.id) course_cnt from course_category where course_category.deleted = 2');	// 0 is pending, 1 is deleted, 2 is published
 		} else {
 			$db->query('select * from course_category');
 		}
