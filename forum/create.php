@@ -41,7 +41,11 @@ if (isset($_POST['do_create'])){
     $field_array = array('title','body','category_id');
     if($validate->isRequired($field_array)){
         //Create Topic
-        if($topic->create($data)){
+        $result = $topic->create($data);
+        if( $result >= 0){
+            if(isAdmin()) {
+                writeToSystemLog(getUser()['user_id'],"created","forum",$result);
+            }
             redirect('/forum/?p=1', 'Your topic has been posted', 'success');
         } else {
             redirect('topic.php?id='.$topic_id, 'Something went wrong with your post.', 'error');
@@ -60,4 +64,9 @@ $template = new Template($pre_position.'templates/forum_create.php');
 //Display template
 echo $template;
 
+function writeToSystemLog($user_id, $action, $item, $item_id, $content="") {
+    $logModel = new LogModel;
+    $logModel->writeToSystemLog($user_id, $action, $item, $item_id, $content);
+    return;
+}
 ?>

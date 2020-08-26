@@ -247,9 +247,9 @@ class TopicModel {
 		$this->db->bind(':top',$data['top']);
         
         if($this->db->execute()){
-            return true;
+            return $this->db->lastInsertId();
         } else {
-            return false;
+            return -1;
         }
     }
 	public function likedTopic($topic_id) {

@@ -63,9 +63,9 @@ class InvitationCodeModel {
 		$this->db->bind(':active_duration',$data['active_duration']);
         
         if($this->db->execute()){
-            return true;
+            return $this->db->lastInsertId();
         } else {
-            return false;
+            return -1;
         }
     }
 	

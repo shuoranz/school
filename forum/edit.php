@@ -4,10 +4,7 @@
 ?>
 <?php 
 
-// for test
-$_SESSION['user_id'] = 4;
-$_SESSION['username'] = 'shuoran';
-$_SESSION['name'] = 'Ian';
+
 $topic_id = $_GET['id'];
 //Create Topic object
 $topic = new TopicModel;
@@ -32,7 +29,10 @@ if (isset($_POST['do_edit'])){
         //Create Topic
         if($topic->edit($data)){
             //redirect('index.php', 'Your topic has been posted', 'success');
-			redirect('/forum/thread/?id='.$topic_id, 'Your topic has been posted', 'success');
+            if(isAdmin()) {
+                writeToSystemLog(getUser()['user_id'],"edited","forum",$topic_id);
+            }
+            redirect('/forum/thread/?id='.$topic_id, 'Your topic has been posted', 'success');
         } else {
             redirect('/forum/thread/?id='.$topic_id, 'Something went wrong whti your post.', 'error');
         }
@@ -50,4 +50,9 @@ $template->topic = $topic->getTopic($topic_id);
 //Display template
 echo $template;
 
+function writeToSystemLog($user_id, $action, $item, $item_id, $content="") {
+    $logModel = new LogModel;
+    $logModel->writeToSystemLog($user_id, $action, $item, $item_id, $content);
+    return;
+}
 ?>

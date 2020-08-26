@@ -85,7 +85,10 @@
 			'code_type' => $role
 		);
 		for ($i = 0; $i < $amnt_id; $i++) {
-			$ic->create($code);
+			$result = $ic->create($code);
+			if ($result >= 0) {
+				writeToSystemLog(getUser()['user_id'], "created", "invitation_code", $result);
+			}
 		}
 		echo "success";
 	}
@@ -115,9 +118,10 @@
 		
 		$userModel = new User;
 		$result = $userModel->registerByAdmin($data);
-		if ($result === true) {
+		if ($result >= 0) {
+			writeToSystemLog(getUser()['user_id'], "created", "users", $result);
 			echo "success";
-		} else if ($result === false) {
+		} else if ($result === -1) {
 			echo "failed, reason unknown";
 		} else {
 			echo $result;
@@ -149,9 +153,10 @@
 		
 		$userModel = new User;
 		$result = $userModel->registerByAdmin($data);
-		if ($result === true) {
+		if ($result >=0) {
+			writeToSystemLog(getUser()['user_id'], "created", "users", $result);
 			echo "success";
-		} else if ($result === false) {
+		} else if ($result === -1) {
 			echo "failed, reason unknown";
 		} else {
 			echo $result;
@@ -183,9 +188,10 @@
 		
 		$userModel = new User;
 		$result = $userModel->registerByAdmin($data);
-		if ($result === true) {
+		if ($result >= 0) {
+			writeToSystemLog(getUser()['user_id'], "created", "users", $result);
 			echo "success";
-		} else if ($result === false) {
+		} else if ($result === -1) {
 			echo "failed, reason unknown";
 		} else {
 			echo $result;
@@ -230,8 +236,11 @@
 		$data['user_id'] = $_REQUEST['user_id'];
 		$data['course_description'] = $_REQUEST['course_description'];
 		$data['category_id'] = $_REQUEST['category_id'];
-		$courseModel->createCourse($data);
-		echo "success";
+		$result = $courseModel->createCourse($data);
+		if ($result >= 0) {
+			writeToSystemLog(getUser()['user_id'],"created", "course", $result);
+			echo "success";
+		}
 	}
 	
 	function course_video_create()
@@ -279,6 +288,7 @@
 		$data['category_id'] = $_REQUEST['category_id'];
 		$result = $courseModel->editCourse($data);
 		if ($result === true) {
+			writeToSystemLog(getUser()['user_id'], "edited", "course", $_REQUEST['course_id']);
 			echo "success";
 		} else if ($result === false) {
 			echo "failed, reason unknown";
@@ -306,6 +316,7 @@
 		$data['video_description'] = $_REQUEST['video_description'];
 		$data['course_id'] = $_REQUEST['course_id'];
 		$courseModel->editVideo($data);
+		writeToSystemLog(getUser()['user_id'], "edited", "course_video", $_REQUEST['video_id']);
 		echo "success";
 	}
 	function publish() {
@@ -472,7 +483,9 @@
 				$responseObj['message'] = "No such table!";
 			} else {
 				$model = new DataModel;
+				$action = $_REQUEST['verb'];
 				if($model->updateCategory($table, $id, $event)) {
+					writeToSystemLog(getUser()['user_id'], $action, $table, $id);
 					$responseObj['success'] = TRUE;
 					$responseObj['message'] = "Successfully update ". $table . ": " . $id;
 				} else {
@@ -502,6 +515,7 @@
 				if($model->updateUserRole($table, $id, $role)) {
 					$responseObj['success'] = TRUE;
 					$responseObj['message'] = "Successfully update ". $table . ": " . $id;
+					writeToSystemLog(getUser()['user_id'], $role=='teacher(super)'?'upgraded':'downgraded', 'users', $id);
 				} else {
 					$responseObj['success'] = FALSE;
 					$responseObj['message'] = "Couldn't update ". $table . ": " . $id;
@@ -527,6 +541,7 @@
 			} else {
 				$model = new DataModel;
 				if($model->updateUserRole($table, $id, $role)) {
+					writeToSystemLog(getUser()['user_id'], $role=='adminPlus'?'upgraded':'downgraded', 'users', $id);
 					$responseObj['success'] = TRUE;
 					$responseObj['message'] = "Successfully update ". $table . ": " . $id;
 				} else {
@@ -554,6 +569,7 @@
 			} else {
 				$model = new DataModel;
 				if($model->updateDemoUserRole($table, $id, $role)) {
+					writeToSystemLog(getUser()['user_id'], "invited", "users_demo", $id);
 					$responseObj['success'] = TRUE;
 					$responseObj['message'] = "Successfully update ". $table . ": " . $id;
 				} else {

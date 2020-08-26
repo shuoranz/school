@@ -112,9 +112,9 @@ class User {
 		try {
 			if ($this->db->execute()){
 				//return $this->ic->updateInvitationCodeByUserId($this->db->lastInsertId(), 'applied', $data['invitation_code']) ? true : 'invitation_code_error';
-				return true;
+				return $this->db->lastInsertId();
 			} else {
-				return false;
+				return -1;
 			}
 		} catch (Exception $e) {
 			if (!isset($e->errorInfo[2])){

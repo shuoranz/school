@@ -313,7 +313,8 @@ function publishCategory(table, id) {
        data: {
            table: table,
            id: id,
-		   eventid: 2,
+           eventid: 2,
+           verb: "published",
            action: "update_category"
        },
        contentType: "application/x-www-form-urlencoded; charset=UTF-8",
@@ -342,7 +343,8 @@ function revokeCategory(table, id) {
         data: {
             table: table,
             id: id,
-			eventid: 0,
+            eventid: 0,
+            verb: "revoked",
             action: "update_category"
         },
         contentType: "application/x-www-form-urlencoded; charset=UTF-8",
@@ -374,7 +376,8 @@ function restoreCategory(table, id) {
         data: {
             table: table,
             id: id,
-			eventid: 0,
+            eventid: 0,
+            verb: "restored",
             action: "update_category"
         },
         contentType: "application/x-www-form-urlencoded; charset=UTF-8",
@@ -433,7 +436,8 @@ function removeCategory(table, id) {
                 data: {
                     table: table,
                     id: id,
-					eventid: 1,
+                    eventid: 1,
+                    verb: 'deleted',
                     action: "update_category"
                 },
                 contentType: "application/x-www-form-urlencoded; charset=UTF-8",

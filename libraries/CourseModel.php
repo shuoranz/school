@@ -165,9 +165,9 @@ class CourseModel {
         $this->db->bind(':create_date',date("Y-m-d H:i:s"));
         
         if($this->db->execute()){
-            return true;
+            return $this->db->lastInsertId();
         } else {
-            return false;
+            return -1;
         }
     }
 	
