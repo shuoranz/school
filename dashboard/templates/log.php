@@ -87,7 +87,12 @@
                                     [<?php echo $log['time'] ?>]
                                     <b><?php echo $log['username'] ?></b>(id:<?php echo $log['user_id'] ?>)
                                     <?php echo $log['action']?>
-                                    <?php echo $log['item']?>(id: <?php echo $log['item_id'] ?>)
+                                    <?php if($log['item'] !== "users"): ?>
+                                    <b><?php echo $log['item']?></b>
+                                    <?php else:?>
+                                    <b>user: </b>
+                                    <?php endif;?>
+                                    <!-- <?php echo $log['content']?> -->
                                 </p>
                                 <?php endforeach; ?>
                             </div>

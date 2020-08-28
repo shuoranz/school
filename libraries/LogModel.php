@@ -8,14 +8,13 @@ class LogModel {
         $this->db = new Database;
     }
     public function writeToSystemLog($user_id, $action, $item, $item_id, $content) {
-        $this->db->query("insert into log (date, user_id, action, item, item_id, content) 
-                        values (:date, :user_id, :action, :item, :item_id, :content)");
+        $this->db->query("insert into log (date, user_id, action, item, item_id) 
+                        values (:date, :user_id, :action, :item, :item_id)");
         $this->db->bind(':date', date("Y-m-d"));
         $this->db->bind(':user_id', $user_id);
         $this->db->bind(':action', $action);
         $this->db->bind(':item', $item);
         $this->db->bind(':item_id', $item_id);
-        $this->db->bind(':content', $content);
         if($this->db->execute()){
             return true;
         } else {
@@ -28,7 +27,8 @@ class LogModel {
         return $results;
     }
     public function getLogsOnDate($date) {
-        $this->db->query("select *, users.username from log 
+        $this->db->query("
+        select log.*, users.username from log 
                         inner join users on log.user_id = users.id 
                         where date = :date order by log.time desc");
         $this->db->bind(':date', $date);
