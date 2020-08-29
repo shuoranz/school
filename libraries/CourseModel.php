@@ -7,7 +7,7 @@ class CourseModel {
     // get all courses
     public function getAllCourses($category_id, $user_id){
 		$categoryCondition = $category_id == "" ? "1" : "course.category_id = :category_id";
-		$userCondition = $user_id == "" || "admin" ? "1" : "course.created_by = :user_id";
+		$userCondition = $user_id == "" || $user_id == "admin" ? "1" : "course.created_by = :user_id";
 		$deleteCondition = empty($user_id) ? "course.deleted = 0" : "1";
 		$statusCondition = empty($user_id) ? "course.status = 'published'" : "1";
         $this->db->query("select course.*, users.username, users.avatar, course_category.name 
@@ -15,7 +15,10 @@ class CourseModel {
                                     inner join course_category on course.category_id = course_category.id 
 									where $categoryCondition and $userCondition and $deleteCondition and $statusCondition
                                     order by course.id asc");
-        $this->db->bind(':category_id',$category_id);
+        
+		if ($categoryCondition != "1"){
+			$this->db->bind(':category_id',$category_id);
+		}
 		if ($userCondition != "1"){
 			$this->db->bind(':user_id',$user_id);
 		}
@@ -45,6 +48,29 @@ class CourseModel {
         $results = $this->db->resultset();
         return $results;
     }
+	public function getDashboardAllVideos($user_id="")
+	{
+		$userCondition = $user_id == "" ? "1" : "course_video.created_by = :user_id";
+		$deleteCondition = "course.deleted = 0 and course_video.deleted = 0";
+		$statusCondition = "course_video.status = 'published'";
+		if ($user_id == "admin") {
+			$userCondition = 1;
+			$deleteCondition = "1";
+			$statusCondition = "1";
+		} else if ($user_id != "") {
+			$statusCondition = "1";
+		}
+		$this->db->query("select course_video.*, course.title as course_title, course.id as course_id, course_category.name as course_category_name, course_category.id as course_category_id
+		from course_video inner join course on course_video.course_id = course.id
+		inner join course_category on course.category_id = course_category.id
+                                    where $deleteCondition and $statusCondition and " . $userCondition);
+        if ($userCondition != "1") {
+			$this->db->bind(':user_id',$user_id);
+		}
+        //Assign Result Set
+        $results = $this->db->resultset();
+        return $results;
+	}
     public function getCourseById($course_id) {
         $this->db->query("select course.*, users.username, users.avatar, course_category.name, users.about 
                           from course inner join users on course.created_by = users.id 
@@ -83,6 +109,34 @@ class CourseModel {
 		}
 		if ($teacherCondition != "1") {
 			$this->db->bind(':search_teacher','%'.$search_teacher.'%');
+		}
+        //Assign Result Set
+        $results = $this->db->resultset();
+        return $results;
+	}
+	public function searchVideosByAttributeAdmin($search_title, $search_teacher, $search_category, $user_id)
+	{
+		if ($search_title == "" && $search_teacher == "" && $search_category == ""){
+			return array();
+		}
+		if ($search_category != "") {
+			$course_condition = "cc.id = " . (int)$search_category;
+		} else {
+			$course_condition = "1";
+		}
+		$userCondition = $user_id == "" || $user_id == "admin" ? "1" : "cv.created_by = :user_id";
+		$titleCondition = $search_title == "" ? "1" : "cv.title like :search_title";
+		$teacherCondition = $search_teacher == "" ? "1" : "u.username like :search_teacher";
+        $this->db->query("select cv.*, u.*, c.title as course_title, c.title as course_title, c.id as course_id, cc.id as course_category_id, cc.name as course_category_name from course_video cv inner join users u on cv.created_by = u.id inner join course c on c.id = cv.course_id inner join course_category cc on cc.id = c.category_id
+                                    where $course_condition and $userCondition and " . $titleCondition . " and " . $teacherCondition);
+        if ($titleCondition != "1") {
+			$this->db->bind(':search_title','%'.$search_title.'%');
+		}
+		if ($teacherCondition != "1") {
+			$this->db->bind(':search_teacher','%'.$search_teacher.'%');
+		}
+		if ($userCondition != "1") {
+			$this->db->bind(':user_id', $user_id);
 		}
         //Assign Result Set
         $results = $this->db->resultset();
@@ -213,7 +267,7 @@ class CourseModel {
     }
 	
 	public function editCourse($data) {
-        $this->db->query("update course set `title` = :title, `modified_by`=:user_id, `description` = :description, `create_date` = :create_date where id = :id");
+        $this->db->query("update course set `title` = :title, `modified_by`=:user_id, `description` = :description, `create_date` = :create_date, category_id = :category_id where id = :id");
         
 		$data['course_title'] = $_REQUEST['course_title'];
 		$data['course_id'] = $_REQUEST['course_id'];
@@ -225,6 +279,7 @@ class CourseModel {
         $this->db->bind(':create_date',date("Y-m-d H:i:s"));
         $this->db->bind(':id', $data['course_id']);
         $this->db->bind(':user_id', $data['user_id']);
+		$this->db->bind(':category_id', $data['category_id']);
 		
         if($this->db->execute()){
             return true;
@@ -234,7 +289,7 @@ class CourseModel {
     }
 	
 	public function editVideo($data) {
-        $this->db->query("update course_video set `title` = :title, `modified_by` = :user_id, `description` = :description, `url` = :url, `create_date` = :create_date where id = :id");
+        $this->db->query("update course_video set `title` = :title, `modified_by` = :user_id, `description` = :description, `url` = :url, `course_id` = :course_id, `create_date` = :create_date where id = :id");
         
 		$data['video_title'] = $_REQUEST['video_title'];
 		$data['vimeo_id'] = $_REQUEST['vimeo_id'];
@@ -249,6 +304,7 @@ class CourseModel {
         $this->db->bind(':description', $data['video_description']);
         $this->db->bind(':create_date',date("Y-m-d H:i:s"));
         $this->db->bind(':user_id', $data['user_id']);
+		$this->db->bind(':course_id', $data['course_id']);
         
         //Execute
 		try {

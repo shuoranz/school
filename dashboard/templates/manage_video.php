@@ -1,6 +1,6 @@
 <?php
 
-	$pageUrl = "MyCourses";
+	$pageUrl = "MyVideos";
 
 ?>
 <?php include 'includes/html_header.php'; ?>
@@ -32,14 +32,43 @@
             <div class="container-fluid">
                 <div class="row clearfix">
 					<div class="col-12">
+						<div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-6 col-sm-12">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Teacher Name" id="search_teacher">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6 col-sm-12">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Video Title" id="search_title">
+                                        </div>
+                                    </div>
+									<div class="col-lg-4 col-md-12 col-sm-12">
+                                        <div class="input-group">
+                                            <select class="form-control" id="search_category">
+												<option selected value="">In Any Category</option>
+												<?php foreach ( getAllCourseCategories() as $category ): ?>
+												<option value="<?php echo $category['id']; ?>">in <?php echo $category['name']; ?></option>
+												<?php endforeach; ?>
+											</select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-4 col-sm-6">
+                                        <a id="search_course_videos" class="btn btn-primary btn-block" title="" style="color:white;">Search Video</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="card">
                             <div class="table-responsive">
                                 <table class="table table-hover table-striped table-vcenter mb-0 text-nowrap">
                                     <thead>
                                         <tr>
-                                            <th colspan="9">Manage Videos</th>
+                                            <th colspan="10">Manage Videos</th>
                                             <th colspan="1">
-												<?php if($course["created_by"] == getUser()["user_id"]): ?>
+												<?php if (isTeacherOrAbove()): ?>
 												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addVideoDiv">
 													<i class="fe fe-plus mr-2"></i>Add Video
 												</button>
@@ -67,7 +96,7 @@
                                     <tbody>
 										<?php
 										//foreach ($courses as $course) : 
-											foreach ($videos[$course["id"]] as $key => $video) :
+											foreach ($videos as $key => $video) :
 										?>
 										<tr id="video_<?php echo $video['id']; ?>">
                                             <td><a href="/course/video/?vid=<?php echo $video['id']; ?>"><?php echo $video['id']; ?></a></td>
@@ -86,7 +115,7 @@
 														$tagFlag = "tag-default";
 													}
 												?>
-												<span class="tag <?php echo $tagFlag; ?> <?php echo isAdmin() || $course["created_by"] == getUser()["user_id"] ? "status" : ""; ?>"
+												<span class="tag <?php echo $tagFlag; ?> <?php echo isAdmin() || $video["created_by"] == getUser()["user_id"] ? "status" : ""; ?>"
                                                     onclick="showStatusDropDown(event, 'course_video', <?php echo $video['id'] ?>)">
                                                     <span id="status-<?php echo $video['id']; ?>">
                                                         <?php if($video['deleted'] != 0 || $video['status'] == 'deleted'): ?>
@@ -98,8 +127,8 @@
                                                     <i class="icon-right-dir"></i>
                                                 </span>
 											</td>
-											<td style="white-space: normal;"><span><?php echo $course['title']; ?></span></td>
-                                            <td style="white-space: normal;"><span><?php echo $course['name']; ?></span></td>
+											<td style="white-space: normal;"><a href="/dashboard/my-videos-by-course?course=<?php echo $video['course_id']; ?>"><?php echo $video['course_title']; ?></a><span style="display:none;"><?php echo $video['course_id']; ?></span></td>
+                                            <td style="white-space: normal;"><a href="/dashboard/my-courses-by-category?category=<?php echo $video['course_category_id']; ?>"><?php echo $video['course_category_name']; ?></a></td>
                                             <td><span><?php echo getUserNameByUserId($video['created_by']); ?></span></td>
 											<td><span><?php echo getUserNameByUserId($video['modified_by']); ?></span></td>
 											<td><span><?php echo $video['create_date']; ?></span></td>
@@ -165,8 +194,11 @@
 					<div class="col-12">
                         <div class="form-group">
 							<p>category: </p>
-                            <select class="form-control show-tick" id="">
-                                <option disabled selected><?php echo $course['name']; ?></option>
+                            <select class="form-control show-tick" id="course_category">
+								<option disabled selected value="">Select Course Category</option>
+								<?php foreach ( getAllCourseCategories() as $category ): ?>
+                                <option value="<?php echo $category['id']; ?>"><?php echo $category['name']; ?></option>
+								<?php endforeach; ?>
                             </select>
                         </div>
                     </div>
@@ -174,7 +206,7 @@
                         <div class="form-group">
 							<p>course: </p>
                             <select class="form-control show-tick" id="course_id">
-                                <option disabled selected value="<?php echo $course['id']; ?>"><?php echo $course['title']; ?></option>
+                                <option disabled selected value="">Select Course</option>
                             </select>
                         </div>
                     </div>
@@ -216,8 +248,11 @@
 					<div class="col-12">
                         <div class="form-group">
 							<p>category: </p>
-                            <select class="form-control show-tick" id="">
-                                <option disabled selected><?php echo $course['name']; ?></option>
+                            <select class="form-control show-tick" id="edit_course_category">
+                                <option disabled selected value="">Select Course Category</option>
+								<?php foreach ( getAllCourseCategories() as $category ): ?>
+                                <option value="<?php echo $category['id']; ?>"><?php echo $category['name']; ?></option>
+								<?php endforeach; ?>
                             </select>
                         </div>
                     </div>
@@ -225,7 +260,7 @@
                         <div class="form-group">
 							<p>course: </p>
                             <select class="form-control show-tick" id="edit_course_id">
-                                <option disabled selected value="<?php echo $course['id']; ?>"><?php echo $course['title']; ?></option>
+                                <option disabled selected value="">Select Course</option>
                             </select>
                         </div>
                     </div>
@@ -259,7 +294,7 @@
 		var video_title = $("#video_title").val();
 		var vimeo_id = $("#vimeo_id").val();
 		var video_description = $("#video_description").val();
-		var course_id = <?php echo $course['id']; ?>;
+		var course_id = $("#course_id").val();
 		var user_id = $("#user_id").val();
 		
 		if (!video_title || !vimeo_id || !video_description || !course_id || !user_id ){
@@ -295,7 +330,7 @@
 		var video_title = $("#edit_video_title").val();
 		var vimeo_id = $("#edit_vimeo_id").val();
 		var video_description = $("#edit_video_description").val();
-		var course_id = <?php echo $course['id']; ?>;
+		var course_id = $("#edit_course_id").val();
 		var user_id = $("#edit_user_id").val();
 		var video_id = $("#edit_video_id").val();
 		
@@ -328,6 +363,43 @@
 		});
 	});
 	
+	$("#course_category").change(function(){
+		var category_id = $("#course_category").val();
+		var user_id = $("#user_id").val();
+		setCoursesSelectByCategory(category_id, user_id, "course_id")
+	});
+	
+	$("#edit_course_category").change(function(){
+		var category_id = $("#edit_course_category").val();
+		var user_id = $("#edit_user_id").val();
+		setCoursesSelectByCategory(category_id, user_id, "edit_course_id")
+	});
+	
+	function setCoursesSelectByCategory(category_id, user_id, effect_select)
+	{
+		$.post("controller", 
+		{
+			action: "get_courses_by_category",
+			category_id: category_id,
+			user_id: user_id,
+		},
+		function(data, status){
+			$('#'+effect_select).html('<option disabled selected value="">Select Course</option>');
+			var course_obj = JSON.parse(data);
+			for (var i = 0; i < course_obj.length; i++) {
+				$('#'+effect_select).append(new Option(course_obj[i].course_name, course_obj[i].course_id));
+			}
+		});
+	}
+	$("#search_course_videos").click(function(){
+		var search_title = $("#search_title").val() == "" ? "na" : "title="+$("#search_title").val();
+		var search_teacher = $("#search_teacher").val() == "" ? "na" : "teacher="+$("#search_teacher").val();
+		var search_category = $("#search_category").val() == "" ? "na" : "category="+$("#search_category").val();
+		if (search_title == "na" && search_teacher == "na" && search_category == "na") {
+			return false;
+		}
+		window.location.href = "/dashboard/search_video?"+search_title+"&"+search_teacher+"&"+search_category;
+	});
 </script>
 <script src="/dashboard/templates/assets/js/dashboard.js"></script>
 </body>

@@ -19,7 +19,7 @@ $template = new Template('templates/manage_course.php');
 
 $categroyId = !isset($_GET["category"]) || $_GET["category"] == 0 ? "" : (int)$_GET["category"];
 $template->courses = $courseModel->getAllCourses($categroyId, isAdmin()?"admin":getUser()['user_id']);
-$template->category = $courseModel->getCategoryById($categroyId);
+//$template->category = $courseModel->getCategoryById($categroyId);
 
 //Assign Variables to template object
 /*

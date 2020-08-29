@@ -28,7 +28,8 @@
 		'update_category',
 		'grade_teacher',
 		'grade_admin',
-		'update_demo_user'
+		'update_demo_user',
+		'get_courses_by_category'
 	);
 	if (in_array($action_input, $actions_default)) {
 		call_user_func($action_input); 
@@ -578,5 +579,22 @@
 				}
 			}
 		}
+		exit(json_encode($responseObj));
+	}
+	
+	function get_courses_by_category()
+	{
+		$responseObj = array();
+		if(!isset($_REQUEST['category_id']) || !isset($_REQUEST['user_id'])) {
+			exit(json_encode($responseObj)); 
+		} else {
+			$courseModel = new CourseModel;
+			$courses = $courseModel->getAllCourses($_REQUEST['category_id'], $_REQUEST['user_id']);
+			foreach($courses as $course)
+			{
+				$responseObj[] = array('course_id'=>$course['id'], 'course_name'=>$course['title']);
+			}
+		}
+		
 		exit(json_encode($responseObj));
 	}
