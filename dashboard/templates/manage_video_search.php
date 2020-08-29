@@ -11,6 +11,7 @@
 
     <div class="page">
         <?php include 'includes/page-top.php'; ?>
+		<!--
         <div class="section-body mt-3">
             <div class="container-fluid">
                 <div class="row clearfix">
@@ -20,12 +21,12 @@
 							<span><b>video title:</b> <?php echo isset($_GET["title"]) ? $_GET["title"] : "";?></span><br>
 							<span><b>teacher name:</b> <?php echo isset($_GET["teacher"]) ? $_GET["teacher"] : "";?></span><br>
 							<span><b>category:</b> <?php echo isset($_GET["category"]) ? getAllCourseCategoryById((int)$_GET["category"]) : "";?></span><br>
-                            <!--<small>Study hard, for the well is deep, and our brains are shallow.</small>-->
                         </div>                        
                     </div>
                 </div>
             </div>
         </div>
+		-->
 		<div class="section-body mt-3">
             <div class="container-fluid">
                 <div class="row clearfix">
@@ -61,7 +62,17 @@
                         </div>
 					</div>
 					<div class="col-12">
-						
+						<ol class="breadcrumb">
+							<li><a href="/dashboard/my-videos">Back to All Videos</a></li>
+						</ol>
+						<div style="padding-left:20px;padding-bottom:15px;">
+							<span><b>Search Term&nbsp;&nbsp;</b></span><br>
+							<?php echo isset($_GET["title"]) ? "<span><a>video title:&nbsp;&nbsp;</a> ".$_GET["title"]."</span><br>" : "";?>
+							<?php echo isset($_GET["teacher"]) ? "<span><a>teacher name:&nbsp;&nbsp;</a>".$_GET["teacher"]."</span><br>" : "";?>
+							<?php echo isset($_GET["category"]) ? "<span><a>category:&nbsp;&nbsp;</a>".getAllCourseCategoryById((int)$_GET["category"])."</span><br>" : "";?>
+						</div>
+					</div>
+					<div class="col-12">
                         <div class="card">
                             <div class="table-responsive">
                                 <table class="table table-hover table-striped table-vcenter mb-0 text-nowrap">
@@ -128,8 +139,8 @@
                                                     <i class="icon-right-dir"></i>
                                                 </span>
 											</td>
-											<td style="white-space: normal;"><a href="/dashboard/my-videos-by-course?course=<?php echo $video['course_id']; ?>"><?php echo $video['course_title']; ?></a><span style="display:none;"><?php echo $video['course_id']; ?></span></td>
-                                            <td style="white-space: normal;"><a href="/dashboard/my-courses-by-category?category=<?php echo $video['course_category_id']; ?>"><?php echo $video['course_category_name']; ?></a></td>
+											<td style="white-space: normal;"><a href="/dashboard/my-videos?course=<?php echo $video['course_id']; ?>"><?php echo $video['course_title']; ?></a><span style="display:none;"><?php echo $video['course_id']; ?></span></td>
+                                            <td style="white-space: normal;"><a href="/dashboard/my-videos?category=<?php echo $video['course_category_id']; ?>"><?php echo $video['course_category_name']; ?></a></td>
                                             <td><span><?php echo getUserNameByUserId($video['created_by']); ?></span></td>
 											<td><span><?php echo getUserNameByUserId($video['modified_by']); ?></span></td>
 											<td><span><?php echo $video['create_date']; ?></span></td>

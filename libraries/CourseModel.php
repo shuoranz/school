@@ -48,9 +48,11 @@ class CourseModel {
         $results = $this->db->resultset();
         return $results;
     }
-	public function getDashboardAllVideos($user_id="")
+	public function getDashboardAllVideos($user_id = "", $categroyId, $courseId)
 	{
 		$userCondition = $user_id == "" ? "1" : "course_video.created_by = :user_id";
+		$courseCondition = $courseId == "" ? "1" : "course_video.course_id = :course_id";
+		$categoryCondition = $categroyId == "" ? "1" : "course.category_id = :category_id";
 		$deleteCondition = "course.deleted = 0 and course_video.deleted = 0";
 		$statusCondition = "course_video.status = 'published'";
 		if ($user_id == "admin") {
@@ -63,9 +65,15 @@ class CourseModel {
 		$this->db->query("select course_video.*, course.title as course_title, course.id as course_id, course_category.name as course_category_name, course_category.id as course_category_id
 		from course_video inner join course on course_video.course_id = course.id
 		inner join course_category on course.category_id = course_category.id
-                                    where $deleteCondition and $statusCondition and " . $userCondition);
+                                    where $deleteCondition and $statusCondition and $userCondition and $courseCondition and $categoryCondition");
         if ($userCondition != "1") {
 			$this->db->bind(':user_id',$user_id);
+		}
+		if ($courseCondition != "1") {
+			$this->db->bind(':course_id',$courseId);
+		}
+		if ($categoryCondition != "1") {
+			$this->db->bind(':category_id',$categroyId);
 		}
         //Assign Result Set
         $results = $this->db->resultset();

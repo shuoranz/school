@@ -44,6 +44,15 @@
         //return result
         return $results[0]["name"];
 	}
+	function getCourseNameById($id)
+	{
+		$db=new Database;
+		$db->query('select * from course where id = ' . (int)$id);
+        //Run query and assign it to results variable
+        $results = $db->resultset();
+        //return result
+        return $results[0]["title"];
+	}
 	function getAllCourseCategories($admin = 0){
 		$db=new Database;
 		if ($admin == 0) {

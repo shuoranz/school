@@ -28,6 +28,7 @@
             </div>
         </div>
 		-->
+		
 		<div class="section-body mt-3">
             <div class="container-fluid">
                 <div class="row clearfix">
@@ -61,6 +62,19 @@
                                 </div>
                             </div>
                         </div>
+						<ol class="breadcrumb">
+							<li><a href="/dashboard/my-videos">All Videos</a></li>
+							
+							<?php if(isset($_GET["course"]) && $_GET["course"] != "0"): ?>
+							<span>&nbsp;->&nbsp;</span>
+							<li><a>Videos in course "<?php echo getCourseNameById((int)$_GET["course"]); ?>"</a></li>
+							<?php endif; ?>
+							
+							<?php if(isset($_GET["category"]) && $_GET["category"] != "0"): ?>
+							<span>&nbsp;->&nbsp;</span>
+							<li><a>Videos in category "<?php echo getAllCourseCategoryById((int)$_GET["category"]); ?>"</a></li>
+							<?php endif; ?>
+						</ol>
                         <div class="card">
                             <div class="table-responsive">
                                 <table class="table table-hover table-striped table-vcenter mb-0 text-nowrap">
@@ -127,8 +141,8 @@
                                                     <i class="icon-right-dir"></i>
                                                 </span>
 											</td>
-											<td style="white-space: normal;"><a href="/dashboard/my-videos-by-course?course=<?php echo $video['course_id']; ?>"><?php echo $video['course_title']; ?></a><span style="display:none;"><?php echo $video['course_id']; ?></span></td>
-                                            <td style="white-space: normal;"><a href="/dashboard/my-courses-by-category?category=<?php echo $video['course_category_id']; ?>"><?php echo $video['course_category_name']; ?></a></td>
+											<td style="white-space: normal;"><a href="/dashboard/my-videos?course=<?php echo $video['course_id']; ?>"><?php echo $video['course_title']; ?></a><span style="display:none;"><?php echo $video['course_id']; ?></span></td>
+                                            <td style="white-space: normal;"><a href="/dashboard/my-videos?category=<?php echo $video['course_category_id']; ?>"><?php echo $video['course_category_name']; ?></a></td>
                                             <td><span><?php echo getUserNameByUserId($video['created_by']); ?></span></td>
 											<td><span><?php echo getUserNameByUserId($video['modified_by']); ?></span></td>
 											<td><span><?php echo $video['create_date']; ?></span></td>

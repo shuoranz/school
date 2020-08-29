@@ -16,7 +16,7 @@ $courseModel = new CourseModel;
 $template = new Template('templates/manage_video.php');
 
 $categroyId = !isset($_GET["category"]) || $_GET["category"] == 0 ? "" : (int)$_GET["category"];
-//$courseId = !isset($_GET["course"]) || $_GET["course"] == 0 ? "" : (int)$_GET["course"];
+$courseId = !isset($_GET["course"]) || $_GET["course"] == 0 ? "" : (int)$_GET["course"];
 
 $userRole = isAdmin() ? "admin" : getUser()["user_id"];
 //$template->course = $courseModel->getCourseById($courseId);
@@ -28,7 +28,7 @@ $template->currentUser = getUser();
 	//$videos[$courseId] = $courseModel->getCourseVideosByCourseId($courseId, $userRole);
 //}
 
-$videos = $courseModel->getDashboardAllVideos($userRole);
+$videos = $courseModel->getDashboardAllVideos($userRole, $categroyId, $courseId);
 $template->videos = $videos;
 
 //Assign Variables to template object
