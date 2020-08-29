@@ -129,7 +129,7 @@
 														$tagFlag = "tag-default";
 													}
 												?>
-												<span class="tag <?php echo $tagFlag; ?> <?php echo isAdmin() || $video["created_by"] == getUser()["user_id"] ? "status" : ""; ?>"
+												<span class="tag <?php echo $tagFlag; ?> <?php echo isAdmin() || ( $video["created_by"] == getUser()["user_id"] && !empty($video["published_by"]) ) ? "status" : ""; ?>"
                                                     onclick="showStatusDropDown(event, 'course_video', <?php echo $video['id'] ?>)">
                                                     <span id="status-<?php echo $video['id']; ?>">
                                                         <?php if($video['deleted'] != 0 || $video['status'] == 'deleted'): ?>

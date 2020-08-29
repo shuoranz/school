@@ -234,12 +234,18 @@ class CourseModel {
     }
 	
 	public function createVideo($data) {
-        $this->db->query("insert into course_video (`title`, `description`, `url`, `course_id`, `created_by`, `create_date`, `status`)
-        values (:title, :description, :url, :course_id, :created_by, :create_date, :status)");
+		$courseQuery = "select * from course where id = ".(int)$_REQUEST['course_id'];
+		$this->db->query($courseQuery);
+		$result = $this->db->resultSet()[0]['created_by'];
+		$data['user_id'] = (int)$result;
+		$data['modified_by'] = (int)$result === (int)$_REQUEST['user_id'] ? 0 : (int)$_REQUEST['user_id'];
+		
+        $this->db->query("insert into course_video (`title`, `description`, `url`, `course_id`, `created_by`, `create_date`, `status`, `modified_by`)
+        values (:title, :description, :url, :course_id, :created_by, :create_date, :status, :modified_by)");
         
 		$data['video_title'] = $_REQUEST['video_title'];
 		$data['vimeo_id'] = $_REQUEST['vimeo_id'];
-		$data['user_id'] = $_REQUEST['user_id'];
+		
 		$data['video_description'] = $_REQUEST['video_description'];
 		$data['course_id'] = $_REQUEST['course_id'];
 		
@@ -250,6 +256,7 @@ class CourseModel {
         $this->db->bind(':course_id', $data['course_id']);
 		$this->db->bind(':status', 'pending');
         $this->db->bind(':create_date',date("Y-m-d H:i:s"));
+		$this->db->bind(':modified_by', $data['modified_by']);
         
         //Execute
 		try {

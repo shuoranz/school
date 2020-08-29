@@ -78,7 +78,7 @@
                                 <table class="table table-hover table-striped table-vcenter mb-0 text-nowrap">
                                     <thead>
                                         <tr>
-                                            <th colspan="10">Manage Videos</th>
+                                            <th colspan="10">Videos Search Result</th>
                                             <th colspan="1">
 												<?php if (isTeacherOrAbove()): ?>
 												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addVideoDiv">
@@ -127,7 +127,7 @@
 														$tagFlag = "tag-default";
 													}
 												?>
-												<span class="tag <?php echo $tagFlag; ?> <?php echo isAdmin() || $video["created_by"] == getUser()["user_id"] ? "status" : ""; ?>"
+												<span class="tag <?php echo $tagFlag; ?> <?php echo isAdmin() || ( $video["created_by"] == getUser()["user_id"] && !empty($video["published_by"]) ) ? "status" : ""; ?>"
                                                     onclick="showStatusDropDown(event, 'course_video', <?php echo $video['id'] ?>)">
                                                     <span id="status-<?php echo $video['id']; ?>">
                                                         <?php if($video['deleted'] != 0 || $video['status'] == 'deleted'): ?>
