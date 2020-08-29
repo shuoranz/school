@@ -72,11 +72,11 @@
 													<i class="fe fe-plus mr-2"></i>Add Topic
 												</a>
 											</th>
-                                            <th colspan="7"></th>
+                                            <th colspan="8"></th>
                                         </tr>
                                         <tr>
                                             <!--<th class="w30">&nbsp;</th>-->
-                                            <th>ID</th>
+                                            <!--<th>ID</th>-->
                                             <th>Title</th>
 											<th>status</th>
 											<th>Category</th>
@@ -86,13 +86,14 @@
                                             <th>Created Date</th>
 											<th>Published By</th>
 											<th>Published Date</th>
+											<th>Statistics</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 										<?php foreach ($topics as $forum) : ?>
 										<tr>
-                                            <td><a href="/forum/thread/?id=<?php echo $forum['id']; ?>"><?php echo $forum['id']; ?></a></td>
-                                            <td><a href="/forum/thread/?id=<?php echo $forum['id']; ?>"><?php echo mb_substr($forum['title'], 0, 30); echo mb_strlen($forum['title'], 'UTF-8') > 30 ? "..." : ""; ?></a></td>
+                                            <!--<td><a href="/forum/thread/?id=<?php echo $forum['id']; ?>"><?php echo $forum['id']; ?></a></td>-->
+                                            <td style="white-space: normal;"><a href="/forum/thread/?id=<?php echo $forum['id']; ?>"><?php echo mb_substr($forum['title'], 0, 30); echo mb_strlen($forum['title'], 'UTF-8') > 30 ? "..." : ""; ?></a></td>
                                             <td>
 												<?php
 													if($forum['deleted'] != 0) {
@@ -122,6 +123,12 @@
 											<td><span><?php echo $forum['create_date']; ?></span></td>
                                             <td><span><?php echo getUserNameByUserId($forum['published_by']); ?></span></td>
 											<td><span><?php echo $forum['last_activity']; ?></span></td>
+											<td><span>
+											<i class="icon-eye"></i><?php echo $forum['view_count'] ?>
+											<i class="icon-thumbs-up"></i><?php echo $forum['like_count'] ?>
+											<i class="icon-comment"></i><?php echo $forum['reply_count'] ?>
+											
+											</span></td>
                                         </tr>
 										<?php endforeach; ?>
 										<!--
