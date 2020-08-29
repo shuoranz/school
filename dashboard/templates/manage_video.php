@@ -365,13 +365,13 @@
 	
 	$("#course_category").change(function(){
 		var category_id = $("#course_category").val();
-		var user_id = <?php echo isAdmin() ? "admin" : '$("#user_id").val()' ?>;
+		var user_id = <?php echo isAdmin() ? "'admin'" : '$("#user_id").val()' ?>;
 		setCoursesSelectByCategory(category_id, user_id, "course_id")
 	});
 	
 	$("#edit_course_category").change(function(){
 		var category_id = $("#edit_course_category").val();
-		var user_id = <?php echo isAdmin() ? "admin" : '$("#edit_user_id").val()' ?>;
+		var user_id = <?php echo isAdmin() ? "'admin'" : '$("#edit_user_id").val()' ?>;
 		setCoursesSelectByCategory(category_id, user_id, "edit_course_id")
 	});
 	
