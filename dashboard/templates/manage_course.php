@@ -92,7 +92,7 @@
 										<?php foreach ($courses as $course) : ?>
 										<tr id="course_<?php echo $course['id']; ?>">
                                             <td><a href="/dashboard/my-videos?course=<?php echo $course['id']; ?>"><?php echo $course['id']; ?></a></td>
-                                            <td><a href="/dashboard/my-videos?course=<?php echo $course['id']; ?>"><?php echo $course['title']; ?></a></td>
+                                            <td style="white-space: normal;"><a href="/dashboard/my-videos?course=<?php echo $course['id']; ?>"><?php echo $course['title']; ?></a></td>
                                             <td>
 												<?php
 													if($course['deleted'] != 0) {
@@ -119,7 +119,7 @@
 											
 											</td>
 											
-                                            <td><span><?php echo $course['name']; ?></span></td>
+                                            <td style="white-space: normal;"><span><?php echo $course['name']; ?></span></td>
                                             <td style="white-space: normal;"><span><?php echo $course['description']; ?></span></td>
                                             <td><span><?php echo getUserNameByUserId($course['created_by']); ?></span></td>
 											<td><span><?php echo $course['create_date']; ?></span></td>
