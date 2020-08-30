@@ -23,7 +23,7 @@
 			<ul>
 				<?php $courseCategories = getAllCourseCategories(); ?>
 				<?php foreach($courseCategories as $category_count => $courseCategory) : ?>
-				<li><a href="/course/category/?category=<?php echo $courseCategory["id"]; ?>"><?php echo $courseCategory["name"]; ?></a></li>
+				<li><a href="/course/category/?category=<?php echo $courseCategory["id"]."&p=1"; ?>"><?php echo $courseCategory["name"]; ?></a></li>
 				<?php endforeach; ?>
 			</ul>
 		</div><!-- End col-md-4 -->

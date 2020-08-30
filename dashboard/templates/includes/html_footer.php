@@ -7,5 +7,6 @@
 
 <script src="../assets/js/core.js"></script>
 <script src="../assets/js/page/project-index.js"></script>
+<script src="/js/messageAnimation.js"></script>
 </body>
 </html>

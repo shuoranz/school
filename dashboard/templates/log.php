@@ -85,14 +85,14 @@
                                 <?php foreach($logs as $log): ?>
                                 <p>
                                     [<?php echo $log['time'] ?>]
-                                    <b><?php echo $log['username'] ?></b>(id:<?php echo $log['user_id'] ?>)
+                                    <?php echo $log['role'] . " - "; ?> <b><?php echo $log['email']; ?></b>(id:<?php echo $log['user_id'] ?>)
                                     <?php echo $log['action']?>
                                     <?php if($log['item'] !== "users"): ?>
                                     <b><?php echo $log['item']?></b>
                                     <?php else:?>
-                                    <b>user: </b>
+                                    <b><?php echo $log['item_content_role']?></b>
                                     <?php endif;?>
-                                    <!-- <?php echo $log['content']?> -->
+                                    <?php echo $log['item_content']?>
                                 </p>
                                 <?php endforeach; ?>
                             </div>
