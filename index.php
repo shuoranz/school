@@ -24,7 +24,7 @@ $newsModel = new NewsModel;
 $template->all_news = $newsModel->getHomepageNews(5);
 
 $forumModel = new TopicModel;
-
+$template->all_forum = $forumModel->getHomepageForum(7);
 
 $blogModel = new BlogModel;
 $template->all_blog = $blogModel->getHomepageBlog(5);

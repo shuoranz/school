@@ -436,4 +436,20 @@ class TopicModel {
             return false;
         }
     }
+	public function getHomepageForum($number = 5) {
+        $sql = "select forum.*, users.username, users.avatar, forum_category.category
+                from forum inner join users on forum.user_id = users.id 
+                          inner join forum_category on forum.category_id = forum_category.id
+                where forum.deleted = 0 and forum.status = 'published'";
+
+        // processing GROUP BY conditions.
+        $sql = $sql . " group by forum.id";
+		
+        // processing ORDER BY conditions.
+        $sql = $sql . " order by create_date desc limit $number"; 
+
+        $this->db->query($sql);
+        $results = $this->db->resultset();
+        return $results;
+    }
 }

@@ -3122,3 +3122,17 @@ footer h3 {
 .homepage_top_img_title a{
 	color: white;
 }
+
+.numberCircle {
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    padding: 8px;
+	margin-left: 5px;
+    background: #fff;
+    border: 2px solid #1dd7b2;
+    color: #1dd7b2;
+    text-align: center;
+
+    font: 32px Arial, sans-serif;
+}
