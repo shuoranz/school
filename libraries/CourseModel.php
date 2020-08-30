@@ -141,7 +141,26 @@ class CourseModel {
         //Assign Result Set
         $results = $this->db->resultset();
         return $results;
-	}
+    }
+    public function searchVideosByAttributeByPage($search_title, $search_teacher, $pageNum, $perPage) {
+        if ($search_title == "" && $search_teacher == ""){
+			return array();
+        }
+        $limit = ($pageNum - 1)*$perPage;
+		$titleCondition = $search_title == "" ? "1" : "cv.title like :search_title";
+		$teacherCondition = $search_teacher == "" ? "1" : "u.username like :search_teacher";
+        $this->db->query("select cv.*, u.*, c.title as course_title from course_video cv inner join users u on cv.created_by = u.id inner join course c on c.id = cv.course_id
+                                    where cv.deleted = 0 and " . $titleCondition . " and " . $teacherCondition . " limit $limit, $perPage");
+        if ($titleCondition != "1") {
+			$this->db->bind(':search_title','%'.$search_title.'%');
+		}
+		if ($teacherCondition != "1") {
+			$this->db->bind(':search_teacher','%'.$search_teacher.'%');
+		}
+        //Assign Result Set
+        $results = $this->db->resultset();
+        return $results;
+    }
 	public function searchVideosByAttributeAdmin($search_title, $search_teacher, $search_category, $user_id)
 	{
 		if ($search_title == "" && $search_teacher == "" && $search_category == ""){
