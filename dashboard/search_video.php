@@ -14,7 +14,7 @@ if(!isTeacherOrAbove()){
 $courseModel = new CourseModel;
 //Get Template and Assign Vars
 $template = new Template('templates/manage_video_search.php');
-print_r($_GET);
+
 
 $userRole = isAdmin() ? "admin" : getUser()["user_id"];
 
@@ -32,6 +32,7 @@ $template->totalCategories = $topic->getTotalCategories();
 $template->totalUsers = $user->getTotalUsers();
 */
 //Display template
+echo "ghghghgh";
 echo $template;
 
 ?>

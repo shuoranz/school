@@ -53,7 +53,7 @@ function copyAndSetPageURI($parameterArr, $pageNum) {
     $result = "?";
     foreach($parameterArr as $name=>$value) {
         if (strcmp($name, "p") != 0) {
-            $result = $result . $name . "=" . $value . "&";
+            $result = $result . $name . (strcmp($value,"") != 0 ? ("=" . $value):"") . "&";
         }
     }
     $result = $result . "p=" . $pageNum;
@@ -108,7 +108,7 @@ function buildQueryStringExcept($getParameters, $except) {
         if($key == $except) {
             continue;
         }
-        $str = $key . "=" . $value;
+        $str = $key . (strcmp($value,"") != 0 ? ("=" . $value):"");
         if ($i > 0) {
             $result = $result . "&";
         }

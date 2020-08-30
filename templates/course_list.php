@@ -150,7 +150,7 @@ $("#search_course_videos").click(function() {
     if (search_title == "na" && search_teacher == "na") {
         return false;
     }
-    window.location.href = "/course/search_video?" + search_title + "&" + search_teacher;
+    window.location.href = "/course/search_video?" + search_title + "&" + search_teacher + "&p=1";
 });
 </script>
 <?php include('includes/footer.php'); ?>
