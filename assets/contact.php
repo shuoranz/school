@@ -1,6 +1,5 @@
 <?php
-
-if(!$_POST) exit;
+require_once($_SERVER['DOCUMENT_ROOT'].'/libraries/MailModel.php');
 
 // Email verification, do not edit.
 function isEmail($email_contact ) {
@@ -9,12 +8,32 @@ function isEmail($email_contact ) {
 
 if (!defined("PHP_EOL")) define("PHP_EOL", "\r\n");
 
-$name_contact     = $_POST['name_contact'];
-$lastname_contact    = $_POST['lastname_contact'];
-$email_contact    = $_POST['email_contact'];
-$phone_contact   = $_POST['phone_contact'];
-$message_contact = $_POST['message_contact'];
-$verify_contact   = $_POST['verify_contact'];
+if ( !isset($_REQUEST['name_contact']) || empty($_REQUEST['name_contact']) ) {
+	echo '<div class="error_message">You must enter your Name.</div>';
+	exit();
+} else if ( !isset($_REQUEST['lastname_contact']) || empty($_REQUEST['lastname_contact']) ) {
+	echo '<div class="error_message">You must enter your Last name.</div>';
+	exit();
+} else if ( !isset($_REQUEST['email_contact']) || empty($_REQUEST['email_contact']) ) {
+	echo '<div class="error_message">Please enter a valid email address.</div>';
+	exit();
+} else if ( !isset($_REQUEST['phone_contact']) || empty($_REQUEST['phone_contact']) ) {
+	echo '<div class="error_message">Please enter a valid phone number.</div>';
+	exit();
+} else if ( !isset($_REQUEST['message_contact']) || empty($_REQUEST['message_contact']) ) {
+	echo '<div class="error_message">Please enter your message.</div>';
+	exit();
+} else if ( !isset($_REQUEST['verify_contact']) || empty($_REQUEST['verify_contact']) ) {
+	echo '<div class="error_message">The verification number you entered is incorrect.</div>';
+	exit();
+}
+
+$name_contact     = $_REQUEST['name_contact'];
+$lastname_contact    = $_REQUEST['lastname_contact'];
+$email_contact    = $_REQUEST['email_contact'];
+$phone_contact   = $_REQUEST['phone_contact'];
+$message_contact = $_REQUEST['message_contact'];
+$verify_contact   = $_REQUEST['verify_contact'];
 
 if(trim($name_contact) == '') {
 	echo '<div class="error_message">You must enter your Name.</div>';
@@ -28,7 +47,7 @@ if(trim($name_contact) == '') {
 } else if(!isEmail($email_contact)) {
 	echo '<div class="error_message">You have enter an invalid e-mail address, try again.</div>';
 	exit();
-	} else if(trim($phone_contact) == '') {
+} else if(trim($phone_contact) == '') {
 	echo '<div class="error_message">Please enter a valid phone number.</div>';
 	exit();
 } else if(!is_numeric($phone_contact)) {
@@ -51,7 +70,7 @@ if(get_magic_quotes_gpc()) {
 
 
 //$address = "HERE your email address";
-$address = "test@ansonika.com";
+$address = "shuoranzhang@yahoo.com";
 
 
 // Below the subject of the email
@@ -71,9 +90,26 @@ $headers .= "Content-type: text/plain; charset=utf-8" . PHP_EOL;
 $headers .= "Content-Transfer-Encoding: quoted-printable" . PHP_EOL;
 
 $user = "$email_contact";
-$usersubject = "Thank You";
+$usersubject = "Thank You for Contacting Us";
 $userheaders = "From: info@learn.com\n";
-$usermessage = "Thank you for contact LEARN. We will reply shortly!";
+$usermessage = "Thank you for contact us. We will reply shortly!";
+
+
+
+$phpMail = new MailModel();
+//$phpMail->sendEmail("School Reset Password",$content,$emailAddress,"")
+$phpMail->sendEmail($usersubject, $usermessage, $user,"");
+
+if ($phpMail->sendEmail($e_subject, $msg, $address,"")) {
+	echo "<div id='success_page' style='padding:20px'>";
+	echo "<strong >Email Sent.</strong>";
+	echo "Thank you <strong>$name_contact</strong>,<br> your message has been submitted. We will contact you shortly.";
+	echo "</div>";
+} else {
+	echo 'ERROR!';
+}
+
+/*
 mail($user,$usersubject,$usermessage,$userheaders);
 
 if(mail($address, $e_subject, $msg, $headers)) {
@@ -89,3 +125,4 @@ if(mail($address, $e_subject, $msg, $headers)) {
 	echo 'ERROR!';
 
 }
+*/
