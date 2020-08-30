@@ -54,8 +54,8 @@
 							<h3>General Enquire</h3>
 						</div>
 					</div>
-					
-					<form method="post" action="/assets/contact" id="contactform">
+					<div id="message-contact"></div>
+					<form method="post" action="/contact" id="contactform">
 						<div class="row">
 							<div class="col-md-6 col-sm-6">
 								<div class="form-group">
@@ -94,7 +94,6 @@
 						<div class="row">
 							<div class="col-md-12">
 								<input type="text" id="verify_contact" class=" form-control" placeholder="Are you human? 3 + 1 =">
-								<div id="message-contact"></div>
 								<input type="submit" value="Submit" class=" button_medium" id="submit-contact"/>
 							</div>
 						</div>

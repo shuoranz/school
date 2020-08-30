@@ -1,5 +1,9 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'].'/libraries/MailModel.php');
+	$pre_position = '';
+	require('core/init.php'); 
+?>
+<?php
+	
 
 // Email verification, do not edit.
 function isEmail($email_contact ) {

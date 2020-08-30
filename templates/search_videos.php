@@ -29,7 +29,8 @@
         
         <ol class="breadcrumb">
 			<li><a href="/">Home</a></li>
-			<li class="active">Course</li>
+			<li><a href="/course">Courses</a></li>
+			<li class="active">Video Search Result</li>
 		</ol>
         
         <div class="row">
@@ -43,9 +44,9 @@
 					<hr>
 					<h4>Categories</h4>
 					<ul class="submenu-col">
-						<li><a href="/course/" id="<?php echo !isset($_GET["category"]) || $_GET["category"] == 0 ? "active" : ""; ?>">All Courses</a></li>
+						<li><a href="/course/category/?category=0&p=1" id="<?php echo !isset($_GET["category"]) || $_GET["category"] == 0 ? "active" : ""; ?>">All Courses</a></li>
 						<?php foreach($courseCategories as $courseCategory) : ?>
-						<li><a href="/course/?category=<?php echo $courseCategory["id"]; ?>" id="<?php echo isset($_GET["category"]) && $_GET["category"] == $courseCategory["id"] ? "active" : ""; ?>"><?php echo $courseCategory["name"]; ?></a></li>
+						<li><a href="/course/?category=<?php echo $courseCategory["id"]."&p=1"; ?>" id="<?php echo isset($_GET["category"]) && $_GET["category"] == $courseCategory["id"] ? "active" : ""; ?>"><?php echo $courseCategory["name"]; ?></a></li>
 						<?php endforeach ?>
 						<!--
 						<li><a href="#" id="active">All Courses</a></li>
@@ -99,6 +100,7 @@
         </div><!-- End row -->
         
         <hr>
+		<!--
         <div class="row">
         	<div class="col-md-12 text-center">
             	<ul class="pagination">
@@ -112,6 +114,7 @@
                 </ul>
             </div>
         </div>
+		-->
             	
         </div><!-- End container -->
     </section><!-- End main_content -->

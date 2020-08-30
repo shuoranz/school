@@ -47,11 +47,11 @@
                     <hr>
                     <h4>Categories</h4>
                     <ul class="submenu-col">
-                        <li><a href="/course/"
+                        <li><a href="/course/category/?category=0&p=1"
                                 id="<?php echo !isset($_GET["category"]) || $_GET["category"] == 0 ? "active" : ""; ?>">All
                                 Courses</a></li>
                         <?php foreach($courseCategories as $courseCategory) : ?>
-                        <li><a href="/course/category/?category=<?php echo $courseCategory["id"]; ?>"
+                        <li><a href="/course/category/?category=<?php echo $courseCategory["id"]."&p=1"; ?>"
                                 id="<?php echo isset($_GET["category"]) && $_GET["category"] == $courseCategory["id"] ? "active" : ""; ?>"><?php echo $courseCategory["name"]; ?></a>
                         </li>
                         <?php endforeach ?>

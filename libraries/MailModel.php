@@ -22,7 +22,7 @@ class MailModel {
 		$password = "School13579!";
 		$sender_name = "school test";
 		
-		$this->mail->SMTPDebug  = 1;  
+		$this->mail->SMTPDebug  = 0;  
 		$this->mail->SMTPAuth   = TRUE;
 		$this->mail->SMTPSecure = "tls";
 		$this->mail->Port       = 587;

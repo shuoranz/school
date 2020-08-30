@@ -131,7 +131,7 @@ class CourseModel {
 		$titleCondition = $search_title == "" ? "1" : "cv.title like :search_title";
 		$teacherCondition = $search_teacher == "" ? "1" : "u.username like :search_teacher";
         $this->db->query("select cv.*, u.*, c.title as course_title from course_video cv inner join users u on cv.created_by = u.id inner join course c on c.id = cv.course_id
-                                    where cv.deleted = 0 and " . $titleCondition . " and " . $teacherCondition);
+                                    where cv.status = 'published' and cv.deleted = 0 and " . $titleCondition . " and " . $teacherCondition);
         if ($titleCondition != "1") {
 			$this->db->bind(':search_title','%'.$search_title.'%');
 		}
