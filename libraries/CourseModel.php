@@ -5,7 +5,7 @@ class CourseModel {
         $this->db = new Database;
     }
     // get all courses
-    public function getAllCourses($category_id, $user_id){
+    public function getAllCourses($category_id, $user_id) {
 		$categoryCondition = $category_id == "" ? "1" : "course.category_id = :category_id";
 		$userCondition = $user_id == "" || "admin" ? "1" : "course.created_by = :user_id";
 		$deleteCondition = empty($user_id) ? "course.deleted = 0" : "1";
@@ -15,6 +15,26 @@ class CourseModel {
                                     inner join course_category on course.category_id = course_category.id 
 									where $categoryCondition and $userCondition and $deleteCondition and $statusCondition
                                     order by course.id asc");
+        $this->db->bind(':category_id',$category_id);
+		if ($userCondition != "1"){
+			$this->db->bind(':user_id',$user_id);
+		}
+		
+        //Assign Result Set
+        $results = $this->db->resultset();
+        return $results;
+    }
+    public function getPageCourses($category_id, $user_id, $pageNum, $perPage){
+        $limit = ($pageNum - 1)*$perPage;
+		$categoryCondition = $category_id == "" ? "1" : "course.category_id = :category_id";
+		$userCondition = $user_id == "" || "admin" ? "1" : "course.created_by = :user_id";
+		$deleteCondition = empty($user_id) ? "course.deleted = 0" : "1";
+		$statusCondition = empty($user_id) ? "course.status = 'published'" : "1";
+        $this->db->query("select course.*, users.username, users.avatar, course_category.name 
+                          from course inner join users on course.created_by = users.id 
+                                    inner join course_category on course.category_id = course_category.id 
+									where $categoryCondition and $userCondition and $deleteCondition and $statusCondition
+                                    order by course.id asc limit $limit, $perPage");
         $this->db->bind(':category_id',$category_id);
 		if ($userCondition != "1"){
 			$this->db->bind(':user_id',$user_id);

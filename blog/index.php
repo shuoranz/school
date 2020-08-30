@@ -11,7 +11,7 @@
 	//Get Template and Assign Vars
 	$template = new Template($pre_position.'templates/blog_list.php');
 	// how many rows shown in one page
-	$perPage = 20;
+	$perPage = 10;
 	// max pagination links
 	$paginationNum = 5;
 	// get all categories

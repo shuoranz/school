@@ -83,4 +83,58 @@ function allRepliesDeleted($replies) {
     }
     return TRUE;
 }
+function buildQueryString($getParameters) {
+    $result = "";
+    for($i = 0; $i < count($getParameters);$i++) {
+        $key = key($getParameters);
+        $value = current($getParameters);
+        $str = $key . "=" . $value;
+        if ($i > 0) {
+            $result = $result . "&";
+        }
+        $result = $result . $str;
+        next($getParameters);
+    }
+    if ($result !== "") {
+        $result = "?" . $result;
+    }
+    return $result;
+}
+function buildQueryStringExcept($getParameters, $except) {
+    $result = "";
+    for($i = 0; $i < count($getParameters);$i++) {
+        $key = key($getParameters);
+        $value = current($getParameters);
+        if($key == $except) {
+            continue;
+        }
+        $str = $key . "=" . $value;
+        if ($i > 0) {
+            $result = $result . "&";
+        }
+        $result = $result . $str;
+        next($getParameters);
+    }
+    if ($result !== "") {
+        $result = "?" . $result;
+    }
+    return $result;
+}
+function pagination($curPage, $pageMax, $paginationNum) {
+    $pages = array($curPage);
+	$left = $curPage;
+    $right = $curPage;
+    while( ($left - 1 > 0 || $right + 1 <= $pageMax) && ($right - $left + 1) < $paginationNum) {
+		if($left - 1 > 0) {
+			array_unshift($pages, $left - 1);
+			$left--;
+		}
+		if($right + 1 <= $pageMax) {
+			array_push($pages, $right + 1);
+			$right++;
+		}
+    }
+    return $pages;
+}
+
 ?>

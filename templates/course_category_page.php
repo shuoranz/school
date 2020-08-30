@@ -37,7 +37,7 @@
 				<?php foreach($courseCategories as $category_count => $courseCategory) : ?>
 				<div class="col-lg-3 col-md-6 col-sm-6">
 					<div class="col-item course-grid">
-						<a href="/course/category/?category=<?php echo $courseCategory["id"]; ?>">
+						<a href="/course/category/?category=<?php echo $courseCategory["id"]; ?>&p=1">
 						<div class="photo">
 							<div style="text-align: center;padding:5px 0;background-color:#1cbbb4;height:200px;line-height: 200px;display:table;width:100.7%;opacity: 0.85;">
 								

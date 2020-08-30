@@ -170,7 +170,7 @@
                 </div>
                 <div class="text-center">
                     <ul class="pagination">
-                        <li><a <?php if($_GET['p'] > 1): ?>href="/blog/?p=<?php echo $_GET['p']-1 ?>" <?php endif; ?>
+                        <li><a <?php if($_GET['p'] > 1): ?>href="/blog/<?php echo copyAndSetPageURI($_GET, $_GET['p'] - 1) ?>" <?php endif; ?>
                                 <?php if($_GET['p'] == 1): ?> style="background-color: #eee" <?php endif; ?>>Prev</a>
                         </li>
                         <?php foreach($pages as $page): ?>
@@ -178,7 +178,7 @@
                             <a href="/blog/<?php echo copyAndSetPageURI($_GET, $page) ?>"><?php echo $page ?></a>
                         </li>
                         <?php endforeach; ?>
-                        <li><a <?php if($_GET['p'] < $pageMax): ?>href="/blog/?p=<?php echo $_GET['p']+1 ?>"
+                        <li><a <?php if($_GET['p'] < $pageMax): ?>href="/blog/<?php echo copyAndSetPageURI($_GET, $_GET['p'] + 1) ?>"
                                 <?php endif; ?> <?php if($_GET['p'] == $pageMax): ?>style="background-color: #eee"
                                 <?php endif; ?>>Next</a></li>
                     </ul><!-- end pagination-->

@@ -14,7 +14,7 @@ if(!isAdmin()){
 $courseModel = new CourseModel;
 //Get Template and Assign Vars
 $template = new Template('templates/manage_video_search.php');
-
+print_r($_GET);
 $search_title = !isset($_GET["title"]) || $_GET["title"] == "" ? "" : $_GET["title"];
 $search_teacher =  !isset($_GET["teacher"]) || $_GET["teacher"] == "" ? "" : $_GET["teacher"];
 
