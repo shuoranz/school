@@ -289,55 +289,37 @@
 			
 				<div class="col-md-4 homepage_community">
 					<div class="homepage_forum">
-						<div class="head-info row homepage-news-container" style="padding-bottom:0;">
+						<div class="head-info row homepage-news-container" style="padding-bottom:10px;">
 							<div style="float:left;padding:8px 0 2px 5px;">
-								<b style="font-size:18px;">News</b>
+								<b style="font-size:18px;">Forum</b>
 							</div>
 							
 							<div style="float:right;padding:9px 6px 0 0">
-								<a href="/news?p=1">read more</a>
+								<a href="/forum?p=1">read more</a>
 							</div>
 						</div>
-						<?php $top_news = $all_news[0]; ?>
-						<div class="title-info row homepage-news-container">
-							<div class="homepage-news-cover col-sm-12">
-								<a href="/news/thread/?id=<?php echo $top_news['id']; ?>"><img src="<?php echo $top_news['cover'] ?>" style="width:100%;height:100%;"></a>
-								<div class="bottom-left">
-									<div class="homepage_top_img_title">
-										<a href="/news/thread/?id=<?php echo $top_news['id']; ?>"><?php echo $top_news['title'] ?></a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<?php foreach($all_news as $news): ?>
+						<?php foreach($all_forum as $count => $forum): ?>
 						<div class="homepage-news-container row">
-							<div class="homepage-news-cover col-sm-4">
-								<a href="/news/thread/?id=<?php echo $news['id']; ?>"><img src="<?php echo $news['cover'] ?>" style="max-width:100%;max-height:60px;"></a>
+							<div class="homepage-news-cover col-sm-3">
+								<div class="numberCircle"><?php echo $count+1; ?></div>
+								<!--<a href="/forum/thread/?id=<?php echo $forum['id']; ?>"><img src="" style="max-width:100%;max-height:60px;"></a>-->
 							</div>
-							<div class="homepage-news-body col-sm-8">
+							<div class="homepage-news-body col-sm-9">
 								<div class="tags-and-title">
-									<div class="homepage-title-container">
-										<a href="/news/thread/?id=<?php echo $news['id']; ?>" class="news-heading-link">
-											<p><?php echo $news['title'] ?></p>
+									<div class="homepage-title-container" style="padding-top:3px;">
+										<a href="/forum/thread/?id=<?php echo $forum['id']; ?>" class="news-heading-link">
+											<p><?php echo $forum['title'] ?></p>
 										</a>
 									</div>
 								</div>
 								<div class="news-info">
-									<!--
-									<div class="publisher">
-										<div class="avatar" style="background: url(../images/avatars/<?php echo $news['avatar']?>);
-																   background-size: cover; ">
-										</div>
-										<?php echo $news['username']?>
-									</div>
-									-->
 									<div class="other-info">
 										<div style="float:left">
-											<div style="margin-top:2px;float:left;"><i class="icon-eye"></i></div><span style="font-size:13px"><?php echo $news['view_count'] ?></span>
+											<div style="margin-top:2px;float:left;"><i class="icon-eye"></i></div><span style="font-size:13px"><?php echo $forum['view_count'] ?></span>
 										</div>
 										
 										<div class="date-container" style="float:right;">
-											<span style="font-size:13px"><?php echo date("m-d", strtotime($news["create_date"]) ); ?></span>
+											<span style="font-size:13px"><?php echo date("m-d", strtotime($forum["create_date"]) ); ?></span>
 										</div>
 									</div>
 								</div>

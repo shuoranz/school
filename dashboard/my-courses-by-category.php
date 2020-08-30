@@ -15,11 +15,11 @@ if(!isTeacherOrAbove()){
 
 $courseModel = new CourseModel;
 //Get Template and Assign Vars
-$template = new Template('templates/manage_course.php');
+$template = new Template('templates/manage_course_by_category.php');
 
 $categroyId = !isset($_GET["category"]) || $_GET["category"] == 0 ? "" : (int)$_GET["category"];
 $template->courses = $courseModel->getAllCourses($categroyId, isAdmin()?"admin":getUser()['user_id']);
-//$template->category = $courseModel->getCategoryById($categroyId);
+$template->category = $courseModel->getCategoryById($categroyId);
 
 //Assign Variables to template object
 /*

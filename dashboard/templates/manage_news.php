@@ -140,11 +140,11 @@
                                                     <i class="fe fe-plus mr-2"></i>Add News
                                                 </a>
                                             </th>
-                                            <th colspan="7"></th>
+                                            <th colspan="9"></th>
                                         </tr>
                                         <tr>
                                             <!--<th class="w30">&nbsp;</th>-->
-                                            <th>ID</th>
+                                            <!--<th>ID</th>-->
                                             <th>Title</th>
                                             <th>status</th>
                                             <th>Category</th>
@@ -155,15 +155,18 @@
                                             <th>Modified By</th>
                                             <th>Published By</th>
                                             <th>Published Date</th>
+											<th>Statistics</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php foreach ($all_news as $news) : ?>
                                         <tr>
+											<!--
                                             <td><a
                                                     href="/news/thread/?id=<?php echo $news['id']; ?>"><?php echo $news['id']; ?></a>
                                             </td>
-                                            <td><a
+											-->
+                                            <td style="white-space: normal;"><a
                                                     href="/news/thread/?id=<?php echo $news['id']; ?>"><?php echo mb_substr($news['title'], 0, 30); echo mb_strlen($news['title'], 'UTF-8') > 30 ? "..." : ""; ?></a>
                                             </td>
                                             <td>
@@ -196,6 +199,12 @@
                                             <td><span><?php echo getUserNameByUserId($news['modified_by']); ?></span></td>
                                             <td><span><?php echo getUserNameByUserId($news['published_by']); ?></span></td>
                                             <td><span><?php echo $news['last_activity']; ?></span></td>
+											<td><span>
+											<i class="icon-eye"></i><?php echo $news['view_count'] ?>
+											<i class="icon-thumbs-up"></i><?php echo $news['like_count'] ?>
+											<i class="icon-comment"></i><?php echo $news['reply_count'] ?>
+											
+											</span></td>
                                         </tr>
                                         <?php endforeach; ?>
                                         <!--

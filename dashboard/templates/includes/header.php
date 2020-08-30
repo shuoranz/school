@@ -304,12 +304,14 @@
 				
 				<?php if (isTeacher()) : ?>
 				<li class="g_heading">Teacher</li>
-				<li class="<?php echo $pageUrl=='MyCourses' ? 'active' : ''; ?>"><a href="/dashboard/my-category"><i class="fa fa-book"></i><span>Manage Courses</span></a></li>
+				<li class="<?php echo $pageUrl=='MyCourses' ? 'active' : ''; ?>"><a href="/dashboard/my-courses"><i class="fa fa-book"></i><span>Manage Courses</span></a></li>
+				<li class="<?php echo $pageUrl=='MyVideos' ? 'active' : ''; ?>"><a href="/dashboard/my-videos"><i class="fa fa-book"></i><span>Manage Videos</span></a></li>
 				
 				
 				<?php elseif(isTeacherPlus()): ?>
 				<li class="g_heading">Teacher Plus</li>
-				<li class="<?php echo $pageUrl=='MyCourses' ? 'active' : ''; ?>"><a href="/dashboard/my-category"><i class="fa fa-book"></i><span>Manage Courses</span></a></li>
+				<li class="<?php echo $pageUrl=='MyCourses' ? 'active' : ''; ?>"><a href="/dashboard/my-courses"><i class="fa fa-book"></i><span>Manage Courses</span></a></li>
+				<li class="<?php echo $pageUrl=='MyVideos' ? 'active' : ''; ?>"><a href="/dashboard/my-videos"><i class="fa fa-book"></i><span>Manage Videos</span></a></li>
 				<li class="<?php echo $pageUrl=='Students' ? 'active' : ''; ?>"><a href="/dashboard/student"><i class="fa fa-user"></i><span>Manage Students</span></a></li>
 				
 				
@@ -317,7 +319,8 @@
 				<li class="g_heading">Administrator</li>
 				<li class="<?php echo $pageUrl=='Students' ? 'active' : ''; ?>"><a href="/dashboard/student"><i class="fa fa-user"></i><span>Manage Students</span></a></li>
 				<li class="<?php echo $pageUrl=='Teachers' ? 'active' : ''; ?>"><a href="/dashboard/teacher"><i class="fa fa-user-plus"></i><span>Manage Teachers</span></a></li>
-				<li class="<?php echo $pageUrl=='MyCourses' ? 'active' : ''; ?>"><a href="/dashboard/my-category"><i class="fa fa-book"></i><span>Manage Courses</span></a></li>
+				<li class="<?php echo $pageUrl=='MyCourses' ? 'active' : ''; ?>"><a href="/dashboard/my-courses"><i class="fa fa-book"></i><span>Manage Courses</span></a></li>
+				<li class="<?php echo $pageUrl=='MyVideos' ? 'active' : ''; ?>"><a href="/dashboard/my-videos"><i class="fa fa-book"></i><span>Manage Videos</span></a></li>
 				<li class="<?php echo $pageUrl=='Forum' ? 'active' : ''; ?>"><a href="/dashboard/forum?p=1"><i class="fa fa-comments-o"></i><span>Forums</span></a></li>
 				<li class="<?php echo $pageUrl=='Blog' ? 'active' : ''; ?>"><a href="/dashboard/blog?p=1"><i class="fa fa-bold"></i><span>Blog</span></a></li>
 				<li class="<?php echo $pageUrl=='News' ? 'active' : ''; ?>"><a href="/dashboard/news?p=1"><i class="fa fa-newspaper-o"></i><span>News</span></a></li>
@@ -327,7 +330,8 @@
 				<li class="g_heading">Administrator Plus</li>
 				<li class="<?php echo $pageUrl=='Students' ? 'active' : ''; ?>"><a href="/dashboard/student"><i class="fa fa-user"></i><span>Manage Students</span></a></li>
 				<li class="<?php echo $pageUrl=='Teachers' ? 'active' : ''; ?>"><a href="/dashboard/teacher"><i class="fa fa-user-plus"></i><span>Manage Teachers</span></a></li>
-				<li class="<?php echo $pageUrl=='MyCourses' ? 'active' : ''; ?>"><a href="/dashboard/my-category"><i class="fa fa-book"></i><span>Manage Courses</span></a></li>
+				<li class="<?php echo $pageUrl=='MyCourses' ? 'active' : ''; ?>"><a href="/dashboard/my-courses"><i class="fa fa-book"></i><span>Manage Courses</span></a></li>
+				<li class="<?php echo $pageUrl=='MyVideos' ? 'active' : ''; ?>"><a href="/dashboard/my-videos"><i class="fa fa-book"></i><span>Manage Videos</span></a></li>
 				<li class="<?php echo $pageUrl=='Forum' ? 'active' : ''; ?>"><a href="/dashboard/forum?p=1"><i class="fa fa-comments-o"></i><span>Forums</span></a></li>
 				<li class="<?php echo $pageUrl=='Blog' ? 'active' : ''; ?>"><a href="/dashboard/blog?p=1"><i class="fa fa-bold"></i><span>Blog</span></a></li>
 				<li class="<?php echo $pageUrl=='News' ? 'active' : ''; ?>"><a href="/dashboard/news?p=1"><i class="fa fa-newspaper-o"></i><span>News</span></a></li>
@@ -342,7 +346,8 @@
 				<li class="g_heading">Super Administrator</li>
 				<li class="<?php echo $pageUrl=='Students' ? 'active' : ''; ?>"><a href="/dashboard/student"><i class="fa fa-user"></i><span>Manage Students</span></a></li>
 				<li class="<?php echo $pageUrl=='Teachers' ? 'active' : ''; ?>"><a href="/dashboard/teacher"><i class="fa fa-user-plus"></i><span>Manage Teachers</span></a></li>
-				<li class="<?php echo $pageUrl=='MyCourses' ? 'active' : ''; ?>"><a href="/dashboard/my-category"><i class="fa fa-book"></i><span>Manage Courses</span></a></li>
+				<li class="<?php echo $pageUrl=='MyCourses' ? 'active' : ''; ?>"><a href="/dashboard/my-courses"><i class="fa fa-book"></i><span>Manage Courses</span></a></li>
+				<li class="<?php echo $pageUrl=='MyVideos' ? 'active' : ''; ?>"><a href="/dashboard/my-videos"><i class="fa fa-book"></i><span>Manage Videos</span></a></li>
 				<li class="<?php echo $pageUrl=='Forum' ? 'active' : ''; ?>"><a href="/dashboard/forum?p=1"><i class="fa fa-comments-o"></i><span>Forums</span></a></li>
 				<li class="<?php echo $pageUrl=='Blog' ? 'active' : ''; ?>"><a href="/dashboard/blog?p=1"><i class="fa fa-bold"></i><span>Blog</span></a></li>
 				<li class="<?php echo $pageUrl=='News' ? 'active' : ''; ?>"><a href="/dashboard/news?p=1"><i class="fa fa-newspaper-o"></i><span>News</span></a></li>

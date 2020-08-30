@@ -139,11 +139,11 @@
 													<i class="fe fe-plus mr-2"></i>Add Blog
 												</a>
 											</th>
-                                            <th colspan="7"></th>
+                                            <th colspan="9"></th>
                                         </tr>
                                         <tr>
                                             <!--<th class="w30">&nbsp;</th>-->
-                                            <th>ID</th>
+                                            <!--<th>ID</th>-->
                                             <th>Title</th>
 											<th>status</th>
 											<th>Category</th>
@@ -154,13 +154,14 @@
                                             <th>Modified By</th>
 											<th>Published By</th>
 											<th>Published Date</th>
+											<th>Statistics</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 										<?php foreach ($blogs as $blog) : ?>
 										<tr>
-                                            <td><a href="/blog/thread/?id=<?php echo $blog['id']; ?>"><?php echo $blog['id']; ?></a></td>
-                                            <td><a href="/blog/thread/?id=<?php echo $blog['id']; ?>"><?php echo mb_substr($blog['title'], 0, 30); echo mb_strlen($blog['title'], 'UTF-8') > 30 ? "..." : ""; ?></a></td>
+                                            <!--<td><a href="/blog/thread/?id=<?php echo $blog['id']; ?>"><?php echo $blog['id']; ?></a></td>-->
+                                            <td style="white-space: normal;"><a href="/blog/thread/?id=<?php echo $blog['id']; ?>"><?php echo mb_substr($blog['title'], 0, 30); echo mb_strlen($blog['title'], 'UTF-8') > 30 ? "..." : ""; ?></a></td>
                                             <td>
 												<?php
 													if($blog['deleted'] != 0) {
@@ -191,6 +192,12 @@
                                             <td><span><?php echo getUserNameByUserId($blog['modified_by']); ?></span></td>
                                             <td><span><?php echo getUserNameByUserId($blog['published_by']); ?></span></td>
 											<td><span><?php echo $blog['last_activity']; ?></span></td>
+											<td><span>
+											<i class="icon-eye"></i><?php echo $blog['view_count'] ?>
+											<i class="icon-thumbs-up"></i><?php echo $blog['like_count'] ?>
+											<i class="icon-comment"></i><?php echo $blog['reply_count'] ?>
+											
+											</span></td>
                                         </tr>
 										<?php endforeach; ?>
 										<!--

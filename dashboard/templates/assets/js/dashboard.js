@@ -140,11 +140,22 @@ function edit(table, id) {
 		$("#edit_vimeo_id").val($("#video_"+id+" td:nth-child(3) span").html());
 		$("#edit_video_description").val($("#video_"+id+" td:nth-child(4) span").html());
 		$("#edit_video_id").val(id);
+		var category_name = $("#video_"+id+" td:nth-child(7) a").html();
+		$('#edit_course_category option:contains("'+category_name+'")').prop('selected', true);
+		var course_name = $("#video_"+id+" td:nth-child(6) a").html();
+		var course_id = $("#video_"+id+" td:nth-child(6) span").text();
+		$('#edit_course_id').html("");
+		$('#edit_course_id').append(new Option(course_name, course_id));
+		$('#edit_course_id option:contains("'+course_name+'")').prop('selected', true);
+		$('#edit_course_id option:contains("'+course_name+'")').prop('disabled', true);
+		
 		$('#editVideoDivBtn').trigger('click');
 	} else if (table == "course") {
 		$("#edit_course_title").val($("#course_"+id+" td:nth-child(2) a").html());
 		$("#edit_course_description").val($("#course_"+id+" td:nth-child(5) span").html());
 		$("#edit_course_id").val(id);
+		var category_name = $("#course_"+id+" td:nth-child(4) span").html();
+		$('#edit_course_category option:contains("'+category_name+'")').prop('selected', true);
 		$('#editCourseDivBtn').trigger('click');
 	}
 }

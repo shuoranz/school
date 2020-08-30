@@ -31,41 +31,12 @@
             <div class="container-fluid">
                 <div class="row clearfix">
 					<div class="col-12">
-						<div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-6 col-sm-12">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Teacher Name" id="search_teacher">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-12">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Video Title" id="search_title">
-                                        </div>
-                                    </div>
-									<div class="col-lg-4 col-md-12 col-sm-12">
-                                        <div class="input-group">
-                                            <select class="form-control" id="search_category">
-												<option selected value="">In Any Category</option>
-												<?php foreach ( getAllCourseCategories() as $category ): ?>
-												<option value="<?php echo $category['id']; ?>">in <?php echo $category['name']; ?></option>
-												<?php endforeach; ?>
-											</select>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2 col-md-4 col-sm-6">
-                                        <a id="search_course_videos" class="btn btn-primary btn-block" title="" style="color:white;">Search Video</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="card">
                             <div class="table-responsive">
                                 <table class="table table-hover table-striped table-vcenter mb-0 text-nowrap">
                                     <thead>
                                         <tr>
-                                            <th colspan="8">Manage Courses</th>
+                                            <th colspan="7">Manage Courses</th>
                                             <th colspan="1">
 												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCourseDiv">
 													<i class="fe fe-plus mr-2"></i>Add Course
@@ -92,7 +63,7 @@
 										<?php foreach ($courses as $course) : ?>
 										<tr id="course_<?php echo $course['id']; ?>">
                                             <td><a href="/dashboard/my-videos?course=<?php echo $course['id']; ?>"><?php echo $course['id']; ?></a></td>
-                                            <td style="white-space: normal;"><a href="/dashboard/my-videos?course=<?php echo $course['id']; ?>"><?php echo $course['title']; ?></a></td>
+                                            <td><a href="/dashboard/my-videos?course=<?php echo $course['id']; ?>"><?php echo $course['title']; ?></a></td>
                                             <td>
 												<?php
 													if($course['deleted'] != 0) {
@@ -105,7 +76,7 @@
 														$tagFlag = "tag-default";
 													}
 												?>
-												<span class="tag <?php echo $tagFlag; ?> <?php echo isAdmin() || ( $course["created_by"] == getUser()["user_id"] && !empty($course["published_by"]) ) ? "status" : ""; ?>"
+												<span class="tag <?php echo $tagFlag; ?> <?php echo isAdmin() || $course["created_by"] == getUser()["user_id"] ? "status" : ""; ?>"
                                                     onclick="showStatusDropDown(event, 'course', <?php echo $course['id'] ?>)">
                                                     <span id="status-<?php echo $course['id']; ?>">
                                                         <?php if($course['deleted'] != 0 || $course['status'] == 'deleted'): ?>
@@ -119,7 +90,7 @@
 											
 											</td>
 											
-                                            <td style="white-space: normal;"><span><?php echo $course['name']; ?></span></td>
+                                            <td><span><?php echo $course['name']; ?></span></td>
                                             <td style="white-space: normal;"><span><?php echo $course['description']; ?></span></td>
                                             <td><span><?php echo getUserNameByUserId($course['created_by']); ?></span></td>
 											<td><span><?php echo $course['create_date']; ?></span></td>
@@ -173,10 +144,8 @@
 					<div class="col-12">
                         <div class="form-group">
 							<p>category: </p>
-                            <select class="form-control show-tick" id="course_category">
-								<?php foreach ( getAllCourseCategories() as $category ): ?>
-                                <option value="<?php echo $category['id']; ?>"><?php echo $category['name']; ?></option>
-								<?php endforeach; ?>
+                            <select class="form-control show-tick" id="">
+                                <option disabled selected><?php echo $category['name']; ?></option>
                             </select>
                         </div>
                     </div>
@@ -225,10 +194,8 @@
 					<div class="col-12">
                         <div class="form-group">
 							<p>category: </p>
-                            <select class="form-control show-tick" id="edit_course_category">
-								<?php foreach ( getAllCourseCategories() as $category ): ?>
-                                <option value="<?php echo $category['id']; ?>"><?php echo $category['name']; ?></option>
-								<?php endforeach; ?>
+                            <select class="form-control show-tick" id="">
+                                <option disabled selected><?php echo $category['name']; ?></option>
                             </select>
                         </div>
                     </div>
@@ -274,7 +241,7 @@
 	$("#addCourseBtn").click(function(){
 		var course_title = $("#course_title").val();
 		var course_description = $("#course_description").val();
-		var category_id = $("#course_category").val();
+		var category_id = <?php echo $category['id']; ?>;
 		var user_id = $("#user_id").val();
 		
 		if (course_title == null || course_description == null || category_id == null || user_id == null){
@@ -306,7 +273,7 @@
 	$("#editCourseBtn").click(function(){
 		var course_title = $("#edit_course_title").val();
 		var course_description = $("#edit_course_description").val();
-		var category_id = $("#edit_course_category").val();
+		var category_id = <?php echo $category['id']; ?>;
 		var user_id = $("#edit_user_id").val();
 		var course_id = $("#edit_course_id").val();
 		
@@ -336,15 +303,7 @@
 			}
 		});
 	});
-	$("#search_course_videos").click(function(){
-		var search_title = $("#search_title").val() == "" ? "na" : "title="+$("#search_title").val();
-		var search_teacher = $("#search_teacher").val() == "" ? "na" : "teacher="+$("#search_teacher").val();
-		var search_category = $("#search_category").val() == "" ? "na" : "category="+$("#search_category").val();
-		if (search_title == "na" && search_teacher == "na" && search_category == "na") {
-			return false;
-		}
-		window.location.href = "/dashboard/search_video?"+search_title+"&"+search_teacher+"&"+search_category;
-	});
+	
 </script>
 <script src="/dashboard/templates/assets/js/dashboard.js"></script>
 </body>

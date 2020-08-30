@@ -19,14 +19,16 @@ $categroyId = !isset($_GET["category"]) || $_GET["category"] == 0 ? "" : (int)$_
 $courseId = !isset($_GET["course"]) || $_GET["course"] == 0 ? "" : (int)$_GET["course"];
 
 $userRole = isAdmin() ? "admin" : getUser()["user_id"];
-$template->course = $courseModel->getCourseById($courseId);
+//$template->course = $courseModel->getCourseById($courseId);
 
 $template->currentUser = getUser();
-$videos = array();
+//$videos = array();
 //foreach($template->courses as $oneCourse){
 	//$courseId = $oneCourse["id"];
-	$videos[$courseId] = $courseModel->getCourseVideosByCourseId($courseId, $userRole);
+	//$videos[$courseId] = $courseModel->getCourseVideosByCourseId($courseId, $userRole);
 //}
+
+$videos = $courseModel->getDashboardAllVideos($userRole, $categroyId, $courseId);
 $template->videos = $videos;
 
 //Assign Variables to template object
