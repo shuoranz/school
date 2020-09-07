@@ -45,10 +45,10 @@ if (isset($_POST['do_create'])){
             writeToSystemLog(getUser()['user_id'], "created", "blog", $create_result, "");
             redirect('/dashboard/blog?p=1', 'Your blog has been posted', 'success');
         } else {
-            redirect('create.php', 'Something went wrong with your post.', 'error');
+            redirect('/blog/create', 'Something went wrong with your post.', 'error');
         }
     } else {
-        redirect('create.php', 'Please fill in all required fields', 'error');
+        redirect('/blog/create', 'Please fill in all required fields', 'error');
     }
     
 }
