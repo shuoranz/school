@@ -44,8 +44,8 @@
 			<li class="active"><?php echo $video["title"]; ?></li>
 		</ol>
 		<div class="row">
-     		<div class="col-md-8">
-				<iframe src="https://player.vimeo.com/video/<?php echo $video["url"];?>" width="750" height="420" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+     		<div class="col-md-8 col-xs-12">
+				<iframe src="https://player.vimeo.com/video/<?php echo $video["url"];?>" width="100%" height="420px" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 				<!-- width="640" height="360" -->
 				<!--<iframe src="http://www.youtube.com/embed/pgk-719mTxM?wmode=transparent" style="border:0;height:650px;" class="video_course"></iframe>-->
 				<h3><?php echo $video["title"]; ?></h3>
@@ -138,9 +138,10 @@
 					<?php endif;?>
             </div><!-- End col-md-8  -->
 
-            <aside class="col-md-4">
+            <aside class="col-md-4 col-xs-12">
 				<div class="box_style_1">
-					<h4><a href="#">Download files <i class="icon-download pull-right"></i></a></h4><br>
+					<!--<h4><a href="#">Download files <i class="icon-download pull-right"></i></a></h4>-->
+					<br>
 					<h4>Instructor</h4>
 					<div class="media">
 						<div class="pull-right">
@@ -151,8 +152,9 @@
 							<p><?php echo $course["about"]; ?></p>
 						</div>
 					</div>
+					<hr>
 				</div>
-
+				<!--
 				<div class="box_style_1">
 					<h4>Related Videos</h4>
 					<ul class="list_1">
@@ -162,6 +164,7 @@
 						<li><a href="#">Ceteros mediocritatem</a></li>
 					</ul>
 				</div>
+				-->
 			</aside>
 		</div><!-- End row -->
 		

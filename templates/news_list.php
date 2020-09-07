@@ -19,7 +19,7 @@
     <div class="container">
 
         <ol class="breadcrumb">
-            <li><a href="index.html">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li class="active">Active page</li>
         </ol>
 
@@ -50,6 +50,8 @@
                             <?php endforeach; ?>
                         </ul>
                     </div>
+					<hr>
+					<!--
                     <div class="widget">
                         <h4>Featured Events</h4>
 
@@ -60,7 +62,8 @@
                                 </div>
                             </li>
                         </ul>
-                    </div><!-- End widget -->
+                    </div>
+					-->
 
                 </div><!-- End box-sidebar -->
             </aside><!-- End aside -->

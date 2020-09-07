@@ -19,8 +19,8 @@
     <div class="container">
 
         <ol class="breadcrumb">
-            <li><a href="index.php">Home</a></li>
-            <li><a href="/news/?p=1">Home</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/news/?p=1">News</a></li>
             <li class="active">Current</li>
         </ol>
 

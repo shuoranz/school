@@ -415,3 +415,63 @@ button.post-delete {
 button.post-delete i {
 	line-height: 24px;
 }
+
+
+@media (max-width: 575.98px) { 
+	.comment-owner-avatar {
+		width:60px;
+		height:60px;
+		background-color: green;
+		margin: 30px 0px 15px;
+	}
+	.reply-avatar {
+		width: 35px;
+		height: 35px;
+		margin: 0px auto;
+	}
+	.commentReplies{
+		padding:0px;
+	}
+	.reply-avatar-container {
+		width:47px;
+	}
+	.comment_info{
+		padding-left:0;
+	}
+	.post .left {
+		height: 67px;
+		width: 90px;
+		flex-grow: 0;
+		flex-shrink: 0;
+	}
+}
+
+
+@media (max-width: 767.98px) {
+	.comment-owner-avatar {
+		width:60px;
+		height:60px;
+		background-color: green;
+		margin: 30px 0px 15px;
+	}
+	.reply-avatar {
+		width: 35px;
+		height: 35px;
+		margin: 0px auto;
+	}
+	.commentReplies{
+		padding:0px;
+	}
+	.reply-avatar-container {
+		width:47px;
+	}
+	.comment_info{
+		padding-left:0;
+	}
+	.post .left {
+		height: 67px;
+		width: 90px;
+		flex-grow: 0;
+		flex-shrink: 0;
+	}
+}

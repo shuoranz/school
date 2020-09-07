@@ -398,3 +398,11 @@ figure.image_resized {
 .admin-editAndDelete .post-delete {
     font-size: 20px;
 }
+@media (max-width: 767.98px) {
+	.news-cover {
+		height: 68px;
+		width: 85px;
+		flex-grow: 0;
+		flex-shrink: 0;
+	}
+}

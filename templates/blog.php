@@ -19,7 +19,7 @@
     <div class="container">
 
         <ol class="breadcrumb">
-            <li><a href="/index.php">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li><a href="/blog/?p=1">Blog</a></li>
             <li class="active">Current</li>
         </ol>
@@ -75,14 +75,14 @@
                         <?php foreach($comments as $comment) : ?>
                         <?php if($comment['deleted'] == 0 || (count($comment['replies']) > 0 && !allRepliesDeleted($comment['replies']))): ?>
                         <li>
-                            <div class="comment_right clearfix">
-                                <div class="comment-owner">
+                            <div class="row clearfix">
+                                <div class="comment-owner col-md-2 col-xs-3">
                                     <div class="comment-owner-avatar"
                                         style="background: url(../../images/avatars/<?php echo $comment['avatar']?>);background-size: cover;">
                                     </div>
                                     <div><a href="#"><?php echo $comment['username'] ?></a></div>
                                 </div>
-                                <div class="comment_info">
+                                <div class="comment_info col-md-10 col-xs-9">
                                     <div class="reply-content">
                                         <div class="reply-body">
                                             <?php echo $comment['body'] ?>
@@ -192,7 +192,7 @@
                     </div>
                 </form>
                 <?php else: ?>
-                <div class="no-login-prompt">Please login to leave a comment!</div>
+                <div class="no-login-prompt">Please <a href="<?php echo '/login/?url='.urlencode(ltrim($_SERVER['REQUEST_URI'],"/")); ?>">login</a> to leave a comment!</div>
                 <?php endif;?>
 
 
