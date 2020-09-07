@@ -62,7 +62,7 @@
 				
 			</div>
      </aside>  -->
-            <div class="col-md-12">
+            <div class="col-xs-12 col-md-10 col-md-offset-1">
                 <?php if(isAdmin()):?>
                 <div class="admin-editAndDelete">
                     <a href=<?php echo "/news/edit/?id=".$news['id'] ?> class="edit-link">

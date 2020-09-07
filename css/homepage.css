@@ -1,6 +1,9 @@
 .feature-1 > p {
 	font-size: 16px;
-	line-height: 1.6;
+	line-height: 2;
+}
+.feature-1 > H3 {
+	line-height: 1.5;
 }
 #main_content_gray h2, h3, p {
 	color: #503920;

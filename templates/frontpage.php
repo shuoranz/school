@@ -72,13 +72,13 @@
 			</div>
 			-->
 			<div class="row">
-				<div class="col-md-3">
-					<div class="feature feature-1">
+				<div class="col-md-3 col-xs-12" style="display:table-cell; vertical-align:middle; text-align:center">
+					<!--<div class="feature feature-1">-->
 						<img src="/img/teacher_video.svg" alt="collge counseling">
-					</div>
+					<!--</div>-->
 				</div>
-				<div class="col-md-9">
-					<div class="feature feature-1">
+				<div class="col-md-9 col-xs-12">
+					<div class=" feature-1">
 						<h3>College Counseling made Easy for High School Counselors and students</h3>
 						<p class="lead">
 							This platform is dedicated to college success for college bound students by offering them support and coaching through a series of free videos offered by professional and certified college counselors.  The videos cover all the topics students should know about, from how to apply for college, financial aid and scholarships, to summer programs and college life.  The step by step recommendations help students and parents gain knowledge to navigate the college preparation and application process, as well as lightens the burden on high school counselors by streamlining the entire college counseling and college application process with innovative tools.
@@ -88,18 +88,18 @@
 			</div>
 			<hr>
 			<div class="row">
-				<div class="col-md-9">
-					<div class="feature feature-1">
+				<div class="col-md-9 col-xs-12">
+					<div class=" feature-1">
 						<h3>Premium Videos with Extensive College Counseling Content made by Professional and Certified College Counselors</h3>
 						<p class="lead">
 							We are a team of College Counseling experts with extensive knowledge on the ever-evolving admissions landscape. We know what the students need, thought hard about the need, and designed a program specifically for it to include cutting-edge educational best practices to help students break down their goals and make them painlessly achievable and fun!
 						</p>
 					</div>
 				</div>
-				<div class="col-md-3">
-					<div class="feature feature-1">
+				<div class="col-md-3 col-xs-12" style="display:table-cell; vertical-align:middle; text-align:center">
+					<!--<div class="feature feature-1" style="margin:auto;">-->
 						<img src="/img/teacher_book.svg" alt="collge counseling">
-					</div>
+					<!--</div>-->
 				</div>
 			</div><!-- End row -->
         </div><!-- End container-->
@@ -300,11 +300,11 @@
 						</div>
 						<?php foreach($all_forum as $count => $forum): ?>
 						<div class="homepage-news-container row">
-							<div class="homepage-news-cover col-sm-3">
+							<div class="homepage-news-cover col-xs-3">
 								<div class="numberCircle"><?php echo $count+1; ?></div>
 								<!--<a href="/forum/thread/?id=<?php echo $forum['id']; ?>"><img src="" style="max-width:100%;max-height:60px;"></a>-->
 							</div>
-							<div class="homepage-news-body col-sm-9">
+							<div class="homepage-news-body col-xs-9">
 								<div class="tags-and-title">
 									<div class="homepage-title-container" style="padding-top:3px;">
 										<a href="/forum/thread/?id=<?php echo $forum['id']; ?>" class="news-heading-link">
@@ -353,10 +353,10 @@
 						<?php foreach($all_news as $count_news => $news): ?>
 						<?php if ($count_news == 0) continue; ?>
 						<div class="homepage-news-container row">
-							<div class="homepage-news-cover col-sm-4">
+							<div class="homepage-news-cover col-xs-4">
 								<a href="/news/thread/?id=<?php echo $news['id']; ?>"><img src="<?php echo $news['cover'] ?>" style="max-width:100%;max-height:60px;"></a>
 							</div>
-							<div class="homepage-news-body col-sm-8">
+							<div class="homepage-news-body col-xs-8">
 								<div class="tags-and-title">
 									<div class="homepage-title-container">
 										<a href="/news/thread/?id=<?php echo $news['id']; ?>" class="news-heading-link">
@@ -413,10 +413,10 @@
 						<?php foreach($all_blog as $count_blog => $blog): ?>
 						<?php if ($count_blog == 0) continue; ?>
 						<div class="homepage-news-container row">
-							<div class="homepage-news-cover col-sm-4">
+							<div class="homepage-news-cover col-xs-4">
 								<a href="/news/thread/?id=<?php echo $blog['id']; ?>"><img src="<?php echo $blog['cover'] ?>" style="max-width:100%;max-height:60px;"></a>
 							</div>
-							<div class="homepage-news-body col-sm-8">
+							<div class="homepage-news-body col-xs-8">
 								<div class="tags-and-title">
 									<div class="homepage-title-container">
 										<a href="/news/thread/?id=<?php echo $blog['id']; ?>" class="news-heading-link">

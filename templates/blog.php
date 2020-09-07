@@ -25,7 +25,7 @@
         </ol>
 
         <div class="row blog-container">
-            <div class="col-md-12">
+            <div class="col-xs-12 col-md-10 col-md-offset-1">
             <?php if(isAdmin()): ?>
             <div class="admin-edit-delete">
                         <a class="edit-link" href=<?php echo "/blog/edit/?id=".$blog['id'] ?> class="edit-link">

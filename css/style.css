@@ -3020,6 +3020,7 @@ footer h3 {
 }
 .homepage_community {
 	#padding: 30px;
+	margin-bottom: 50px;
 	
 }
 .homepage-news-container {
@@ -3053,10 +3054,10 @@ footer h3 {
 .homepage_forum{
 	border: 1px solid #e4e4e4;
 	margin: 5px;
-	
+	padding-bottom: 20px;
 }
 
-.homepage_forum
+.homepage_forum:hover
 {
     box-shadow:
   0 2.8px 2.2px rgba(0, 0, 0, 0.034),
@@ -3077,7 +3078,7 @@ footer h3 {
   0 100px 80px rgba(0, 0, 0, 0.12);
 }
 
-.homepage_news{
+.homepage_news:hover{
 	border: 1px solid #e4e4e4;
 	margin: 5px;
 	
@@ -3089,7 +3090,7 @@ footer h3 {
   0 41.8px 33.4px rgba(0, 0, 0, 0.086),
   0 100px 80px rgba(0, 0, 0, 0.12);
 }
-.homepage_stories{
+.homepage_stories:hover{
 	border: 1px solid #e4e4e4;
 	margin: 5px;
 	
