@@ -47,7 +47,7 @@ class TopicModel {
                           from forum inner join users on forum.user_id = users.id 
                                      inner join forum_category on forum.category_id = forum_category.id 
                                      left join forum_reply on forum_reply.topic_id = forum.id and forum_reply.deleted = 0
-                                     where forum.deleted = 0 and forum.top = 0";
+                                     where forum.deleted = 0 and forum.top = 0 and forum.status = 'published'";
         // processing WHERE conditions.
         if (strcmp($conditions["c"], "") != 0) {
             $sql = $sql . " and forum.category_id = " . $conditions["c"];
@@ -124,7 +124,7 @@ class TopicModel {
                           from forum inner join users on forum.user_id = users.id 
                                      inner join forum_category on forum.category_id = forum_category.id 
                                      left join forum_reply on forum_reply.topic_id = forum.id and forum_reply.deleted = 0
-                                     where forum.deleted = 0 and forum.top = 1";
+                                     where forum.deleted = 0 and forum.top = 1 and forum.status = 'published'";
         // processing WHERE conditions.
         if (strcmp($conditions["c"], "") != 0) {
             $sql = $sql . " and forum.category_id = " . $conditions["c"];

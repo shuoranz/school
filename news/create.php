@@ -44,12 +44,13 @@ if (isset($_POST['news_create'])){
         $create_result = $newsModel->create($data);
         if($create_result >= 0){
             writeToSystemLog(getUser()['user_id'], "created", "news", $create_result, "");
-            redirect('/news/?p=1', 'Your News has been posted', 'success');
+            //redirect('/news/?p=1', 'Your News has been posted', 'success');
+			redirect('/dashboard/news?p=1', 'Your News has been posted', 'success');
         } else {
-            redirect('create.php', 'Something went wrong with your post.', 'error');
+            redirect('/news/create', 'Something went wrong with your post.', 'error');
         }
     } else {
-        redirect('create.php', 'Please fill in all required fields', 'error');
+        redirect('/news/create', 'Please fill in all required fields', 'error');
     }
     
 }

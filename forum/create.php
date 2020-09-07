@@ -5,7 +5,7 @@
 <?php 
 // TODO: permission
 if(!isLoggedIn()) {
-    redirect('/blog/?p=1', 'You did not login!','error');
+    redirect('/login', 'You did not login!','error');
 }
 //Create Topic object
 $topic = new TopicModel;
@@ -48,10 +48,10 @@ if (isset($_POST['do_create'])){
             }
             redirect('/forum/?p=1', 'Your topic has been posted', 'success');
         } else {
-            redirect('topic.php?id='.$topic_id, 'Something went wrong with your post.', 'error');
+            redirect('/forum/create', 'Something went wrong with your post.', 'error');
         }
     } else {
-        redirect('create.php', 'Please fill in all required fields', 'error');
+        redirect('/forum/create', 'Please fill in all required fields', 'error');
     }
     
 }

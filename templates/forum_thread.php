@@ -69,6 +69,10 @@ a.list-group-item.active, a.list-group-item.active:hover, a.list-group-item.acti
 .btn-primary{
     background:#5c5b69;
 }
+p {
+	font-size:16px;
+	line-height: 1.8;
+}
 
 </style>
 
@@ -93,7 +97,7 @@ a.list-group-item.active, a.list-group-item.active:hover, a.list-group-item.acti
 
 	<ol class="breadcrumb">
       <li><a href="/">Home</a></li>
-	  <li><a href="/forum">Forum</a></li>
+	  <li><a href="/forum/?p=1">Forum</a></li>
       <li class="active"><?php echo $topic['title']; ?></li>
     </ol>
     
